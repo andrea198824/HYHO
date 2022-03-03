@@ -1,8 +1,8 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import LadingPage from './components/LadingPage'
-import Home from './components/Home'
-import Details from './components/Details';
+
+import Home from './Page/Home/home'
+
 
 
 function App() {
@@ -11,9 +11,9 @@ function App() {
             
             <div className={"App"}>             
                 <Routes>                    
-                        <Route exact path='/' element={<LadingPage />} />
+                        
                         <Route exact path='/home' element={<Home />} />                        
-                        <Route exact path='/Details/:ID' element={<Details />} />                   
+                                         
                 </Routes>
             </div>
         </Router>
