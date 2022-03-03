@@ -4,7 +4,7 @@ const { DataTypes, DatabaseError } = require('sequelize');
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define("productForm", {
+  sequelize.define("form", {
     title: {
         type: DataTypes.STRING,
         allowNull: false
