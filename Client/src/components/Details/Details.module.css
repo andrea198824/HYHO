@@ -1,0 +1,42 @@
+.cnt{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: unset;
+    align-content: center;
+    height: 100vh; /*Este valor lo puedes omitir si la altura de tu componente esta definida*/
+   
+}
+
+.item0 {
+    order: 0;
+    flex: 0 1 auto;
+    align-self: auto;
+    height: auto;
+    width: auto;
+    text-transform: uppercase;
+}
+
+.item1 {
+    order: 0;
+    flex: 0 1 auto;
+    align-self: auto;
+    height: auto;
+    width: 320px;
+    text-align: justify;
+    font-size: 18px;
+}
+
+.item2 {
+    order: 0;
+    flex: 0 1 auto;
+    align-self: auto;
+    height: auto;
+    width: auto;
+}
+      
+        
+.text {
+    text-align: justify;
+}
