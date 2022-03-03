@@ -6,7 +6,7 @@ module.exports = sequelize => {
     //   type: DataTypes.INTEGER
     // },
     fullName: {
-      type: DataTypes.ENUM('first', 'last'),
+      type: DataTypes.STRING,
       allowNull: false
     },
     email: {
