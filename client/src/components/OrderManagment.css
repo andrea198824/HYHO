@@ -1,0 +1,13 @@
+.OrderManagment {
+    margin-top: 20px;
+    width: 100%;
+    background-color: var(--color-two);
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+/* .buttonWrapper {
+
+} */

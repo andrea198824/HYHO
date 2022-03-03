@@ -1,0 +1,79 @@
+html {
+    /* background-color: var(--color-two); */
+    background-image: linear-gradient(to right, #041562, #05226e, #072e79, #0b3a84, #11468f);
+
+}
+
+
+.startButtonContainer {
+
+    display: flex;
+    justify-content: center;
+}
+
+.imageLandingPage {
+    height: 300px;
+    width: initial;
+    object-fit: contain;
+    margin: 40px;
+}
+
+.startButton {
+
+    font-size: 49px;
+    border-radius: 28px;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    color: var(--color-two);
+    
+    padding: 14px 16px;
+    text-decoration: none;
+    
+}
+.startButton:hover {
+    text-decoration: none;
+    transition: all;
+    transition-duration: 1s;
+    color: var(--color-three);
+}
+
+.startButton {
+
+}
+
+.rightSideLP {
+}
+
+.leftSideLP.active {
+    right: 25%;
+}
+.leftSideLP {
+    background-color: var(--color-four);
+    border-radius: 40px;
+    display: flex;
+    position: fixed;
+    top: 10%;
+    right: -100%;
+    height: fit-content;
+    align-items: stretch;
+    justify-content: start;
+    justify-items: stretch;
+    transition: 850ms;
+    flex-direction: column;
+    width: 50%;
+    box-shadow: 0 40px 25px rgb(0 0 0 / 10%);
+}
+
+
+@media all and (max-width: 768px) {
+    .startButton {
+        font-size: 20px;        
+    }
+    
+    .imageLandingPage {
+        margin: 5px;
+    }
+
+}

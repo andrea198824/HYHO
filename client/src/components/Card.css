@@ -1,0 +1,42 @@
+.img {
+    height: 300px;
+    border-top-left-radius: 20px;
+    width: inherit;
+    /* border-radius: 20px; */
+    border-top-right-radius: 20px;
+    object-fit: cover;
+}
+
+.Card {
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+    color: black;
+    text-decoration: none;
+}
+
+.infoCard {
+    font-weight: 500    ;
+}
+
+@media all and (max-width: 768px) {
+    .Card {
+        height: 75%;
+        width: 100%;
+
+    }
+    .Card h2 {
+        font-size: large;
+        font-weight: 600;
+    }
+    .Card .infoCard {
+        font-size: medium;
+    }
+    .cardsContainer .grid {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-content: center;
+        justify-content: space-around;
+    }
+  }

@@ -1,0 +1,106 @@
+.filter {
+    color: #000000;
+    background-color: var(--color-two);
+    height: 20px;
+    justify-content: center;
+    align-items: flex-end;
+    transition: 850ms;
+    display: flex;
+}
+
+.filterItems {
+  height: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-items: stretch;
+  align-content: center;
+}
+
+@-webkit-keyframes fadeIn { 
+  0% {opacity: 0;} 
+  100% {opacity: 1;} 
+} 
+@keyframes fadeIn { 
+  0% {opacity: 0;} 
+  100% {opacity: 1;} 
+} 
+.fadeIn { 
+  -webkit-animation-name: fadeIn; 
+  animation-name: fadeIn; 
+}
+
+.filterItemsUp {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  align-content: flex-end;
+}
+
+.filterItemsDown {
+  display: flex;
+  justify-content: center;
+}
+
+.filter.active {
+  display: flex;
+  color: #000000;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 850ms;
+  flex-direction: column;
+  align-content: center;
+  flex-wrap: nowrap;
+}
+
+  .main-button-filter {
+    transform: rotate(0deg);
+    transition: 850ms;
+}
+
+  .main-button-filter.active {
+    transform: rotate(180deg);
+    transition: 850ms;
+  }
+
+  .filterItem {
+    display: none;
+    opacity: 0.0;
+    size: 200px;
+    height: 200px;
+    background: var(--color-three);
+    color: var(--color-three);
+    transition: 850ms;
+  }
+
+  .filterItem.active {
+    display: block;
+    opacity: 1.0;
+    size: 200px;
+    height: 200px;
+    background: var(--color-three);
+    color: var(--color-three);
+    transition: 850ms;
+  }
+  
+  @media all and (max-width: 768px) {
+    .filter.active {
+      height: 540px;
+    }
+    .filterItemsUp {
+      overflow: -moz-hidden-unscrollable;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+    /* .filterItems {
+      overflow: auto;
+  } */
+  }

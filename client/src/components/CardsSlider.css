@@ -1,0 +1,238 @@
+.paginadoWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-content: center;
+    flex-wrap: nowrap;
+}
+
+.cardSlider {
+    margin: 2%;
+}
+
+.closeButton {
+    margin-left: 15px;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 45%;
+}
+
+.closeButton:hover {
+    background-color: lightgray;
+}
+
+.spanMatch {
+    background-color: rgba(128, 128, 128, 0.712);
+    border-radius: 28px;
+    border: none;
+    display: inline-block;
+    color: #ffffff;
+    /* font-family: Arial; */
+    /* font-size: 17px; */
+    padding: 14px 16px;
+    text-decoration: none;
+    /* text-shadow: 0px 1px 0px #2f6627; */
+}
+
+.CardsSliderContainer {
+    width: -webkit-fill-available;
+}
+
+.cardsContainer {
+    width: 100%;
+    /* height: -moz-fit-content; */
+    height: -webkit-fill-available;
+}
+
+.loading {
+    margin-top: 15%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15%;
+}
+
+.header {
+    width: -webkit-fill-available;
+    display: flex;
+    justify-content: space-between;
+}
+
+.grid {
+    height: -webkit-fill-available;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 100px 200px;
+    gap: 100px 200px;
+    grid-template-areas:
+        ". . ."
+        ". . ."
+        ". . .";
+    display: grid;
+}
+
+.selectedItems {
+    width: 100%;
+    /* overflow-x: scroll;
+    scroll-behavior: smooth; */
+    /* DISPLAY: FLEX; */
+    display: flex;
+    background: none;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    align-content: stretch;
+    height: -moz-fit-content;
+    height: fit-content;
+}
+
+.closeCross {
+    color: grey;
+    background-color: lightgrey;
+    margin-left: 10px;
+    border: none;
+    border: none;
+    outline: none;
+    /* background: aquamarine; */
+    padding: 1px 6px;
+    border-radius: 50%;
+    /* display: block; */
+    /* flex-direction: column; */
+    /* flex-wrap: wrap; */
+    /* align-content: flex-end; */
+    /* justify-content: flex-end; */
+    /* align-items: flex-end; */
+} 
+
+.closeCross:hover {
+    background-color: rgb(179, 179, 179);
+}
+
+.toEliminate {
+    margin: 5px;
+    display: flex;
+    padding: 7px 8px;
+    color: grey;
+    background-color: lightgrey;
+    border-radius: 20px;
+}
+
+/* .toEliminate:hover {
+    padding: 7px 8px;
+    color: grey;
+    background-color: gainsboro;
+} */
+
+.checkboxOptionsAndBtns {
+    height: fit-content;
+    margin-top: 20px;
+    width: -webkit-fill-available;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.checkboxOptions {
+    padding: 8px;
+    border-radius: 40px;
+    width: -webkit-fill-available;
+    /* background-color: darkgray; */
+    display: flex;
+    /* margin-top: 20px; */
+    /* margin: 20px; */
+    box-shadow: black;
+    color: white;
+    margin-left: 20px;
+    margin-right: 20px;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: stretch;
+}
+
+.CardsSlider {
+    z-index: -1;
+    margin-left: 5%;
+    height: -moz-fit-content;
+    height: fit-content;
+    marker-end: 10px;
+    padding: 20px 25px 10px;
+    display: flex;
+    border-radius: 12px;
+    border-style: solid;
+    border-color: #fff;
+    border-width: 10px;
+    width: -moz-fit-content;
+    width: 90%;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px 25px px 40px;
+    box-shadow: 0 12px 35px rgb(0 0 0 / 10%);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.animated {
+	-webkit-animation-duration: .5s;
+	animation-duration: .5s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeIn { 
+    0% {opacity: 0;} 
+    100% {opacity: 1;} 
+} 
+@keyframes fadeIn { 
+    0% {opacity: 0;} 
+    100% {opacity: 1;} 
+} 
+.fadeIn { 
+    -webkit-animation-name: fadeIn; 
+    animation-name: fadeIn; 
+}
+
+.checkboxOptions .Btn2 {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+
+@media all and (max-width: 768px) {
+    .checkboxOptions {
+        padding: 3px;
+    }
+    h1 {
+        font-size: smaller;
+    }
+
+    .paginadoWrapper {
+        margin-bottom: 50px;
+    }
+    .paginadoWrapper .Btn2 {
+        padding: 0px 4px;
+    }
+    .paginadoWrapper .Btn2-active {
+        padding: 0px 4px;
+    }
+    .paginadoWrapper .checkboxOptions {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+  }

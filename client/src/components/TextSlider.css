@@ -1,0 +1,189 @@
+.header {
+    width: -webkit-fill-available;
+    display: flex;
+    justify-content: space-between;
+}
+
+.selectedItems {
+    width: 100%;
+    /* overflow-x: scroll;
+    scroll-behavior: smooth; */
+    /* DISPLAY: FLEX; */
+    display: flex;
+    background: none;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    align-content: stretch;
+    height: -moz-fit-content;
+    height: fit-content;
+}
+
+.closeCross {
+    color: grey;
+    background-color: lightgrey;
+    margin-left: 10px;
+    border: none;
+    border: none;
+    outline: none;
+    /* background: aquamarine; */
+    padding: 1px 6px;
+    border-radius: 50%;
+    /* display: block; */
+    /* flex-direction: column; */
+    /* flex-wrap: wrap; */
+    /* align-content: flex-end; */
+    /* justify-content: flex-end; */
+    /* align-items: flex-end; */
+} 
+
+.closeCross:hover {
+    background-color: rgb(179, 179, 179);
+}
+
+.toEliminate {
+    margin: 5px;
+    display: flex;
+    padding: 7px 8px;
+    color: grey;
+    background-color: lightgrey;
+    border-radius: 20px;
+}
+
+/* .toEliminate:hover {
+    padding: 7px 8px;
+    color: grey;
+    background-color: gainsboro;
+} */
+
+.checkboxOptionsAndBtns {
+    margin-top: 20px;
+    width: -webkit-fill-available;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.checkboxOptions {
+    padding: 8px;
+    border-radius: 40px;
+    width: -webkit-fill-available;
+    /* background-color: darkgray; */
+    display: flex;
+    /* margin-top: 20px; */
+    /* margin: 20px; */
+    box-shadow: black;
+    color: white;
+    margin-left: 20px;
+    margin-right: 20px;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: stretch;
+}
+
+.TextSlider {
+    height: fit-content;
+    marker-end: 10px;
+    padding: 20px 25px 10px;
+    display: flex;
+    /* margin: 30px; */
+    border-radius: 12px;
+    border-style: solid;
+    border-color: var(--color-four);
+    /* border-style: solid; */
+    border-width: 10px;
+    width: -moz-fit-content;
+    width: 95%;
+    background: var(--color-four);
+    border-radius: 10px;
+    padding: 20px 25px px 40px;
+    box-shadow: 0 12px 35px rgb(0 0 0 / 10%);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+}
+
+/* * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+} */
+
+.animated {
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeIn { 
+    0% {opacity: 0;} 
+    100% {opacity: 1;} 
+} 
+@keyframes fadeIn { 
+    0% {opacity: 0;} 
+    100% {opacity: 1;} 
+} 
+.fadeIn { 
+    -webkit-animation-name: fadeIn; 
+    animation-name: fadeIn; 
+}
+
+
+@media all and (max-width: 768px) {
+    .header p {
+      visibility: collapse;
+      height: 1px;
+    }
+    .header {
+      height: 20px;
+    }
+    .header h2{
+      font-size: medium;
+    }
+    .TextSlider {
+        width: 35%;
+        padding: inherit;
+    }
+    .header {
+        height: 50px;
+        width: -webkit-fill-available;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+    .header .Btn2 {
+        font-size: x-small;
+        padding: inherit;
+        /* bottom: 0px; */
+    }
+    .checkboxOptionsAndBtns {
+        margin-top: 0px;
+    }
+    .checkboxOptionsAndBtns .checkboxOptions {
+        display: grid;
+        width: 535px;
+        overflow: scroll;
+        margin: unset;
+    }
+    .checkboxOptionsAndBtns .checkboxOptions .Btn2 {
+        display: flex;
+        height: 6px;
+        font-size: x-small;
+        align-items: center;
+    }
+
+    .checkboxOptionsAndBtns .checkboxOptions .Btn2-active {
+        display: flex;
+        height: 6px;
+        font-size: x-small;
+        align-items: center;
+    }
+
+  }

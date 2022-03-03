@@ -1,0 +1,16 @@
+.hotizontal {
+    display: flex;
+}
+
+.SearchBar {
+    width: 300px;
+    margin-right: 5%;
+}
+
+.SearchBarInput {
+    width: 300px;
+}
+
+.SeachBarDropDown li:hover {
+    background-color: lightgray;
+}

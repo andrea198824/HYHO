@@ -1,0 +1,15 @@
+ul {
+    list-style-type: none;
+}
+
+.SeachBarDropDown {
+    display: grid;
+    width: inherit;
+    background-color: white;
+    color: black;
+    position: fixed;
+}
+
+.SeachBarDropDown li {
+    list-style-type: none;
+}

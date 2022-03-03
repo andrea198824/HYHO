@@ -1,0 +1,33 @@
+.BtnForm {
+    margin-left: 20px;
+    background-color: var(--color-two);
+    border-radius: 28px;
+    border: none;
+    display: inline;
+    cursor: pointer;
+    color: #ffffff;
+    /* font-family: Arial; */
+    /* font-size: 17px; */
+    padding: 4px;
+    text-decoration: none;
+    width: inherit;
+}
+.BtnForm:hover {
+	background-color:var(--color-one);
+    transition: all;
+    transition-duration: 1s;
+}
+.BtnForm-active {
+    background-color:var(--color-three);
+    color: #ffffff;
+	position:relative;
+    border-radius: 28px;
+    border: none;
+    display: inline-block;
+    cursor: pointer;
+    /* font-family: Arial; */
+    /* font-size: 17px; */
+    padding: 14px 16px;
+    text-decoration: none;
+    /* text-shadow: 0px 1px 0px #2f6627; */
+}
