@@ -25,16 +25,12 @@ module.exports = (sequelize) => {
 //     },
 //   ]
     },
-    date: {
-        type: DataTypes.DATE,
-        allownull: false,
-    },
     status: {
         type: DataTypes.ENUM('Active','Finalized'),
         allowNull: true,
     },
     total: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
     }
 });
 };
