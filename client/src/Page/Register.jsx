@@ -40,11 +40,6 @@ const Input = styled.input`
   padding: 10px;
 `;
 
-const Agreement = styled.span`
-  font-size: 12px;
-  margin: 20px 0px;
-`;
-
 const Button = styled.button`
   width: 40%;
   border: none;
@@ -58,7 +53,7 @@ const Register = () => {
   return (
     <Container>
       <Wrapper>
-        <Title>CREATE AN ACCOUNT</Title>
+        <Title>CREAR UNA CUENTA</Title>
         <Form>
           <Input placeholder="name" />
           <Input placeholder="last name" />
@@ -66,11 +61,7 @@ const Register = () => {
           <Input placeholder="email" />
           <Input placeholder="password" />
           <Input placeholder="confirm password" />
-          <Agreement>
-            By creating an account, I consent to the processing of my personal
-            data in accordance with the <b>PRIVACY POLICY</b>
-          </Agreement>
-          <Button>CREATE</Button>
+          <Button>Crear</Button>
         </Form>
       </Wrapper>
     </Container>

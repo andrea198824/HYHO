@@ -61,13 +61,13 @@ const Login = () => {
   return (
     <Container>
       <Wrapper>
-        <Title>SIGN IN</Title>
+        <Title>INICIO DE SESION</Title>
         <Form>
           <Input placeholder="username" />
           <Input placeholder="password" />
-          <Button>LOGIN</Button>
-          <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
-          <Link>CREATE A NEW ACCOUNT</Link>
+          <Button>Iniciar Sesion</Button>
+          <Link>No recuerdas la contraseña?</Link>
+          <Link>Registrarse</Link>
         </Form>
       </Wrapper>
     </Container>
