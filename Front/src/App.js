@@ -1,25 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import LadingPage from './components/LadingPage'
+
+//App.js
+// Desde donde se organiza la aplicación
+// Falta poner el resto de las rutas a cada componente y logo si llevaria.
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Router>
+            <div className={"App"}>
+                <Routes>
+                    <Route exact path='/' element={<LadingPage />} />
+                </Routes>
+            </div>
+        </Router>
+    );
 }
-
 export default App;
