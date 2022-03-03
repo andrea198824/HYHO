@@ -10,3 +10,4 @@ const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
+//por favor realizar sus rutas aquí
