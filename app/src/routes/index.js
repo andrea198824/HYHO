@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { Pokemon, Type } = require('../db');
+//const { } = require('../db');
 const axios = require('axios');
 require("dotenv").config();
 // Importar todos los routers;
