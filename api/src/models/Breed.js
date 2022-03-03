@@ -14,26 +14,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    height : {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
-      allowNull: false,
-    },
-    weight : {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
-      allowNull: false,
-    },
-    life_span: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
-    },
-    image: {
-      type: DataTypes.TEXT,
-    },
-    bred_for: {
-      type: DataTypes.STRING,
-    },
-    origin: {
-      type: DataTypes.STRING,
-    },
     createdInDb: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
