@@ -17,7 +17,7 @@ const NavBar = () => {
 
     return (
         <nav>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png" alt="404 Not Found" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png" alt="404 Not Found" /> 
             <form onSubmit={handleSubmitSearch}>
                 <input type="text" value={search} placeholder="Buscar Producto..." onChange={onChangeSearch} ></input>
                 <button>Buscar</button>
