@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
   sequelize.define("order", {
     productQuantity: {
       type: DataTypes.ARRAY (DataTypes.JSON), 
-      allownull: false,
+      allowNull: false,
       ref:"product",
       // Ejemplo
       // [
