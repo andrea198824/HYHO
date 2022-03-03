@@ -2,9 +2,9 @@ const { DataTypes } = require('sequelize')
 
 module.exports = sequelize => {
   sequelize.define('user', {
-    id: {
-      type: DataTypes.INTEGER
-    },
+    // id: {
+    //   type: DataTypes.INTEGER
+    // },
     fullName: {
       type: DataTypes.ENUM('first', 'last'),
       allowNull: false
