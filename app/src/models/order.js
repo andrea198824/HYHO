@@ -5,10 +5,25 @@ const { DataTypes, DatabaseError } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define("order", {
-    product: {
-      type: DataTypes.STRING,
+    productQuantity: {
+      type: DataTypes.ARRAY (DataTypes.JSON), 
       allownull: false,
       ref:"product",
+      // Ejemplo
+      // [
+//     {
+//       product: "product 1",
+//       price: 2
+//     },
+//       {
+//       product: "product 2",
+//       price: 22
+//     },
+//       {
+//       product: "product 3",
+//       price: 6.7
+//     },
+//   ]
     },
     date: {
         type: DataTypes.DATE,
@@ -18,11 +33,9 @@ module.exports = (sequelize) => {
         type: DataTypes.ENUM('Active','Finalized'),
         allowNull: true,
     },
-    quantity:{
-        type: DataTypes.NUMBER,
-    },
-    price: {
+    total: {
         type: DataTypes.NUMBER,
     }
 });
 };
+
