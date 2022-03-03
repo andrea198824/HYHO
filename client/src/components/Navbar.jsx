@@ -66,7 +66,7 @@ const Navbar = () => {
       <Wrapper>
         <Left>
           <SearchContainer>
-            <Input placeholder="Search" />
+            <Input placeholder="Buscar..." />
             <Search style={{ color: "gray", fontSize: 16 }} />
           </SearchContainer>
         </Left>
@@ -74,7 +74,7 @@ const Navbar = () => {
           <Logo>HYHO</Logo>
         </Center>
         <Right>
-          <MenuItem>Registrate</MenuItem>
+          <MenuItem>Registrarse</MenuItem>
           <MenuItem>Iniciar Sesion</MenuItem>
           <MenuItem>
             <Badge badgeContent={4} color="primary">
