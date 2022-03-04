@@ -41,20 +41,20 @@ const ProductList = () => {
     <Container>
       <Navbar />
       <Announcement />
-      <Title>Dresses</Title>
+      <Title>Vestidos</Title>
       <FilterContainer>
         <Filter>
-          <FilterText>Filter Products:</FilterText>
+          <FilterText>Filtrar Productos:</FilterText>
           <Select>
             <Option disabled selected>
               Color
             </Option>
-            <Option>White</Option>
-            <Option>Black</Option>
-            <Option>Red</Option>
+            <Option>Blanco</Option>
+            <Option>Negro</Option>
+            <Option>Rojo</Option>
             <Option>Blue</Option>
-            <Option>Yellow</Option>
-            <Option>Green</Option>
+            <Option>Amarillo</Option>
+            <Option>Amarillo</Option>
           </Select>
           <Select>
             <Option disabled selected>
@@ -68,11 +68,11 @@ const ProductList = () => {
           </Select>
         </Filter>
         <Filter>
-          <FilterText>Sort Products:</FilterText>
+          <FilterText>Ordenar:</FilterText>
           <Select>
-            <Option selected>Newest</Option>
-            <Option>Price (asc)</Option>
-            <Option>Price (desc)</Option>
+            <Option selected>Nuevos</Option>
+            <Option>Precio (asc)</Option>
+            <Option>Precio (desc)</Option>
           </Select>
         </Filter>
       </FilterContainer>
@@ -84,3 +84,4 @@ const ProductList = () => {
 };
 
 export default ProductList;
+
