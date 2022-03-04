@@ -1,8 +1,9 @@
 import { Badge } from "@material-ui/core";
-import { Search, ShoppingCartOutlined } from "@material-ui/icons";
+import { NoEncryption, Search, ShoppingCartOutlined } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
   height: 60px;
@@ -57,34 +58,44 @@ const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
   margin-left: 25px;
+  text-decoration: none;
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
+const linkStyle = {
+    textDecoration: "none",
+    color: 'inherit',
+}
+
 const Navbar = () => {
-  return (
-    <Container>
-      <Wrapper>
-        <Left>
-          <SearchContainer>
-            <Input placeholder="Buscar..." />
-            <Search style={{ color: "gray", fontSize: 16 }} />
-          </SearchContainer>
-        </Left>
-        <Center>
-          <Logo>HYHO</Logo>
-        </Center>
-        <Right>
-          <MenuItem>Registrarse</MenuItem>
-          <MenuItem>Iniciar Sesion</MenuItem>
-          <MenuItem>
-            <Badge badgeContent={4} color="primary">
-              <ShoppingCartOutlined />
-            </Badge>
-          </MenuItem>
-        </Right>
-      </Wrapper>
-    </Container>
-  );
+    return (
+        <Container>
+            <Wrapper>
+                <Left>
+                    <SearchContainer>
+                        <Input placeholder="Buscar..." />
+                        <Search style={{ color: "gray", fontSize: 16 }} />
+                    </SearchContainer>
+                </Left>
+                <Center>
+                    <Logo>HYHO</Logo>
+                </Center>
+                <Right>
+                    <Link to='/register' style={linkStyle}>
+                        <MenuItem>Registrarse</MenuItem>
+                    </Link>
+                    <Link to='/login' style={linkStyle}>
+                        <MenuItem>Iniciar Sesion</MenuItem>
+                    </Link>
+                    <MenuItem>
+                        <Badge badgeContent={4} color="primary">
+                            <ShoppingCartOutlined />
+                        </Badge>
+                    </MenuItem>
+                </Right>
+            </Wrapper>
+        </Container>
+    );
 };
 
 export default Navbar;
