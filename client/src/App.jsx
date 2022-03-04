@@ -5,8 +5,8 @@ import Home from './Page/Home';
 import Product from "./Page/Product";
 import ProductList from "./Page/ProductList";
 import Register from './Page/Register';
-import Login from './Page/Login';
 import Cart from './Page/Cart';
+import Login from './Page/Login';
 
 function App() {
     return (
