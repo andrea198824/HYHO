@@ -70,7 +70,7 @@ const Login = () => {
                 <Form>
                     <Input placeholder="Usuario" />
                     <Input placeholder="Contraseña" />
-                    <Link to='/home' style={linkStyle}>
+                    <Link to='/' style={linkStyle}>
                         <Button >Iniciar Sesion</Button>
                     </Link>
                     <Anchor>No recuerdas la contraseña?</Anchor>
