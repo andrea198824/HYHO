@@ -5,6 +5,7 @@ const { Admin, Category, Form, Order, Products, User } = require('../db');
 // Ejemplo: const authRouter = require('./auth.js');
 var form = require('./form');
 var admin = require('./admin');
+var user = require('./user');
 
 const router = Router();
 
@@ -17,6 +18,10 @@ router.post('/donate-form', form.post); //Tested: Ok
 router.get("/admins", admin.get); //Tested: Ok
 router.post('/create-admin', admin.post); //Tested: Ok
 
+//User endpoints:
+router.get("/users", user.get);
+router.post('/create-user', user.post);
+router.put('/modify-user', user.put);
 
 
 
