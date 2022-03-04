@@ -1,12 +1,12 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
-import Home from './Page/Home'
-import ProductList from "./pages/ProductList";
+import Home from './Page/Home';
 import Product from "./pages/Product";
-import Register from './Page/Register'
-import Login from './Page/Login'
-import Cart from './Page/Cart'
+import ProductList from "./pages/ProductList";
+import Register from './Page/Register';
+import Login from './Page/Login';
+import Cart from './Page/Cart';
 
 function App() {
     return (
