@@ -1,12 +1,44 @@
 const { Router } = require('express');
+const { Sequelize } = require('sequelize');
 const { Admin, Category, Form, Order, Products, User } = require('../db');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
 const router = Router();
 
-// Configurar los routers
-// Ejemplo: router.use('/auth', authRouter);
+//trae la info de db form
+const getDbForm = async () => {
+    return await Form.findAll({
+        include: {
+            model: User,
+            attributes: ['id'],
+        },
+    })
+    
+}
+
+router.get("/donate-products", async (req, res, next) => {
+    try {
+        const {id} = req.query;
+        let bdTotal = await getDbForm(); 
+        if (id) {
+
+            let prodName = await bdTotal.filter((product) =>
+            product.id.toLowerCase().includes(id.toLowerCase())
+            );
+            prodName.length //si hay algún nombre
+                ? res.status(200).send(prodName)
+                : res
+                    .status(404)
+                    .send({ info: "Sorry, the product you are looking for is not here." });
+        } else {
+            res.status(200).send(bdTotal); 
+        }
+    } catch (error) {
+        next(error);
+    }
+});
+
 router.post('/form/post', async (req, res) => {
 
   body = {
@@ -23,6 +55,8 @@ router.post('/form/post', async (req, res) => {
       stock: 1,
     }
 }
+
+
 
 const {user, product} = body;
 const {

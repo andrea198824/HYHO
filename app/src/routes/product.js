@@ -19,12 +19,12 @@ const getDbInfo = async () => {
 
 router.get("/products", async (req, res, next) => {
     try {
-        const {name} = req.query;
+        const {fullName} = req.query;
         let bdTotal = await getDbInfo(); 
-        if (name) {
-            // si hay un nombre por query
+        if (fullName) {
+
             let prodName = await bdTotal.filter((product) =>
-            product.name.toLowerCase().includes(name.toLowerCase())
+            product.fullName.toLowerCase().includes(fullName.toLowerCase())
             );
             prodName.length //si hay algún nombre
                 ? res.status(200).send(prodName)
