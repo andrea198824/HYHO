@@ -2,7 +2,7 @@ export const sliderItems = [
   {
     id: 1,
     img: "https://www.lanoticiaurbana.com/wp-content/uploads/2019/04/donacion-club-florencio-varela.jpg",
-    title: "Ayuda a Comedor Almitas Lindas",
+    title: "Comedor Almitas Lindas",
     desc: "Reacondicionamiento y equipamiento del comedor",
     bg: "f5fafd",
   },
