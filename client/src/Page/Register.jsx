@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
   width: 100vw;
@@ -8,7 +9,7 @@ const Container = styled.div`
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("https://images.pexels.com/photos/6984661/pexels-photo-6984661.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
+    url("https://lavozdemotul.com/wp-content/uploads/2016/08/registration-page-background-504-1.png")
       center;
   background-size: cover;
   display: flex;
@@ -42,6 +43,7 @@ const Input = styled.input`
 
 const Button = styled.button`
   width: 40%;
+  margin-top: 20px;
   border: none;
   padding: 15px 20px;
   background-color: teal;
@@ -49,23 +51,31 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const linkStyle = {
+    textDecoration: "none",
+    color: 'inherit',
+    width: '40%',
+}
+
 const Register = () => {
-  return (
-    <Container>
-      <Wrapper>
-        <Title>CREAR UNA CUENTA</Title>
-        <Form>
-          <Input placeholder="name" />
-          <Input placeholder="last name" />
-          <Input placeholder="username" />
-          <Input placeholder="email" />
-          <Input placeholder="password" />
-          <Input placeholder="confirm password" />
-          <Button>Crear</Button>
-        </Form>
-      </Wrapper>
-    </Container>
-  );
+    return (
+        <Container>
+            <Wrapper>
+                <Title>CREAR UNA CUENTA</Title>
+                <Form>
+                    <Input placeholder="Nombre" />
+                    <Input placeholder="Apellido" />
+                    <Input placeholder="Usuario" />
+                    <Input placeholder="Correo" />
+                    <Input placeholder="Contraseña" />
+                    <Input placeholder="Confirmar Contraseña" />
+                    <Link to='/home' style={linkStyle}>
+                        <Button>Crear</Button>
+                    </Link>
+                </Form>
+            </Wrapper>
+        </Container>
+    );
 };
 
 export default Register;

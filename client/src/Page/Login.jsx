@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import {mobile} from "../responsive";
+import { mobile } from "../responsive";
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100vw;
@@ -8,7 +9,7 @@ const Container = styled.div`
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
+    url("https://lavozdemotul.com/wp-content/uploads/2016/08/registration-page-background-504-1.png")
       center;
   background-size: cover;
   display: flex;
@@ -50,28 +51,36 @@ const Button = styled.button`
   margin-bottom: 10px;
 `;
 
-const Link = styled.a`
+const Anchor = styled.a`
   margin: 5px 0px;
   font-size: 12px;
   text-decoration: underline;
   cursor: pointer;
 `;
 
+const linkStyle = {
+    color: 'inherit',
+}
+
 const Login = () => {
-  return (
-    <Container>
-      <Wrapper>
-        <Title>INICIO DE SESION</Title>
-        <Form>
-          <Input placeholder="username" />
-          <Input placeholder="password" />
-          <Button>Iniciar Sesion</Button>
-          <Link>No recuerdas la contraseña?</Link>
-          <Link>Registrarse</Link>
-        </Form>
-      </Wrapper>
-    </Container>
-  );
+    return (
+        <Container>
+            <Wrapper>
+                <Title>INICIO DE SESION</Title>
+                <Form>
+                    <Input placeholder="Usuario" />
+                    <Input placeholder="Contraseña" />
+                    <Link to='/home' style={linkStyle}>
+                        <Button >Iniciar Sesion</Button>
+                    </Link>
+                    <Anchor>No recuerdas la contraseña?</Anchor>
+                    <Link to='/register' style={linkStyle}>
+                        <Anchor to='/register'>Registrarse</Anchor>
+                    </Link>
+                </Form>
+            </Wrapper>
+        </Container>
+    );
 };
 
 export default Login;
