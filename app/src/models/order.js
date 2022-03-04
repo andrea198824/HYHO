@@ -18,6 +18,7 @@ module.exports = (sequelize) => {
 //       {
 //       product: "product 2",
 //       price: 22
+ //      quantity: 2
 //     },
 //       {
 //       product: "product 3",
@@ -25,6 +26,7 @@ module.exports = (sequelize) => {
 //     },
 //   ]
     },
+    
     status: {
         type: DataTypes.ENUM('Active','Finalized'),
         allowNull: true,
