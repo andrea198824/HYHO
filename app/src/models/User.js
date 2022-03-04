@@ -17,7 +17,8 @@ module.exports = sequelize => {
     password: {
       type: DataTypes.STRING(64),
       validate: {
-        is: /^[0-9a-f]{64}$/i
+        is: '^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{8,}$'
+        //8 caracters (minimum) 1 mayusculo y 1 numero
       }
     },
     billing_address: {
