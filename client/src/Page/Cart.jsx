@@ -167,7 +167,7 @@ const Cart = () => {
             <Wrapper>
                 <Title>TUS COSAS</Title>
                 <Top>
-                    <Link to='/' style={linkStyle}>
+                    <Link to='/home' style={linkStyle}>
                         <TopButton>CONTINUAR COMPRANDO</TopButton>
                     </Link>
                     <TopTexts>
@@ -180,17 +180,17 @@ const Cart = () => {
                     <Info>
                         <Product>
                             <ProductDetail>
-                                <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A" />
+                                <Image src="https://i.ebayimg.com/images/g/2-wAAOSwN81WDnRF/s-l1600.jpg" />
                                 <Details>
                                     <ProductName>
-                                        <b>Producto:</b> ZAPATOS JESSIE THUNDER
+                                        <b>Producto:</b>  Maletín Caja de Herramientas 215 Piezas
                                     </ProductName>
                                     <ProductId>
                                         <b>ID:</b> 93813718293
                                     </ProductId>
-                                    <ProductColor color="black" />
+                                    
                                     <ProductSize>
-                                        <b>Talla:</b> 37.5
+                                       
                                     </ProductSize>
                                 </Details>
                             </ProductDetail>
@@ -206,17 +206,17 @@ const Cart = () => {
                         <Hr />
                         <Product>
                             <ProductDetail>
-                                <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" />
+                                <Image src="https://i.ebayimg.com/images/g/Xs0AAOSwwmBdn2HH/s-l1600.jpg" />
                                 <Details>
                                     <ProductName>
-                                        <b>Producto:</b> CAMISETA HAKURA
+                                        <b>Producto:</b> Cafetera Digital Power Espresso 20
                                     </ProductName>
                                     <ProductId>
                                         <b>ID:</b> 93813718293
                                     </ProductId>
-                                    <ProductColor color="gray" />
+                                    
                                     <ProductSize>
-                                        <b>Talla:</b> M
+                                        
                                     </ProductSize>
                                 </Details>
                             </ProductDetail>
