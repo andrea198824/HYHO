@@ -1,5 +1,5 @@
 import './App.css';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
 import Home from './Page/Home';
 import Product from "./Page/Product";
@@ -12,14 +12,14 @@ function App() {
     return (
             <div className={"App"}>
              <Router>
-                <Switch>
+                <Routes>
                     <Route exact path='/' element={<Home />} />
                     <Route path="/products" element={<ProductList />} />
                     <Route path="/product/:id" element={<Product />} />
                     <Route exact path='/cart' element={<Cart />} />
                     <Route exact path='/login' element={<Login />} />
                     <Route exact path='/register' element={<Register />} />
-                </Switch>
+                </Routes>
              </Router>
             </div>
     );

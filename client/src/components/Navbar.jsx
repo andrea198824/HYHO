@@ -1,5 +1,5 @@
 import { Badge } from "@material-ui/core";
-import { NoEncryption, Search, ShoppingCartOutlined } from "@material-ui/icons";
+import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
@@ -78,7 +78,7 @@ const Navbar = () => {
                     </SearchContainer>
                 </Left>
                 <Center>
-                    <Link to='/home' style={linkStyle}>
+                    <Link to='/' style={linkStyle}>
                         <Logo>HYHO</Logo>
                     </Link>
                 </Center>
