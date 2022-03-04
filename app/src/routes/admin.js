@@ -40,7 +40,7 @@ exports.get = async function (req, res, next){
         if (id) {
 
             let prodName = await bdTotal.filter((admin) =>
-            admin.id.toLowerCase().includes(id.toLowerCase())
+            admin.id == id
             );
             prodName.length //si hay algún nombre
                 ? res.status(200).send(prodName)
@@ -48,7 +48,7 @@ exports.get = async function (req, res, next){
                     .status(404)
                     .send({ info: "Sorry, the product you are looking for is not here." });
         } else {
-            res.status(200).send(bdTotal); 
+            res.status(200).send(bdTotal);
         }
     } catch (error) {
         next(error);
