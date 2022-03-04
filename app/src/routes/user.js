@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 'use strict'
 const { Admin, Category, Form, Order, Products, User } = require('../db');
 
@@ -15,27 +13,27 @@ exports.post = async function(req, res){
         res.send({info: "No fullName"});
         return
         }
-    if (!email || typeof fullName !== "string") {
+    if (!email || typeof email !== "string") {
         res.send({info: "No email"});
         return
         }
-    if (!password || typeof fullName !== "number") {
+    if (!password || typeof password !== "string") {
         res.send({info: "No password"});
         return
         }
-    if (!billing_address || typeof fullName !== "string") {
+    if (!billing_address || typeof billing_address !== "string") {
         res.send({info: "No billing address"});
         return
         }
-    if (!shipping_address || typeof fullName !== "string") {
+    if (!shipping_address || typeof shipping_address !== "string") {
         res.send({info: "No shipping address"});
         return
         }
-    if (!phone || typeof fullName !== "number") {
+    if (!phone || typeof phone !== "number") {
         res.send({info: "No phone"});
         return
         }
-
+    
     let userCreated = await User.create({
       fullName,
       email,
@@ -57,7 +55,7 @@ exports.get = async function (req, res, next){
         if (id) {
 
             let prodName = await bdTotal.filter((user) =>
-            user.id.toLowerCase().includes(id.toLowerCase())
+            user.id == id
             );
             prodName.length //si hay algún nombre
                 ? res.status(200).send(prodName)
@@ -87,13 +85,22 @@ exports.put = async function (req, res, next){
         console.log(bdTotal)
         if (id) {
             let prodName = await bdTotal.filter((user) =>
-            user.id.toLowerCase().includes(id.toLowerCase())
+            user.id == id
             );
-            prodName.length //si hay algún nombre
-                ? res.status(200).send(prodName)
-                : res
-                    .status(404)
-                    .send({ info: "Sorry, the product you are looking for is not here." });
+            if (!prodName.length) {//si no hay algún nombre
+                res
+                .status(404)
+                .send({ info: "Sorry, the product you are looking for is not here." });
+            } else {                
+                if (fullName) prodName[0].set({fullName})
+                if (email) prodName[0].set({email})
+                if (password) prodName[0].set({password})
+                if (billing_address) prodName[0].set({billing_address})
+                if (shipping_address) prodName[0].set({shipping_address})
+                if (phone) prodName[0].set({phone})
+                await prodName[0].save();
+                res.send(prodName[0])
+            }
         } else {
             res.status(404).send({info: "No id"}); 
         }
@@ -101,4 +108,4 @@ exports.put = async function (req, res, next){
         next(error);
     }
 }
->>>>>>> Stashed changes
+
