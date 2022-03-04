@@ -21,24 +21,12 @@ module.exports = sequelize => {
       }
     },
     billing_address: {
-      type: DataTypes.ENUM(
-        'streetName',
-        'streetNumber',
-        'aptNumber',
-        'city',
-        'provincia',
-        'country'
-      )
+      type: DataTypes.STRING,
+      allowNull: false
     },
     shipping_address: {
-      type: DataTypes.ENUM(
-        'streetName',
-        'streetNumber',
-        'aptNumber',
-        'city',
-        'provincia',
-        'country'
-      )
+      type: DataTypes.STRING,
+      allowNull: false
     },
     phone: {
       type: DataTypes.INTEGER,
