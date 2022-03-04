@@ -78,7 +78,9 @@ const Navbar = () => {
                     </SearchContainer>
                 </Left>
                 <Center>
-                    <Logo>HYHO</Logo>
+                    <Link to='/home' style={linkStyle}>
+                        <Logo>HYHO</Logo>
+                    </Link>
                 </Center>
                 <Right>
                     <Link to='/register' style={linkStyle}>
@@ -88,9 +90,11 @@ const Navbar = () => {
                         <MenuItem>Iniciar Sesion</MenuItem>
                     </Link>
                     <MenuItem>
-                        <Badge badgeContent={4} color="primary">
-                            <ShoppingCartOutlined />
-                        </Badge>
+                        <Link to='/cart' style={linkStyle}>
+                            <Badge badgeContent={4} color="primary">
+                                <ShoppingCartOutlined />
+                            </Badge>
+                        </Link>
                     </MenuItem>
                 </Right>
             </Wrapper>
