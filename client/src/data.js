@@ -42,34 +42,34 @@ export const sliderItems = [
   export const popularProducts = [
     {
       id:1,
-      img:"https://d3o2e4jr3mxnm3.cloudfront.net/Mens-Jake-Guitar-Vintage-Crusher-Tee_68382_1_lg.png",
+      img:"https://www.profesionalreview.com/wp-content/uploads/2018/01/C%C3%B3mo-evitar-el-fondo-negro-al-copiar-un-archivo-PNG-3.jpg",
     },
     {
       id:2,
-      img:"https://cdn.shopify.com/s/files/1/0101/4832/products/Angela_Natural_Tee.png?v=1606780388",
+      img:"https://i2.wp.com/gadwoman.com/wp-content/uploads/2012/04/Monitor-Toshiba.jpg?resize=640%2C400&ssl=1",
     },
     {
       id:3,
-      img:"https://www.prada.com/content/dam/pradanux_products/U/UCS/UCS319/1YOTF010O/UCS319_1YOT_F010O_S_182_SLF.png",
+      img:"https://i2.wp.com/culturabogota.com/wp-content/uploads/2014/09/sorpresa-fotografo-iphone-6-1.jpg?w=800&ssl=1",
     },
     {
       id:4,
-      img:"https://www.burdastyle.com/pub/media/catalog/product/cache/7bd3727382ce0a860b68816435d76e26/107/BUS-PAT-BURTE-1320516/1170x1470_BS_2016_05_132_front.png",
+      img:"https://i.blogs.es/f7bb86/650_1000_tele-curva-1/1366_2000.jpg",
     },
     {
       id:5,
-      img:"https://images.ctfassets.net/5gvckmvm9289/3BlDoZxSSjqAvv1jBJP7TH/65f9a95484117730ace42abf64e89572/Noissue-x-Creatsy-Tote-Bag-Mockup-Bundle-_4_-2.png",
+      img:"https://images.ecestaticos.com/CmQxEVHJ2Mh7t42OljydEg2iRP8=/0x0:638x359/996x560/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2F64f%2F158%2F108%2F64f1581087ce1bc054aede93edb22276.jpg",
     },
     {
       id:6,
-      img:"https://d3o2e4jr3mxnm3.cloudfront.net/Rocket-Vintage-Chill-Cap_66374_1_lg.png",
+      img:"https://http2.mlstatic.com/D_NQ_NP_808163-MLA44585596343_012021-O.webp",
     },
     {
       id:7,
-      img:"https://www.vintageindustries.nl/download_front/qympzk1762/2217_Arrow_Jacket_Forest.png",
+      img:"https://http2.mlstatic.com/D_NQ_NP_823809-MLA48575528008_122021-O.webp",
     },
     {
       id:8,
-      img:"https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png",
+      img:"https://www.derechoenzapatillas.com/wp-content/uploads/2018/08/cuatriciclos-reglamentaci%C3%B3n.jpg",
     },
   ]
