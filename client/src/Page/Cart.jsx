@@ -167,7 +167,7 @@ const Cart = () => {
             <Wrapper>
                 <Title>TUS COSAS</Title>
                 <Top>
-                    <Link to='/home' style={linkStyle}>
+                    <Link to='/' style={linkStyle}>
                         <TopButton>CONTINUAR COMPRANDO</TopButton>
                     </Link>
                     <TopTexts>

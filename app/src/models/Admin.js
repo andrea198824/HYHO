@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize')
 module.exports = sequelize => {
   sequelize.define('admin', {
     fullName: {
-      type: DataTypes.ENUM('first', 'last'),
+      type: DataTypes.STRING,
       allowNull: false
     },
     email: {
@@ -12,10 +12,10 @@ module.exports = sequelize => {
       unique: true
     },
     password: {
-      type: DataTypes.STRING(64),
-      validate: {
-        is: /^[0-9a-f]{64}$/i
-      }
+      type: DataTypes.STRING//(64),
+      // validate: {
+      //   is: /^[0-9a-f]{64}$/i
+      // }
     },
   })
 }

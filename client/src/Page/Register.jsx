@@ -69,7 +69,7 @@ const Register = () => {
                     <Input placeholder="Correo" />
                     <Input placeholder="Contraseña" />
                     <Input placeholder="Confirmar Contraseña" />
-                    <Link to='/home' style={linkStyle}>
+                    <Link to='/' style={linkStyle}>
                         <Button>Crear</Button>
                     </Link>
                 </Form>

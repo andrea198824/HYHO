@@ -117,7 +117,7 @@ const Footer = () => {
             <Center>
                 <Title>Links directos</Title>
                 <List>
-                    <Link to='/home' style={linkListItems}>
+                    <Link to='/' style={linkListItems}>
                         <ListItem>Home</ListItem>
                     </Link>
                     <Link to='/cart' style={linkListItems}>
