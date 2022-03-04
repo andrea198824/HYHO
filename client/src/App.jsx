@@ -8,17 +8,18 @@ import Cart from './Page/Cart'
 
 function App() {
     return (
-        <Router>
-
             <div className={"App"}>
-                <Routes>
+             <Router>
+                <Switch>
                     <Route exact path='/' element={<Home />} />
-                    <Route exact path='/register' element={<Register />} />
-                    <Route exact path='/login' element={<Login />} />
+                    <Route path="/products/:category" element={<ProductList />} />
+                    <Route path="/product/:id" element={<Product />} />
                     <Route exact path='/cart' element={<Cart />} />
-                </Routes>
+                    <Route exact path='/login' element={<Login />} />
+                    <Route exact path='/register' element={<Register />} />
+                </Switch>
+             </Router>
             </div>
-        </Router>
     );
 }
 export default App;
