@@ -1,12 +1,12 @@
 import React from 'react'
-import Slider from '../../components/Slider/slider'
+import Slider from '../../components/slider'
 
 const home = () => {
   return (
     <div>
+
+       <Slider />
       
-      <Slider />
-    
     </div>
   )
 }
