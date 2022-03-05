@@ -1,6 +1,6 @@
 import { Badge } from "@material-ui/core";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link } from 'react-router-dom'
@@ -67,14 +67,20 @@ const linkStyle = {
     color: 'inherit',
 }
 
+
 const Navbar = () => {
+    const [search, setSearch] = useState("")
+    const onChangeSearch = (e) => {
+        setSearch(e.target.value)
+    }
+
     return (
         <Container>
             <Wrapper>
                 <Left>
                     <SearchContainer>
-                        <Input placeholder="Buscar..." />
-                        <Search style={{ color: "gray", fontSize: 16 }} />
+                        <Input onChange={onChangeSearch} value={search} placeholder="Buscar..." />
+                        <Search style={{ color: "gray", fontSize: 20 }} />
                     </SearchContainer>
                 </Left>
                 <Center>
