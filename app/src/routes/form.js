@@ -80,7 +80,7 @@ exports.post = async function(req, res){  // lalala.post
     await User.findAll({
                 where: { id: id }
             }).then(el => {
-            console.log('el:', el[0])
+            // console.log('el:', el[0])
             formCreated.setUser(el[0])
     }).then(() => {
       res.status(200).send(
