@@ -92,6 +92,10 @@ const linkListItems = {
 }
 
 const Footer = () => {
+    const onClickLink = (e) => {
+        window.scrollTo(0, 0)
+    }
+
     return (
         <Container>
             <Left>
@@ -117,15 +121,17 @@ const Footer = () => {
             <Center>
                 <Title>Links directos</Title>
                 <List>
-                    <Link to='/' style={linkListItems}>
+                    <Link onClick={onClickLink} to='/' style={linkListItems}>
                         <ListItem>Home</ListItem>
                     </Link>
-                    <Link to='/cart' style={linkListItems}>
+                    <Link onClick={onClickLink} to='/cart' style={linkListItems}>
                         <ListItem>Carro de compras</ListItem>
                     </Link>
                     <ListItem>Dona dinero</ListItem>
                     <ListItem>Dona productos</ListItem>
-                    <ListItem>Tienda</ListItem>
+                    <Link onClick={onClickLink} to='/products' style={linkListItems}>
+                        <ListItem>Tienda</ListItem>
+                    </Link>
                     <ListItem>Mi cuenta</ListItem>
                     <ListItem>Lista de deseos</ListItem>
                 </List>
