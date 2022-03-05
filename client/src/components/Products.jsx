@@ -11,11 +11,17 @@ const Container = styled.div`
 
 const Products = () => {
     const products = useSelector(state => state.products)
+    const searchedProducts = useSelector(state => state.searchProducts)
     return (
         <Container>
-            {products.map((item) => (
+            {searchedProducts.length ? searchedProducts.map((item) => (
                 <Product item={item} key={item.id} />
-            ))}
+            ))
+                :
+                products.map((item) => (
+                    <Product item={item} key={item.id} />
+                ))
+            }
         </Container>
     );
 };

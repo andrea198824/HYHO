@@ -3,9 +3,9 @@ import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux";
-import { getProducts } from '../store/actions'
+import { getProducts, searchProducts } from '../store/actions'
 
 const Container = styled.div`
   height: 60px;
@@ -26,7 +26,7 @@ const Left = styled.div`
   align-items: center;
 `;
 
-const SearchContainer = styled.div`
+const SearchContainer = styled.form`
   border: 0.5px solid lightgray;
   display: flex;
   align-items: center;
@@ -71,21 +71,29 @@ const linkStyle = {
 
 const Navbar = () => {
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     const [search, setSearch] = useState("")
-    const onChangeSearch = (e) => {
-        setSearch(e.target.value)
-    }
-    
+
     useEffect(() => {
         dispatch(getProducts())
     }, [])
-    
+
+    const onChangeSearch = (e) => {
+        setSearch(e.target.value)
+    }
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        dispatch(searchProducts(search))
+        setSearch("")
+        if(search) navigate('/products')
+    }
+
     return (
         <Container>
             <Wrapper>
                 <Left>
-                    <SearchContainer>
+                    <SearchContainer onSubmit={handleSearch}>
                         <Input onChange={onChangeSearch} value={search} placeholder="Buscar..." />
                         <Search style={{ color: "gray", fontSize: 20 }} />
                     </SearchContainer>
