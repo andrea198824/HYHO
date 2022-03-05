@@ -8,6 +8,8 @@ var admin = require('./admin');
 var user = require('./user');
 
 var productform = require('./productform');
+var productput = require('./productput');
+
 const router = Router();
 
 
@@ -26,7 +28,7 @@ router.put('/modify-user', user.put);
 
 //Admin endpoints:
 router.post("/product/form", productform.post) //Tested: Ok
-
+router.put("/product/put/:id", productput.put)
 
 
 
