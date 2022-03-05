@@ -1,6 +1,9 @@
 import { Send } from "@material-ui/icons";
+import { useState } from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
+
+
 
 const Container = styled.div`
   height: 60vh;
@@ -46,17 +49,72 @@ const Button = styled.button`
   color: white;
 `;
 
+const Paragraph = styled.p`
+   color: red;
+   font-size: 15px;
+  font-weight: 3;
+`;
+
+export function validate(input) {
+    let errors = {};
+
+    if (!input.email) {
+        errors.mail = 'Correo Requerido';
+    } else if (!/\S+@\S+\.\S+/.test(input.email)) {
+        errors.mail = 'Correo Invalido';
+    }
+
+    if (Object.keys(errors).length === 0) {
+        errors.active = false
+    }
+
+    else errors.active = true
+    return errors;
+};
+
 const Newsletter = () => {
+
+    const [errors, setErrors] = useState({});
+    const [input, setInput] = useState({
+        email: '',
+    });
+
+    const handleInputChange = function (e) {
+        e.preventDefault()
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value
+        });
+
+        setErrors(validate({
+            ...input,
+            [e.target.name]: e.target.value
+        }));
+    }
+
   return (
     <Container>
       <Title>Noticias</Title>
       <Desc>Suscribite y enterate de todos lo que logramos con su ayuda</Desc>
-      <InputContainer>
-        <Input placeholder="Tu email..." />
-        <Button>
-          <Send />
-        </Button>
-      </InputContainer>
+          <InputContainer>
+              
+              <Input onChange={(e) => handleInputChange(e)}
+                  type='email'
+                  name='email'
+                  placeholder="Tu email..."
+              />
+              
+    
+              <Button disabled={errors.active}>
+                  <Send />
+              </Button>
+
+              
+        
+          </InputContainer>
+          {errors.mail && (
+              <Paragraph>{errors.mail}</Paragraph>
+          )}
     </Container>
   );
 };
