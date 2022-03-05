@@ -46,7 +46,8 @@ import {
   `;
   
   const Image = styled.img`
-    height: 75%;
+    max-height: 80%;
+    min-height: 50%;
     max-width: 100%;
     z-index: 2;
   `;

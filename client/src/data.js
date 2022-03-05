@@ -42,35 +42,35 @@ export const sliderItems = [
   export const popularProducts = [
     {
       id:1,
-      img:"https://www.profesionalreview.com/wp-content/uploads/2018/01/C%C3%B3mo-evitar-el-fondo-negro-al-copiar-un-archivo-PNG-3.jpg",
+      image:"https://www.profesionalreview.com/wp-content/uploads/2018/01/C%C3%B3mo-evitar-el-fondo-negro-al-copiar-un-archivo-PNG-3.jpg",
     },
     {
       id:2,
-      img:"https://i2.wp.com/gadwoman.com/wp-content/uploads/2012/04/Monitor-Toshiba.jpg?resize=640%2C400&ssl=1",
+      image:"https://i2.wp.com/gadwoman.com/wp-content/uploads/2012/04/Monitor-Toshiba.jpg?resize=640%2C400&ssl=1",
     },
     {
       id:3,
-      img:"https://i2.wp.com/culturabogota.com/wp-content/uploads/2014/09/sorpresa-fotografo-iphone-6-1.jpg?w=800&ssl=1",
+      image:"https://i2.wp.com/culturabogota.com/wp-content/uploads/2014/09/sorpresa-fotografo-iphone-6-1.jpg?w=800&ssl=1",
     },
     {
       id:4,
-      img:"https://i.blogs.es/f7bb86/650_1000_tele-curva-1/1366_2000.jpg",
+      image:"https://i.blogs.es/f7bb86/650_1000_tele-curva-1/1366_2000.jpg",
     },
     {
       id:5,
-      img:"https://images.ecestaticos.com/CmQxEVHJ2Mh7t42OljydEg2iRP8=/0x0:638x359/996x560/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2F64f%2F158%2F108%2F64f1581087ce1bc054aede93edb22276.jpg",
+      image:"https://images.ecestaticos.com/CmQxEVHJ2Mh7t42OljydEg2iRP8=/0x0:638x359/996x560/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2F64f%2F158%2F108%2F64f1581087ce1bc054aede93edb22276.jpg",
     },
     {
       id:6,
-      img:"https://http2.mlstatic.com/D_NQ_NP_808163-MLA44585596343_012021-O.webp",
+      image:"https://http2.mlstatic.com/D_NQ_NP_808163-MLA44585596343_012021-O.webp",
     },
     {
       id:7,
-      img:"https://http2.mlstatic.com/D_NQ_NP_823809-MLA48575528008_122021-O.webp",
+      image:"https://http2.mlstatic.com/D_NQ_NP_823809-MLA48575528008_122021-O.webp",
     },
     {
       id:8,
-      img:"https://www.derechoenzapatillas.com/wp-content/uploads/2018/08/cuatriciclos-reglamentaci%C3%B3n.jpg",
+      image:"https://www.derechoenzapatillas.com/wp-content/uploads/2018/08/cuatriciclos-reglamentaci%C3%B3n.jpg",
     },
   ]
 
