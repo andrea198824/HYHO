@@ -7,7 +7,6 @@ var form = require('./form');
 var admin = require('./admin');
 var user = require('./user');
 var product = require('./product');
-var productid = require('./productid');
 var productform = require('./productform');
 const router = Router();
 
@@ -29,7 +28,6 @@ router.put('/modify-user', user.put);
 router.post("/product/form", productform.post); //Tested: Ok
 router.post("/product/formarray", productform.postArray); 
 router.get("/products", product.get);
-router.get("/products/:id", productid.get);
 
 module.exports = router;
 

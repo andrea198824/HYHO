@@ -2,7 +2,7 @@
 const { Admin, Category, Form, order, Products, User } = require('../db');
 
 
-export const getDbInfo = async () => {
+const getDbInfo = async () => {
     return await Products.findAll({
         include: {
             model: Category,
