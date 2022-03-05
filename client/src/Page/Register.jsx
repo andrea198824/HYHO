@@ -89,9 +89,9 @@ export function validate(input) {
     }
 
     if (!input.userName) {
-        errors.userName = 'Nombre de Usuario Requerido';
+        errors.userName = 'Usuario Requerido';
     } else if (!/[a-zA-Z1-9]{8}/g.test(input.userName)) {
-        errors.userName = 'Nobre Usuario Demasiado Corto';
+        errors.userName = 'Usuario Demasiado Corto';
     }
 
     if (!input.email) {
@@ -143,6 +143,10 @@ const Register = () => {
             ...input,
             [e.target.name]: e.target.value
         }));
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
     }
 
     return (
