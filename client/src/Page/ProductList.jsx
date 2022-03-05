@@ -6,6 +6,7 @@ import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import { mobile } from "../responsive";
 
+
 const Container = styled.div``;
 
 const Title = styled.h1`
@@ -37,50 +38,47 @@ const Select = styled.select`
 const Option = styled.option``;
 
 const ProductList = () => {
-  return (
-    <Container>
-      <Navbar />
-      <Announcement />
-      <Title>Destacados</Title>
-      <FilterContainer>
-        <Filter>
-          <FilterText>Filtrar Productos:</FilterText>
-          <Select>
-            <Option disabled selected>
-              Color
-            </Option>
-            <Option>Blanco</Option>
-            <Option>Negro</Option>
-            <Option>Rojo</Option>
-            <Option>Blue</Option>
-            <Option>Amarillo</Option>
-            <Option>Amarillo</Option>
-          </Select>
-          <Select>
-            <Option disabled selected>
-              Size
-            </Option>
-            <Option>XS</Option>
-            <Option>S</Option>
-            <Option>M</Option>
-            <Option>L</Option>
-            <Option>XL</Option>
-          </Select>
-        </Filter>
-        <Filter>
-          <FilterText>Ordenar:</FilterText>
-          <Select>
-            <Option selected>Nuevos</Option>
-            <Option>Precio (asc)</Option>
-            <Option>Precio (desc)</Option>
-          </Select>
-        </Filter>
-      </FilterContainer>
-      <Products />
-      <Newsletter />
-      <Footer />
-    </Container>
-  );
+    return (
+        <Container>
+            <Navbar />
+            <Announcement />
+            <Title>Destacados</Title>
+            <FilterContainer>
+                <Filter>
+                    <FilterText>Filtrar Productos:</FilterText>
+                    <Select>
+                        <Option disabled selected>
+                            Categoria
+                        </Option>
+                        <Option>Electrodomesticos</Option>
+                        <Option>Indumentaria</Option>
+                        <Option>Vehiculos</Option>
+                    </Select>
+                    <Select>
+                        <Option disabled selected>
+                            Size
+                        </Option>
+                        <Option>XS</Option>
+                        <Option>S</Option>
+                        <Option>M</Option>
+                        <Option>L</Option>
+                        <Option>XL</Option>
+                    </Select>
+                </Filter>
+                <Filter>
+                    <FilterText>Ordenar:</FilterText>
+                    <Select>
+                        <Option selected>Nuevos</Option>
+                        <Option>Precio (asc)</Option>
+                        <Option>Precio (desc)</Option>
+                    </Select>
+                </Filter>
+            </FilterContainer>
+            <Products />
+            <Newsletter />
+            <Footer />
+        </Container>
+    );
 };
 
 export default ProductList;
