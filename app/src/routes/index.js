@@ -7,6 +7,7 @@ var form = require('./form');
 var admin = require('./admin');
 var user = require('./user');
 
+var productform = require('./productform');
 const router = Router();
 
 
@@ -22,6 +23,10 @@ router.post('/create-admin', admin.post); //Tested: Ok
 router.get("/users", user.get);
 router.post('/create-user', user.post);
 router.put('/modify-user', user.put);
+
+//Admin endpoints:
+router.post("/product/form", productform.post) //Tested: Ok
+
 
 
 
