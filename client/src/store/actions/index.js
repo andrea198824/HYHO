@@ -1,8 +1,12 @@
 import axios from 'axios';
+import {products} from '../../data.js'
 
 export const GET_PRODUCTS = 'GET_PRODUCTS';
 
-export const getProducts = (fullname) => {
-    // Cuando el back este listo se continua
+export const getProducts = () => {
+    return {
+        type: GET_PRODUCTS,
+        payload: products,
+    }
 }
 

@@ -47,6 +47,7 @@ import {
   
   const Image = styled.img`
     height: 75%;
+    max-width: 100%;
     z-index: 2;
   `;
   
@@ -70,7 +71,7 @@ import {
     return (
       <Container>
         <Circle />
-        <Image src={item.img} />
+        <Image src={item.image} />
         <Info>
           <Icon>
             <ShoppingCartOutlined />
