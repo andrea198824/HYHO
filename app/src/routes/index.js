@@ -24,8 +24,9 @@ router.get("/users", user.get);
 router.post('/create-user', user.post);
 router.put('/modify-user', user.put);
 
-//Admin endpoints:
+//Product endpoints:
 router.post("/product/form", productform.post) //Tested: Ok
+router.post("/product/formarray", productform.postArray) 
 
 
 
