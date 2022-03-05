@@ -25,7 +25,7 @@ export const sliderItems = [
     {
       id: 1,
       img: "https://ggsc.s3.amazonaws.com/images/uploads/Adult_and_kid_hands_with_coins.jpg",
-      title: "Dona Dinero",
+      title: "Donar Dinero",
     },
     {
       id: 2,
@@ -35,7 +35,7 @@ export const sliderItems = [
     {
       id: 3,
       img: "https://www.clevergirlfinance.com/wp-content/uploads/2021/03/Stop-buying-stuff.jpg",
-      title: "Ayuda comprando en el Shop",
+      title: "Ayuda comprando en la Tienda",
     },
   ];
 

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 
@@ -42,16 +43,26 @@ const Button = styled.button`
     font-weight: 600;
 `;
 
+const onClickButton = (e) => {
+    window.scrollTo(0, 0)
+}
+
 const CategoryItem = ({ item }) => {
-  return (
-    <Container>
-      <Image src={item.img} />
-      <Info>
-        <Title>{item.title}</Title>
-        <Button>Colaborar</Button>
-      </Info>
-    </Container>
-  );
+    return (
+        <Container>
+            <Image src={item.img} />
+            <Info>
+                <Title>{item.title}</Title>
+                {
+                    item.id === 3 ?
+                        <Link to='/products'>
+                            <Button onClick={onClickButton}>Colaborar</Button>
+                        </Link>
+                        : <Button>Colaborar</Button>
+                }
+            </Info>
+        </Container>
+    );
 };
 
 export default CategoryItem;
