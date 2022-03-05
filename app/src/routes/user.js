@@ -7,6 +7,7 @@ const getDbUser = async () => {
 }
 
 exports.post = async function(req, res){
+    try {
     const { fullName, email, password, billing_address, shipping_address, phone} = req.body;
     console.log(req.body)
     if (!fullName || typeof fullName !== "string") {
@@ -14,25 +15,35 @@ exports.post = async function(req, res){
         return
         }
     if (!email || typeof email !== "string") {
-        res.send({info: "No email"});
+        res.status(400).send({info: "No email"});
         return
         }
     if (!password || typeof password !== "string") {
-        res.send({info: "No password"});
+        res.status(400).send({info: "No password"});
         return
         }
     if (!billing_address || typeof billing_address !== "string") {
-        res.send({info: "No billing address"});
+        res.status(400).send({info: "No billing address"});
         return
         }
     if (!shipping_address || typeof shipping_address !== "string") {
-        res.send({info: "No shipping address"});
+        res.status(400).send({info: "No shipping address"});
         return
         }
     if (!phone || typeof phone !== "number") {
-        res.send({info: "No phone"});
+        res.status(400).send({info: "No phone"});
         return
         }
+
+    let emailUser = await User.findAll({
+            where: { email: email }
+        })
+    
+        // console.log("emailUser :",emailUser)
+    if (emailUser.length) {
+        res.status(400).send({info: "Mail is already taken"});
+        return
+    }
     
     let userCreated = await User.create({
       fullName,
@@ -44,6 +55,9 @@ exports.post = async function(req, res){
     })
 
     res.send(userCreated)
+} catch (error) {
+    next(error);
+}
 
 }
 
@@ -51,7 +65,7 @@ exports.get = async function (req, res, next){
     try {
         const {id} = req.query;
         let bdTotal = await getDbUser(); 
-        console.log(bdTotal)
+        // console.log(bdTotal)
         if (id) {
 
             let prodName = await bdTotal.filter((user) =>

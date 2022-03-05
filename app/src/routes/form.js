@@ -13,8 +13,8 @@ const getDbForm = async () => {
 }
 
 exports.post = async function(req, res){  // lalala.post
-     
-    const {user, product} = req.body;
+    try {
+        const {user, product} = req.body;
     if (!user) {
         res.send({info: "No user"});
         return
@@ -77,9 +77,10 @@ exports.post = async function(req, res){  // lalala.post
     })
     
     
-    await User.findOrCreate({
+    await User.findAll({
                 where: { id: id }
-            }).then(el => {     
+            }).then(el => {
+            console.log('el:', el[0])
             formCreated.setUser(el[0])
     }).then(() => {
       res.status(200).send(
@@ -90,6 +91,11 @@ exports.post = async function(req, res){  // lalala.post
         err
       );
     })
+    } catch (error) {
+        res.send(error)
+    }
+     
+    
 }
 
 exports.get = async function (req, res, next){
