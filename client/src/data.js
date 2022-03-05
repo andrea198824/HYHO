@@ -201,7 +201,7 @@ export const sliderItems = [
         price: 275,
         weight: 30,
         description: "Con la cama elástica Gadnic Pro T8FT vas a poder disfrutar de horas interminables de diversión. Saltos y piruetas más los beneficios físicos que genera esta actividad, permitirán que disfrutés de momentos recreativos inolvidables.",
-        image:"https://http2.mlstatic.com/D_NQ_NP_838781-MLA49256060024_032022-O.webp",
+        image:"https://http2.mlstatic.com/D_NQ_NP_623458-MLA48601215547_122021-O.webp",
         stock: 0,
         available: false,
     },
