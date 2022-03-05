@@ -1,11 +1,8 @@
-const { Router } = require('express');
+'use strict'
 const { Admin, Category, Form, order, Products, User } = require('../db');
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
 
-const router = Router();
 
-const getDbInfo = async () => {
+export const getDbInfo = async () => {
     return await Products.findAll({
         include: {
             model: Category,
@@ -17,7 +14,7 @@ const getDbInfo = async () => {
     })
 }
 
-router.get("/products", async (req, res, next) => {
+exports.get = async function (req, res, next) {
     try {
         const {fullName} = req.query;
         let bdTotal = await getDbInfo(); 
@@ -37,16 +34,5 @@ router.get("/products", async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-});
+};
 
-router.get('/products/:id', async (req, res) => {
-    const { id } = req.params
-    const findProduct = await getDbInfo()()
-    if (id) {
-        let productId = await findProduct.filter(x => x.id == id)
-        productId.length ?
-            res.status(200).send(productId) :
-            res.status(404).send('The product is not found in the system');
-
-    }
-})
