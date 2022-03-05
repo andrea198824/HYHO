@@ -76,6 +76,7 @@ const Navbar = () => {
     const onChangeSearch = (e) => {
         setSearch(e.target.value)
     }
+    
     useEffect(() => {
         dispatch(getProducts())
     }, [])
