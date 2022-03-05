@@ -69,9 +69,9 @@ const linkStyle = {
 
 
 const Navbar = () => {
-    const [input, setInput] = useState("")
+    const [search, setSearch] = useState("")
     const onChangeSearch = (e) => {
-        setInput(e.target.value)
+        setSearch(e.target.value)
     }
 
     return (
@@ -79,7 +79,7 @@ const Navbar = () => {
             <Wrapper>
                 <Left>
                     <SearchContainer>
-                        <Input onChange={onChangeSearch} value={input} placeholder="Buscar..." />
+                        <Input onChange={onChangeSearch} value={search} placeholder="Buscar..." />
                         <Search style={{ color: "gray", fontSize: 20 }} />
                     </SearchContainer>
                 </Left>
