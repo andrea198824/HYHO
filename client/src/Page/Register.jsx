@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link } from 'react-router-dom'
 
-
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -51,18 +50,21 @@ const Button = styled.button`
   background-color: teal;
   color: white;
   cursor: pointer;
-  
+
+ &:disabled {
+    background-color: gray;
+    color: black;
+    opacity: 0.7;
+    cursor: default;
+  }
+
 `;
 
 const Paragraph = styled.p`
-  
-  
   color: red;
-  
   font-size: 15px;
   font-weight: 3;
 `;
-
 
 const linkStyle = {
     textDecoration: "none",
@@ -70,12 +72,9 @@ const linkStyle = {
     width: '40%',
 }
 
-
-
-
 export function validate(input) {
     let errors = {};
-
+    
     if (!input.name) {
         errors.name = 'Nombre Es Requerido';
     } else if (!/^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/.test(input.name)) {
@@ -113,13 +112,12 @@ export function validate(input) {
     }
 
     if (Object.keys(errors).length === 0) {
-        errors.active = false
+        errors.disabled = true
     }
-    else errors.active = true
+    else errors.disabled = false
 
     return errors;
 };
-
 
 const Register = () => {
 
@@ -148,11 +146,12 @@ const Register = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
     }
-
+      
     return (
         <Container>
             <Wrapper>
                 <Title>CREAR UNA CUENTA</Title>
+               
                 <Form onSubmit={(e) => handleSubmit(e)}>
                     <div>
                         <Input
@@ -223,12 +222,15 @@ const Register = () => {
                     </div>
 
                     <Link to='/' style={linkStyle}>
-                        <Button disabled={errors.active}>Crear</Button>
+                        <Button
+                            type='submit'
+                            
+                            disabled={!errors.disabled}>Crear</Button>
                     </Link>
+                   
                 </Form>
             </Wrapper>
         </Container>
     );
 };
 export default Register;
-
