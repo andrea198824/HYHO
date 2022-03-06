@@ -1,14 +1,19 @@
-import { GET_DETAILS, GET_PRODUCTS, SEARCH_PRODUCTS, ORDER_BY_PRICE } from "../actions";
+import { CallToActionSharp } from "@material-ui/icons";
+import { products, productCategory } from "../../data";
+import { GET_DETAILS, GET_PRODUCTS, SEARCH_PRODUCTS, ORDER_BY_PRICE,FILTER_BY_CATEGORY,GET_CATEGORIES } from "../actions";
 
 const initialState = {
     products: [],
     searchProducts: [],
     details: [],
+    categories: [],
+
 
 }
 
 export default function rootReducer(state = initialState, action) {
     switch (action.type) {
+        
         case GET_PRODUCTS:
             return { ...state, products: action.payload }
         case SEARCH_PRODUCTS:
@@ -23,7 +28,13 @@ export default function rootReducer(state = initialState, action) {
             if(action.payload === 'asc'){
                 return {...state, products: [...state.products].sort((prev,next) => next.price - prev.price)}
                 } 
-        default:
+            case GET_CATEGORIES:
+                return {...state, categories: action.payload}
+            case FILTER_BY_CATEGORY :
+                    
+                return {...state, products: state.products.filter(product => product.category === action.payload)}
+                      
+         default:
             return state;
     }
 }
