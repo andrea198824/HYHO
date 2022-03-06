@@ -3,7 +3,6 @@ import { useState } from "react";
 import styled from "styled-components";
 import { sliderItems } from "../data";
 import { mobile } from "../responsive";
-import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100%;
@@ -80,7 +79,8 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const Slider = () => {
+const SliderImgInfo = (imgA) => {
+
   const [slideIndex, setSlideIndex] = useState(0);
   const handleClick = (direction) => {
     if (direction === "left") {
@@ -96,18 +96,11 @@ const Slider = () => {
         <ArrowLeftOutlined />
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
-        {sliderItems.map((item) => (
-          <Slide bg={item.bg} key={item.id}>
+        {imgA.map((item) => (
+          <Slide >
             <ImgContainer>
-              <Image src={item.img[0]} />
+              <Image src={item} />
             </ImgContainer>
-            <InfoContainer>
-              <Title>{item.title}</Title>
-              <Desc>{item.desc}</Desc>
-              <Link to='/infoSlider'>
-                <Button>Saber +</Button>
-              </Link>
-            </InfoContainer>
           </Slide>
         ))}
       </Wrapper>
@@ -118,4 +111,4 @@ const Slider = () => {
   );
 };
 
-export default Slider;
+export default SliderImgInfo;

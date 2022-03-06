@@ -7,6 +7,7 @@ import ProductList from "./Page/ProductList";
 import Register from './Page/Register';
 import Cart from './Page/Cart';
 import Login from './Page/Login';
+import InfoSlider from './Page/InfoSlider';
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                     <Route exact path='/cart' element={<Cart />} />
                     <Route exact path='/login' element={<Login />} />
                     <Route exact path='/register' element={<Register />} />
+                    <Route exact path='/infoSlider' element={<InfoSlider />} />
                 </Routes>
              </Router>
             </div>
