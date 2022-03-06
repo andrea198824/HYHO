@@ -5,6 +5,8 @@ import Products from "../components/Products";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import { mobile } from "../responsive";
+import { useDispatch } from "react-redux";
+import { orderByPrice } from "../store/actions";
 
 
 const Container = styled.div``;
@@ -38,6 +40,10 @@ const Select = styled.select`
 const Option = styled.option``;
 
 const ProductList = () => {
+const dispatch = useDispatch()
+const handleSelect = (e) =>{
+    dispatch(orderByPrice(e.target.value))
+  }
     return (
         <Container>
             <Navbar />
@@ -67,11 +73,12 @@ const ProductList = () => {
                 </Filter>
                 <Filter>
                     <FilterText>Ordenar:</FilterText>
-                    <Select>
-                        <Option selected>Nuevos</Option>
-                        <Option>Precio (asc)</Option>
-                        <Option>Precio (desc)</Option>
+                    <Select onChange={handleSelect}>
+                        
+                        <Option value="asc">Precio (asc)</Option>
+                        <Option value="desc">Precio (desc)</Option>
                     </Select>
+                    
                 </Filter>
             </FilterContainer>
             <Products />
