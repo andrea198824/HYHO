@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link } from 'react-router-dom'
 
+
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -66,10 +67,21 @@ const Paragraph = styled.p`
   font-weight: 3;
 `;
 
+const Div = styled.div`
+    display:'flex',
+    position: 'absolute',
+    justify-content: 'space-around',
+    
+`
+
 const linkStyle = {
+   
     textDecoration: "none",
     color: 'inherit',
-    width: '40%',
+    width: '50%',
+    padding: '5px'
+    
+    
 }
 
 export function validate(input) {
@@ -149,6 +161,7 @@ const Register = () => {
       
     return (
         <Container>
+            
             <Wrapper>
                 <Title>CREAR UNA CUENTA</Title>
                
@@ -220,16 +233,23 @@ const Register = () => {
                             <Paragraph>{errors.passwordb}</Paragraph>
                         )}
                     </div>
+                    <Div>
+                        <Link to='/' style={linkStyle}>
+                            <Button
+                                type='submit'
 
-                    <Link to='/' style={linkStyle}>
-                        <Button
-                            type='submit'
-                            
-                            disabled={!errors.disabled}>Crear</Button>
-                    </Link>
-                   
+                                disabled={!errors.disabled}>Crear</Button>
+                        </Link>
+                        <Link to='/' style={linkStyle}>
+                            <Button>Volver</Button>
+                        </Link>
+                    </Div>
+                    
                 </Form>
+                
+                
             </Wrapper>
+            
         </Container>
     );
 };

@@ -10,6 +10,8 @@ const Container = styled.div`
 `;
 
 const PopularProducts = () => {
+    console.log(popularProducts)
+    console.log(Product)
     return (
         <Container>
             {popularProducts.map((item) => (
