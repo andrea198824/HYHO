@@ -1,10 +1,13 @@
 import axios from 'axios';
-import { products } from '../../data.js'
+import { products, productCategory } from '../../data.js'
 
 export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const SEARCH_PRODUCTS = 'SEARCH_PRODUCTS'
 export const GET_DETAILS = 'GET_DETAILS';
 export const ORDER_BY_PRICE = "ORDER_BY_PRICE"
+export const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY"
+export const GET_CATEGORIES = "GET_CATEGORIES"
+
 
 export const getProducts = () => {
     return {
@@ -12,6 +15,15 @@ export const getProducts = () => {
         payload: products,
     }
 }
+export const getCategories = () => {
+    return{
+
+        type: GET_CATEGORIES,
+        payload: productCategory
+
+    } 
+}
+
 
 
 export const searchProducts = (input) => {
@@ -31,5 +43,12 @@ export const orderByPrice = (type) =>{
     return{
         type: ORDER_BY_PRICE,
         payload: type,
+    }
+}
+export const filterByCategory = (category)=>{
+    console.log(typeof category)
+    return{
+        type: FILTER_BY_CATEGORY,
+        payload:parseInt(category),
     }
 }

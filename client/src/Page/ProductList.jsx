@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Announcement from "../components/Announcement";
@@ -5,8 +6,9 @@ import Products from "../components/Products";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import { mobile } from "../responsive";
-import { useDispatch } from "react-redux";
-import { orderByPrice } from "../store/actions";
+import { useDispatch,useSelector } from "react-redux";
+import { orderByPrice, filterByCategory, getCategories } from "../store/actions";
+
 
 
 const Container = styled.div``;
@@ -40,10 +42,20 @@ const Select = styled.select`
 const Option = styled.option``;
 
 const ProductList = () => {
+  
 const dispatch = useDispatch()
+ useEffect(()=>{
+   dispatch(getCategories())
+ },[])
 const handleSelect = (e) =>{
     dispatch(orderByPrice(e.target.value))
   }
+  const handleSelectCategory = (e) =>{
+    dispatch(filterByCategory(e.target.value))
+    
+  }
+  const categories = useSelector((state) => state.categories)
+
     return (
         <Container>
             <Navbar />
@@ -52,14 +64,13 @@ const handleSelect = (e) =>{
             <FilterContainer>
                 <Filter>
                     <FilterText>Filtrar Productos:</FilterText>
-                    <Select>
+                    <Select onChange={handleSelectCategory}>
                         <Option disabled selected>
                             Categoria
                         </Option>
-                        <Option>Electrodomesticos</Option>
-                        <Option>Indumentaria</Option>
-                        <Option>Vehiculos</Option>
-                    </Select>
+                        {categories.map(c => <Option value={c.id}>{c.name}</Option>)}
+                        </Select>
+                       
                     <Select>
                         <Option disabled selected>
                             Size

@@ -79,6 +79,7 @@ export const popularProducts = [
     },
 ]
 
+
 export const products = [
     {
         id: 1,
