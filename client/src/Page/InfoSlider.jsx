@@ -2,12 +2,13 @@ import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
 import { useState } from "react";
 import styled from "styled-components";
 import { sliderItems } from "../data";
-import { mobile } from "../responsive";
 import { Link } from 'react-router-dom';
+import { mobile } from "../responsive";
+import SliderImgInfo from "../components/SliderImgInfo";
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   position: relative;
   overflow: hidden;
@@ -50,11 +51,11 @@ const Slide = styled.div`
 
 const ImgContainer = styled.div`
   height: 100%;
-  flex: 1;
+//   flex: 1;
 `;
 
 const Image = styled.img`
-  height: 80%;
+  height: 70%;
 `;
 
 const InfoContainer = styled.div`
@@ -72,6 +73,13 @@ const Desc = styled.p`
   font-weight: 500;
   letter-spacing: 3px;
 `;
+const Info = styled.p`
+  margin: 50px 0px;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 3px;
+`;
+
 
 const Button = styled.button`
   padding: 10px;
@@ -80,7 +88,9 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const Slider = () => {
+
+const InfoSlider = () => {
+
   const [slideIndex, setSlideIndex] = useState(0);
   const handleClick = (direction) => {
     if (direction === "left") {
@@ -91,21 +101,23 @@ const Slider = () => {
   };
 
   return (
+
     <Container>
-      <Arrow direction="left" onClick={() => handleClick("left")}>
+          <Arrow direction="left" onClick={() => handleClick("left")}>
         <ArrowLeftOutlined />
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
         {sliderItems.map((item) => (
           <Slide bg={item.bg} key={item.id}>
             <ImgContainer>
-              <Image src={item.img[0]} />
+              {/* <SliderImgInfo imgA={item.img} /> */}
             </ImgContainer>
             <InfoContainer>
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
-              <Link to='/infoSlider'>
-                <Button>Saber +</Button>
+              <Info>{item.info}</Info>
+              <Link to='/'>
+                <Button>Volver</Button>
               </Link>
             </InfoContainer>
           </Slide>
@@ -114,8 +126,8 @@ const Slider = () => {
       <Arrow direction="right" onClick={() => handleClick("right")}>
         <ArrowRightOutlined />
       </Arrow>
-    </Container>
+     </Container>
   );
 };
 
-export default Slider;
+export default InfoSlider;
