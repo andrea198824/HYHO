@@ -135,7 +135,7 @@ export const products = [
         fullname: "Mountain-Bike Licorne",
         price: 560,
         weight: 30,
-        description: ,
+        description: "",
         image: "https://images.ecestaticos.com/CmQxEVHJ2Mh7t42OljydEg2iRP8=/0x0:638x359/996x560/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2F64f%2F158%2F108%2F64f1581087ce1bc054aede93edb22276.jpg",
         stock: 2,
         available: true,
