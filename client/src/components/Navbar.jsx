@@ -81,7 +81,6 @@ const linkStyle = {
     color: 'inherit',
 }
 
-
 const Slogan = styled.h4`
   margin: 0.2rem;
 `;
@@ -101,7 +100,6 @@ const Navbar = () => {
 
     const handleSearch = (e) => {
         e.preventDefault();
-        dispatch(getProducts())
         dispatch(searchProducts(search))
         setSearch("")
         if (search) navigate('/products')
