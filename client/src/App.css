@@ -1,3 +1,14 @@
+/* {
+  Triadic
+Three colors spaced evenly along the color wheel, each 120 degrees of hue apart.
+Best to allow one color to dominate and use the others as accents.
+      color lila :  #dbd3f7
+     color verde :  #d3f7db
+     color rosa :   #f7dbd3
+     color gris plomo : #4d4442
+} */
+
+
 /* .App {
   text-align: center;
 }

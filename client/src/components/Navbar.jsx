@@ -5,15 +5,18 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux";
-import { getProducts, searchProducts } from '../store/actions'
+import { getProducts, searchProducts } from '../store/actions';
+import LogoHyho from '../logoLargo.gif';
 
 const Container = styled.div`
-  height: 60px;
+  height: 70px;
+  
   ${mobile({ height: "50px" })}
 `;
 
 const Wrapper = styled.div`
-  padding: 10px 20px;
+  background-color: #f7dbd3;
+  padding: 2px 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -63,6 +66,13 @@ const MenuItem = styled.div`
   text-decoration: none;
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
+const ImgLogo = styled.img`
+  width= auto;
+  height= 20px;
+  padding: 5px ;
+  alt= "logo no disponible"
+${mobile({ fontSize: "24px" })}
+`;
 
 const linkStyle = {
     textDecoration: "none",
@@ -91,7 +101,7 @@ const Navbar = () => {
 
     return (
         <Container>
-            <Wrapper>
+            <Wrapper> 
                 <Left>
                     <SearchContainer onSubmit={handleSearch}>
                         <Input onChange={onChangeSearch} value={search} placeholder="Buscar..." />
@@ -100,7 +110,7 @@ const Navbar = () => {
                 </Left>
                 <Center>
                     <Link to='/' style={linkStyle}>
-                        <Logo>HYHO</Logo>
+                        <ImgLogo src={LogoHyho}></ImgLogo>
                     </Link>
                 </Center>
                 <Right>
