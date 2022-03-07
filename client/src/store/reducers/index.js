@@ -29,6 +29,9 @@ export default function rootReducer(state = initialState, action) {
         case GET_CATEGORIES:
             return { ...state, categories: action.payload }
         case FILTER_BY_CATEGORY:
+            if(action.payload === "default"){
+                return {...state, filteredProducts: state.products}
+            }
             return { ...state, filteredProducts: state.products.filter(product => product.category === action.payload) }
         default:
             return state;
