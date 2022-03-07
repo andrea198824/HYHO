@@ -23,11 +23,11 @@ export default function rootReducer(state = initialState, action) {
             return { ...state, details: state.products.filter(item => item.id === parseInt(action.payload))}
         case ORDER_BY_PRICE : 
             if(action.payload === 'desc'){
-                 return {...state, products: [...state.products].sort((prev,next) => prev.price - next.price)}
+                 return {...state, filteredProducts:[...state.filteredProducts].sort((prev,next) => prev.price - next.price),products: [...state.products].sort((prev,next) => prev.price - next.price)}
                }
                   
             if(action.payload === 'asc'){
-                return {...state, products: [...state.products].sort((prev,next) => next.price - prev.price)}
+                return {...state,filteredProducts:[...state.filteredProducts].sort((prev,next) => next.price - prev.price),products: [...state.products].sort((prev,next) => next.price - prev.price)}
                 } 
             case GET_CATEGORIES:
                 return {...state, categories: action.payload}
