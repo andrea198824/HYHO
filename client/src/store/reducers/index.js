@@ -7,6 +7,7 @@ const initialState = {
     searchProducts: [],
     details: [],
     categories: [],
+    filteredProducts:[],
 
 
 }
@@ -32,7 +33,7 @@ export default function rootReducer(state = initialState, action) {
                 return {...state, categories: action.payload}
             case FILTER_BY_CATEGORY :
                     
-                return {...state, products: state.products.filter(product => product.category === action.payload)}
+                return {...state, filteredProducts: state.products.filter(product => product.category === action.payload)}
                       
          default:
             return state;
