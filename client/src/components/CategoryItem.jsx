@@ -27,20 +27,23 @@ const Info = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
 `;
 
 const Title = styled.h1`
-    color:white;
+    color:#f7dbd3;
     margin-bottom: 20px;
+    
 `;
 
 const Button = styled.button`
     border:none;
-    padding: 10px;
+    padding: 6px;
     background-color: white;
     color:gray;
     cursor: pointer;
     font-weight: 600;
+    border: 0.5px solid lightgray
 `;
 
 const onClickButton = (e) => {

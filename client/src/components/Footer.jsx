@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 
 const Container = styled.div`
     display: flex;
+    background-color: #d3f7db;
     ${mobile({ flexDirection: "column" })}
   `;
 
