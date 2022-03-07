@@ -12,15 +12,11 @@ const Container = styled.div`
 
 const Products = () => {
     const products = useSelector(state => state.products)
-    const searchedProducts = useSelector(state => state.searchProducts)
     const filteredProducts = useSelector(state => state.filteredProducts)
     return (
         <Container>
 
-            {filteredProducts.length ? filteredProducts.map((item)=>(<Product item={item} key={item.id} />)) :
-             searchedProducts.length ? searchedProducts.map((item) => (
-                <Product item={item} key={item.id} />
-            ))
+            {filteredProducts.length ? filteredProducts.map((item)=>(<Product item={item} key={item.id} />)) 
                 :
                 products.map((item) => (
                     <Product item={item} key={item.id} />

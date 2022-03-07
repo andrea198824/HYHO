@@ -2,11 +2,9 @@ import { GET_DETAILS, GET_PRODUCTS, SEARCH_PRODUCTS, ORDER_BY_PRICE, FILTER_BY_C
 
 const initialState = {
     products: [],
-    searchProducts: [],
     details: [],
     categories: [],
     filteredProducts: [],
-
 
 }
 
@@ -16,7 +14,7 @@ export default function rootReducer(state = initialState, action) {
         case GET_PRODUCTS:
             return { ...state, products: action.payload }
         case SEARCH_PRODUCTS:
-            return { ...state, searchProducts: state.products.filter(item => item.fullname.toLowerCase().includes(action.payload.toLowerCase())) }
+            return { ...state, filteredProducts: state.products.filter(item => item.fullname.toLowerCase().includes(action.payload.toLowerCase())) }
         case GET_DETAILS:
             return { ...state, details: state.products.filter(item => item.id === parseInt(action.payload)) }
         case ORDER_BY_PRICE:
