@@ -16,39 +16,32 @@ export const getProducts = () => {
     }
 }
 export const getCategories = () => {
-    return{
-
+    return {
         type: GET_CATEGORIES,
         payload: productCategory
-
-    } 
+    }
 }
-
-
-
 export const searchProducts = (input) => {
     return {
         type: SEARCH_PRODUCTS,
         payload: input,
     }
 }
-
 export const getDetails = (id) => {
     return {
         type: GET_DETAILS,
         payload: id,
     }
 }
-export const orderByPrice = (type) =>{
-    return{
+export const orderByPrice = (type) => {
+    return {
         type: ORDER_BY_PRICE,
         payload: type,
     }
 }
-export const filterByCategory = (category)=>{
-    console.log(typeof category)
-    return{
+export const filterByCategory = (category) => {
+    return {
         type: FILTER_BY_CATEGORY,
-        payload:parseInt(category),
+        payload: parseInt(category),
     }
 }
