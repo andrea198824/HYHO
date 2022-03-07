@@ -7,6 +7,8 @@ import ProductList from "./Page/ProductList";
 import Register from './Page/Register';
 import Cart from './Page/Cart';
 import Login from './Page/Login';
+import RecoverPass from './Page/RecoverPass';
+
 
 function App() {
     return (
@@ -19,6 +21,7 @@ function App() {
                     <Route exact path='/cart' element={<Cart />} />
                     <Route exact path='/login' element={<Login />} />
                     <Route exact path='/register' element={<Register />} />
+                    <Route exact path='/recoverpass' element={<RecoverPass />} />
                 </Routes>
              </Router>
             </div>

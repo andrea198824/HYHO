@@ -64,7 +64,7 @@ const Button = styled.button`
 const Paragraph = styled.p`
   color: red;
   font-size: 15px;
-  font-weight: 3;
+  font-weight: 900;
 `;
 
 const Div = styled.div`
@@ -90,7 +90,7 @@ export function validate(input) {
     if (!input.name) {
         errors.name = 'Nombre Es Requerido';
     } else if (!/^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/.test(input.name)) {
-        errors.name = 'Nombre es Invalido';
+        errors.name = 'Empieza Con Mayuscula';
     }
 
     if (!input.lastName) {
@@ -114,7 +114,7 @@ export function validate(input) {
     if (!input.passworda) {
         errors.passworda = 'Contraseña Requerida';
     } else if (!/^(?=.{10,}$)(?=(?:.*?[A-Z]){2})(?=.*?[a-z])(?=(?:.*?[0-9]){2}).*$/.test(input.passworda)) {
-        errors.passworda = '2 may, 1 min, 2 díg long 10';
+        errors.passworda = '2 MAY 1 min 2 díg long 10';
     }
 
     if (!input.passwordb) {

@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\client",
+    "\\client\\src",
+    "\\client\\src\\components",
+    "\\client\\src\\Page"
   ],
-  "SelectedNode": "\\C:\\Users\\josea\\Source\\Repos\\HYHO",
+  "SelectedNode": "\\client\\src\\Page\\Login.jsx",
   "PreviewInSolutionExplorer": false
 }

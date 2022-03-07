@@ -3,8 +3,6 @@ import { useState } from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 
-
-
 const Container = styled.div`
   height: 60vh;
   background-color: #fcf5f5;
@@ -52,7 +50,7 @@ const Button = styled.button`
 const Paragraph = styled.p`
    color: red;
    font-size: 15px;
-  font-weight: 3;
+   font-weight: 900;
 `;
 
 export function validate(input) {
@@ -103,14 +101,11 @@ const Newsletter = () => {
                   name='email'
                   placeholder="Tu email..."
               />
-              
-    
+                  
               <Button disabled={errors.active}>
                   <Send />
               </Button>
 
-              
-        
           </InputContainer>
           {errors.mail && (
               <Paragraph>{errors.mail}</Paragraph>
@@ -120,5 +115,3 @@ const Newsletter = () => {
 };
 
 export default Newsletter;
-
-  

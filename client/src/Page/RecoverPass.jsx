@@ -85,16 +85,14 @@ export function validate(input) {
     } else if (!/\S+@\S+\.\S+/.test(input.mail)) {
         errors.mail = 'Correo Invalido';
     }
-
     return errors;
 };
 
-const Login = () => {
+const RecoverPass = () => {
 
     const [errors, setErrors] = useState({});
     const [input, setInput] = useState({
         mail: '',
-        password: '',
     });
 
     const handleInputChange = function (e) {
@@ -107,19 +105,17 @@ const Login = () => {
         setErrors(validate({
             ...input,
             [e.target.name]: e.target.value
-            
         }));
     }
 
     const hundleSubmit = (e) => {
         e.preventDefault()
-       
     }
 
     return (
         <Container>
             <Wrapper>
-                <Title>INICIO DE SESION</Title>
+                <Title>Recuperar Contraseña</Title>
                 <Form onSubmit={(e) => hundleSubmit(e)}
                 >
                     <div>
@@ -127,40 +123,28 @@ const Login = () => {
                             onChange={(e) => handleInputChange(e)}
                             type='email'
                             name='mail'
-                            placeholder='Correo ElectÃ³nico'
+                            placeholder='Correo Electónico'
                         />
-                    {errors.mail && (
-                        <Paragraph>{errors.mail}</Paragraph>
+                        {errors.mail && (
+                            <Paragraph>{errors.mail}</Paragraph>
                         )}
                     </div>
-                    <Input
-                        onChange={(e) => handleInputChange(e)}
-                        type='password'
-                        name='password'
-                        placeholder="ContraseÃ±a"
-                    />
-                    
                     <div>
                         <Link to={'/'} style={linkStyle}>
                             <Button
                                 type='submit'
-                                disabled={!input.mail || !input.password}
+                                disabled={errors.mail}
                             >
-                                Ingresar
+                                Recuperar
                             </Button>
                         </Link>
-          
                     </div>
-                    <Link to='/recoverpass' style={linkStyle}>
-                        <Anchor>Recuperar ContraseÃ±a</Anchor>
-                    </Link>
-                    <Link to='/register' style={linkStyle}>
-                        <Anchor>Registrarse</Anchor>
+                    <Link to='/' style={linkStyle}>
+                        <Anchor>Inicio</Anchor>
                     </Link>
                 </Form>
             </Wrapper>
         </Container>
     );
 };
-
-export default Login;
+export default RecoverPass;
