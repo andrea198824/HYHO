@@ -70,8 +70,8 @@ const MenuItem = styled.div`
 `;
 const ImgLogo = styled.img`
   width: auto;
-  height: 50px;
-  padding: 5px ;
+  height: 40px;
+  padding: 4px ;
   alt= "logo no disponible"
 ${mobile({ fontSize: "24px" })}
 `;
@@ -113,6 +113,7 @@ const Navbar = () => {
                 <Center>
                     <Link to='/' style={linkStyle}>
                         <ImgLogo src={LogoHyho}></ImgLogo>
+                        <h4>"Help Yourself By Helping Others"</h4>
                     </Link>
                 </Center>
                 <Right>
