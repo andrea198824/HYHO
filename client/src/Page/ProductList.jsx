@@ -6,7 +6,7 @@ import Products from "../components/Products";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import { mobile } from "../responsive";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { orderByPrice, filterByCategory, getCategories } from "../store/actions";
 
 
@@ -42,19 +42,19 @@ const Select = styled.select`
 const Option = styled.option``;
 
 const ProductList = () => {
-  
-const dispatch = useDispatch()
- useEffect(()=>{
-   dispatch(getCategories())
- },[])
-const handleSelect = (e) =>{
-    dispatch(orderByPrice(e.target.value))
-  }
-  const handleSelectCategory = (e) =>{
-    dispatch(filterByCategory(e.target.value))
-    
-  }
-  const categories = useSelector((state) => state.categories)
+
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getCategories())
+    }, [])
+    const handleSelect = (e) => {
+        dispatch(orderByPrice(e.target.value))
+    }
+    const handleSelectCategory = (e) => {
+        dispatch(filterByCategory(e.target.value))
+
+    }
+    const categories = useSelector((state) => state.categories)
 
     return (
         <Container>
@@ -69,27 +69,15 @@ const handleSelect = (e) =>{
                             Categoria
                         </Option>
                         {categories.map(c => <Option value={c.id}>{c.name}</Option>)}
-                        </Select>
-                       
-                    <Select>
-                        <Option disabled selected>
-                            Size
-                        </Option>
-                        <Option>XS</Option>
-                        <Option>S</Option>
-                        <Option>M</Option>
-                        <Option>L</Option>
-                        <Option>XL</Option>
                     </Select>
                 </Filter>
                 <Filter>
                     <FilterText>Ordenar:</FilterText>
                     <Select onChange={handleSelect}>
-                        
                         <Option value="asc">Precio (asc)</Option>
                         <Option value="desc">Precio (desc)</Option>
                     </Select>
-                    
+
                 </Filter>
             </FilterContainer>
             <Products />
