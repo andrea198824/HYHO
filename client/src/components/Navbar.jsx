@@ -9,13 +9,13 @@ import { getProducts, searchProducts } from '../store/actions';
 import LogoHyho from '../logoLargo.gif';
 
 const Container = styled.div`
-  height: 70px; 
+  height: 80px; 
   ${mobile({ height: "50px" })}
 `;
 
 const Wrapper = styled.div`
   background-color: #f7dbd3;
-  padding: 2px 5px;
+  padding: 6px 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -81,6 +81,11 @@ const linkStyle = {
     color: 'inherit',
 }
 
+
+const Slogan = styled.h4`
+  margin: 0.1rem;
+`;
+
 const Navbar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -99,12 +104,12 @@ const Navbar = () => {
         dispatch(getProducts())
         dispatch(searchProducts(search))
         setSearch("")
-        if(search) navigate('/products')
+        if (search) navigate('/products')
     }
 
     return (
         <Container>
-            <Wrapper> 
+            <Wrapper>
                 <Left>
                     <SearchContainer onSubmit={handleSearch}>
                         <Input onChange={onChangeSearch} value={search} placeholder="Buscar..." />
@@ -114,7 +119,7 @@ const Navbar = () => {
                 <Center>
                     <Link to='/' style={linkStyle}>
                         <ImgLogo src={LogoHyho}></ImgLogo>
-                        <h4>"Help Yourself By Helping Others"</h4>
+                        <Slogan> "Help Yourself By Helping Others" </Slogan>
                     </Link>
                 </Center>
                 <Right>
