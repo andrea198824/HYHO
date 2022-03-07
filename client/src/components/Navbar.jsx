@@ -15,7 +15,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   background-color: #f7dbd3;
-  padding: 6px 10px;
+  padding: 3px 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -83,7 +83,7 @@ const linkStyle = {
 
 
 const Slogan = styled.h4`
-  margin: 0.1rem;
+  margin: 0.2rem;
 `;
 
 const Navbar = () => {
