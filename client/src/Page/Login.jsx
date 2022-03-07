@@ -6,8 +6,8 @@ const Container = styled.div`
   width: 100vw;
   height: 100vh;
   background: linear-gradient(
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.5)
+    #d3f7db,
+    #f7dbd3
     ),
     url("https://lavozdemotul.com/wp-content/uploads/2016/08/registration-page-background-504-1.png")
       center;
@@ -45,8 +45,8 @@ const Button = styled.button`
   width: 40%;
   border: none;
   padding: 15px 20px;
-  background-color: teal;
-  color: white;
+  background-color: #dbd3f7;
+  color: #4d4442;
   cursor: pointer;
   margin-bottom: 10px;
 `;

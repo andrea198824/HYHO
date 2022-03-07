@@ -9,8 +9,7 @@ import { getProducts, searchProducts } from '../store/actions';
 import LogoHyho from '../logoLargo.gif';
 
 const Container = styled.div`
-  height: 70px;
-  
+  height: 70px; 
   ${mobile({ height: "50px" })}
 `;
 
@@ -35,10 +34,16 @@ const SearchContainer = styled.form`
   align-items: center;
   margin-left: 25px;
   padding: 5px;
+  width: 60%;
 `;
 
 const Input = styled.input`
   border: none;
+  width: 100%;
+  height: 20px;
+
+  margin-left: 5px;
+
   ${mobile({ width: "50px" })}
 `;
 
@@ -47,10 +52,6 @@ const Center = styled.div`
   text-align: center;
 `;
 
-const Logo = styled.h1`
-  font-weight: bold;
-  ${mobile({ fontSize: "24px" })}
-`;
 const Right = styled.div`
   flex: 1;
   display: flex;
@@ -63,12 +64,13 @@ const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
   margin-left: 25px;
+  margin-right: 10px;
   text-decoration: none;
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 const ImgLogo = styled.img`
-  width= auto;
-  height= 20px;
+  width: auto;
+  height: 50px;
   padding: 5px ;
   alt= "logo no disponible"
 ${mobile({ fontSize: "24px" })}
