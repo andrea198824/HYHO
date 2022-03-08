@@ -94,7 +94,7 @@ const Newsletter = () => {
     }
         const handleClick = e => {
           e.preventDefault()
-          axios.post('http://localhost:3001/', input)
+          axios.post('http://localhost:3001/newsletter', input)
           .then((res) =>{
           alert(`${input.email} Creado Correctamente`)
           window.scrollTo(0,0)}
