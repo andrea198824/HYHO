@@ -28,7 +28,7 @@ exports.post = async function(req, res){
       password,
     })
 
-    res.send(adminCreated)
+    res.status(201).send(adminCreated)
 
 }
 

@@ -18,12 +18,12 @@ router.put('/modify-user', user.put)
 router.get('/users', user.get)
 
 //Form endpoints:
-router.get('/donate-products', form.get) 
-router.post('/donate-form', form.post) 
-
-//Form endpoints:
 router.get('/admins', admin.get) 
 router.post('/create-admin', admin.post) 
+
+//Form endpoints:
+router.get('/donate-products', form.get) 
+router.post('/donate-form', form.post) 
 
 //Product endpoints:
 router.post('/product/form', productform.post) 
