@@ -27,7 +27,7 @@ router.post('/donate-form', form.post)
 
 //Product endpoints:
 router.post('/product/form', productform.post) 
-router.post('/product/formarray', productform.postArray)
+router.post('/create-product', product.post)
 router.get('/products', product.get)
 
 //Category endpoints:
