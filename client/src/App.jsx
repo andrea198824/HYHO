@@ -8,6 +8,9 @@ import Register from './Page/Register';
 import Cart from './Page/Cart';
 import Login from './Page/Login';
 import InfoSlider from './Page/InfoSlider';
+import RecoverPassword from './Page/RecoverPassword';
+
+
 
 function App() {
     return (
@@ -21,6 +24,7 @@ function App() {
                     <Route exact path='/login' element={<Login />} />
                     <Route exact path='/register' element={<Register />} />
                     <Route exact path='/infoSlider' element={<InfoSlider />} />
+                    <Route exact path='/recoverpassword' element={<RecoverPassword />} />
                 </Routes>
              </Router>
             </div>

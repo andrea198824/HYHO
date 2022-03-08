@@ -3,12 +3,7 @@ const { Admin, Category, Form, Order, Products, User } = require('../db');
 
 //trae la info de db form
 const getDbForm = async () => {
-    return await Form.findAll({
-        include: {
-            model: User,
-            attributes: ['id'],
-        },
-    })
+    return await Form.findAll()
     
 }
 
@@ -83,7 +78,7 @@ exports.post = async function(req, res){  // lalala.post
             // console.log('el:', el[0])
             formCreated.setUser(el[0])
     }).then(() => {
-      res.status(200).send(
+      res.status(201).send(
         formCreated
       );
     }).catch((err) => {
@@ -92,7 +87,7 @@ exports.post = async function(req, res){  // lalala.post
       );
     })
     } catch (error) {
-        res.send(error)
+        res.status(404).send(error)
     }
      
     
@@ -102,18 +97,22 @@ exports.get = async function (req, res, next){
     try {
         const {id} = req.query;
         let bdTotal = await getDbForm(); 
+        console.log("id :",id)
+        console.log("bdTotal    :",bdTotal)
         if (id) {
+            let prodName = await bdTotal.filter((form) =>
+            {
+                return form.dataValues.id == id
+            }
 
-            let prodName = await bdTotal.filter((product) =>
-            product.id.toLowerCase().includes(id.toLowerCase())
             );
             prodName.length //si hay algún nombre
                 ? res.status(200).send(prodName)
                 : res
                     .status(404)
-                    .send({ info: "Sorry, the product you are looking for is not here." });
+                    .send({ info: "Sorry, the form you are looking for is not here." });
         } else {
-            res.status(200).send(bdTotal); 
+            res.status(200).send(bdTotal);
         }
     } catch (error) {
         next(error);

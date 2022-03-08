@@ -52,7 +52,7 @@ const Button = styled.button`
 const Paragraph = styled.p`
    color: red;
    font-size: 15px;
-  font-weight: 3;
+   font-weight: 3;
 `;
 
 export function validate(input) {
@@ -104,7 +104,6 @@ const Newsletter = () => {
                   placeholder="Tu email..."
               />
               
-    
               <Button disabled={errors.active}>
                   <Send />
               </Button>

@@ -13,14 +13,27 @@ const getDbInfo = async () => {
   })
 }
 
+const getDbInfoById = async (id) => {
+  return await Products.findAll({
+    where: {
+      id: id
+    },
+    include: {
+      model: Category,
+      attributes: ['name'],
+      through: {
+        attributes: []
+      }
+    }
+  })
+}
+
 exports.get = async function (req, res, next) {
   try {
-    const { fullName } = req.query
+    const { id } = req.query
     let bdTotal = await getDbInfo()
-    if (fullName) {
-      let prodName = await bdTotal.filter(product =>
-        product.fullName.toLowerCase().includes(fullName.toLowerCase())
-      )
+    if (id) {
+      let prodName = await getDbInfoById(id)
       prodName.length //si hay algún nombre
         ? res.status(200).send(prodName)
         : res
