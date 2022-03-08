@@ -73,7 +73,9 @@ const Login = () => {
                     <Link to='/' style={linkStyle}>
                         <Button >Iniciar Sesion</Button>
                     </Link>
-                    <Anchor>No recuerdas la contraseña?</Anchor>
+                    <Link to='/recoverpassword' style={linkStyle}>
+                        <Anchor>No recuerdas la contraseña?</Anchor>
+                    </Link>
                     <Link to='/register' style={linkStyle}>
                         <Anchor to='/register'>Registrarse</Anchor>
                     </Link>
