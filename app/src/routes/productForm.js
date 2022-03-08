@@ -112,3 +112,34 @@ exports.postArray = async function(req, res, next) {
           
     
     }
+
+
+    exports.put = async function (req, res, next) {
+      const {id} = req.params
+      const  product  = req.body;
+      try {
+        let prod = await Products.update(product, {
+          where: {
+            id: id,
+          },
+          include: Category,
+        });
+            return res.json({modificate: true});
+      } catch (error) {
+        next(error);
+      } 
+     }
+
+     exports.delete = async function (req, res, next) {
+       const id = req.params.id;
+       try {
+         let prod = await Products.destroy({
+           where: {
+             id: id,
+           },
+         });
+         return res.json({delete: true});
+       } catch (error) {
+         next(error)
+       }
+     }
