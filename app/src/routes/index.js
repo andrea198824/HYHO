@@ -30,6 +30,7 @@ router.post('/product/form', productform.post) //Tested: Ok
 router.post('/product/formarray', productform.postArray)
 router.get('/products', product.get)
 router.put('/product/modify/:id', productform.put)
+router.delete('/product/delete/:id', productform.delete)
 
 //Category endpoints:
 router.get('/category', category.get)

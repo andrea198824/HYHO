@@ -129,3 +129,17 @@ exports.postArray = async function(req, res, next) {
         next(error);
       } 
      }
+
+     exports.delete = async function (req, res, next) {
+       const id = req.params.id;
+       try {
+         let prod = await Products.destroy({
+           where: {
+             id: id,
+           },
+         });
+         return res.json({delete: true});
+       } catch (error) {
+         next(error)
+       }
+     }
