@@ -102,7 +102,6 @@ exports.get = async function (req, res, next){
         if (id) {
             let prodName = await bdTotal.filter((form) =>
             {
-                console.log(form.dataValues)
                 return form.dataValues.id == id
             }
 
