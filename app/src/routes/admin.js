@@ -8,7 +8,6 @@ const getDbAdmin = async () => {
 
 exports.post = async function(req, res){
     const { fullName, email, password } = req.body;
-    console.log(req.body)
     if (!fullName) {
         res.send({info: "No fullName"});
         return
