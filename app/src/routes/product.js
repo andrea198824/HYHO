@@ -49,119 +49,97 @@ exports.get = async function (req, res, next) {
   }
 }
 
+
 exports.post = async function(req, res, next) {
+  console.log("post")
 
-  try {
-    const {
-      form,
-      product
-    } = req.body
-    console.log("OK")
+  const {
+    formId,
+    fullName, 
+    price,  
+    weight,  
+    descriptions, 
+    image,
+    stock,
+    category,
+      } = req.body;
 
-    if (!form) {
-      res.send({info: "No form"});
-      return
-      }
-    if (!product) {
-        res.send({info: "No product"});
-        return
-        }
 
-    const {
-      formId
-        } = form;
-
-    if (!formId) {
-      res.send({info: "No formId"});
-      return
-      }
-
-      const {
-        title, 
-        price,  
-        weight,  
-        descriptions, 
-        image,
-        stock,
-        category,
-          } = product;
-
-          if (!title) {
-            res.send({info: "No title"});
-            return
-            }
-          if (!price) {
-            res.send({info: "No price"});
-            return
-            }
-          if (!weight) {
-            res.send({info: "No weight"});
-            return
-            }
-          if (!descriptions) {
-            res.send({info: "No descriptions"});
-            return
-            }
-          if (!image) {
-            res.send({info: "No image"});
-            return
-            }
-          if (!stock) {
-            res.send({info: "No stock"});
-            return
-            }
-          if (!category) {
-            res.send({info: "No category"});
-            return
-            }  
-  
-    let productCreated
-    if(
-      title  &&
-      price  &&
-      weight  &&
-      descriptions  &&
-      image  &&
-      stock  &&
-      category.length
-      ) {
-      productCreated = await Products.create({
-        title,
-        price,
-        weight,
-        descriptions,
-        image,
-        stock,
-      });
-      } else {res.status(400).send({message:"Not enougth info"})}
-      if (category && category.length) {
-            await Promise.all(
-              category.map(async (el) => {
-                    return await Category.findOrCreate({
-                        where: { name: el }
-                    })
-                })
-            ).then(el => {
-                el.map(toAdd => {      
-                  productCreated.addCategory(toAdd[0])
-                })
-            })
-      }
-      if (formId) {
-              await Form.findOrCreate({
-                where: { id: formId }
-            }).then(el => {
-              productCreated.setForm(el[0])
-            })
-      }
-      if (productCreated !== {}) {
-        res.status(201).send(productCreated);
-      } else {
-        res.status(404).send({info: "Bad request"});
-      }
-  } catch (error) {
-    next(error)
-  }             
+  let productCreated
+  if(fullName  &&
+    price  &&
+    weight  &&
+    descriptions  &&
+    image  &&
+    stock  &&
+    category.length) {
+    productCreated = await Products.create({
+      fullName,
+      price,
+      weight,
+      descriptions,
+      image,
+      stock,
+    });
+    } else {res.status(400).send({message:"Not enougth info"})}
+    if (category && category.length) {
+          await Promise.all(
+            category.map(async (el) => {
+                  return await Category.findOrCreate({
+                      where: { name: el }
+                  })
+              })
+          ).then(el => {
+              el.map(toAdd => {      
+                productCreated.addCategory(toAdd[0])
+              })
+          })
+    }
+    if (formId) {
+            await Form.findOrCreate({
+              where: { id: formId }
+          }).then(el => {
+            console.log('el:', el[0])
+            productCreated.setForm(el[0])
+          })
+    }
+    if (productCreated !== {}) {
+      res.status(200).send(productCreated);
+    } else {
+      res.status(400).send({info: "Bad request"});
+    }
+              
       
 
 }
+
+
+exports.put = async function (req, res, next) {
+  const {id} = req.params
+  const  product  = req.body;
+  try {
+    let prod = await Products.update(product, {
+      where: {
+        id: id,
+      },
+      include: Category,
+    });
+        return res.json({modificate: true});
+  } catch (error) {
+    next(error);
+  } 
+ }
+
+ exports.delete = async function (req, res, next) {
+   const id = req.params.id;
+   try {
+     let prod = await Products.destroy({
+       where: {
+         id: id,
+       },
+     });
+     return res.json({delete: true});
+   } catch (error) {
+     next(error)
+   }
+ }
