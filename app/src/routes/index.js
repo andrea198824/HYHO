@@ -8,7 +8,6 @@ var admin = require('./admin')
 var user = require('./user')
 var product = require('./product')
 
-var productform = require('./productform')
 var category = require('./category')
 const router = Router()
 
@@ -26,11 +25,11 @@ router.post('/create-user', user.post)
 router.put('/modify-user', user.put)
 
 //Product endpoints:
-router.post('/product/form', productform.post) //Tested: Ok
-router.post('/product/formarray', productform.postArray)
+
+router.post('/product', product.post)
 router.get('/products', product.get)
-router.put('/product/modify/:id', productform.put)
-router.delete('/product/delete/:id', productform.delete)
+router.put('/product/modify/:id', product.put)
+router.delete('/product/delete/:id', product.delete)
 
 //Category endpoints:
 router.get('/category', category.get)
