@@ -12,22 +12,22 @@ var productform = require('./productform')
 var category = require('./category')
 const router = Router()
 
-//Form endpoints:
-router.get('/donate-products', form.get) //Tested: Ok
-router.post('/donate-form', form.post) //Tested: Ok
-
-//Form endpoints:
-router.get('/admins', admin.get) //Tested: Ok
-router.post('/create-admin', admin.post) //Tested: Ok
-
 //User endpoints:
-router.get('/users', user.get)
 router.post('/create-user', user.post)
 router.put('/modify-user', user.put)
+router.get('/users', user.get)
+
+//Form endpoints:
+router.get('/admins', admin.get) 
+router.post('/create-admin', admin.post) 
+
+//Form endpoints:
+router.get('/donate-products', form.get) 
+router.post('/donate-form', form.post) 
 
 //Product endpoints:
-router.post('/product/form', productform.post) //Tested: Ok
-router.post('/product/formarray', productform.postArray)
+router.post('/product/form', productform.post) 
+router.post('/create-product', product.post)
 router.get('/products', product.get)
 router.put('/product/modify/:id', productform.put)
 router.delete('/product/delete/:id', productform.delete)
