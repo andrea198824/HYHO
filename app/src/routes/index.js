@@ -7,7 +7,7 @@ var form = require('./form')
 var admin = require('./admin')
 var user = require('./user')
 var product = require('./product')
-
+var newsletter = require('./newsletter')
 var productform = require('./productform')
 var category = require('./category')
 const router = Router()
@@ -32,5 +32,8 @@ router.get('/products', product.get)
 
 //Category endpoints:
 router.get('/category', category.get)
+router.post('/newsletter', newsletter.post)
+
+
 
 module.exports = router
