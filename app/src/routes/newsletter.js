@@ -8,8 +8,8 @@ const getDbEmail = async () => {
 exports.post = async function (req, res) {
   const { email } = req.body;
   try {
-    let newEmail = await Newsletter.findOrCreate({ email });
-    res.send(adminCreated)
+    let newEmail = await Newsletter.findOrCreate({ where : {email: email} });
+    res.send(newEmail)
   } catch (error) {
         console.log(error)
     //next(error);
