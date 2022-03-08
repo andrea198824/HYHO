@@ -8,7 +8,13 @@ const getDbUser = async () => {
 
 exports.post = async function(req, res){
     try {
-    const { fullName, email, password, billing_address, shipping_address, phone} = req.body;
+    const { fullName,
+         email,
+         password,
+         billing_address,
+         shipping_address,
+         phone}
+     = req.body;
     console.log(req.body)
     if (!fullName || typeof fullName !== "string") {
         res.send({info: "No fullName"});
@@ -30,7 +36,7 @@ exports.post = async function(req, res){
         res.status(400).send({info: "No shipping address"});
         return
         }
-    if (!phone || typeof phone !== "number") {
+    if (!phone || typeof phone !== "string") {
         res.status(400).send({info: "No phone"});
         return
         }
@@ -54,7 +60,7 @@ exports.post = async function(req, res){
       phone,
     })
 
-    res.send(userCreated)
+    res.status(201).send(userCreated)
 } catch (error) {
     next(error);
 }
@@ -94,7 +100,7 @@ exports.put = async function (req, res, next){
             billing_address,
             shipping_address,
             phone,
-        } = req.query;
+        } = req.body;
         let bdTotal = await getDbUser(); 
         console.log(bdTotal)
         if (id) {
@@ -113,7 +119,7 @@ exports.put = async function (req, res, next){
                 if (shipping_address) prodName[0].set({shipping_address})
                 if (phone) prodName[0].set({phone})
                 await prodName[0].save();
-                res.send(prodName[0])
+                res.status(201).send(prodName[0])
             }
         } else {
             res.status(404).send({info: "No id"}); 
