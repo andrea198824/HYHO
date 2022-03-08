@@ -7,7 +7,7 @@ var form = require('./form')
 var admin = require('./admin')
 var user = require('./user')
 var product = require('./product')
-
+var newsletter = require('./newsletter')
 var category = require('./category')
 const router = Router()
 
@@ -33,5 +33,8 @@ router.delete('/product/delete/:id', product.delete)
 
 //Category endpoints:
 router.get('/category', category.get)
+
+//Newsletter
+router.post('/newsletter', newsletter.post)
 
 module.exports = router
