@@ -76,7 +76,7 @@ exports.post = async function(req, res, next) {
       return
       }
 
-      const {
+      let {
         title, 
         price,  
         weight,  
@@ -85,6 +85,13 @@ exports.post = async function(req, res, next) {
         stock,
         category,
           } = product;
+
+
+          // Removes repeated elements in the array
+          category = [...new Set(category)];
+          category = Array.from(category);
+
+
 
           if (!title) {
             res.send({info: "No title"});
