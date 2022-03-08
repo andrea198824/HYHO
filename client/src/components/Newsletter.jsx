@@ -2,7 +2,8 @@ import { Send } from "@material-ui/icons";
 import { useState } from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
-
+import { useNavigate } from "react-router";
+import axios from "axios";
 
 
 const Container = styled.div`
@@ -45,7 +46,7 @@ const Input = styled.input`
 const Button = styled.button`
   flex: 1;
   border: none;
-  background-color: #dbd3f7;
+  background-color: ${props => props.disabled?"#dbd3f7" : "blue"};
   color: white;
 `;
 
@@ -73,7 +74,7 @@ export function validate(input) {
 };
 
 const Newsletter = () => {
-
+    
     const [errors, setErrors] = useState({});
     const [input, setInput] = useState({
         email: '',
@@ -91,6 +92,15 @@ const Newsletter = () => {
             [e.target.name]: e.target.value
         }));
     }
+        const handleClick = e => {
+          e.preventDefault()
+          axios.post('http://localhost:3001/', input)
+          .then((res) =>{
+          alert(`${input.email} Creado Correctamente`)
+          window.scrollTo(0,0)}
+          )
+        }
+                  
 
   return (
     <Container>
@@ -105,7 +115,7 @@ const Newsletter = () => {
               />
               
     
-              <Button disabled={errors.active}>
+              <Button disabled={errors.active} onClick={handleClick}>
                   <Send />
               </Button>
 
