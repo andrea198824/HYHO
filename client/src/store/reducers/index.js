@@ -1,4 +1,4 @@
-import { GET_DETAILS, GET_PRODUCTS, SEARCH_PRODUCTS, ORDER_BY_PRICE, FILTER_BY_CATEGORY, GET_CATEGORIES } from "../actions";
+import { CREATE_USER, GET_DETAILS, GET_PRODUCTS, SEARCH_PRODUCTS, ORDER_BY_PRICE, FILTER_BY_CATEGORY, GET_CATEGORIES } from "../actions";
 
 const initialState = {
     products: [],
@@ -33,6 +33,11 @@ export default function rootReducer(state = initialState, action) {
                 return {...state, filteredProducts: state.products}
             }
             return { ...state, filteredProducts: state.products.filter(product => product.category === action.payload) }
+        case CREATE_USER:
+            console.log('desde reducer', action.payload)
+            return {
+                ...state
+            }
         default:
             return state;
     }

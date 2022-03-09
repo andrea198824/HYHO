@@ -25,8 +25,8 @@ module.exports = sequelize => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    phone: {
-      type: DataTypes.BIGINT                      ,
+      phone: {
+          type: DataTypes.TEXT,
       allowNull: false
     }
   })

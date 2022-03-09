@@ -6,10 +6,11 @@ const getDbUser = async () => {
     return await User.findAll();    
 }
 
-exports.post = async function(req, res){
+exports.post = async function (req, res) {
+    console.log('HOLAAAAAA', req.body)
     try {
     const { fullName, email, password, billing_address, shipping_address, phone} = req.body;
-    console.log(req.body)
+    
     if (!fullName || typeof fullName !== "string") {
         res.send({info: "No fullName"});
         return
@@ -30,7 +31,7 @@ exports.post = async function(req, res){
         res.status(400).send({info: "No shipping address"});
         return
         }
-    if (!phone || typeof phone !== "number") {
+    if (!phone) {
         res.status(400).send({info: "No phone"});
         return
         }

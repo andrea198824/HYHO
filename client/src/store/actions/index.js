@@ -7,7 +7,7 @@ export const GET_DETAILS = 'GET_DETAILS';
 export const ORDER_BY_PRICE = "ORDER_BY_PRICE"
 export const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY"
 export const GET_CATEGORIES = "GET_CATEGORIES"
-
+export const CREATE_USER = "CREATE-USER"
 
 export const getProducts = () => {
     return {
@@ -43,5 +43,18 @@ export const filterByCategory = (category) => {
     return {
         type: FILTER_BY_CATEGORY,
         payload: parseInt(category),
+    }
+}
+
+export const createuser = (payload) => {
+    return async function (dispatch) {
+        const respons = axios.post('http://127.0.0.1:3001/create-user', payload)
+        console.log(payload)
+        console.log(respons)
+
+        return ({
+            type: CREATE_USER,
+            payload: respons
+        })
     }
 }

@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import { Link } from 'react-router-dom'
-
+import { createuser } from '../store/actions';
 
 const Container = styled.div`
   width: 100vw;
@@ -87,39 +89,45 @@ const linkStyle = {
 export function validate(input) {
     let errors = {};
     
-    if (!input.name) {
-        errors.name = 'Nombre Es Requerido';
-    } else if (!/^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/.test(input.name)) {
-        errors.name = 'Nombre es Invalido';
+    if (!input.fullName) {
+        errors.fullName = 'Nombre Es Requerido';
+    } else if (!/^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/.test(input.fullName)) {
+        errors.fullName = 'Nombre es Inválido';
     }
 
-    if (!input.lastName) {
-        errors.lastName = 'Apellido Es Requerido';
-    } else if (!/^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/.test(input.lastName)) {
-        errors.lastName = 'Apellido Invalido';
+    if (!input.billing_address) {
+        errors.billing_address = 'Campo Requerido';
+    } else if (!/[A-Za-z0-9]+/g.test(input.billing_address)) {
+        errors.billing_address = 'Campo Inválido';
     }
 
-    if (!input.userName) {
-        errors.userName = 'Usuario Requerido';
-    } else if (!/[a-zA-Z1-9]{8}/g.test(input.userName)) {
-        errors.userName = 'Usuario Demasiado Corto';
+    if (!input.shipping_address) {
+        errors.shipping_address = 'Campo Requerido';
+    } else if (!/[A-Za-z0-9]+/g.test(input.shipping_address)) {
+        errors.shipping_address = 'Campo Inválido';
     }
 
+    if (!input.phone) {
+        errors.phone = 'Celular Requerido';
+    } else if (/^(?:(?:00)?549?)?0?(?:11|[2368]\d)(?:(?=\d{0,2}15)\d{2})??\d{8}$/.test(input.phone)) {
+        errors.phone = 'Celular Invalido';
+    }
+       
     if (!input.email) {
         errors.mail = 'Correo Requerido';
     } else if (!/\S+@\S+\.\S+/.test(input.email)) {
         errors.mail = 'Correo Invalido';
     }
 
-    if (!input.passworda) {
-        errors.passworda = 'Contraseña Requerida';
-    } else if (!/^(?=.{10,}$)(?=(?:.*?[A-Z]){2})(?=.*?[a-z])(?=(?:.*?[0-9]){2}).*$/.test(input.passworda)) {
-        errors.passworda = '2 may, 1 min, 2 díg long 10';
+    if (!input.password) {
+        errors.password = 'Contraseña Requerida';
+    } else if (!/^(?=.{10,}$)(?=(?:.*?[A-Z]){2})(?=.*?[a-z])(?=(?:.*?[0-9]){2}).*$/.test(input.password)) {
+        errors.password = '2 may, 1 min, 2 díg long 10';
     }
 
     if (!input.passwordb) {
         errors.passwordb = 'Contraseña Requerida';
-    } else if ((input.passworda !== input.passwordb)) {
+    } else if ((input.password !== input.passwordb)) {
         errors.passwordb = 'Contraseñas No Coinciden';
     }
 
@@ -133,11 +141,15 @@ export function validate(input) {
 
 const Register = () => {
 
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
     const [errors, setErrors] = useState({});
     const [input, setInput] = useState({
-        name: '',
-        lastName: '',
-        userName: '',
+        fullName: '',
+        billing_address: '',
+        shipping_address: '',
+        phone:'',
         email: '',
         password: '',
     });
@@ -157,6 +169,9 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        dispatch(createuser(input))
+        console.log('pasword',input)
+        navigate("/");
     }
       
     return (
@@ -170,7 +185,7 @@ const Register = () => {
                         <Input
                             onChange={(e) => handleInputChange(e)}
                             type='text'
-                            name='name'
+                            name='fullName'
                             placeholder="Nombre"
                         />
 
@@ -182,24 +197,37 @@ const Register = () => {
                         <Input
                             onChange={(e) => handleInputChange(e)}
                             type='text'
-                            name='lastName'
-                            placeholder="Apellido"
+                            name='billing_address'
+                            placeholder="Dirección Facturación"
                         />
-                        {errors.lastName && (
-                            <Paragraph>{errors.lastName}</Paragraph>
+                        {errors.billing_address && (
+                            <Paragraph>{errors.billing_address}</Paragraph>
                         )}
                     </div>
                     <div>
                         <Input
                             onChange={(e) => handleInputChange(e)}
                             type='text'
-                            name='userName'
-                            placeholder="Usuario"
+                            name='shipping_address'
+                            placeholder="Dirección Envío"
                         />
-                        {errors.userName && (
-                            <Paragraph>{errors.userName}</Paragraph>
+                        {errors.shipping_address && (
+                            <Paragraph>{errors.shipping_address}</Paragraph>
                         )}
                     </div>
+
+                    <div>
+                        <Input
+                            onChange={(e) => handleInputChange(e)}
+                            type='number'
+                            name='phone'
+                            placeholder="Número Celular"
+                        />
+                        {errors.phone && (
+                            <Paragraph>{errors.phone}</Paragraph>
+                        )}
+                    </div>
+
                     <div>
                         <Input
                             onChange={(e) => handleInputChange(e)}
@@ -215,11 +243,11 @@ const Register = () => {
                     <Input
                         onChange={(e) => handleInputChange(e)}
                         type='password'
-                        name='passworda'
+                        name='password'
                         placeholder="Contraseña"
                     />
-                    {errors.passworda && (
-                        <Paragraph>{errors.passworda}</Paragraph>
+                    {errors.password && (
+                        <Paragraph>{errors.password}</Paragraph>
                     )}
                     </div>
                     <div>
@@ -233,13 +261,16 @@ const Register = () => {
                             <Paragraph>{errors.passwordb}</Paragraph>
                         )}
                     </div>
-                    <Div>
-                        <Link to='/' style={linkStyle}>
-                            <Button
-                                type='submit'
+                    <div>
+                        <Button
+                            type='submit'
+                            disabled={!errors.disabled}
+                        >
+                            Crear
+                        </Button>
+                    </div>
 
-                                disabled={!errors.disabled}>Crear</Button>
-                        </Link>
+                    <Div>
                         <Link to='/' style={linkStyle}>
                             <Button>Volver</Button>
                         </Link>
