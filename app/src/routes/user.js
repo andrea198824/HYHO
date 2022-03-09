@@ -6,6 +6,36 @@ const getDbUser = async () => {
     return await User.findAll();    
 }
 
+// req.session = {
+//         cookie: {
+//           path: '/',
+//           _expires: 2022-03-09T21:36:19.211Z,
+//           originalMaxAge: 7200000,
+//           httpOnly: true
+//         },
+//         userId: "id",
+//         role: "admin" // or user
+// }
+
+function randomString(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * 
+ charactersLength));
+   }
+   return result;
+}
+
+exports.register = async function(req, res){ 
+    try {
+        
+    } catch (error) {
+        res.status(400).send({info: error});
+    }
+}
+
 exports.post = async function(req, res){
     try {
     const { fullName,
@@ -68,6 +98,7 @@ exports.post = async function(req, res){
 }
 
 exports.get = async function (req, res, next){
+    console.log(req.session)
     try {
         const {id} = req.query;
         let bdTotal = await getDbUser(); 

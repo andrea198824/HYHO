@@ -21,7 +21,12 @@ module.exports = sequelize => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    verificated: {
+    emailVerificated: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false
+    },
+    adminVerificated: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
       allowNull: false
