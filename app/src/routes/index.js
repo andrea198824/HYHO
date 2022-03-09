@@ -36,5 +36,6 @@ router.get('/category', category.get)
 
 //Newsletter
 router.post('/newsletter', newsletter.post)
+router.get('/newsletter', newsletter.get)
 
 module.exports = router
