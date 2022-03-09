@@ -33,7 +33,7 @@ export default function rootReducer(state = initialState, action) {
             }
             return { ...state, filteredProducts: state.products.filter(product => product.category === action.payload) };
         case ADD_TO_CART:
-            if (state.shoppingCart.some(el => el.id === action.payload)) return state;
+            if (state.shoppingCart.some(el => el.id === parseInt(action.payload))) return state;
             return { ...state, shoppingCart: state.shoppingCart.concat(state.products.filter(product => product.id === parseInt(action.payload))) };
         default:
             return state;
