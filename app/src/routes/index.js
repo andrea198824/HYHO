@@ -7,8 +7,7 @@ var form = require('./form')
 var admin = require('./admin')
 var user = require('./user')
 var product = require('./product')
-
-var productform = require('./productform')
+var newsletter = require('./newsletter')
 var category = require('./category')
 const router = Router()
 
@@ -26,13 +25,17 @@ router.get('/donate-products', form.get)
 router.post('/donate-form', form.post) 
 
 //Product endpoints:
-router.post('/product/form', productform.post) 
-router.post('/create-product', product.post)
+
+router.post('/product', product.post)
 router.get('/products', product.get)
-router.put('/product/modify/:id', productform.put)
-router.delete('/product/delete/:id', productform.delete)
+router.put('/product/modify/:id', product.put)
+router.delete('/product/delete/:id', product.delete)
 
 //Category endpoints:
 router.get('/category', category.get)
+
+//Newsletter
+router.post('/newsletter', newsletter.post)
+router.get('/newsletter', newsletter.get)
 
 module.exports = router
