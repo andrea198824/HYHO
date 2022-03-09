@@ -12,6 +12,8 @@ var category = require('./category')
 const router = Router()
 
 //User endpoints:
+router.get('/register', user.register)
+router.get('/login', user.login)
 router.post('/create-user', user.post)
 router.put('/modify-user', user.put)
 router.get('/users', user.get)
@@ -25,7 +27,6 @@ router.get('/donate-products', form.get)
 router.post('/donate-form', form.post) 
 
 //Product endpoints:
-
 router.post('/product', product.post)
 router.get('/products', product.get)
 router.put('/product/modify/:id', product.put)
