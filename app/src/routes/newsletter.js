@@ -16,3 +16,29 @@ exports.post = async function (req, res) {
   }
 };
 
+exports.get = async function (req, res, next){
+  try {
+      const {email} = req.query;
+      let bdEmail = await getDbEmail(); 
+      console.log("id :",email)
+      console.log("bdTotal    :",bdEmail)
+      if (email) {
+          let emailDB = await bdEmail.filter((form) =>
+          {
+              return form.dataValues.email == email
+          }
+
+          );
+          emailDB.length //si hay algún nombre
+              ? res.status(200).send(emailDB)
+              : res
+                  .status(404)
+                  .send({ info: "Sorry, the email you are looking for is not here." });
+      } else {
+          res.status(200).send(bdEmail);
+      }
+  } catch (error) {
+      next(error);
+  }
+}
+
