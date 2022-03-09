@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 const Container = styled.div``;
 
@@ -81,15 +82,6 @@ const ProductName = styled.span``;
 
 const ProductId = styled.span``;
 
-const ProductColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) => props.color};
-`;
-
-const ProductSize = styled.span``;
-
 const PriceDetail = styled.div`
   flex: 1;
   display: flex;
@@ -160,6 +152,16 @@ const linkStyle = {
 }
 
 const Cart = () => {
+    const cartProducts = useSelector(state => state.shoppingCart)
+    let subTotal = 0;
+    cartProducts.forEach(el => subTotal += el.price)
+
+    const onClickProduct = (e) => {
+        // Para sumar y restar productos, en desarrollo
+        
+    }
+
+
     return (
         <Container>
             <Navbar />
@@ -171,82 +173,51 @@ const Cart = () => {
                         <TopButton>CONTINUAR COMPRANDO</TopButton>
                     </Link>
                     <TopTexts>
-                        <TopText>Bolsa de Compras (2)</TopText>
                         <TopText>Lista de Deseados (0)</TopText>
                     </TopTexts>
-                    <TopButton type="filled">COMPRAR</TopButton>
                 </Top>
                 <Bottom>
                     <Info>
-                        <Product>
-                            <ProductDetail>
-                                <Image src="https://i.ebayimg.com/images/g/2-wAAOSwN81WDnRF/s-l1600.jpg" />
-                                <Details>
-                                    <ProductName>
-                                        <b>Producto:</b>  Maletín Caja de Herramientas 215 Piezas
-                                    </ProductName>
-                                    <ProductId>
-                                        <b>ID:</b> 93813718293
-                                    </ProductId>
-                                    
-                                    <ProductSize>
-                                       
-                                    </ProductSize>
-                                </Details>
-                            </ProductDetail>
-                            <PriceDetail>
-                                <ProductAmountContainer>
-                                    <Add />
-                                    <ProductAmount>2</ProductAmount>
-                                    <Remove />
-                                </ProductAmountContainer>
-                                <ProductPrice>$ 30</ProductPrice>
-                            </PriceDetail>
-                        </Product>
-                        <Hr />
-                        <Product>
-                            <ProductDetail>
-                                <Image src="https://i.ebayimg.com/images/g/Xs0AAOSwwmBdn2HH/s-l1600.jpg" />
-                                <Details>
-                                    <ProductName>
-                                        <b>Producto:</b> Cafetera Digital Power Espresso 20
-                                    </ProductName>
-                                    <ProductId>
-                                        <b>ID:</b> 93813718293
-                                    </ProductId>
-                                    
-                                    <ProductSize>
-                                        
-                                    </ProductSize>
-                                </Details>
-                            </ProductDetail>
-                            <PriceDetail>
-                                <ProductAmountContainer>
-                                    <Add />
-                                    <ProductAmount>1</ProductAmount>
-                                    <Remove />
-                                </ProductAmountContainer>
-                                <ProductPrice>$ 20</ProductPrice>
-                            </PriceDetail>
-                        </Product>
+                        {cartProducts.length ? cartProducts.map(el => (
+                            <Product key={el.id}>
+                                <ProductDetail>
+                                    <Image src={el.image} />
+                                    <Details>
+                                        <ProductName>
+                                            <b>Producto:</b>  {el.fullname}
+                                        </ProductName>
+                                        <ProductId>
+                                            <b>Stock:</b> {el.stock}
+                                        </ProductId>
+
+                                    </Details>
+                                </ProductDetail>
+                                <PriceDetail>
+                                    <ProductAmountContainer>
+                                        <Add name={el.id} value='+' onClick={onClickProduct} />
+                                        <ProductAmount>2</ProductAmount>
+                                        <Remove name={el.id} value='-' onClick={onClickProduct} />
+                                    </ProductAmountContainer>
+                                    <ProductPrice>$ {el.price}</ProductPrice>
+                                </PriceDetail>
+                                <Hr />
+                            </Product>
+                        )) : "No hay productos en el carrito"}
+
                     </Info>
                     <Summary>
                         <SummaryTitle>RESUMEN</SummaryTitle>
                         <SummaryItem>
                             <SummaryItemText>Subtotal</SummaryItemText>
-                            <SummaryItemPrice>$ 80</SummaryItemPrice>
+                            <SummaryItemPrice>$ {subTotal}</SummaryItemPrice>
                         </SummaryItem>
                         <SummaryItem>
-                            <SummaryItemText>Costo de Envio Estimado</SummaryItemText>
-                            <SummaryItemPrice>$ 5.90</SummaryItemPrice>
-                        </SummaryItem>
-                        <SummaryItem>
-                            <SummaryItemText>Descuento</SummaryItemText>
-                            <SummaryItemPrice>$ -5.90</SummaryItemPrice>
+                            {/* <SummaryItemText>Descuento</SummaryItemText>
+                            <SummaryItemPrice>$ -5.90</SummaryItemPrice> */}
                         </SummaryItem>
                         <SummaryItem type="total">
                             <SummaryItemText>Total</SummaryItemText>
-                            <SummaryItemPrice>$ 80</SummaryItemPrice>
+                            <SummaryItemPrice>$ {subTotal}</SummaryItemPrice>
                         </SummaryItem>
                         <Button>COMPRAR</Button>
                     </Summary>

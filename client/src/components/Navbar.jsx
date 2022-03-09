@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getProducts, searchProducts } from '../store/actions';
 import LogoHyho from '../logoLargo.gif';
 
@@ -88,7 +88,10 @@ const Slogan = styled.h4`
 const Navbar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const [search, setSearch] = useState("")
+    const cartProducts = useSelector(state => state.shoppingCart)
+
 
     useEffect(() => {
         dispatch(getProducts())
@@ -104,6 +107,8 @@ const Navbar = () => {
         setSearch("")
         if (search) navigate('/products')
     }
+
+    
 
     return (
         <Container>
@@ -129,7 +134,7 @@ const Navbar = () => {
                     </Link>
                     <MenuItem>
                         <Link to='/cart' style={linkStyle}>
-                            <Badge badgeContent={4} color="primary">
+                            <Badge badgeContent={cartProducts.length} color="primary">
                                 <ShoppingCartOutlined />
                             </Badge>
                         </Link>
