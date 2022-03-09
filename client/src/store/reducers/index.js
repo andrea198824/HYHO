@@ -1,4 +1,11 @@
-import { GET_DETAILS, GET_PRODUCTS, SEARCH_PRODUCTS, ORDER_BY_PRICE, FILTER_BY_CATEGORY, GET_CATEGORIES, ADD_TO_CART } from "../actions";
+import { GET_DETAILS,
+        GET_PRODUCTS,
+        SEARCH_PRODUCTS,
+        ORDER_BY_PRICE,
+        FILTER_BY_CATEGORY,
+        GET_CATEGORIES,
+        CREATE_USER,
+        ADD_TO_CART } from "../actions";
 
 const initialState = {
     products: [],
@@ -31,10 +38,20 @@ export default function rootReducer(state = initialState, action) {
             if (action.payload === "default") {
                 return { ...state, filteredProducts: state.products };
             }
-            return { ...state, filteredProducts: state.products.filter(product => product.category === action.payload) };
+            return { ...state, filteredProducts: state.products.filter(product => product.category === action.payload) }
+
+            
+        case CREATE_USER:
+            console.log('desde reducer', action.payload)
+            return {
+                ...state
+            }
+
+            
         case ADD_TO_CART:
             if (state.shoppingCart.some(el => el.id === parseInt(action.payload))) return state;
             return { ...state, shoppingCart: state.shoppingCart.concat(state.products.filter(product => product.id === parseInt(action.payload))) };
+
         default:
             return state;
     }

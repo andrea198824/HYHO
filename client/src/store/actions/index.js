@@ -4,9 +4,11 @@ import { products, productCategory } from '../../data.js'
 export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const SEARCH_PRODUCTS = 'SEARCH_PRODUCTS';
 export const GET_DETAILS = 'GET_DETAILS';
-export const ORDER_BY_PRICE = "ORDER_BY_PRICE";
-export const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY";
-export const GET_CATEGORIES = "GET_CATEGORIES";
+
+export const ORDER_BY_PRICE = "ORDER_BY_PRICE"
+export const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY"
+export const GET_CATEGORIES = "GET_CATEGORIES"
+export const CREATE_USER = "CREATE-USER"
 export const ADD_TO_CART = 'ADD_TO_CART';
 
 
@@ -47,10 +49,21 @@ export const filterByCategory = (category) => {
     }
 }
 
+export const createuser = (payload) => {
+    return async function (dispatch) {
+        const respons = axios.post('http://127.0.0.1:3001/create-user', payload)
+        return ({
+            type: CREATE_USER,
+            payload: respons
+        })
+    }
+}
+
 export const addToCart = (productID) => {
     return {
         type: ADD_TO_CART,
         payload: productID,
     }
 }
+
 
