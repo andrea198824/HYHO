@@ -2,11 +2,12 @@ import axios from 'axios';
 import { products, productCategory } from '../../data.js'
 
 export const GET_PRODUCTS = 'GET_PRODUCTS';
-export const SEARCH_PRODUCTS = 'SEARCH_PRODUCTS'
+export const SEARCH_PRODUCTS = 'SEARCH_PRODUCTS';
 export const GET_DETAILS = 'GET_DETAILS';
-export const ORDER_BY_PRICE = "ORDER_BY_PRICE"
-export const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY"
-export const GET_CATEGORIES = "GET_CATEGORIES"
+export const ORDER_BY_PRICE = "ORDER_BY_PRICE";
+export const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY";
+export const GET_CATEGORIES = "GET_CATEGORIES";
+export const ADD_TO_CART = 'ADD_TO_CART';
 
 
 export const getProducts = () => {
@@ -45,3 +46,11 @@ export const filterByCategory = (category) => {
         payload: parseInt(category),
     }
 }
+
+export const addToCart = (productID) => {
+    return {
+        type: ADD_TO_CART,
+        payload: productID,
+    }
+}
+

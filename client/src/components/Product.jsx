@@ -2,8 +2,10 @@ import {
     FavoriteBorderOutlined,
     ShoppingCartOutlined,
 } from "@material-ui/icons";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
+import { addToCart } from '../store/actions'
 
 const Info = styled.div`
     opacity: 0;
@@ -70,17 +72,26 @@ const Icon = styled.div`
 
 const Product = ({ item }) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const onClickProduct = (e) => {
+        e.stopPropagation();
         navigate(`/product/${item.id}`)
         window.scrollTo(0, 0)
     }
 
+    const onClickAddCart = (e) => {
+        e.stopPropagation();
+        dispatch(addToCart(item.id))
+        alert("Producto Añadido")
+    }
+
     return (
-        <Container onClick={onClickProduct}>
+        <Container onClick={onClickProduct} >
             <Circle />
             <Image src={item.image} />
             <Info>
-                <Icon>
+                <Icon onClick={onClickAddCart}>
                     <ShoppingCartOutlined />
                 </Icon>
                 <Icon>
