@@ -47,7 +47,7 @@ Products.belongsTo(Form);
 User.hasMany(Form);
 Form.belongsTo(User);
 
-user.belongsToMany(Token)
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
