@@ -1,7 +1,16 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\app",
+    "\\app\\src",
+    "\\app\\src\\routes",
+    "\\client",
+    "\\client\\src",
+    "\\client\\src\\Page",
+    "\\client\\src\\store",
+    "\\client\\src\\store\\actions",
+    "\\client\\src\\store\\reducers"
   ],
-  "SelectedNode": "\\C:\\Users\\josea\\Source\\Repos\\HYHO",
+  "SelectedNode": "\\client\\src\\App.jsx",
   "PreviewInSolutionExplorer": false
 }
