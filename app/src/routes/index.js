@@ -45,4 +45,19 @@ router.get('/category', category.get)
 router.post('/newsletter', newsletter.post)
 router.get('/newsletter', newsletter.get)
 
+//--------------shopping routes --------------------
+
+const shopController = require('./shop')
+
+// router.get('/', shopController.getIndex);
+router.get('/shop', shopController.getProducts) //
+router.get('/cart', shopController.getCart)
+router.post('/cart', shopController.postCart)
+// router.get('/checkout', shopController.getCheckout);
+// router.get('/orders', shopController.getOrders);
+// router.get('/products/:productId', shopController.getProduct);
+router.delete('/cart-delete', shopController.postCartDeleteCart)
+router.put('/putCart/:id', shopController.putCart)
+// router.post('/create-order', shopController.postOrder);
+
 module.exports = router
