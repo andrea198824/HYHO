@@ -55,7 +55,7 @@ exports.post = async function(req, res, next) {
 
   const {
     formId,
-    fullName, 
+    title, 
     price,  
     weight,  
     descriptions, 
@@ -66,7 +66,7 @@ exports.post = async function(req, res, next) {
 
 
   let productCreated
-  if(fullName  &&
+  if(title  &&
     price  &&
     weight  &&
     descriptions  &&
@@ -74,7 +74,7 @@ exports.post = async function(req, res, next) {
     stock  &&
     category.length) {
     productCreated = await Products.create({
-      fullName,
+      title,
       price,
       weight,
       descriptions,
