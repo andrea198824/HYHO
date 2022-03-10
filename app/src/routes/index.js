@@ -10,6 +10,7 @@ var sessionVerification = require('./sessionVerification')
 var product = require('./product')
 var newsletter = require('./newsletter')
 var category = require('./category')
+var sessions = require('./sessions')
 const router = Router()
 
 //User endpoints:
@@ -60,5 +61,11 @@ router.post('/cart', sessionVerification.needsUser ,shopController.postCart)
 router.delete('/cart-delete', sessionVerification.needsUser ,shopController.postCartDeleteCart)
 router.put('/putCart/:id', sessionVerification.needsUser ,shopController.putCart)
 // router.post('/create-order', shopController.postOrder);
+
+//--------------shopping routes --------------------
+router.get('/sessions', sessions.get);
+
+
+
 
 module.exports = router
