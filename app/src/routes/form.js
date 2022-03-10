@@ -96,9 +96,9 @@ exports.post = async function(req, res){  // lalala.post
 exports.get = async function (req, res, next){
     try {
         const {id} = req.query;
-        let bdTotal = await getDbForm(); 
-        console.log("id :",id)
-        console.log("bdTotal    :",bdTotal)
+        // let bdTotal = await getDbForm(); 
+        // console.log("id :",id)
+        // console.log("bdTotal    :",bdTotal)
         if (id) {
             let prodName = await bdTotal.filter((form) =>
             {
