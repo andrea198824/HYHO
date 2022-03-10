@@ -14,26 +14,28 @@ const router = Router()
 
 //User endpoints:
 router.post('/register', user.register)
-router.put('/verifyUser', user.verifyUser)
-router.put('/verifyAdmin', user.verifyAdmin)
-// router.post('/login', user.login)
+router.put('/verify-user', user.verifyUser)
+router.put('/verify-admin', user.verifyAdmin)
+router.post('/login', user.login)
+router.post('/logout', sessionVerification.needsUser, user.logout)
+router.put('/modify-user', sessionVerification.needsUser ,user.put)
+router.put('/shipping-data-requirement', sessionVerification.needsUser , user.shippingDataRequirement ,user.put)
+router.get('/users', sessionVerification.needsAdmin ,user.get)
 // router.post('/create-user', user.post)
-// router.put('/modify-user', user.put)
-// router.get('/users', user.get)
 
 //Form endpoints:
-router.get('/admins', admin.get) 
-router.post('/create-admin', admin.post) 
+router.get('/admins', sessionVerification.needsAdmin ,admin.get) 
+router.post('/create-admin', sessionVerification.needsAdmin ,admin.post) 
 
 //Form endpoints:
-router.get('/donate-products', form.get) 
-router.post('/donate-form', form.post) 
+router.get('/donate-products', sessionVerification.needsAdmin ,form.get) 
+router.post('/donate-form', sessionVerification.needsUser ,form.post) 
 
 //Product endpoints:
-router.post('/product', product.post)
+router.post('/product', sessionVerification.needsAdmin ,product.post)
 router.get('/products', product.get)
-router.put('/product/modify/:id', product.put)
-router.delete('/product/delete/:id', product.delete)
+router.put('/product/modify/:id', sessionVerification.needsAdmin ,product.put)
+router.delete('/product/delete/:id', sessionVerification.needsAdmin ,product.delete)
 
 //Category endpoints:
 router.get('/category', category.get)

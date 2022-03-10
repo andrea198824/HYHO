@@ -1,7 +1,9 @@
 'use strict'
 const { Admin, Category, Form, Order, Products, User } = require('../db');
+const session = require('express-session');
 
 var CryptoJS = require("crypto-js");
+const { put } = require('.');
 
 
 //trae la info de db User
@@ -80,14 +82,17 @@ exports.register = async function(req, res, next){
             }
 
             const securityString = randomString(100);
-
+            console.log("password   :",password)
+            console.log("securityString :",securityString)
             password = CryptoJS.HmacSHA1(securityString, password).toString(CryptoJS.enc.Base64)
+            console.log("hashed password :",password)
+            
             
             let userCreated = await User.create({
             fullName,//
             email,//
             password,//
-            securityString: randomString(100),
+            securityString,//
             billing_address,//
             shipping_address,//
             phone,//
@@ -108,7 +113,7 @@ exports.verifyUser = async function(req, res, next) {
         } = req.query
 
         let bdTotal = await getDbUser(); 
-        console.log(bdTotal)
+        // console.log(bdTotal)
         if (id) {
             let prodName = await bdTotal.filter((user) =>
             user.id == id
@@ -162,34 +167,43 @@ exports.verifyAdmin = async function(req, res, next) {
 
 exports.login = async function (req, res, next){
     try {
-        const {
+        let {
             input,
             password,
         } = req.body
 
         let bdTotal = await getDbUser(); 
+        // console.log("bdTotal[0]     :",bdTotal[0])
 
         let fullName = input;
         let email = input;
 
         // password = CryptoJS.HmacSHA1(securityString, password).toString(CryptoJS.enc.Base64)
         let userToLogin 
+        let userToLoginByEmail 
+        let userToLoginByFullName
 
-        if (fullName) userToLogin = await bdTotal.filter((user) =>user.fullName == fullName);
-        if (email) userToLogin = await bdTotal.filter((user) =>user.email == email);
+        if (fullName) userToLoginByFullName = await bdTotal.filter((user) => user.dataValues.fullName == fullName);
+        if (email) userToLoginByEmail = await bdTotal.filter((user) => user.dataValues.email == email);
+
+        userToLogin = userToLoginByFullName.length ? userToLoginByFullName : userToLoginByEmail;
 
         if (!userToLogin.length) {//si no hay algún nombre
             res
             .status(404)
             .send({ info: "Sorry, theres no registered user with that email or username." });
         } else {
-            let password = CryptoJS.HmacSHA1(userToLogin[0].securityString, password).toString(CryptoJS.enc.Base64)
+            console.log("userToLogin[0].securityString   :",userToLogin[0].securityString)
+            console.log("password   :",password)
+            password = CryptoJS.HmacSHA1(userToLogin[0].securityString, password).toString(CryptoJS.enc.Base64)
+            console.log("Input password :",password);
+            console.log("Database password :",userToLogin[0].password);
             if (
                 userToLogin[0].password == password &&
                 userToLogin[0].emailVerificated
                 ) {
-                req.session.id = userToLogin[0].id;
-                req.session.role = userToLogin[0].adminVerificated ? "admin" : "user";
+                req.session.userId = userToLogin[0].id;                
+                req.session.name = userToLogin[0].adminVerificated ? "admin" : "user";
                 res.status(201).send({info: {
                     user: userToLogin[0],
                     session: req.session
@@ -201,7 +215,7 @@ exports.login = async function (req, res, next){
         }
 
     } catch (error) {
-        next(error);
+        next({info: error});
     }
 }
 
@@ -230,7 +244,7 @@ exports.get = async function (req, res, next){
 
 exports.put = async function (req, res, next){
     try {
-        const {
+        let {
             id,
             fullName,
             email,
@@ -239,6 +253,9 @@ exports.put = async function (req, res, next){
             shipping_address,
             phone,
         } = req.body;
+
+        id = id ? id : req.session.userId
+
         let bdTotal = await getDbUser(); 
         console.log(bdTotal)
         if (id) {
@@ -265,4 +282,32 @@ exports.put = async function (req, res, next){
     } catch (error) {
         next(error);
     }
+}
+
+exports.shippingDataRequirement = async function (req, res, next){
+    const {
+        billing_address,
+        shipping_address,
+        phone
+    } = req.body
+    if (
+        billing_address &&
+        shipping_address &&
+        phone
+    ) {
+        next()
+    } else {
+        res.status(404).send({info: "Needs shipping info"})
+    }
+}
+
+exports.logout = async function (req, res, next) {
+    req.session.destroy(err => {
+        if(err) {
+        //   return res.redirect('/home');
+        }
+        res.clearCookie('sid');
+        res.status(200).send({info: "Logout succesfull"})
+      })
+
 }
