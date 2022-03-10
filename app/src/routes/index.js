@@ -17,12 +17,12 @@ router.put('/modify-user', user.put)
 router.get('/users', user.get)
 
 //Form endpoints:
-router.get('/admins', admin.get) 
-router.post('/create-admin', admin.post) 
+router.get('/admins', admin.get)
+router.post('/create-admin', admin.post)
 
 //Form endpoints:
-router.get('/donate-products', form.get) 
-router.post('/donate-form', form.post) 
+router.get('/donate-products', form.get)
+router.post('/donate-form', form.post)
 
 //Product endpoints:
 
@@ -37,5 +37,20 @@ router.get('/category', category.get)
 //Newsletter
 router.post('/newsletter', newsletter.post)
 router.get('/newsletter', newsletter.get)
+
+//--------------shopping routes --------------------
+
+const shopController = require('./shop')
+
+// router.get('/', shopController.getIndex);
+router.get('/shop', shopController.getProducts) //
+router.get('/cart', shopController.getCart)
+router.post('/cart', shopController.postCart)
+// router.get('/checkout', shopController.getCheckout);
+// router.get('/orders', shopController.getOrders);
+// router.get('/products/:productId', shopController.getProduct);
+router.delete('/cart-delete', shopController.postCartDeleteCart)
+router.put('/putCart/:id', shopController.putCart)
+// router.post('/create-order', shopController.postOrder);
 
 module.exports = router
