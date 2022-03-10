@@ -26,11 +26,13 @@ exports.needsAdmin = async (req, res, next) => {
     if(!req.session.userId) {
         res.status(401).send({info: "Login required"});
       } else {
-          let prodName = await getDbUser().filter((user) =>
-          user.id == req.session.userId
-          );
+        let prodName = await getDbUser()
+        // console.log(prodName)
+        prodName = prodName.filter((user) =>
+        user.id == req.session.userId
+        );
           if (prodName.length) {
-              if (req.session.role == "admin") {
+              if (req.session.name == "admin") {
                   next();
               } else {
                 res.status(401).send({info: "Admin registered required"});

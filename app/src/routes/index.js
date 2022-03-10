@@ -13,23 +13,24 @@ var category = require('./category')
 const router = Router()
 
 //User endpoints:
-router.post('/register', user.register)
-router.put('/verify-user', user.verifyUser)
-router.put('/verify-admin', user.verifyAdmin)
-router.post('/login', user.login)
-router.post('/logout', sessionVerification.needsUser, user.logout)
-router.put('/modify-user', sessionVerification.needsUser ,user.put)
-router.put('/shipping-data-requirement', sessionVerification.needsUser , user.shippingDataRequirement ,user.put)
-router.get('/users', sessionVerification.needsAdmin ,user.get)
+router.post('/register', user.register) //Funciona
+router.put('/verify-user', user.verifyUser) //Funciona
+router.put('/verify-admin', user.verifyAdmin) //Funciona
+router.post('/login', user.login) //Funciona
+router.post('/logout', sessionVerification.needsUser, user.logout) //Funciona
+router.put('/modify-user', sessionVerification.needsUser ,user.put) //Funciona
+router.put('/shipping-data-requirement', sessionVerification.needsUser , user.shippingDataRequirement ,user.put) //Funciona
+router.get('/users', sessionVerification.needsAdmin ,user.get) // Funciona
+router.get('/myinfo', sessionVerification.needsUser ,user.myinfo) // Funciona
 // router.post('/create-user', user.post)
 
 //Form endpoints:
-router.get('/admins', sessionVerification.needsAdmin ,admin.get) 
-router.post('/create-admin', sessionVerification.needsAdmin ,admin.post) 
+router.get('/admins', sessionVerification.needsAdmin ,admin.get) // No va
+router.post('/create-admin', sessionVerification.needsAdmin ,admin.post) // No va
 
 //Form endpoints:
-router.get('/donate-products', sessionVerification.needsAdmin ,form.get) 
-router.post('/donate-form', sessionVerification.needsUser ,form.post) 
+router.get('/donate-products', sessionVerification.needsAdmin ,form.get) //Funciona
+router.post('/donate-form', sessionVerification.needsUser ,form.post) //Funciona
 
 //Product endpoints:
 router.post('/product', sessionVerification.needsAdmin ,product.post)

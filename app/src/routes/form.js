@@ -38,7 +38,7 @@ exports.post = async function(req, res){  // lalala.post
         res.send({info: "No image"});
         return
         }
-        
+
     stock = stock ? stock : 1;
     
     let id = req.session.userId
@@ -82,7 +82,7 @@ exports.post = async function(req, res){  // lalala.post
 exports.get = async function (req, res, next){
     try {
         const {id} = req.query;
-        // let bdTotal = await getDbForm(); 
+        let bdTotal = await getDbForm(); 
         // console.log("id :",id)
         // console.log("bdTotal    :",bdTotal)
         if (id) {

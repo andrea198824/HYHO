@@ -143,7 +143,7 @@ exports.verifyAdmin = async function(req, res, next) {
         } = req.query
 
         let bdTotal = await getDbUser(); 
-        console.log(bdTotal)
+        // console.log(bdTotal)
         if (id) {
             let prodName = await bdTotal.filter((user) =>
             user.id == id
@@ -242,6 +242,29 @@ exports.get = async function (req, res, next){
     }
 }
 
+exports.myinfo = async function (req, res, next){
+    try {
+        const id = req.session.userId;
+        let bdTotal = await getDbUser(); 
+        // console.log(bdTotal)
+        if (id) {
+
+            let prodName = await bdTotal.filter((user) =>
+            user.id == id
+            );
+            prodName.length //si hay algún nombre
+                ? res.status(200).send(prodName)
+                : res
+                    .status(404)
+                    .send({ info: "Sorry, the product you are looking for is not here." });
+        } else {
+            res.status(200).send(bdTotal); 
+        }
+    } catch (error) {
+        next(error);
+    }
+}
+
 exports.put = async function (req, res, next){
     try {
         let {
@@ -257,7 +280,7 @@ exports.put = async function (req, res, next){
         id = id ? id : req.session.userId
 
         let bdTotal = await getDbUser(); 
-        console.log(bdTotal)
+        // console.log(bdTotal)
         if (id) {
             let prodName = await bdTotal.filter((user) =>
             user.id == id
