@@ -52,9 +52,16 @@ const Button = styled.button`
   color: #4d4442;
   cursor: pointer;
   margin-bottom: 10px;
+&:disabled {
+    background-color: gray;
+    color: black;
+    opacity: 0.7;
+    cursor: default;
 `;
 
-const Anchor = styled.a`
+
+
+const Anchor = styled.div`
   margin: 5px 0px;
   font-size: 12px;
   text-decoration: underline;
@@ -87,6 +94,8 @@ const Login = () => {
 
     }
 
+    console.log(!input.password || !input.userName)
+
     return (
         <Container>
             <Wrapper>
@@ -98,15 +107,21 @@ const Login = () => {
                         value={input.userName}
                         type='text'
                         placeholder='Usuario'
+                        required
                     />
                     <Input
                         onChange={(e) => handleInputChange(e)}
                         name='password'
                         value={input.password}
                         type='password'  
-                        placeholder="Contraseña" />
+                        placeholder="Contraseña"
+                    />
                     <Link to='/' style={linkStyle}>
-                        <Button >Iniciar Sesion</Button>
+                        <Button
+                            disabled={!input.password || !input.userName}
+                        >
+                            Iniciar Tesion
+                        </Button>
                         
                     </Link>
                     
