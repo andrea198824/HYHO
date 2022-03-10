@@ -1,6 +1,6 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const session = require('express-session'); // Session
+const expressSession = require('express-session'); // Session
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
@@ -23,7 +23,18 @@ server.use((req, res, next) => {
   next();
 });
 
-server.use(session(
+//-----------------sessions----------------------
+
+const SessionStore = require('express-session-sequelize')(expressSession.Store);
+const Sequelize = require('sequelize');
+
+const { conn } = require('./db.js');
+
+const sequelizeSessionStore = new SessionStore({
+  db: conn,
+});
+
+server.use(expressSession(
   {
     name: 'sid',
     secret:'secret', // Debería estar en un archivo de environment
