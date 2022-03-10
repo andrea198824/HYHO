@@ -18,22 +18,23 @@ router.put('/verify-user', user.verifyUser) //Funciona
 router.put('/verify-admin', user.verifyAdmin) //Funciona
 router.post('/login', user.login) //Funciona
 router.post('/logout', sessionVerification.needsUser, user.logout) //Funciona
-router.put('/modify-user', sessionVerification.needsUser ,user.put) //Funciona
+router.put('/modify-user', sessionVerification.needsAdmin ,user.put) //Funciona
+router.put('/modify-mydata', sessionVerification.needsUser ,user.put) //Funciona
 router.put('/shipping-data-requirement', sessionVerification.needsUser , user.shippingDataRequirement ,user.put) //Funciona
 router.get('/users', sessionVerification.needsAdmin ,user.get) // Funciona
 router.get('/myinfo', sessionVerification.needsUser ,user.myinfo) // Funciona
 // router.post('/create-user', user.post)
 
 //Form endpoints:
-router.get('/admins', sessionVerification.needsAdmin ,admin.get) // No va
-router.post('/create-admin', sessionVerification.needsAdmin ,admin.post) // No va
+// router.get('/admins', sessionVerification.needsAdmin ,admin.get) // No va
+// router.post('/create-admin', sessionVerification.needsAdmin ,admin.post) // No va
 
 //Form endpoints:
 router.get('/donate-products', sessionVerification.needsAdmin ,form.get) //Funciona
 router.post('/donate-form', sessionVerification.needsUser ,form.post) //Funciona
 
 //Product endpoints:
-router.post('/product', sessionVerification.needsAdmin ,product.post)
+router.post('/product', sessionVerification.needsAdmin ,product.post) //Funciona
 router.get('/products', product.get)
 router.put('/product/modify/:id', sessionVerification.needsAdmin ,product.put)
 router.delete('/product/delete/:id', sessionVerification.needsAdmin ,product.delete)

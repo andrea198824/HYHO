@@ -277,7 +277,46 @@ exports.put = async function (req, res, next){
             phone,
         } = req.body;
 
-        id = id ? id : req.session.userId
+        let bdTotal = await getDbUser(); 
+        // console.log(bdTotal)
+        if (id) {
+            let prodName = await bdTotal.filter((user) =>
+            user.id == id
+            );
+            if (!prodName.length) {//si no hay algún nombre
+                res
+                .status(404)
+                .send({ info: "Sorry, the product you are looking for is not here." });
+            } else {                
+                if (fullName) prodName[0].set({fullName})
+                if (email) prodName[0].set({email})
+                if (password) prodName[0].set({password})
+                if (billing_address) prodName[0].set({billing_address})
+                if (shipping_address) prodName[0].set({shipping_address})
+                if (phone) prodName[0].set({phone})
+                await prodName[0].save();
+                res.status(201).send(prodName[0])
+            }
+        } else {
+            res.status(404).send({info: "No id"}); 
+        }
+    } catch (error) {
+        next(error);
+    }
+}
+
+exports.modifyMyData = async function (req, res, next){
+    try {
+        let {
+            fullName,
+            email,
+            password,
+            billing_address,
+            shipping_address,
+            phone,
+        } = req.body;
+
+        let id = req.session.userId
 
         let bdTotal = await getDbUser(); 
         // console.log(bdTotal)
