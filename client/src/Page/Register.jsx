@@ -46,8 +46,8 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  width: 40%;
-  margin-top: 20px;
+  width: 100%;
+  margin-top: 80px;
   border: none;
   padding: 15px 20px;
   background-color: #dbd3f7;
@@ -66,7 +66,7 @@ const Button = styled.button`
 const Paragraph = styled.p`
   color: red;
   font-size: 15px;
-  font-weight: 3;
+  font-weight: 3px;
 `;
 
 const Div = styled.div`
@@ -260,14 +260,14 @@ const Register = () => {
                             <Paragraph>{errors.passwordb}</Paragraph>
                         )}
                     </div>
-                    <div>
+                    <Div>
                         <Button
                             type='submit'
                             disabled={!errors.disabled}
                         >
                             Crear
                         </Button>
-                    </div>
+                    </Div>
 
                     <Div>
                         <Link to='/' style={linkStyle}>
