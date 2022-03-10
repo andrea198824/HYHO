@@ -19,7 +19,7 @@ router.put('/verify-admin', user.verifyAdmin) //Funciona
 router.post('/login', user.login) //Funciona
 router.post('/logout', sessionVerification.needsUser, user.logout) //Funciona
 router.put('/modify-user', sessionVerification.needsAdmin ,user.put) //Funciona
-router.put('/modify-mydata', sessionVerification.needsUser ,user.put) //Funciona
+router.put('/modify-mydata', sessionVerification.needsUser ,user.modifyMyData) //Funciona
 router.put('/shipping-data-requirement', sessionVerification.needsUser , user.shippingDataRequirement ,user.put) //Funciona
 router.get('/users', sessionVerification.needsAdmin ,user.get) // Funciona
 router.get('/myinfo', sessionVerification.needsUser ,user.myinfo) // Funciona
@@ -51,14 +51,14 @@ router.get('/newsletter', newsletter.get)
 const shopController = require('./shop')
 
 // router.get('/', shopController.getIndex);
-router.get('/shop', shopController.getProducts) //
-router.get('/cart', shopController.getCart)
-router.post('/cart', shopController.postCart)
+// router.get('/shop' ,shopController.getProducts) //  -> Usar /products
+router.get('/cart', sessionVerification.needsUser ,shopController.getCart)
+router.post('/cart', sessionVerification.needsUser ,shopController.postCart)
 // router.get('/checkout', shopController.getCheckout);
 // router.get('/orders', shopController.getOrders);
 // router.get('/products/:productId', shopController.getProduct);
-router.delete('/cart-delete', shopController.postCartDeleteCart)
-router.put('/putCart/:id', shopController.putCart)
+router.delete('/cart-delete', sessionVerification.needsUser ,shopController.postCartDeleteCart)
+router.put('/putCart/:id', sessionVerification.needsUser ,shopController.putCart)
 // router.post('/create-order', shopController.postOrder);
 
 module.exports = router
