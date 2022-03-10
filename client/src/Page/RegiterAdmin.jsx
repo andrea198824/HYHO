@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import { createuser } from '../store/actions';
+import { createadmin } from '../store/actions';
 
 const Container = styled.div`
   width: 100vw;
@@ -77,42 +77,24 @@ const Div = styled.div`
 `
 
 const linkStyle = {
-   
+
     textDecoration: "none",
     color: 'inherit',
     width: '50%',
     padding: '5px'
-    
-    
 }
 
 export function validate(input) {
     let errors = {};
-    
+
     if (!input.fullName) {
         errors.fullName = 'Nombre Es Requerido';
-    } else if (!/^([A-ZÃÃ‰ÃÃ“Ãš]{1}[a-zÃ±Ã¡Ã©Ã­Ã³Ãº]+[\s]*)+$/.test(input.fullName)) {
-        errors.fullName = 'Nombre es InvÃ¡lido';
+    } else if (!/^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/.test(input.fullName)) {
+        errors.fullName = 'Nombre es Inválido';
     }
+   
+    
 
-    if (!input.billing_address) {
-        errors.billing_address = 'Campo Requerido';
-    } else if (!/[A-Za-z0-9]+/g.test(input.billing_address)) {
-        errors.billing_address = 'Campo InvÃ¡lido';
-    }
-
-    if (!input.shipping_address) {
-        errors.shipping_address = 'Campo Requerido';
-    } else if (!/[A-Za-z0-9]+/g.test(input.shipping_address)) {
-        errors.shipping_address = 'Campo InvÃ¡lido';
-    }
-
-    if (!input.phone) {
-        errors.phone = 'Celular Requerido';
-    } else if (/^(?:(?:00)?549?)?0?(?:11|[2368]\d)(?:(?=\d{0,2}15)\d{2})??\d{8}$/.test(input.phone)) {
-        errors.phone = 'Celular Invalido';
-    }
-       
     if (!input.email) {
         errors.mail = 'Correo Requerido';
     } else if (!/\S+@\S+\.\S+/.test(input.email)) {
@@ -120,15 +102,15 @@ export function validate(input) {
     }
 
     if (!input.password) {
-        errors.password = 'ContraseÃ±a Requerida';
+        errors.password = 'Contraseña Requerida';
     } else if (!/^(?=.{10,}$)(?=(?:.*?[A-Z]){2})(?=.*?[a-z])(?=(?:.*?[0-9]){2}).*$/.test(input.password)) {
-        errors.password = '2 may, 1 min, 2 dÃ­g long 10';
+        errors.password = '2 may, 1 min, 2 díg long 10';
     }
 
     if (!input.passwordb) {
-        errors.passwordb = 'ContraseÃ±a Requerida';
+        errors.passwordb = 'Contraseña Requerida';
     } else if ((input.password !== input.passwordb)) {
-        errors.passwordb = 'ContraseÃ±as No Coinciden';
+        errors.passwordb = 'Contraseñas No Coinciden';
     }
 
     if (Object.keys(errors).length === 0) {
@@ -139,7 +121,7 @@ export function validate(input) {
     return errors;
 };
 
-const Register = () => {
+const RegisterAdmin = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -147,9 +129,6 @@ const Register = () => {
     const [errors, setErrors] = useState({});
     const [input, setInput] = useState({
         fullName: '',
-        billing_address: '',
-        shipping_address: '',
-        phone:'',
         email: '',
         password: '',
     });
@@ -169,16 +148,16 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(createuser(input))
+        dispatch(createadmin(input))
         navigate("/");
     }
-      
+
     return (
         <Container>
-            
+
             <Wrapper>
-                <Title>CREAR UNA CUENTA</Title>
-               
+                <Title>CREAR UNA CUENTA ADMINISTRADOR</Title>
+
                 <Form onSubmit={(e) => handleSubmit(e)}>
                     <div>
                         <Input
@@ -192,40 +171,40 @@ const Register = () => {
                             <Paragraph>{errors.name}</Paragraph>
                         )}
                     </div>
-                    <div>
-                        <Input
-                            onChange={(e) => handleInputChange(e)}
-                            type='text'
-                            name='billing_address'
-                            placeholder="DirecciÃ³n FacturaciÃ³n"
-                        />
-                        {errors.billing_address && (
-                            <Paragraph>{errors.billing_address}</Paragraph>
-                        )}
-                    </div>
-                    <div>
-                        <Input
-                            onChange={(e) => handleInputChange(e)}
-                            type='text'
-                            name='shipping_address'
-                            placeholder="DirecciÃ³n EnvÃ­o"
-                        />
-                        {errors.shipping_address && (
-                            <Paragraph>{errors.shipping_address}</Paragraph>
-                        )}
-                    </div>
+                    {/*<div>*/}
+                    {/*    <Input*/}
+                    {/*        onChange={(e) => handleInputChange(e)}*/}
+                    {/*        type='text'*/}
+                    {/*        name='billing_address'*/}
+                    {/*        placeholder="Dirección Facturación"*/}
+                    {/*    />*/}
+                    {/*    {errors.billing_address && (*/}
+                    {/*        <Paragraph>{errors.billing_address}</Paragraph>*/}
+                    {/*    )}*/}
+                    {/*</div>*/}
+                    {/*<div>*/}
+                    {/*    <Input*/}
+                    {/*        onChange={(e) => handleInputChange(e)}*/}
+                    {/*        type='text'*/}
+                    {/*        name='shipping_address'*/}
+                    {/*        placeholder="Dirección Envío"*/}
+                    {/*    />*/}
+                    {/*    {errors.shipping_address && (*/}
+                    {/*        <Paragraph>{errors.shipping_address}</Paragraph>*/}
+                    {/*    )}*/}
+                    {/*</div>*/}
 
-                    <div>
-                        <Input
-                            onChange={(e) => handleInputChange(e)}
-                            type='number'
-                            name='phone'
-                            placeholder="NÃºmero Celular"
-                        />
-                        {errors.phone && (
-                            <Paragraph>{errors.phone}</Paragraph>
-                        )}
-                    </div>
+                    {/*<div>*/}
+                    {/*    <Input*/}
+                    {/*        onChange={(e) => handleInputChange(e)}*/}
+                    {/*        type='number'*/}
+                    {/*        name='phone'*/}
+                    {/*        placeholder="Número Celular"*/}
+                    {/*    />*/}
+                    {/*    {errors.phone && (*/}
+                    {/*        <Paragraph>{errors.phone}</Paragraph>*/}
+                    {/*    )}*/}
+                    {/*</div>*/}
 
                     <div>
                         <Input
@@ -239,22 +218,22 @@ const Register = () => {
                         )}
                     </div>
                     <div>
-                    <Input
-                        onChange={(e) => handleInputChange(e)}
-                        type='password'
-                        name='password'
-                        placeholder="ContraseÃ±a"
-                    />
-                    {errors.password && (
-                        <Paragraph>{errors.password}</Paragraph>
-                    )}
+                        <Input
+                            onChange={(e) => handleInputChange(e)}
+                            type='password'
+                            name='password'
+                            placeholder="Contraseña"
+                        />
+                        {errors.password && (
+                            <Paragraph>{errors.password}</Paragraph>
+                        )}
                     </div>
                     <div>
                         <Input
                             onChange={(e) => handleInputChange(e)}
                             type='password'
                             name='passwordb'
-                            placeholder="Confirmar ContraseÃ±a"
+                            placeholder="Confirmar Contraseña"
                         />
                         {errors.passwordb && (
                             <Paragraph>{errors.passwordb}</Paragraph>
@@ -274,13 +253,13 @@ const Register = () => {
                             <Button>Volver</Button>
                         </Link>
                     </Div>
-                    
+
                 </Form>
-                
-                
+
+
             </Wrapper>
-            
+
         </Container>
     );
 };
-export default Register;
+export default RegisterAdmin;
