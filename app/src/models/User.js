@@ -40,8 +40,8 @@ module.exports = sequelize => {
       allowNull: true
     },
     phone: {
-      type: DataTypes.STRING                      ,
-      allowNull: true
-    },
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   })
 }

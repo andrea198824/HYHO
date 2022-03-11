@@ -26,13 +26,14 @@ router.get('/users', sessionVerification.needsAdmin ,user.get) // Funciona
 router.get('/myinfo', sessionVerification.needsUser ,user.myinfo) // Funciona
 // router.post('/create-user', user.post)
 
-//Form endpoints:
+//Admin endpoints:
 // router.get('/admins', sessionVerification.needsAdmin ,admin.get) // No va
 // router.post('/create-admin', sessionVerification.needsAdmin ,admin.post) // No va
 
 //Form endpoints:
 router.get('/donate-products', sessionVerification.needsAdmin ,form.get) //Funciona
 router.post('/donate-form', sessionVerification.needsUser ,form.post) //Funciona
+
 
 //Product endpoints:
 router.post('/product', sessionVerification.needsAdmin ,product.post) //Funciona
@@ -52,13 +53,14 @@ router.get('/newsletter', newsletter.get)
 const shopController = require('./shop')
 
 // router.get('/', shopController.getIndex);
-// router.get('/shop' ,shopController.getProducts) //  -> Usar /products
+
+router.get('/shop' ,shopController.getProducts) //  -> Usar /products
 router.get('/cart', sessionVerification.needsUser ,shopController.getCart)
 router.post('/cart', sessionVerification.needsUser ,shopController.postCart)
 // router.get('/checkout', shopController.getCheckout);
 // router.get('/orders', shopController.getOrders);
 // router.get('/products/:productId', shopController.getProduct);
-router.delete('/cart-delete', sessionVerification.needsUser ,shopController.postCartDeleteCart)
+router.delete('/cart-delete', sessionVerification.needsUser ,shopController.postCartDeleteCart) //*
 router.put('/putCart/:id', sessionVerification.needsUser ,shopController.putCart)
 // router.post('/create-order', shopController.postOrder);
 
@@ -67,6 +69,13 @@ router.get('/sessions', sessionVerification.needsAdmin ,sessions.get);
 router.get('/counter', sessions.counter);
 
 
+//---------------shopping Orders ------------------
+
+const shopControllerOrder = require('./shopOrder')
+router.delete('/deleteOrder', sessionVerification.needsAdmin ,shopControllerOrder.deleteOrder);
+router.get('/getOrder', sessionVerification.needsAdmin ,shopControllerOrder.getOrder);
+//Agregar endpoint para get orders de usuario.
+router.post('/create-order', sessionVerification.needsUser ,shopControllerOrder.postCreateOrder)
 
 
 module.exports = router

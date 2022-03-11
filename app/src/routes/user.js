@@ -12,6 +12,7 @@ const getDbUser = async () => {
     return await User.findAll();    
 }
 
+
 function randomString(length) {
     var result           = '';
     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -23,11 +24,45 @@ function randomString(length) {
    return result;
 }
 
+// POST REGISTER
 exports.register = async function(req, res, next){
-
-
     try {
+    const { fullName,
+         email,
+         password,
+         billing_address,
+         shipping_address,
+         phone}
+     = req.body;
+    console.log(req.body)
 
+    if (!fullName || typeof fullName !== "string") {
+        res.send({info: "No fullName"});
+        return
+        }
+    if (!email || typeof email !== "string") {
+        res.status(400).send({info: "No email"});
+        return
+        }
+    if (!password || typeof password !== "string") {
+        res.status(400).send({info: "No password"});
+        return
+        }
+    if (!billing_address || typeof billing_address !== "string") {
+        res.status(400).send({info: "No billing address"});
+        return
+        }
+    if (!shipping_address || typeof shipping_address !== "string") {
+        res.status(400).send({info: "No shipping address"});
+        return
+        }
+
+
+    if (!phone || typeof phone !== "string") {
+
+        res.status(400).send({info: "No phone"});
+        return
+        }
 
         //Checks query.
         let { 

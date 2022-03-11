@@ -1,6 +1,9 @@
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link } from 'react-router-dom';
+import LoguinBtn from "../components/Login";
 
 const Container = styled.div`
   width: 100vw;
@@ -49,9 +52,16 @@ const Button = styled.button`
   color: #4d4442;
   cursor: pointer;
   margin-bottom: 10px;
+&:disabled {
+    background-color: gray;
+    color: black;
+    opacity: 0.7;
+    cursor: default;
 `;
 
-const Anchor = styled.a`
+
+
+const Anchor = styled.div`
   margin: 5px 0px;
   font-size: 12px;
   text-decoration: underline;
@@ -63,16 +73,58 @@ const linkStyle = {
 }
 
 const Login = () => {
+
+    const dispatch = useDispatch()
+
+    const [input, setInput] = useState({
+        userName: '',
+        password: '',
+    });
+
+    const handleInputChange = function (e) {
+        e.preventDefault()
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value
+        });
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+    }
+
+    console.log(!input.password || !input.userName)
+
     return (
         <Container>
             <Wrapper>
                 <Title>INICIO DE SESION</Title>
-                <Form>
-                    <Input placeholder="Usuario" />
-                    <Input placeholder="Contraseña" />
+                <Form onSubmit={(e)=> handleSubmit(e)}>
+                    <Input
+                        onChange={(e) => handleInputChange(e)}
+                        name='userName'
+                        value={input.userName}
+                        type='text'
+                        placeholder='Usuario'
+                        required
+                    />
+                    <Input
+                        onChange={(e) => handleInputChange(e)}
+                        name='password'
+                        value={input.password}
+                        type='password'  
+                        placeholder="Contraseña"
+                    />
                     <Link to='/' style={linkStyle}>
-                        <Button >Iniciar Sesion</Button>
+                        <Button
+                            disabled={!input.password || !input.userName}
+                        >
+                            Iniciar Tesion
+                        </Button>
+                        
                     </Link>
+                    
                     <Link to='/recoverpassword' style={linkStyle}>
                         <Anchor>No recuerdas la contraseña?</Anchor>
                     </Link>
@@ -80,6 +132,7 @@ const Login = () => {
                         <Anchor to='/register'>Registrarse</Anchor>
                     </Link>
                 </Form>
+                <LoguinBtn />
             </Wrapper>
         </Container>
     );

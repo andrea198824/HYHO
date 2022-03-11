@@ -5,9 +5,16 @@ import { sliderItems } from "../data";
 import { mobile } from "../responsive";
 import { Link } from 'react-router-dom';
 
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 80vh;
   display: flex;
   position: relative;
   overflow: hidden;
@@ -62,8 +69,17 @@ const InfoContainer = styled.div`
   padding: 50px;
 `;
 
+const ContTitle = styled.div`
+  
+  // background-color: #dbd3f7;
+  border: 0.5px solid #dbd3f7 ;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+`;
 const Title = styled.h1`
-  font-size: 70px;
+  color:#8aa290;
+  font-size: 50px;
 `;
 
 const Desc = styled.p`
@@ -92,6 +108,10 @@ const Slider = () => {
   };
 
   return (
+    <Div>
+    <ContTitle>
+      <Title>¿A donde va el dinero recaudado?</Title>
+    </ContTitle>
     <Container>
       <Arrow direction="left" onClick={() => handleClick("left")}>
         <ArrowLeftOutlined />
@@ -116,6 +136,7 @@ const Slider = () => {
         <ArrowRightOutlined />
       </Arrow>
     </Container>
+    </Div>
   );
 };
 
