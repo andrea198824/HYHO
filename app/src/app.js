@@ -23,6 +23,11 @@ server.use((req, res, next) => {
   next();
 });
 
+
+
+
+
+
 //-----------------sessions----------------------
 server.use(function(req,res,next){
   res.locals.session = req.session;

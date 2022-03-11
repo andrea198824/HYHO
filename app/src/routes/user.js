@@ -89,7 +89,7 @@ exports.register = async function(req, res, next){
             const securityString = randomString(100);
             // console.log("password   :",password)
             // console.log("securityString :",securityString)
-            // password = CryptoJS.HmacSHA1(securityString, password).toString(CryptoJS.enc.Base64)
+            password = CryptoJS.HmacSHA1(securityString, password).toString(CryptoJS.enc.Base64)
             // console.log("hashed password :",password)
             
             
