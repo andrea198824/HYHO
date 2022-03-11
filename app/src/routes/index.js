@@ -63,7 +63,7 @@ router.put('/putCart/:id', sessionVerification.needsUser ,shopController.putCart
 // router.post('/create-order', shopController.postOrder);
 
 //--------------shopping routes --------------------
-router.get('/sessions', sessions.get);
+router.get('/sessions', sessionVerification.needsAdmin ,sessions.get);
 
 
 

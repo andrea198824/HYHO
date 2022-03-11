@@ -24,6 +24,10 @@ server.use((req, res, next) => {
 });
 
 //-----------------sessions----------------------
+server.use(function(req,res,next){
+  res.locals.session = req.session;
+  next();
+});
 
 const SessionStore = require('express-session-sequelize')(expressSession.Store);
 const Sequelize = require('sequelize');
@@ -40,7 +44,7 @@ server.use(expressSession(
     secret:'secret', // Debería estar en un archivo de environment
     resave:false,
     store: sequelizeSessionStore,
-    saveUninitialized:false,
+    saveUninitialized:true,
     cookie:{
       maxAge: 1000 * 60 * 60 * 2 // Está en milisegundos --> 2hs
     }

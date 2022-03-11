@@ -7,13 +7,22 @@ let { Admin } = require('../db').conn.models;
 const session = require('express-session');
 
 exports.get = async function(req, res, next){
+    let { id } = req.query
     let Session = require('../db').conn.models.Session
     let allSessions = await Session.findAll();
+    console.log("res.locals :",res.locals)
     console.log("allSessions        :",allSessions)
-    // console.log("Session    :",Session)
-    // console.log("Admin    :",Admin)
-    // console.log("Category    :",Category)
-    // console.log("Session    :",require('../db').conn.models.Admin)
-    // console.log("Admin    :",require('../db').conn.models.Session)
-    res.sendStatus(200)
+    allSessions = allSessions.map(el => {
+        return {
+            session_id : el.session_id,
+            data: JSON.parse(el.data)
+
+        }
+    })
+    if (id){
+        let sessionById = allSessions.filter(el => el.data.userId == id)
+        res.status(200).send(sessionById)
+    } else {
+        res.status(200).send(allSessions)
+    }
  }
