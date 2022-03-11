@@ -204,6 +204,7 @@ exports.login = async function (req, res, next){
             password = CryptoJS.HmacSHA1(userToLogin[0].securityString, password).toString(CryptoJS.enc.Base64)
             console.log("Input password :",password);
             console.log("Database password :",userToLogin[0].password);
+            console.log("userToLogin[0].emailVerificated :",userToLogin[0].emailVerificated);
             if (
                 userToLogin[0].password == password &&
                 userToLogin[0].emailVerificated
@@ -215,8 +216,8 @@ exports.login = async function (req, res, next){
                     session: req.session
                 }})
             } else {
-                if (!userToLogin[0].emailVerificated) res.status(201).send({info: "Email verification required"});
-                if (userToLogin[0].password != password) res.status(201).send({info: "Password incorrect"});
+                if (!userToLogin[0].emailVerificated) res.status(401).send({info: "Email verification required"});
+                if (userToLogin[0].password != password) res.status(401).send({info: "Password incorrect"});
             }
         }
 
@@ -283,7 +284,9 @@ exports.put = async function (req, res, next){
             phone,
         } = req.body;
 
-        let bdTotal = await getDbUser(); 
+        id = id ? id : req.session.userId
+
+        let bdTotal = await getDbUser();
         // console.log(bdTotal)
         if (id) {
             let prodName = await bdTotal.filter((user) =>
@@ -296,7 +299,7 @@ exports.put = async function (req, res, next){
             } else {                
                 if (fullName) prodName[0].set({fullName})
                 if (email) prodName[0].set({email})
-                if (password) prodName[0].set({password})
+                if (password) prodName[0].set({password: CryptoJS.HmacSHA1(prodName[0].securityString, password).toString(CryptoJS.enc.Base64)})
                 if (billing_address) prodName[0].set({billing_address})
                 if (shipping_address) prodName[0].set({shipping_address})
                 if (phone) prodName[0].set({phone})
@@ -337,7 +340,7 @@ exports.modifyMyData = async function (req, res, next){
             } else {                
                 if (fullName) prodName[0].set({fullName})
                 if (email) prodName[0].set({email})
-                if (password) prodName[0].set({password})
+                if (password) prodName[0].set({password: CryptoJS.HmacSHA1(prodName[0].securityString, password).toString(CryptoJS.enc.Base64)})
                 if (billing_address) prodName[0].set({billing_address})
                 if (shipping_address) prodName[0].set({shipping_address})
                 if (phone) prodName[0].set({phone})
@@ -372,7 +375,7 @@ exports.shippingDataRequirement = async function (req, res, next){
 exports.logout = async function (req, res, next) {
     req.session.destroy(err => {
         if(err) {
-        //   return res.redirect('/home');
+            res.status(404).send({info: err})
         }
         res.clearCookie('sid');
         res.status(200).send({info: "Logout succesfull"})
