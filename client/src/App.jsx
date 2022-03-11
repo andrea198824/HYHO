@@ -9,8 +9,6 @@ import Cart from './Page/Cart';
 import Login from './Page/Login';
 import InfoSlider from './Page/InfoSlider';
 import RecoverPassword from './Page/RecoverPassword';
-import RegisterAdmin from './Page/RegiterAdmin';
-
 
 
 
@@ -26,7 +24,6 @@ function App() {
                     <Route exact path='/login' element={<Login />} />
                     <Route exact path='/register' element={<Register />} />
                     <Route exact path='/infoSlider' element={<InfoSlider />} />
-                    <Route exact path='/registeradmin' element={<RegisterAdmin />} />
                     <Route exact path='/recoverpassword' element={<RecoverPassword />} />
                 </Routes>
              </Router>
