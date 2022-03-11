@@ -1,5 +1,6 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const expressSession = require('express-session'); // Session
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
@@ -10,7 +11,7 @@ const server = express();
 
 server.name = 'API';
 
-server.use(bodyParser.urlencoded({ extended: false, limit: '50mb' }));
+server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
 server.use(cookieParser());
 server.use(morgan('dev'));
@@ -21,6 +22,39 @@ server.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
+
+
+
+
+
+
+//-----------------sessions----------------------
+server.use(function(req,res,next){
+  res.locals.session = req.session;
+  next();
+});
+
+const SessionStore = require('express-session-sequelize')(expressSession.Store);
+const Sequelize = require('sequelize');
+
+const { conn } = require('./db.js');
+
+const sequelizeSessionStore = new SessionStore({
+  db: conn,
+});
+
+server.use(expressSession(
+  {
+    name: 'sid',
+    secret:'secret', // Debería estar en un archivo de environment
+    resave: true,
+    store: sequelizeSessionStore,
+    saveUninitialized: true,
+    cookie:{
+      maxAge: 1000 * 60 * 60 * 2 // Está en milisegundos --> 2hs
+    }
+  }
+));
 
 server.use('/', routes);
 
