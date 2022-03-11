@@ -211,6 +211,7 @@ exports.login = async function (req, res, next){
                 ) {
                 req.session.userId = userToLogin[0].id;                
                 req.session.name = userToLogin[0].adminVerificated ? "admin" : "user";
+                console.log(req.session)
                 res.status(201).send({info: {
                     user: userToLogin[0],
                     session: req.session
@@ -348,7 +349,7 @@ exports.modifyMyData = async function (req, res, next){
                 res.status(201).send(prodName[0])
             }
         } else {
-            res.status(404).send({info: "No id"}); 
+            res.status(404).send({info: "No id"});
         }
     } catch (error) {
         next(error);
