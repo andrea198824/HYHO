@@ -52,7 +52,7 @@ export const filterByCategory = (category) => {
 export const createuser = (payload) => {
     return async function (dispatch) {
 
-        const respons = axios.post('http://127.0.0.1:3001/create-user', payload)
+        const respons = axios.post('/create-user', payload)
         console.log(respons)
         return ({
             type: CREATE_USER,
@@ -64,7 +64,7 @@ export const createuser = (payload) => {
 export const createadmin = (payload) => {
     return async function (dispatch) {
 
-        const respons = axios.post('http://127.0.0.1:3001/create-admin', payload)
+        const respons = axios.post('/create-admin', payload)
         console.log(respons)
         return ({
             type: CREATE_ADMIN,
