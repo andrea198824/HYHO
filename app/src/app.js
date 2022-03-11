@@ -42,9 +42,9 @@ server.use(expressSession(
   {
     name: 'sid',
     secret:'secret', // Debería estar en un archivo de environment
-    resave:false,
+    resave: true,
     store: sequelizeSessionStore,
-    saveUninitialized:true,
+    saveUninitialized: true,
     cookie:{
       maxAge: 1000 * 60 * 60 * 2 // Está en milisegundos --> 2hs
     }

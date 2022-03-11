@@ -24,9 +24,13 @@ function randomString(length) {
 }
 
 exports.register = async function(req, res, next){
+
+
     try {
-            //Checks query.
-            let { 
+
+
+        //Checks query.
+        let { 
                     role,
                 }
             = req.query;
@@ -43,70 +47,71 @@ exports.register = async function(req, res, next){
                     shipping_address,
                     phone
                 }
-            = req.body;
-
-
-            // console.log(req.body)
-            if (!fullName || typeof fullName !== "string") {
-                res.send({info: "No fullName"});
+                = req.body;
+                
+                
+                // console.log(req.body)
+                if (!fullName || typeof fullName !== "string") {
+                    res.send({info: "No fullName"});
                 return
-                }
+            }
             if (!email || typeof email !== "string") {
                 res.status(400).send({info: "No email"});
                 return
-                }
+            }
             if (!password || typeof password !== "string") {
                 res.status(400).send({info: "No password"});
                 return
-                }
+            }
             // if (!billing_address || typeof billing_address !== "string") {
-            //     res.status(400).send({info: "No billing address"});
-            //     return
-            //     }
-            // if (!shipping_address || typeof shipping_address !== "string") {
-            //     res.status(400).send({info: "No shipping address"});
-            //     return
-            //     }
+                //     res.status(400).send({info: "No billing address"});
+                //     return
+                //     }
+                // if (!shipping_address || typeof shipping_address !== "string") {
+                    //     res.status(400).send({info: "No shipping address"});
+                    //     return
+                    //     }
             // if (!phone || typeof phone !== "string") {
             //     res.status(400).send({info: "No phone"});
             //     return
             //     }
-
-            let emailUser = await User.findAll({
-                    where: { email: email }
-                })
             
-                // console.log("emailUser :",emailUser)
+            let emailUser = await User.findAll({
+                where: { email: email }
+            })
+            
+            // console.log("emailUser :",emailUser)
             if (emailUser.length) {
                 res.status(400).send({info: "Mail is already taken"});
                 return
             }
-
+            
             const securityString = randomString(100);
-            console.log("password   :",password)
-            console.log("securityString :",securityString)
-            password = CryptoJS.HmacSHA1(securityString, password).toString(CryptoJS.enc.Base64)
-            console.log("hashed password :",password)
+            // console.log("password   :",password)
+            // console.log("securityString :",securityString)
+            // password = CryptoJS.HmacSHA1(securityString, password).toString(CryptoJS.enc.Base64)
+            // console.log("hashed password :",password)
             
             
             let userCreated = await User.create({
-            fullName,//
-            email,//
+                fullName,//
+                email,//
             password,//
             securityString,//
             billing_address,//
             shipping_address,//
             phone,//
             })
-
+            
             res.status(201).send(userCreated)
-} catch (error) {
+        } catch (error) {
     next({info: error});
 }
 
 }
 
 exports.verifyUser = async function(req, res, next) {
+    
     
     try {
         const {

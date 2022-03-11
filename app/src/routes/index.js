@@ -64,6 +64,7 @@ router.put('/putCart/:id', sessionVerification.needsUser ,shopController.putCart
 
 //--------------shopping routes --------------------
 router.get('/sessions', sessionVerification.needsAdmin ,sessions.get);
+router.get('/counter', sessions.counter);
 
 
 

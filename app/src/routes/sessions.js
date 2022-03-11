@@ -26,3 +26,20 @@ exports.get = async function(req, res, next){
         res.status(200).send(allSessions)
     }
  }
+
+exports.counter = async function(req, res, next){
+    if (req.session.views) {
+            
+        // Increment the number of views.
+        req.session.views++
+
+        // Print the views.
+        console.log('<p> No. of views: ' 
+            + req.session.views + '</p>') 
+        next()  
+        } else {
+        req.session.views = 1
+        console.log(' New session is started')
+        next()  
+        }
+ }
