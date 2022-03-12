@@ -2,6 +2,7 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
+const { userInfo } = require('os');
 const {
   DB_USER, DB_PASSWORD, DB_HOST,
 } = process.env;
@@ -30,21 +31,51 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Category, Products, Form, Order, User} = sequelize.models;
+const { Category, Products, Form, Order, User, Cart} = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
-Category.belongsToMany(Products, { through: 'products_category' });
-Products.belongsToMany(Category, { through: 'products_category' });
+Category.belongsToMany(Products, { through: 'products_category' })
+Products.belongsToMany(Category, { through: 'products_category' })
 
-Order.belongsToMany(Products, { through: 'products_order' });
-Products.belongsToMany(Order, { through: 'products_order' });
+Order.belongsToMany(Products, { through: 'products_order' })
+Products.belongsToMany(Order, { through: 'products_order' })
 
-Form.hasOne(Products);
-Products.belongsTo(Form);
+Form.hasOne(Products)
+Products.belongsTo(Form)
 
-User.hasMany(Form);
-Form.belongsTo(User);
+User.hasMany(Form)
+Form.belongsTo(User)
+
+//---------------------***-----------------------
+Products.belongsTo(User, {
+  constraints: true,
+  onDelete: 'CASCADE'
+})
+User.hasMany(Products)
+
+User.hasOne(Cart)
+Cart.belongsTo(User)
+
+Cart.belongsToMany(Products, {
+  through: 'cart_Item'
+})
+Products.belongsToMany(Cart, {
+  through: 'cart_Item'
+})
+
+Order.belongsTo(User)
+User.hasMany(Order)
+
+Order.belongsToMany(Products, {
+  through: 'order_Item'
+})
+Products.belongsToMany(Order, {
+  through: 'order_Item'
+})
+
+
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

@@ -9,25 +9,15 @@ const getDbForm = async () => {
 
 exports.post = async function(req, res){  // lalala.post
     try {
-        const {user, product} = req.body;
-    if (!user) {
-        res.send({info: "No user"});
-        return
-        }
-    if (!product) {
-        res.send({info: "No product"});
-        return
-        }
+        let {
+            title,
+            price,
+            weight,
+            descriptions,
+            image,
+            stock,
+          } = req.body;
 
-
-    const {
-      title,
-      price,
-      weight,
-      descriptions,
-      image,
-      stock,
-    } = product;
     if (!title) {
         res.send({info: "No title"});
         return
@@ -48,15 +38,11 @@ exports.post = async function(req, res){  // lalala.post
         res.send({info: "No image"});
         return
         }
-    if (!stock) {
-        res.send({info: "No stock"});
-        return
-        }
+
+    stock = stock ? stock : 1;
     
-    const {
-      fullName,
-      id,
-    } = user;
+    let id = req.session.userId
+
     if (!id) {
         res.send({info: "No id"});
         return
@@ -97,8 +83,8 @@ exports.get = async function (req, res, next){
     try {
         const {id} = req.query;
         let bdTotal = await getDbForm(); 
-        console.log("id :",id)
-        console.log("bdTotal    :",bdTotal)
+        // console.log("id :",id)
+        // console.log("bdTotal    :",bdTotal)
         if (id) {
             let prodName = await bdTotal.filter((form) =>
             {
