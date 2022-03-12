@@ -31,7 +31,9 @@ const Products = () => {
     
     const paged = (PageNumber)=> {
       setCurrentPage(PageNumber)
+      window.scrollTo(0, 0)
     }
+    
     return (
         <Div>
         <Container>
