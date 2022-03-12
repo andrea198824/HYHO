@@ -68,6 +68,7 @@ const MenuItem = styled.div`
   text-decoration: none;
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
+
 const ImgLogo = styled.img`
   width: auto;
   height: 40px;
@@ -114,16 +115,17 @@ const Navbar = () => {
         <Container>
             <Wrapper>
                 <Left>
+                  <Link to='/' style={linkStyle}>
+                    <h1> TU.ong </h1>
+                  </Link>
+                      <ImgLogo src={LogoHyho}></ImgLogo>
+                        {/* <Slogan> "Help Yourself By Helping Others" </Slogan> */}
+                </Left>
+                <Center>
                     <SearchContainer onSubmit={handleSearch}>
                         <Input onChange={onChangeSearch} value={search} placeholder="Buscar..." />
                         <Search style={{ color: "gray", fontSize: 20 }} />
                     </SearchContainer>
-                </Left>
-                <Center>
-                    <Link to='/' style={linkStyle}>
-                        <ImgLogo src={LogoHyho}></ImgLogo>
-                        <Slogan> "Help Yourself By Helping Others" </Slogan>
-                    </Link>
                 </Center>
                 <Right>
                     <Link to='/register' style={linkStyle}>

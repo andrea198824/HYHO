@@ -63,7 +63,11 @@ const InfoContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 70px;
+
+  color:#8aa290;
+  font-size: 40px;
+  margin: 6px;
+
 `;
 
 const Desc = styled.p`
@@ -92,6 +96,9 @@ const Slider = () => {
   };
 
   return (
+    
+    <Div>
+      <Title> ¿A quienes estamos ayudando?</Title>
     <Container>
       <Arrow direction="left" onClick={() => handleClick("left")}>
         <ArrowLeftOutlined />
