@@ -6,7 +6,7 @@ import { mobile } from "../responsive";
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts, searchProducts } from '../store/actions';
-import LogoHyho from  '../Img/logoLargo.gif';
+import LogoHyho from '..//Img/logoLargo.gif';
 
 const Container = styled.div`
   height: 80px; 
@@ -26,8 +26,7 @@ const Left = styled.div`
   flex: 1;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
-
+  align-items: flex-start;
 `;
 
 const SearchContainer = styled.form`
@@ -70,6 +69,7 @@ const MenuItem = styled.div`
   text-decoration: none;
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
+
 const ImgLogo = styled.img`
   width: auto;
   height: 15px;
@@ -83,10 +83,6 @@ const linkStyle = {
     textDecoration: "none",
     color: 'inherit',
 }
-
-const Slogan = styled.h6`
-  margin: 0.2rem;
-`;
 
 const Navbar = () => {
     const dispatch = useDispatch();

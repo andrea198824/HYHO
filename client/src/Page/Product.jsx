@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { mobile } from "../responsive";
-import { getDetails, addToCart } from '../store/actions';
+import { getDetails } from '../store/actions';
 
 const Container = styled.div``;
 
@@ -62,6 +62,32 @@ const FilterContainer = styled.div`
   ${mobile({ width: "100%" })}
 `;
 
+const Filter = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const FilterTitle = styled.span`
+  font-size: 20px;
+  font-weight: 200;
+`;
+
+const FilterColor = styled.div`
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: ${(props) => props.color};
+  margin: 0px 5px;
+  cursor: pointer;
+`;
+
+const FilterSize = styled.select`
+  margin-left: 10px;
+  padding: 5px;
+`;
+
+const FilterSizeOption = styled.option``;
+
 const AddContainer = styled.div`
   width: 50%;
   display: flex;
@@ -108,11 +134,6 @@ const Product = () => {
         dispatch(getDetails(id))
     }, [])
 
-    const onClickAddCart = (e) => {
-        dispatch(addToCart(id))
-        alert("Producto Añadido")
-    }
-
     return (
         <Container >
             <Navbar />
@@ -152,7 +173,7 @@ const Product = () => {
                             <Amount>1</Amount>
                             <Add />
                         </AmountContainer>
-                        <Button onClick={onClickAddCart}> AGREGAR AL CARRITO </Button>
+                        <Button>AGREGAR AL CARRITO</Button>
                     </AddContainer>
                 </InfoContainer>
             </Wrapper>
