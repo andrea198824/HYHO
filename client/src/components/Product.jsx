@@ -2,7 +2,6 @@ import {
     FavoriteBorderOutlined,
     ShoppingCartOutlined,
 } from "@material-ui/icons";
-
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
@@ -89,7 +88,6 @@ const Product = ({ item }) => {
 
     return (
         <Container onClick={onClickProduct} >
-        
             <Circle />
             <Image src={item.image} />
             <Info>
