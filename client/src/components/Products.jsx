@@ -33,6 +33,7 @@ const Products = () => {
       setCurrentPage(PageNumber)
       window.scrollTo(0, 0)
     }
+    
     return (
         <Div>
         <Container>
