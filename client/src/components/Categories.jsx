@@ -15,6 +15,7 @@ const Div = styled.div`
   Align-items: center;
   margin-top: 40px;
 `;
+
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
