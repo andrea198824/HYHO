@@ -33,14 +33,12 @@ function Paged ({productsPerPage, products, paged}) {
     return (
       <Div>
             <Paginacion>
-              { pageNumber?.map(num => { 
-                  return(     
-                      <Button  key={num} onClick = {()=>paged(num)}>{num}</Button>
-                )})
+              { pageNumber.length>1? pageNumber.map(num => <Button  key={num} onClick = {()=>paged(num)}>{num}</Button>)
+                :
+                null
               }
             </Paginacion>  
       </Div>
     )
-};
-
+}
 export default Paged ;

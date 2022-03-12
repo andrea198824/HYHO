@@ -35,20 +35,18 @@ const Products = () => {
 
 
     return (
-        
         <Div>
-           <Container>
-            {filteredProducts.length ? filteredProducts.map((item)=>(<Product item={item} key={item.id} />)) 
-                :
-                currentProducts?.map((item) => (
-                    <Product item={item} key={item.id} />
-                    ))
-                }
-          </Container>
-          { products.length>1? <Paged productsPerPage= {productsPerPage} products={products.length} paged={paged} />:
-           null }
-        </Div>
-        
+        <Container>
+         {filteredProducts.length ? filteredProducts.map((item)=>(<Product item={item} key={item.id} />))
+             :
+             currentProducts?.map((item) => (<Product item={item} key={item.id} />))
+         }
+       </Container>
+         { filteredProducts.length ? <Paged productsPerPage= {productsPerPage} products={filteredProducts.length} paged={paged} /> 
+            :
+           <Paged productsPerPage= {productsPerPage} products={products.length} paged={paged} />   
+         }
+     </Div>     
     );
 };
 
