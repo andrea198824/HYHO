@@ -24,9 +24,8 @@ const Wrapper = styled.div`
 
 const Left = styled.div`
   flex: 1;
-  display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
 `;
 
@@ -75,7 +74,7 @@ const ImgLogo = styled.img`
   width: auto;
   height: 15px;
   padding: 4px ;
-  margin-left:80px;
+  margin-left: 80px;
   alt= "logo no disponible"
 ${mobile({ fontSize: "24px" })}
 `;
