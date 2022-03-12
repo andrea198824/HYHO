@@ -5,16 +5,9 @@ import { sliderItems } from "../data";
 import { mobile } from "../responsive";
 import { Link } from 'react-router-dom';
 
-const Div = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-`;
-
 const Container = styled.div`
   width: 100%;
-  height: 80vh;
+  height: 100vh;
   display: flex;
   position: relative;
   overflow: hidden;
@@ -70,9 +63,11 @@ const InfoContainer = styled.div`
 `;
 
 const Title = styled.h1`
+
   color:#8aa290;
   font-size: 40px;
   margin: 6px;
+
 `;
 
 const Desc = styled.p`
@@ -101,8 +96,9 @@ const Slider = () => {
   };
 
   return (
+    
     <Div>
-      <Title> ¿ A quienes estamos ayudando ?</Title>
+      <Title> ¿A quienes estamos ayudando?</Title>
     <Container>
       <Arrow direction="left" onClick={() => handleClick("left")}>
         <ArrowLeftOutlined />
@@ -127,7 +123,6 @@ const Slider = () => {
         <ArrowRightOutlined />
       </Arrow>
     </Container>
-    </Div>
   );
 };
 

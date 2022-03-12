@@ -10,7 +10,6 @@ import {
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link } from 'react-router-dom';
-import mercadoPago from "../Img/mercadoPago.png";
 
 const Container = styled.div`
     display: flex;
@@ -83,8 +82,8 @@ const ContactItem = styled.div`
     align-items: center;
   `;
 
-const PayImg = styled.img`
-      width: 300px;
+const Payment = styled.img`
+      width: inherit;
   `;
 
 const linkListItems = {
@@ -149,7 +148,7 @@ const Footer = () => {
                 <ContactItem>
                     <MailOutline style={{ marginRight: "10px" }} /> ayuda@hyho.com
                 </ContactItem>
-                <PayImg src={mercadoPago} />
+                <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
             </Right>
         </Container>
     );
