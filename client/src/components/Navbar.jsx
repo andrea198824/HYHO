@@ -6,7 +6,7 @@ import { mobile } from "../responsive";
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts, searchProducts } from '../store/actions';
-import LogoHyho from '../logoLargo.gif';
+import LogoHyho from '..//Img/logoLargo.gif';
 
 const Container = styled.div`
   height: 80px; 
