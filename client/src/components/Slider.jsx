@@ -69,17 +69,10 @@ const InfoContainer = styled.div`
   padding: 50px;
 `;
 
-const ContTitle = styled.div`
-  
-  // background-color: #dbd3f7;
-  border: 0.5px solid #dbd3f7 ;
-  border-radius: 10px;
-  margin: 10px;
-  padding: 10px;
-`;
 const Title = styled.h1`
   color:#8aa290;
-  font-size: 50px;
+  font-size: 40px;
+  margin: 6px;
 `;
 
 const Desc = styled.p`
@@ -109,9 +102,7 @@ const Slider = () => {
 
   return (
     <Div>
-    <ContTitle>
-      <Title>¿A donde va el dinero recaudado?</Title>
-    </ContTitle>
+      <Title> ¿ A quienes estamos ayudando ?</Title>
     <Container>
       <Arrow direction="left" onClick={() => handleClick("left")}>
         <ArrowLeftOutlined />

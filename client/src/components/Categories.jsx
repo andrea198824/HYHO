@@ -1,8 +1,6 @@
 import styled from "styled-components";
-import { categories } from "../data";
 import { mobile } from "../responsive";
 import { Link } from "react-router-dom";
-import CategoryItem from "./CategoryItem";
 import donar_objeto from  '../Img/donar_objetos2.gif';
 import comprar_tienda from  '../Img/comprar_tienda.gif';
 import donar_dinero from  '../Img/donar_dinero.gif';
@@ -13,12 +11,15 @@ import compraTienda2 from  '../Img/compraTienda2.png';
 const Div = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   Align-items: center;
+  margin-top: 40px;
 `;
+
 const Container = styled.div`
   display: flex;
-  padding: 20px;
   justify-content: space-between;
+  
   ${mobile({ padding: "0px", flexDirection:"column" })}
 
 `;
@@ -27,9 +28,11 @@ const Card = styled.div`
     flex-direction: column;
     justify-content: space-between;
     Align-items: center;
-    width:340px;
-    padding: 15px;
-    margin: 10px;
+    width:360px;
+    padding: 12px;
+    margin-left: 15px;
+    margin-right: 15px;
+
 
     border-radius: 7px;
     background: #f7dbd3 0.65;
@@ -56,24 +59,14 @@ width: 100px;
 height: 100px;
 `;
 const ImageG = styled.img`
-width: 100%;
-// height: 100px;
-`;
-
-const ContTitle = styled.div`
-  border: 0.5px solid #dbd3f7 ;
-  border-radius: 10px;
-  margin: 10px;
-  padding: 10px;
-
+height: 220px;
 `;
 
 const Title = styled.h1`
     color:#8aa290;
-    // margin-bottom: 20px;
-    padding: 10px;
-    // transition: all 0.3s ease;
-    
+    margin: 20px;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
 `;
 
 const P = styled.p`
@@ -88,15 +81,13 @@ const P = styled.p`
 
 const Categories = () => {
   return (
-    <Div>
-      <ContTitle>
+    <Div>   
         <Title>¿Como colaborar?</Title>
-      </ContTitle>
       <Container>
           <Card>
              <Title>Dona Procutos</Title>
              <ImageG src= {donarObjetos} />
-             <P>Sacale una foto, llena el formulario y dona un producto. Luego de chequear que este en condiciones, lo subiremos a la tienda On-Line para ser vendido y con el dinero de la venta poder ayudar a las causas feneficas.</P>
+             <P>Sacale una foto, llena el formulario y dona un producto. Luego de chequear que esté en condiciones, lo subiremos a la tienda On-Line para ser vendido y con el dinero de la venta poder ayudar a las causas benéficas.</P>
                <Link style={linkStyle} onClick={onClickButton} to='/'>
                  <Image src= {donar_objeto} />
                  <P>Colaborar</P> 
@@ -105,7 +96,7 @@ const Categories = () => {
           <Card>
             <Title>Compra en la tienda</Title>
             <ImageG src= {compraTienda2} />
-            <P>Al comprar, todo el dinero de esa compra sera destinado una obra benefica</P>
+            <P>Al comprar, todo el dinero de esa compra será destinado una obra benéfica</P>
             <Link style={linkStyle} onClick={onClickButton} to='/products'>
               <Image src= {comprar_tienda}/> 
               <P>Colaborar</P> 
@@ -114,7 +105,7 @@ const Categories = () => {
           <Card>  
             <Title>Dona dinero</Title>
             <ImageG src= {donarDinero} />
-            <P>Ayudanos a ayudar con tu donacion, el monto que desee sera bien rea bine recibido</P>
+            <P>Ayúdanos a ayudar con tu donación, el monto que desee sera bien recibido</P>
             <Link style={linkStyle} onClick={onClickButton} to='/'>
               <Image src= {donar_dinero}/>
               <P>Colaborar</P> 

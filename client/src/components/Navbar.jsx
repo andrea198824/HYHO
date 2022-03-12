@@ -115,11 +115,11 @@ const Navbar = () => {
         <Container>
             <Wrapper>
                 <Left>
+                  <Link to='/' style={linkStyle}>
                     <h1> TU.ong </h1>
-                    <Link to='/abaut' style={linkStyle}>
-                        <ImgLogo src={LogoHyho}></ImgLogo>
+                  </Link>
+                      <ImgLogo src={LogoHyho}></ImgLogo>
                         {/* <Slogan> "Help Yourself By Helping Others" </Slogan> */}
-                    </Link>
                 </Left>
                 <Center>
                     <SearchContainer onSubmit={handleSearch}>
