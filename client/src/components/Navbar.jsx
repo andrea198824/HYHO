@@ -18,15 +18,16 @@ const Wrapper = styled.div`
   padding: 3px 10px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   ${mobile({ padding: "10px 0px" })}
 `;
 
 const Left = styled.div`
   flex: 1;
   flex-direction: column;
-  display: flex;
-  align-items: flex-start;
+  justify-content: space-between;
+  align-items: center;
+
 `;
 
 const SearchContainer = styled.form`
@@ -71,8 +72,9 @@ const MenuItem = styled.div`
 `;
 const ImgLogo = styled.img`
   width: auto;
-  height: 10px;
+  height: 15px;
   padding: 4px ;
+  margin-left: 80px;
   alt= "logo no disponible"
 ${mobile({ fontSize: "24px" })}
 `;
