@@ -5,9 +5,17 @@ import { sliderItems } from "../data";
 import { mobile } from "../responsive";
 import { Link } from 'react-router-dom';
 
+
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 70vh;
   display: flex;
   position: relative;
   overflow: hidden;
@@ -123,6 +131,7 @@ const Slider = () => {
         <ArrowRightOutlined />
       </Arrow>
     </Container>
+    </Div>
   );
 };
 

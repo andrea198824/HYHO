@@ -18,14 +18,16 @@ const Wrapper = styled.div`
   padding: 3px 10px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   ${mobile({ padding: "10px 0px" })}
 `;
 
 const Left = styled.div`
   flex: 1;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 `;
 
 const SearchContainer = styled.form`
@@ -71,8 +73,9 @@ const MenuItem = styled.div`
 
 const ImgLogo = styled.img`
   width: auto;
-  height: 40px;
+  height: 15px;
   padding: 4px ;
+  margin-left:80px;
   alt= "logo no disponible"
 ${mobile({ fontSize: "24px" })}
 `;
@@ -81,10 +84,6 @@ const linkStyle = {
     textDecoration: "none",
     color: 'inherit',
 }
-
-const Slogan = styled.h4`
-  margin: 0.2rem;
-`;
 
 const Navbar = () => {
     const dispatch = useDispatch();
