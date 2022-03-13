@@ -6,7 +6,7 @@ import { mobile } from "../responsive";
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts, searchProducts } from '../store/actions';
-import LogoHyho from  '../Img/logoLargo.gif';
+import LogoHyho from '../logoLargo.gif';
 
 const Container = styled.div`
   height: 80px; 
@@ -24,9 +24,8 @@ const Wrapper = styled.div`
 
 const Left = styled.div`
   flex: 1;
-  flex-direction: column;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
 `;
 
 const SearchContainer = styled.form`
@@ -71,7 +70,7 @@ const MenuItem = styled.div`
 `;
 const ImgLogo = styled.img`
   width: auto;
-  height: 10px;
+  height: 40px;
   padding: 4px ;
   alt= "logo no disponible"
 ${mobile({ fontSize: "24px" })}
@@ -82,7 +81,7 @@ const linkStyle = {
     color: 'inherit',
 }
 
-const Slogan = styled.h6`
+const Slogan = styled.h4`
   margin: 0.2rem;
 `;
 
@@ -115,17 +114,16 @@ const Navbar = () => {
         <Container>
             <Wrapper>
                 <Left>
-                    <h1> TU.ong </h1>
-                    <Link to='/abaut' style={linkStyle}>
-                        <ImgLogo src={LogoHyho}></ImgLogo>
-                        {/* <Slogan> "Help Yourself By Helping Others" </Slogan> */}
-                    </Link>
-                </Left>
-                <Center>
                     <SearchContainer onSubmit={handleSearch}>
                         <Input onChange={onChangeSearch} value={search} placeholder="Buscar..." />
                         <Search style={{ color: "gray", fontSize: 20 }} />
                     </SearchContainer>
+                </Left>
+                <Center>
+                    <Link to='/' style={linkStyle}>
+                        <ImgLogo src={LogoHyho}></ImgLogo>
+                        <Slogan> "Help Yourself By Helping Others" </Slogan>
+                    </Link>
                 </Center>
                 <Right>
                     <Link to='/register' style={linkStyle}>

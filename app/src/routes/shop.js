@@ -36,7 +36,8 @@ const getDb = async () => {
   })
 }
 exports.getCart = async function (req, res, next) {
-  const { userId } = req.query
+//   const { userId } = req.query
+  const { userId } = req.session
   try {
     let cart = await Cart.findAll({
       where: {
@@ -54,7 +55,9 @@ exports.getCart = async function (req, res, next) {
 
 
 exports.postCart = async function (req, res, next) {
-  const { cart, userId } = req.body
+//   const { cart, userId } = req.body
+  const { cart } = req.body
+  const { userId } = req.session
  
   try {
     let [act, created] = await Cart.findOrCreate({
@@ -102,5 +105,4 @@ exports.putCart = async (req, res, next) => {
     next(error)
   }
 }
-
 
