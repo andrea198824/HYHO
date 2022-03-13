@@ -47,6 +47,32 @@ export const filterByCategory = (category) => {
     }
 }
 
+export const createuser = (payload) => {
+    return async function (dispatch) {
+
+        const respons = axios.post('/create-user', payload)
+        console.log(respons)
+        return ({
+            type: CREATE_USER,
+            payload: respons
+        })
+    }
+}
+
+export const createadmin = (payload) => {
+    return async function (dispatch) {
+
+        const respons = axios.post('/create-admin', payload)
+        console.log(respons)
+        return ({
+            type: CREATE_ADMIN,
+            payload: respons
+        })
+    }
+}
+
+
+
 export const addToCart = (productID) => {
     return {
         type: ADD_TO_CART,
