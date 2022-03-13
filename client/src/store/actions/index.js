@@ -8,7 +8,7 @@ export const GET_DETAILS = 'GET_DETAILS';
 export const ORDER_BY_PRICE = "ORDER_BY_PRICE"
 export const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY"
 export const GET_CATEGORIES = "GET_CATEGORIES"
-export const CREATE_USER = "CREATE-USER"
+export const CREATE_USER = "CREATE_USER"
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const CREATE_ADMIN = 'CREATE_ADMIN'
 
