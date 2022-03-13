@@ -52,7 +52,7 @@ router.get('/newsletter', newsletter.get)
 const shopController = require('./shop')
 
 // router.get('/', shopController.getIndex);
-// router.get('/shop' ,shopController.getProducts) //  -> Usar /products
+router.get('/shop' ,shopController.getProducts) //  -> Usar /products
 router.get('/cart', sessionVerification.needsUser ,shopController.getCart)
 router.post('/cart', sessionVerification.needsUser ,shopController.postCart)
 // router.get('/checkout', shopController.getCheckout);
