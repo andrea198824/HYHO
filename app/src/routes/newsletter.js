@@ -65,3 +65,4 @@ exports.get = async function (req, res, next) {
     next(error);
   }
 };
+
