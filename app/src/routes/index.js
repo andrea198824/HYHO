@@ -62,6 +62,13 @@ router.delete('/cart-delete', sessionVerification.needsUser ,shopController.post
 router.put('/putCart/:id', sessionVerification.needsUser ,shopController.putCart)
 // router.post('/create-order', shopController.postOrder);
 
+//---------------shopping Orders ------------------
+
+const shopControllerOrder = require('./shopOrder')
+router.delete('/deleteOrder', shopControllerOrder.deleteOrder);
+router.get('/getOrder', shopControllerOrder.getOrder);
+router.post('/create-order', shopControllerOrder.postCreateOrder)
+
 //--------------shopping routes --------------------
 router.get('/sessions', sessionVerification.needsAdmin ,sessions.get);
 router.get('/counter', sessions.counter);
