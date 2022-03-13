@@ -28,18 +28,9 @@ export default function Sidebar() {
               Pagina principal
             </li>
             </Link>
-            <li className="sidebarListItem">
-              <Timeline className="sidebarIcon" />
-              grafico
-            </li>
-            <li className="sidebarListItem">
-              <TrendingUp className="sidebarIcon" />
-              ventas
-            </li>
           </ul>
         </div>
         <div className="sidebarMenu">
-          <h3 className="sidebarTitle">principal</h3>
           <ul className="sidebarList">
             <Link to="/users" className="link">
               <li className="sidebarListItem">
@@ -51,6 +42,12 @@ export default function Sidebar() {
               <li className="sidebarListItem">
                 <Storefront className="sidebarIcon" />
                 Productos
+              </li>
+            </Link>
+            <Link to="/newproduct" className="link">
+              <li className="sidebarListItem">
+                <Storefront className="sidebarIcon" />
+                Nuevo Producto
               </li>
             </Link>
             <li className="sidebarListItem">
@@ -65,10 +62,6 @@ export default function Sidebar() {
             <li className="sidebarListItem">
               <MailOutline className="sidebarIcon" />
               Mail
-            </li>
-            <li className="sidebarListItem">
-              <ChatBubbleOutline className="sidebarIcon" />
-              Notas
             </li>
           </ul>
         </div>
