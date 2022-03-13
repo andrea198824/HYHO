@@ -28,11 +28,12 @@ module.exports = (sequelize) => {
     },
     
     status: {
-        type: DataTypes.ENUM('Active','Finalized'),
+      type: DataTypes.ENUM('Active', 'Cancelled', 'Finalized'),
         allowNull: true,
     },
     total: {
         type: DataTypes.INTEGER,
+        allowNull: false
     }
 });
 };
