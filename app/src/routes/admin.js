@@ -7,9 +7,49 @@ const getDbAdmin = async () => {
 }
 
 exports.post = async function(req, res){
-    res.status(404).send({info: "Endpoint no longer avaliable"});
+    const { fullName, email, password } = req.body;
+    if (!fullName) {
+        res.send({info: "No fullName"});
+        return
+        }
+    if (!email) {
+        res.send({info: "No email"});
+        return
+        }
+    if (!password) {
+        res.send({info: "No password"});
+        return
+        }
+
+    let adminCreated = await Admin.create({
+      fullName,
+      email,
+      password,
+    })
+
+    res.status(201).send(adminCreated)
+
 }
 
 exports.get = async function (req, res, next){
-            res.status(404).send({info: "Endpoint no longer avaliable"});
+    try {
+        const {id} = req.query;
+        let bdTotal = await getDbAdmin(); 
+        console.log(bdTotal)
+        if (id) {
+
+            let prodName = await bdTotal.filter((admin) =>
+            admin.id == id
+            );
+            prodName.length //si hay algún nombre
+                ? res.status(200).send(prodName)
+                : res
+                    .status(404)
+                    .send({ info: "Sorry, the product you are looking for is not here." });
+        } else {
+            res.status(200).send(bdTotal);
+        }
+    } catch (error) {
+        next(error);
+    }
 }

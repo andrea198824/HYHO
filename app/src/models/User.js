@@ -14,34 +14,19 @@ module.exports = sequelize => {
       unique: true
     },
     password: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    securityString: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    emailVerificated: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-      allowNull: false
-    },
-    adminVerificated: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-      allowNull: false
+      type: DataTypes.STRING
     },
     billing_address: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     },
     shipping_address: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     },
     phone: {
-      type: DataTypes.STRING                      ,
-      allowNull: true
-    },
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   })
 }

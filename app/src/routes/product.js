@@ -1,11 +1,6 @@
 'use strict'
 const { Admin, Category, Form, order, Products, User } = require('../db')
 
-function removeRepeated(arr) {
-  arr = [...new Set(arr)];
-  return Array.from(arr);
-}
-
 const getDbInfo = async () => {
   return await Products.findAll({
     include: {
@@ -56,9 +51,9 @@ exports.get = async function (req, res, next) {
 
 
 exports.post = async function(req, res, next) {
-  // console.log("post")
+  console.log("post")
 
-  let {
+  const {
     formId,
     title, 
     price,  
@@ -68,8 +63,6 @@ exports.post = async function(req, res, next) {
     stock,
     category,
       } = req.body;
-
-  category = removeRepeated(category)
 
 
   let productCreated
@@ -89,7 +82,7 @@ exports.post = async function(req, res, next) {
       stock,
     });
     } else {res.status(400).send({message:"Not enougth info"})}
-    if (productCreated && category && category.length) {
+    if (category && category.length) {
           await Promise.all(
             category.map(async (el) => {
                   return await Category.findOrCreate({
@@ -98,13 +91,11 @@ exports.post = async function(req, res, next) {
               })
           ).then(el => {
               el.map(toAdd => {      
-                console.log("productCreated :",productCreated);
-                console.log("toAdd[0] :",toAdd[0]);
                 productCreated.addCategory(toAdd[0])
               })
           })
     }
-    if (productCreated && formId) {
+    if (formId) {
             await Form.findOrCreate({
               where: { id: formId }
           }).then(el => {
