@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Product from "./Product";
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import Paged from "./Paged";

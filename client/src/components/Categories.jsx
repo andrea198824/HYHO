@@ -16,6 +16,11 @@ const Div = styled.div`
   margin-top: 40px;
 `;
 
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  Align-items: center;
+`;
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
