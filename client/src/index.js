@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Auth0Provider } from '@auth0/auth0-react'
+// import { Auth0Provider } from '@auth0/auth0-react'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -21,13 +21,13 @@ store.subscribe(() => {
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <Auth0Provider
+            {/* <Auth0Provider
                 domain='dev-6-pd01tf.us.auth0.com'
                 clientId='CoqjB60NK71zxNxmcmcxX9kXZVQ5l4C0'
                 redirectUri={window.location.origin}
-            >
+            > */}
                 <App />
-            </Auth0Provider>
+            {/* </Auth0Provider> */}
         </Provider>
     </React.StrictMode>,
     document.getElementById('root')
