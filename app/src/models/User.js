@@ -23,12 +23,12 @@ module.exports = sequelize => {
     },
     emailVerificated: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      defaultValue: true,
       allowNull: false
     },
     adminVerificated: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      defaultValue: false, 
       allowNull: false
     },
     billing_address: {
