@@ -97,7 +97,7 @@ const Newsletter = () => {
           e.preventDefault()
           axios.post('http://localhost:3001/newsletter', input)
           .then((res) =>{
-          alert(`${input.email} Creado Correctamente`)
+          alert(`${input.email} gracias por subscribirte`)
           window.scrollTo(0,0)}
           )
         }

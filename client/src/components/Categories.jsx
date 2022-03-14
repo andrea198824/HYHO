@@ -87,7 +87,7 @@ const Categories = () => {
              <Title>Dona Procutos</Title>
              <ImageG src= {donarObjetos} />
              <P>Sacale una foto, llena el formulario y dona un producto. Luego de chequear que esté en condiciones, lo subiremos a la tienda On-Line para ser vendido y con el dinero de la venta poder ayudar a las causas benéficas.</P>
-               <Link style={linkStyle} onClick={onClickButton} to='/'>
+               <Link style={linkStyle} onClick={onClickButton} to='/donateproduct'>
                  <Image src= {donar_objeto} />
                  <P>Colaborar</P> 
                </Link>       
@@ -105,7 +105,7 @@ const Categories = () => {
             <Title>Dona dinero</Title>
             <ImageG src= {donarDinero} />
             <P>Ayúdanos a ayudar con tu donación, el monto que desee sera bien recibido</P>
-            <Link style={linkStyle} onClick={onClickButton} to='/'>
+            <Link style={linkStyle} onClick={onClickButton} to='/donatedinero'>
               <Image src= {donar_dinero}/>
               <P>Colaborar</P> 
             </Link>

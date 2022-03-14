@@ -61,7 +61,13 @@ const CategoryItem = ({ item }) => {
                         <Link to='/products'>
                             <Button onClick={onClickButton}>Colaborar</Button>
                         </Link>
-                        : <Button>Colaborar</Button>
+                        : item.id === 2 ? <Link to='/donateproduct'>
+                        <Button onClick={onClickButton}>Colaborar</Button>
+                    </Link> 
+                      : item.id === 1 ?
+                       <Link to='/donatedinero'>
+                    <Button onClick={onClickButton}>Colaborar</Button>
+                </Link> : <Button>Colaborar</Button>
                 }
             </Info>
         </Container>

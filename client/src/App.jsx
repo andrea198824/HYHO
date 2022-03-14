@@ -10,8 +10,8 @@ import Login from './Page/Login';
 import InfoSlider from './Page/InfoSlider';
 import RecoverPassword from './Page/RecoverPassword';
 import RegisterAdmin from './Page/RegiterAdmin';
-
-
+import DonarProduct from './Page/DonarProduct';
+import DonarDinero from './Page/DonarDinero';
 
 
 function App() {
@@ -28,6 +28,8 @@ function App() {
                     <Route exact path='/infoSlider' element={<InfoSlider />} />
                     <Route exact path='/registeradmin' element={<RegisterAdmin />} />
                     <Route exact path='/recoverpassword' element={<RecoverPassword />} />
+                    <Route exact path='/donateproduct' element={<DonarProduct />} />
+                    <Route exact path='/donatedinero' element={<DonarDinero />} />
                 </Routes>
              </Router>
             </div>
