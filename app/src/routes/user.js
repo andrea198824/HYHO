@@ -1,6 +1,6 @@
 'use strict'
 const { Admin, Category, Form, Order, Products, User } = require('../db');
-
+const axios = require("axios");
 const session = require('express-session');
 
 var CryptoJS = require("crypto-js");
@@ -38,6 +38,7 @@ exports.register = async function(req, res, next){
             // console.log(req.query)
             
             role = role === "admin" ? role : "user";
+            console.log(req.body);
 
             let {
                     fullName,
@@ -86,13 +87,41 @@ exports.register = async function(req, res, next){
                 return
             }
             
+            
             const securityString = randomString(100);
             // console.log("password   :",password)
             // console.log("securityString :",securityString)
             password = CryptoJS.HmacSHA1(securityString, password).toString(CryptoJS.enc.Base64)
             // console.log("hashed password :",password)
             
+            //validación de correo
             
+            if(emailUser){
+                var data = {
+                    service_id: "service_fczrg7r",
+                    template_id: "template_acs6ill",
+                    user_id: "Etuy2aI4BobaC1Ikh",
+                    accessToken: "HVKD--JTBeTA45UbNUJAp",
+                    template_params: {
+                      email: email,
+                    },
+                  };
+              
+                  const headers = {
+                    "Content-Type": "application/json",
+                  };
+              
+                  axios
+                    .post("https://api.emailjs.com/api/v1.0/email/send", data)
+                    .then((res) => {
+                      console.log(`statusCode: ${res.status}`);
+                    })
+                    .catch((error) => {
+                      console.error(error);
+                    });
+            }
+            // validación correo 
+
             let userCreated = await User.create({
                 fullName,//
                 email,//
