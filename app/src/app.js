@@ -48,6 +48,7 @@ server.use(expressSession(
     name: 'sid',
     secret:'secret', // Debería estar en un archivo de environment
     resave: true,
+    cookie: { domain:'https://hyho-six.vercel.app/'},
     store: sequelizeSessionStore,
     saveUninitialized: true,
     cookie:{
