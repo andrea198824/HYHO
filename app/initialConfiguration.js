@@ -12,7 +12,7 @@ const products = [
         image: "https://i.ebayimg.com/thumbs/images/g/teMAAOSwYPNcPN~X/s-l225.jpg",
         stock: 1,
         avaliable: true,
-        category: ["Indumentaria"],
+        category: ["Indumentaria","Sport"],
     },
     {
         id: 2,
@@ -203,7 +203,10 @@ exports.do = async () => {
                       })
                   })
               ).then(cat =>{
-                product[0].addCategory(cat[0][0])
+                  cat.map(catElement => {
+                    product[0].addCategory(catElement[0])
+                  })
+                // product[0].addCategory(cat[0][0])
               })
               
           })
