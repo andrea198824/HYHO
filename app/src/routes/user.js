@@ -5,6 +5,8 @@ const session = require('express-session');
 
 var CryptoJS = require("crypto-js");
 const { put } = require('.');
+const { v4: UUIDV4 } = require('uuid');
+const { getToken, getTokenData } = require('./validationRegister');
 
 
 //trae la info de db User
@@ -94,8 +96,32 @@ exports.register = async function(req, res, next){
             password = CryptoJS.HmacSHA1(securityString, password).toString(CryptoJS.enc.Base64)
             // console.log("hashed password :",password)
             
+
+            // generar un código
+
+            const code = UUIDV4();
+
+            // crear nuevo usuario 
+
+            let userCreated = await User.create({
+                fullName,//
+                email,//
+            password,//
+            securityString,//
+            billing_address,//
+            shipping_address,//
+            phone,
+            code//
+            })
+
+            //token 
+
+            const token = getToken({ email, code });
+            console.log(token)
+             // Obtener un template
+        //const template = getTemplate(fullName, token);
             //validación de correo
-            
+
             if(emailUser){
                 var data = {
                     service_id: "service_fczrg7r",
@@ -122,15 +148,7 @@ exports.register = async function(req, res, next){
             }
             // validación correo 
 
-            let userCreated = await User.create({
-                fullName,//
-                email,//
-            password,//
-            securityString,//
-            billing_address,//
-            shipping_address,//
-            phone,//
-            })
+
             
             res.status(201).send(userCreated)
         } catch (error) {
