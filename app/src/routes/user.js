@@ -23,6 +23,16 @@ function randomString(length) {
    return result;
 }
 
+exports.status = async function(req, res, next){
+    if (req.session.userId) {
+        res.status(200).send({info: `User ${userId} already logged in`})
+    } else {
+        res.status(400).send({info: `No user logged in`})
+    }
+}
+
+
+
 exports.register = async function(req, res, next){
 
 
