@@ -85,10 +85,10 @@ const Login = () => {
         });
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        dispatch(loginUser(userData))
-        dispatch(getUserStatus())
+        await dispatch(loginUser(userData))
+        await dispatch(getUserStatus())
         navigate('/')
     }
 
