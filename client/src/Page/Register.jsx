@@ -133,13 +133,13 @@ export function validate(input) {
 
     if (!input.billing_address) {
         errors.billing_address = 'Campo Requerido';
-    } else if (!/^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/.test(input.billing_address)) {
+    } else if (!/[a-zA-Z1-9]/g.test(input.billing_address)) {
         errors.billing_address = 'Direccion Demasiado Corta';
     }
 
     if (!input.shipping_address) {
         errors.shipping_address = 'Campo Requerido';
-    } else if (!/[a-zA-Z1-9]{8}/g.test(input.shipping_address)) {
+    } else if (!/[a-zA-Z1-9]/g.test(input.shipping_address)) {
         errors.shipping_address = 'Direccion Demasiado Corto';
     }
 
