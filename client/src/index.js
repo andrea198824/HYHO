@@ -10,6 +10,7 @@ import store from './store/index'
 //dotenv.config();
 import axios from 'axios';
 
+axios.defaults.withCredentials = true;
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 store.subscribe(() => {
@@ -26,7 +27,7 @@ ReactDOM.render(
                 clientId='CoqjB60NK71zxNxmcmcxX9kXZVQ5l4C0'
                 redirectUri={window.location.origin}
             > */}
-                <App />
+            <App />
             {/* </Auth0Provider> */}
         </Provider>
     </React.StrictMode>,

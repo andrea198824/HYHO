@@ -25,6 +25,7 @@ function randomString(length) {
 
 exports.status = async function(req, res, next){
     if (req.session.userId) {
+        const {userId} = req.session;
         res.status(200).send({info: `User ${userId} already logged in`})
     } else {
         res.status(400).send({info: `No user logged in`})

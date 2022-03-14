@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link, useNavigate } from 'react-router-dom'
-import { createuser } from '../store/actions';
+import { createUser } from '../store/actions';
 
 const Container = styled.div`
   width: 100vw;
@@ -206,8 +206,8 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(createuser(input))
-        navigate('/')
+        dispatch(createUser(input))
+        navigate("/");
     }
       
     return (

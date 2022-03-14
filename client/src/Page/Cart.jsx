@@ -5,7 +5,9 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { Link } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { addToCartDB } from "../store/actions";
 
 const Container = styled.div``;
 
@@ -152,13 +154,15 @@ const linkStyle = {
 }
 
 const Cart = () => {
+    const dispatch = useDispatch()
     const cartProducts = useSelector(state => state.shoppingCart)
     let subTotal = 0;
     cartProducts.forEach(el => subTotal += el.price)
 
+
     const onClickProduct = (e) => {
         // Para sumar y restar productos, en desarrollo
-        
+
     }
 
 
