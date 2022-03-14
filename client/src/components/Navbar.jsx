@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { addToCartDB, getProducts, getUserStatus, logoutUser, searchProducts } from '../store/actions';
+import { getProducts, getUserStatus, logoutUser, searchProducts } from '../store/actions';
 import LogoHyho from '..//Img/logoLargo.gif';
 
 const Container = styled.div`
@@ -90,6 +90,7 @@ const Navbar = () => {
 
     const [search, setSearch] = useState("")
     const cartProducts = useSelector(state => state.shoppingCart)
+    const userStatus = useSelector(state => state.userIsLogin)
 
 
     useEffect(() => {
@@ -97,6 +98,10 @@ const Navbar = () => {
         console.log("Lo de abajo muestra si el usuario esta logueado")
         dispatch(getUserStatus())
     }, [])
+
+    useEffect(() => {
+        localStorage.setItem('shoppingCart', JSON.stringify(cartProducts))
+    }, [cartProducts])
 
     const onChangeSearch = (e) => {
         setSearch(e.target.value)
@@ -112,9 +117,9 @@ const Navbar = () => {
     const onClickLogout = (e) => {
         e.preventDefault()
         dispatch(logoutUser())
+        dispatch(getUserStatus())
+        window.location.reload(true)
     }
-
-
     return (
         <Container>
             <Wrapper>
@@ -131,14 +136,9 @@ const Navbar = () => {
                         <Search style={{ color: "gray", fontSize: 20 }} />
                     </SearchContainer>
                 </Center>
-                <Right>
+
+                {userStatus ? <Right>
                     <MenuItem onClick={onClickLogout}>Cerrar Sesion</MenuItem>
-                    <Link to='/register' style={linkStyle}>
-                        <MenuItem>Registrarse</MenuItem>
-                    </Link>
-                    <Link to='/login' style={linkStyle}>
-                        <MenuItem>Iniciar Sesion</MenuItem>
-                    </Link>
                     <MenuItem>
                         <Link to='/cart' style={linkStyle}>
                             <Badge badgeContent={cartProducts.length} color="primary">
@@ -147,6 +147,25 @@ const Navbar = () => {
                         </Link>
                     </MenuItem>
                 </Right>
+                    :
+                    <Right>
+                        <Link to='/register' style={linkStyle}>
+                            <MenuItem>Registrarse</MenuItem>
+                        </Link>
+                        <Link to='/login' style={linkStyle}>
+                            <MenuItem>Iniciar Sesion</MenuItem>
+                        </Link>
+                        <MenuItem>
+                            <Link to='/cart' style={linkStyle}>
+                                <Badge badgeContent={cartProducts.length} color="primary">
+                                    <ShoppingCartOutlined />
+                                </Badge>
+                            </Link>
+                        </MenuItem>
+                    </Right>
+
+                }
+
             </Wrapper>
         </Container>
     );
