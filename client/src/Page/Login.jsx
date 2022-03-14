@@ -5,7 +5,7 @@ import { mobile } from "../responsive";
 import { Link } from 'react-router-dom';
 import LoguinBtn from "../components/Login";
 import { useNavigate } from 'react-router-dom'
-import { loginUser } from '../store/actions';
+import { getUserStatus, loginUser } from '../store/actions';
 
 const Container = styled.div`
   width: 100vw;
@@ -88,6 +88,7 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(loginUser(userData))
+        dispatch(getUserStatus())
         navigate('/')
     }
 

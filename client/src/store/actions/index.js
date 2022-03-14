@@ -14,7 +14,7 @@ export const CREATE_ADMIN = 'CREATE_ADMIN';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = "LOGOUT_USER";
 export const GET_USER_STATUS = 'GET_USER_STATUS';
-export const CONCAT_CART_INFO = 'CONCAT_CART_INFO';
+export const POST_CART_INFO = 'POST_CART_INFO';
 
 
 export const getProducts = () => {
@@ -111,11 +111,10 @@ export const getUserStatus = () => {
         })
     }
 }
-
-
-export const concatCartInfo = (cart) => {
+export const postCartInfo = (cart) => {
     return async function (dispatch) {
         const response = await axios.post('/cart', JSON.stringify(cart))
+        console.log(response)
     }
 }
 

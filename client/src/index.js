@@ -13,12 +13,6 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
-store.subscribe(() => {
-    localStorage.setItem('reduxState', JSON.stringify(store.getState()))
-})
-
-
-
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
