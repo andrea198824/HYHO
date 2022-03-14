@@ -5,8 +5,8 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, searchProducts } from '../store/actions';
-import LogoHyho from '../logoLargo.gif';
+import { getProducts, getUserStatus, logoutUser, searchProducts } from '../store/actions';
+import LogoHyho from '..//Img/logoLargo.gif';
 
 const Container = styled.div`
   height: 80px; 
@@ -18,14 +18,15 @@ const Wrapper = styled.div`
   padding: 3px 10px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   ${mobile({ padding: "10px 0px" })}
 `;
 
 const Left = styled.div`
   flex: 1;
-  display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
 `;
 
 const SearchContainer = styled.form`
@@ -68,10 +69,12 @@ const MenuItem = styled.div`
   text-decoration: none;
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
+
 const ImgLogo = styled.img`
   width: auto;
-  height: 40px;
+  height: 15px;
   padding: 4px ;
+  margin-left: 80px;
   alt= "logo no disponible"
 ${mobile({ fontSize: "24px" })}
 `;
@@ -81,21 +84,24 @@ const linkStyle = {
     color: 'inherit',
 }
 
-const Slogan = styled.h4`
-  margin: 0.2rem;
-`;
-
 const Navbar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [search, setSearch] = useState("")
     const cartProducts = useSelector(state => state.shoppingCart)
+    const userStatus = useSelector(state => state.userIsLogin)
 
 
     useEffect(() => {
         dispatch(getProducts())
+        console.log("Lo de abajo muestra si el usuario esta logueado")
+        dispatch(getUserStatus())
     }, [])
+
+    useEffect(() => {
+        localStorage.setItem('shoppingCart', JSON.stringify(cartProducts))
+    }, [cartProducts])
 
     const onChangeSearch = (e) => {
         setSearch(e.target.value)
@@ -108,30 +114,31 @@ const Navbar = () => {
         if (search) navigate('/products')
     }
 
-    
-
+    const onClickLogout = (e) => {
+        e.preventDefault()
+        dispatch(logoutUser())
+        dispatch(getUserStatus())
+        window.location.reload(true)
+    }
     return (
         <Container>
             <Wrapper>
                 <Left>
+                    <Link to='/' style={linkStyle}>
+                        <h1> TU.ong </h1>
+                    </Link>
+                    <ImgLogo src={LogoHyho}></ImgLogo>
+                    {/* <Slogan> "Help Yourself By Helping Others" </Slogan> */}
+                </Left>
+                <Center>
                     <SearchContainer onSubmit={handleSearch}>
                         <Input onChange={onChangeSearch} value={search} placeholder="Buscar..." />
                         <Search style={{ color: "gray", fontSize: 20 }} />
                     </SearchContainer>
-                </Left>
-                <Center>
-                    <Link to='/' style={linkStyle}>
-                        <ImgLogo src={LogoHyho}></ImgLogo>
-                        <Slogan> "Help Yourself By Helping Others" </Slogan>
-                    </Link>
                 </Center>
-                <Right>
-                    <Link to='/register' style={linkStyle}>
-                        <MenuItem>Registrarse</MenuItem>
-                    </Link>
-                    <Link to='/login' style={linkStyle}>
-                        <MenuItem>Iniciar Sesion</MenuItem>
-                    </Link>
+
+                {userStatus ? <Right>
+                    <MenuItem onClick={onClickLogout}>Cerrar Sesion</MenuItem>
                     <MenuItem>
                         <Link to='/cart' style={linkStyle}>
                             <Badge badgeContent={cartProducts.length} color="primary">
@@ -140,6 +147,25 @@ const Navbar = () => {
                         </Link>
                     </MenuItem>
                 </Right>
+                    :
+                    <Right>
+                        <Link to='/register' style={linkStyle}>
+                            <MenuItem>Registrarse</MenuItem>
+                        </Link>
+                        <Link to='/login' style={linkStyle}>
+                            <MenuItem>Iniciar Sesion</MenuItem>
+                        </Link>
+                        <MenuItem>
+                            <Link to='/cart' style={linkStyle}>
+                                <Badge badgeContent={cartProducts.length} color="primary">
+                                    <ShoppingCartOutlined />
+                                </Badge>
+                            </Link>
+                        </MenuItem>
+                    </Right>
+
+                }
+
             </Wrapper>
         </Container>
     );

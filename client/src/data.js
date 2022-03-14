@@ -1,5 +1,10 @@
 export const sliderItems = [
 
+    {
+     id: 0,
+     video: "https://drive.google.com/file/d/1OZCeG9EA00y6d3kOYbpeWDet8Q2WEVTj/view?usp=sharing",
+     bg: "8aa290",
+    },
    {
     id: 1,
     img: ["https://www.lanoticiaurbana.com/wp-content/uploads/2019/04/donacion-club-florencio-varela.jpg", "https://i.pinimg.com/originals/1d/1e/9a/1d1e9a99dbc24c257cf6510e244545a7.jpg", "https://scontent.fmdq3-1.fna.fbcdn.net/v/t39.30808-6/222005553_3019444431608207_8681259056351632849_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_ohc=zLeVnrgJEfsAX_0xKCp&_nc_ht=scontent.fmdq3-1.fna&oh=00_AT-QPe2LrGiWcwiGuIJwQuIpRiX9vZv5ZL2_j_9yGyj7Xw&oe=62290D70", "http://cge.entrerios.gov.ar/wp-content/uploads/2018/03/comedores-760x410.jpg"],

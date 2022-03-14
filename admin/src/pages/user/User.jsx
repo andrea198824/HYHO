@@ -27,7 +27,7 @@ export default function User() {
               className="userShowImg"
             />
             <div className="userShowTopTitle">
-              <span className="userShowUsername">Anna Becker</span>
+              <span className="userShowUsername">Ana Frank</span>
               <span className="userShowUserTitle">nombre de usuario</span>
             </div>
           </div>
@@ -43,16 +43,8 @@ export default function User() {
             </div>
             <span className="userShowTitle">Contacto</span>
             <div className="userShowInfo">
-              <PhoneAndroid className="userShowIcon" />
-              <span className="userShowInfoTitle">+1 11 1111 11</span>
-            </div>
-            <div className="userShowInfo">
               <MailOutline className="userShowIcon" />
               <span className="userShowInfoTitle">xxxxxx@xxxxx.com</span>
-            </div>
-            <div className="userShowInfo">
-              <LocationSearching className="userShowIcon" />
-              <span className="userShowInfoTitle"> CABA | Buenos Aires</span>
             </div>
           </div>
         </div>
@@ -69,7 +61,15 @@ export default function User() {
                 />
               </div>
               <div className="userUpdateItem">
-                <label>Nombre Completo</label>
+                <label>Nombre</label>
+                <input
+                  type="text"
+                  placeholder="Anna Becker"
+                  className="userUpdateInput"
+                />
+              </div>
+              <div className="userUpdateItem">
+                <label>Apellido</label>
                 <input
                   type="text"
                   placeholder="Anna Becker"
@@ -81,22 +81,6 @@ export default function User() {
                 <input
                   type="text"
                   placeholder="annabeck99@gmail.com"
-                  className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>Telefono</label>
-                <input
-                  type="text"
-                  placeholder="+1 111 1111 11"
-                  className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>Direccion</label>
-                <input
-                  type="text"
-                  placeholder="localidad | Provincia"
                   className="userUpdateInput"
                 />
               </div>

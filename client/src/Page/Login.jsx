@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link } from 'react-router-dom';
 import LoguinBtn from "../components/Login";
+import { useNavigate } from 'react-router-dom'
+import { getUserStatus, loginUser } from '../store/actions';
 
 const Container = styled.div`
   width: 100vw;
@@ -52,14 +54,7 @@ const Button = styled.button`
   color: #4d4442;
   cursor: pointer;
   margin-bottom: 10px;
-&:disabled {
-    background-color: gray;
-    color: black;
-    opacity: 0.7;
-    cursor: default;
 `;
-
-
 
 const Anchor = styled.div`
   margin: 5px 0px;
@@ -75,56 +70,51 @@ const linkStyle = {
 const Login = () => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
-    const [input, setInput] = useState({
-        userName: '',
+    const [userData, setUserData] = useState({
+        input: '',
         password: '',
     });
 
     const handleInputChange = function (e) {
         e.preventDefault()
-        setInput({
-            ...input,
+        setUserData({
+            ...userData,
             [e.target.name]: e.target.value
         });
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
+        dispatch(loginUser(userData))
+        dispatch(getUserStatus())
+        navigate('/')
     }
-
-    console.log(!input.password || !input.userName)
 
     return (
         <Container>
             <Wrapper>
                 <Title>INICIO DE SESION</Title>
-                <Form onSubmit={(e)=> handleSubmit(e)}>
+                <Form onSubmit={handleSubmit}>
                     <Input
-                        onChange={(e) => handleInputChange(e)}
-                        name='userName'
-                        value={input.userName}
+                        onChange={handleInputChange}
+                        name="input"
+                        value={userData.input}
                         type='text'
                         placeholder='Usuario'
                         required
                     />
                     <Input
-                        onChange={(e) => handleInputChange(e)}
+                        onChange={handleInputChange}
                         name='password'
-                        value={input.password}
-                        type='password'  
+                        value={userData.password}
+                        type='password'
                         placeholder="Contraseña"
                     />
-                    <Link to='/' style={linkStyle}>
-                        <Button
-                            disabled={!input.password || !input.userName}
-                        >
-                            Iniciar Tesion
-                        </Button>
-                        
-                    </Link>
-                    
+                    <Button disabled={!userData.password || !userData.input} >
+                        Iniciar Sesion
+                    </Button>
                     <Link to='/recoverpassword' style={linkStyle}>
                         <Anchor>No recuerdas la contraseña?</Anchor>
                     </Link>

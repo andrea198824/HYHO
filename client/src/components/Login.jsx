@@ -1,5 +1,5 @@
 import React from 'react'
-import { useAuth0 } from '@auth0/auth0-react'
+// import { useAuth0 } from '@auth0/auth0-react'
 import styled from "styled-components";
 import {
     Facebook,
@@ -18,12 +18,14 @@ const Button = styled.button`
 `;
 
 const LoguinBtn = () => {
-    const { loginWithRedirect  } = useAuth0()
+    // const { loginWithRedirect  } = useAuth0()
 
     return (
         <Button
-            onClick={() => loginWithRedirect()
-            }
+            // onClick={
+            //     () => 
+            //     // loginWithRedirect()
+            // }
         >
             <Facebook />
             

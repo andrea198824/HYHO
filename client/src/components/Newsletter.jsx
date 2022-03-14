@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 
 
+
 const Container = styled.div`
   height: 60vh;
   background-color: #f7dbd3;
@@ -100,6 +101,8 @@ const Newsletter = () => {
           window.scrollTo(0,0)}
           )
         }
+
+        
                   
 
   return (
@@ -112,6 +115,7 @@ const Newsletter = () => {
                   type='email'
                   name='email'
                   placeholder="Tu email..."
+                 
               />
               
 

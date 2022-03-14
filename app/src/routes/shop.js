@@ -4,7 +4,7 @@ const { Cart, Order, Products, User } = require('../db')
 
 
 exports.getProducts = async function (req, res, next) {
-  const { id } = req.query
+  const { id } = req.query //ID del producto
   try {
     let prod = await Products.findAll()
     if (id) {
@@ -36,7 +36,8 @@ const getDb = async () => {
   })
 }
 exports.getCart = async function (req, res, next) {
-  const { userId } = req.query
+//   const { userId } = req.query
+  const { userId } = req.session
   try {
     let cart = await Cart.findAll({
       where: {
@@ -54,7 +55,9 @@ exports.getCart = async function (req, res, next) {
 
 
 exports.postCart = async function (req, res, next) {
-  const { cart, userId } = req.body
+//   const { cart, userId } = req.body
+  const { cart } = req.body
+  const { userId } = req.session
  
   try {
     let [act, created] = await Cart.findOrCreate({
@@ -72,7 +75,7 @@ exports.postCart = async function (req, res, next) {
 }
 
 exports.postCartDeleteCart = async (req, res, next) => {
-  const { id } = req.body
+  const { id } = req.body // ID del Cart
   try {
     let prod = await Cart.destroy({
       where: {
@@ -87,7 +90,7 @@ exports.postCartDeleteCart = async (req, res, next) => {
 
 exports.putCart = async (req, res, next) => {
   const { cart } = req.body
-  const { id } = req.params
+  const { id } = req.params //ID del cart
   try {
     let prod = await Cart.update(
       { cart: cart },
@@ -102,5 +105,4 @@ exports.putCart = async (req, res, next) => {
     next(error)
   }
 }
-
 

@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize')
 module.exports = sequelize => {
   sequelize.define('products', {
     title: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     price: {
@@ -24,7 +24,7 @@ module.exports = sequelize => {
     },
     stock: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true
     },
     avaliable: {
       type: DataTypes.BOOLEAN,
