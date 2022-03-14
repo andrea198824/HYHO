@@ -127,25 +127,25 @@ export function validate(input) {
     
     if (!input.fullName) {
         errors.fullName = 'Campo Es Requerido';
-    } else if (!/^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/.test(input.fullName)) {
+    } else if (!/^([A-ZÁÉÍÓÚ][a-zñáéíóú]+[\s]*)+$/.test(input.fullName)) {
         errors.fullName = 'Nombre es Invalido';
     }
 
     if (!input.billing_address) {
         errors.billing_address = 'Campo Requerido';
-    } else if (!/^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/.test(input.billing_address)) {
+    } else if (!/[a-zA-Z1-9]/g.test(input.billing_address)) {
         errors.billing_address = 'Direccion Demasiado Corta';
     }
 
     if (!input.shipping_address) {
         errors.shipping_address = 'Campo Requerido';
-    } else if (!/[a-zA-Z1-9]{8}/g.test(input.shipping_address)) {
+    } else if (!/[a-zA-Z1-9]/g.test(input.shipping_address)) {
         errors.shipping_address = 'Direccion Demasiado Corto';
     }
 
     if (!input.phone) {
         errors.phone = 'Celular Requerido';
-    } else if (!/[1-9]{11}/g.test(input.phone)) {
+    } else if (!/[1-9]/g.test(input.phone)) {
         errors.phone = 'Numero Incorrecto';
     }
 
@@ -157,8 +157,8 @@ export function validate(input) {
 
     if (!input.password) {
         errors.password = 'Contraseña Requerida';
-    } else if (!/^(?=.{10,}$)(?=(?:.*?[A-Z]){2})(?=.*?[a-z])(?=(?:.*?[0-9]){2}).*$/.test(input.password)) {
-        errors.password = '2 may, 1 min, 2 díg long 10';
+    } else if (!/[a-zA-Z1-9]{6}/.test(input.password)) {
+        errors.password = 'minimo 6 caracteres';
     }
 
     if (!input.passwordb) {
