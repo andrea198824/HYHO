@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { Link, useNavigate } from 'react-router-dom'
 import { createuser } from '../store/actions';
 
 const Container = styled.div`
@@ -26,28 +25,22 @@ const Wrapper = styled.div`
   padding: 20px;
   background-color: white;
   ${mobile({ width: "75%" })}
+    
 `;
 
 const Title = styled.h1`
   font-size: 24px;
   font-weight: 300;
+  text-align: center;
 `;
 
 const Form = styled.form`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const Input = styled.input`
-  flex: 1;
-  min-width: 40%;
-  margin: 20px 10px 0px 0px;
-  padding: 10px;
+   
 `;
 
 const Button = styled.button`
   width: 100%;
-  margin-top: 80px;
+  margin-top: 20px;
   border: none;
   padding: 15px 20px;
   background-color: #dbd3f7;
@@ -65,54 +58,97 @@ const Button = styled.button`
 
 const Paragraph = styled.p`
   color: red;
-  font-size: 15px;
-  font-weight: 3px;
+  font-size: 10px;
+  font-weight: 2;
 `;
 
-const Div = styled.div`
-    display:'flex',
-    position: 'absolute',
-    justify-content: 'space-around',
-    
+const DivItemUno = styled.div`
+ display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  justify-content:space-around;
+  align-items:unset;
+  align-content:flex-start;
+  height: 15vh; /*Este valor lo puedes omitir si la altura de tu componente esta definida*/
 `
 
+const DivItemDos = styled.div`
+ display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  justify-content:space-around;
+  align-items:unset;
+  align-content:flex-start;
+  height: 20vh; /*Este valor lo puedes omitir si la altura de tu componente esta definida*/
+`
+
+const DivItemTres = styled.div`
+ display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  justify-content:space-around;
+  align-items:unset;
+  align-content:flex-start;
+  height: 20vh; /*Este valor lo puedes omitir si la altura de tu componente esta definida*/
+`
+
+const Item0 = styled.input`
+order:1;
+  flex:0 1 center;
+  align-self:flex-start;
+  height:5vh;
+  width:25vh;
+  margin-top: 3vh;
+`
+
+const Item1 = styled.input`
+order:2;
+  flex:0 1 center;
+  align-self:flex-start;
+  height:5vh;
+  width:25vh;
+  margin-top: 3vh;
+`
+
+const Textarea = styled.textarea`
+display: flex;
+flex-direction: row;
+justify-content:space-around;
+`
 const linkStyle = {
-   
     textDecoration: "none",
     color: 'inherit',
     width: '50%',
     padding: '5px'
-    
-    
 }
 
 export function validate(input) {
     let errors = {};
     
     if (!input.fullName) {
-        errors.fullName = 'Nombre Es Requerido';
+        errors.fullName = 'Campo Es Requerido';
     } else if (!/^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/.test(input.fullName)) {
-        errors.fullName = 'Nombre es Inválido';
+        errors.fullName = 'Nombre es Invalido';
     }
 
     if (!input.billing_address) {
         errors.billing_address = 'Campo Requerido';
-    } else if (!/[A-Za-z0-9]+/g.test(input.billing_address)) {
-        errors.billing_address = 'Campo Inválido';
+    } else if (!/^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/.test(input.billing_address)) {
+        errors.billing_address = 'Direccion Demasiado Corta';
     }
 
     if (!input.shipping_address) {
         errors.shipping_address = 'Campo Requerido';
-    } else if (!/[A-Za-z0-9]+/g.test(input.shipping_address)) {
-        errors.shipping_address = 'Campo Inválido';
+    } else if (!/[a-zA-Z1-9]{8}/g.test(input.shipping_address)) {
+        errors.shipping_address = 'Direccion Demasiado Corto';
     }
 
     if (!input.phone) {
         errors.phone = 'Celular Requerido';
-    } else if (/^(?:(?:00)?549?)?0?(?:11|[2368]\d)(?:(?=\d{0,2}15)\d{2})??\d{8}$/.test(input.phone)) {
-        errors.phone = 'Celular Invalido';
+    } else if (!/[1-9]{11}/g.test(input.phone)) {
+        errors.phone = 'Numero Incorrecto';
     }
-       
+
     if (!input.email) {
         errors.mail = 'Correo Requerido';
     } else if (!/\S+@\S+\.\S+/.test(input.email)) {
@@ -141,17 +177,18 @@ export function validate(input) {
 
 const Register = () => {
 
-    const navigate = useNavigate()
+    
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [errors, setErrors] = useState({});
     const [input, setInput] = useState({
-        fullName: '',
-        billing_address: '',
-        shipping_address: '',
-        phone:'',
-        email: '',
+        fullName : '',
+        email : '',
         password: '',
+        billing_address : '',
+        shipping_address : '',
+        phone : ''
     });
 
     const handleInputChange = function (e) {
@@ -170,110 +207,132 @@ const Register = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(createuser(input))
-        navigate("/");
+        navigate('/')
     }
       
     return (
         <Container>
             
             <Wrapper>
-                <Title>CREAR UNA CUENTA</Title>
+                <Title>CREAR DE USUARIO</Title>
                
                 <Form onSubmit={(e) => handleSubmit(e)}>
-                    <div>
-                        <Input
-                            onChange={(e) => handleInputChange(e)}
-                            type='text'
-                            name='fullName'
-                            placeholder="Nombre"
-                        />
 
-                        {errors.name && (
-                            <Paragraph>{errors.name}</Paragraph>
-                        )}
-                    </div>
-                    <div>
-                        <Input
-                            onChange={(e) => handleInputChange(e)}
-                            type='text'
-                            name='billing_address'
-                            placeholder="Dirección Facturación"
-                        />
-                        {errors.billing_address && (
-                            <Paragraph>{errors.billing_address}</Paragraph>
-                        )}
-                    </div>
-                    <div>
-                        <Input
-                            onChange={(e) => handleInputChange(e)}
-                            type='text'
-                            name='shipping_address'
-                            placeholder="Dirección Envío"
-                        />
-                        {errors.shipping_address && (
-                            <Paragraph>{errors.shipping_address}</Paragraph>
-                        )}
-                    </div>
+                    <DivItemUno>
+                        <div>
+                            <Item0
+                                onChange={(e) => handleInputChange(e)}
+                                type='text'
+                                name='fullName'
+                                placeholder="Nombre y Apellido"
+                            />
+                        {errors.fullName && (
+                            <Paragraph>{errors.fullName}</Paragraph>
+                            )}
+                        </div>
+                        <div>
+                            <Item1
+                                onChange={(e) => handleInputChange(e)}
+                                type='email'
+                                name='email'
+                                placeholder="Correo"
+                            />
+                            {errors.mail && (
+                                <Paragraph>{errors.mail}</Paragraph>
+                                
+                            )}
+                        </div>
+                        <div>
+                            <Item0
+                                onChange={(e) => handleInputChange(e)}
+                                type='text'
+                                name='phone'
+                                placeholder="Número Celular"
+                            />
+                            {errors.phone && (
+                                <Paragraph>{errors.phone}</Paragraph>
+                            )}
+                        </div>
+                    </DivItemUno>
 
-                    <div>
-                        <Input
-                            onChange={(e) => handleInputChange(e)}
-                            type='number'
-                            name='phone'
-                            placeholder="Número Celular"
-                        />
-                        {errors.phone && (
-                            <Paragraph>{errors.phone}</Paragraph>
-                        )}
-                    </div>
+                    <DivItemDos>
+                        <div>
+                            <Textarea
+                                onChange={(e) => handleInputChange(e)}
+                                type='text'
+                                name='billing_address'
+                                placeholder="Direccion de Facturacion"
+                                cols='30'
+                                rows='7'
+                                resize='none'
+                                autoCapitalize='words'
+                                spellcheck='true'
+                            />
+                            {errors.billing_address && (
+                                <Paragraph>{errors.billing_address}</Paragraph>
+                            )}
+                        </div>
+                        <div>
+                            <Textarea
+                                onChange={(e) => handleInputChange(e)}
+                                type='text'
+                                name='shipping_address'
+                                placeholder="Direccion de Residencia"
+                                cols='30'
+                                rows='7'
+                                resize='none'
+                                autoCapitalize='words'
+                            />
+                            {errors.shipping_address && (
+                                <Paragraph>{errors.shipping_address}</Paragraph>
+                            )}
+                        </div>
+                    </DivItemDos>
 
-                    <div>
-                        <Input
-                            onChange={(e) => handleInputChange(e)}
-                            type='email'
-                            name='email'
-                            placeholder="Correo"
-                        />
-                        {errors.mail && (
-                            <Paragraph>{errors.mail}</Paragraph>
-                        )}
-                    </div>
-                    <div>
-                    <Input
-                        onChange={(e) => handleInputChange(e)}
-                        type='password'
-                        name='password'
-                        placeholder="Contraseña"
-                    />
-                    {errors.password && (
-                        <Paragraph>{errors.password}</Paragraph>
-                    )}
-                    </div>
-                    <div>
-                        <Input
-                            onChange={(e) => handleInputChange(e)}
-                            type='password'
-                            name='passwordb'
-                            placeholder="Confirmar Contraseña"
-                        />
-                        {errors.passwordb && (
-                            <Paragraph>{errors.passwordb}</Paragraph>
-                        )}
-                    </div>
-                    <Div>
-                        <Button
-                            type='submit'
-                            disabled={!errors.disabled}
-                        >
-                            Crear
-                        </Button>
-                    </Div>
+                    <DivItemTres>
+                        <div>
+                            <Item0
+                                onChange={(e) => handleInputChange(e)}
+                                type='password'
+                                name='password'
+                                placeholder="Contraseña"
+                            />
+                            {errors.password && (
+                                <Paragraph>{errors.password}</Paragraph>
+                            )}
+                        </div>
 
-                    <Div>
-                        <Link to='/' style={linkStyle}>
-                            <Button>Volver</Button>
-                        </Link>
-                    </Div>
+                        <div>
+                            <Item1
+                                onChange={(e) => handleInputChange(e)}
+                                type='password'
+                                name='passwordb'
+                                placeholder="Confirmar Contraseña"
+                            />
+                            {errors.passwordb && (
+                                <Paragraph>{errors.passwordb}</Paragraph>
+                            )}
+                        </div>
+                    </DivItemTres>
+
+                    <DivItemUno>
+                        <div>
+                            
+                                <Button
+                                    type='submit'
+
+                                    disabled={!errors.disabled}>Crear
+                                </Button>
+                            
+                        </div>
+                        <div>
+                            <Link to='/' style={linkStyle}>
+
+
+                                <Button>Volver</Button>
+                            </Link>
+                        </div>
+                    </DivItemUno>
                     
                 </Form>
                 

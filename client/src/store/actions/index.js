@@ -51,12 +51,10 @@ export const filterByCategory = (category) => {
 
 export const createuser = (payload) => {
     return async function (dispatch) {
-
-        const respons = axios.post('/create-user', payload)
-        console.log(respons)
-        return ({
+        const response = await axios.post('/register', payload)
+        return dispatch({
             type: CREATE_USER,
-            payload: respons
+            payload: response
         })
     }
 }
