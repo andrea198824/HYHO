@@ -9,7 +9,8 @@ import {
     CREATE_ADMIN,
     LOGIN_USER,
     ADD_TO_CART,
-    LOGOUT_USER
+    LOGOUT_USER,
+    GET_USER_STATUS
 } from "../actions";
 
 const initialState = {
@@ -54,6 +55,10 @@ export default function rootReducer(state = initialState, action) {
             return state;
         case CREATE_ADMIN:
             return state;
+        case GET_USER_STATUS:
+            console.log(action.payload)
+            return state;
+
         case ADD_TO_CART:
             if (state.shoppingCart.some(el => el.id === parseInt(action.payload))) return state;
             return { ...state, shoppingCart: state.shoppingCart.concat(state.products.filter(product => product.id === parseInt(action.payload))) };

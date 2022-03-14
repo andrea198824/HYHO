@@ -13,6 +13,8 @@ export const ADD_TO_CART = 'ADD_TO_CART';
 export const CREATE_ADMIN = 'CREATE_ADMIN';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = "LOGOUT_USER";
+export const GET_USER_STATUS = 'GET_USER_STATUS';
+export const CONCAT_CART_INFO = 'CONCAT_CART_INFO';
 
 
 export const getProducts = () => {
@@ -97,6 +99,23 @@ export const logoutUser = () => {
             type: LOGOUT_USER,
             payload: response
         })
+    }
+}
+
+export const getUserStatus = () => {
+    return async function (dispatch) {
+        const response = await axios.get('/login-status')
+        dispatch({
+            type: GET_USER_STATUS,
+            payload: response
+        })
+    }
+}
+
+
+export const concatCartInfo = (cart) => {
+    return async function (dispatch) {
+        const response = await axios.post('/cart', JSON.stringify(cart))
     }
 }
 

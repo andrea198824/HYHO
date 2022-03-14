@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { addToCartDB, getProducts, logoutUser, searchProducts } from '../store/actions';
+import { addToCartDB, getProducts, getUserStatus, logoutUser, searchProducts } from '../store/actions';
 import LogoHyho from '..//Img/logoLargo.gif';
 
 const Container = styled.div`
@@ -94,6 +94,8 @@ const Navbar = () => {
 
     useEffect(() => {
         dispatch(getProducts())
+        console.log("Lo de abajo muestra si el usuario esta logueado")
+        dispatch(getUserStatus())
     }, [])
 
     const onChangeSearch = (e) => {
