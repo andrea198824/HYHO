@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, searchProducts } from '../store/actions';
+import { addToCartDB, getProducts, logoutUser, searchProducts } from '../store/actions';
 import LogoHyho from '..//Img/logoLargo.gif';
 
 const Container = styled.div`
@@ -107,17 +107,21 @@ const Navbar = () => {
         if (search) navigate('/products')
     }
 
-    
+    const onClickLogout = (e) => {
+        e.preventDefault()
+        dispatch(logoutUser())
+    }
+
 
     return (
         <Container>
             <Wrapper>
                 <Left>
-                  <Link to='/' style={linkStyle}>
-                    <h1> TU.ong </h1>
-                  </Link>
-                      <ImgLogo src={LogoHyho}></ImgLogo>
-                        {/* <Slogan> "Help Yourself By Helping Others" </Slogan> */}
+                    <Link to='/' style={linkStyle}>
+                        <h1> TU.ong </h1>
+                    </Link>
+                    <ImgLogo src={LogoHyho}></ImgLogo>
+                    {/* <Slogan> "Help Yourself By Helping Others" </Slogan> */}
                 </Left>
                 <Center>
                     <SearchContainer onSubmit={handleSearch}>
@@ -126,6 +130,7 @@ const Navbar = () => {
                     </SearchContainer>
                 </Center>
                 <Right>
+                    <MenuItem onClick={onClickLogout}>Cerrar Sesion</MenuItem>
                     <Link to='/register' style={linkStyle}>
                         <MenuItem>Registrarse</MenuItem>
                     </Link>

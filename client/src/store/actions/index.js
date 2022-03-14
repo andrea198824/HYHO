@@ -10,7 +10,10 @@ export const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY"
 export const GET_CATEGORIES = "GET_CATEGORIES"
 export const CREATE_USER = "CREATE_USER"
 export const ADD_TO_CART = 'ADD_TO_CART';
-export const CREATE_ADMIN = 'CREATE_ADMIN'
+export const CREATE_ADMIN = 'CREATE_ADMIN';
+export const LOGIN_USER = 'LOGIN_USER';
+export const LOGOUT_USER = "LOGOUT_USER";
+
 
 export const getProducts = () => {
     return {
@@ -49,36 +52,51 @@ export const filterByCategory = (category) => {
     }
 }
 
-export const createuser = (payload) => {
+export const createUser = (payload) => {
     return async function (dispatch) {
-
-        const respons = axios.post('/create-user', payload)
-        console.log(respons)
-        return ({
+        const response = await axios.post('/register', payload)
+        dispatch({
             type: CREATE_USER,
-            payload: respons
+            payload: response
+        })
+    }
+}
+
+export const loginUser = (userData) => {
+    return async function (dispatch) {
+        const response = await axios.post('/login', userData)
+        dispatch({
+            type: LOGIN_USER,
+            payload: response
         })
     }
 }
 
 export const createadmin = (payload) => {
     return async function (dispatch) {
-
-        const respons = axios.post('/create-admin', payload)
-        console.log(respons)
-        return ({
+        const response = axios.post('/create-admin', payload)
+        dispatch({
             type: CREATE_ADMIN,
-            payload: respons
+            payload: response
         })
     }
 }
 
-
-
 export const addToCart = (productID) => {
     return {
         type: ADD_TO_CART,
-        payload: productID,
+        payload: productID
+    }
+}
+
+export const logoutUser = () => {
+    return async function (dispatch) {
+        const response = await axios.post('/logout')
+        console.log("LOGOUT", response)
+        dispatch({
+            type: LOGOUT_USER,
+            payload: response
+        })
     }
 }
 
