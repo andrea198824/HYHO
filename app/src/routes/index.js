@@ -14,6 +14,7 @@ var sessions = require('./sessions')
 const router = Router()
 
 //User endpoints:
+router.get('/login-status', user.status) //Funciona
 router.post('/register', user.register) //Funciona
 router.put('/verify-user', user.verifyUser) //Funciona
 router.put('/verify-admin', user.verifyAdmin) //Funciona
