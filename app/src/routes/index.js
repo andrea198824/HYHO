@@ -19,12 +19,12 @@ router.post('/register', user.register) //Funciona
 router.put('/verify-user', user.verifyUser) //Funciona
 router.put('/verify-admin', user.verifyAdmin) //Funciona
 router.post('/login', user.login) //Funciona
-router.post('/logout', sessionVerification.needsUser, user.logout) //Funciona
-router.put('/modify-user', sessionVerification.needsAdmin ,user.put) //Funciona
-router.put('/modify-mydata', sessionVerification.needsUser ,user.modifyMyData) //Funciona
-router.put('/shipping-data-requirement', sessionVerification.needsUser , user.shippingDataRequirement ,user.put) //Funciona
-router.get('/users', sessionVerification.needsAdmin ,user.get) // Funciona
-router.get('/myinfo', sessionVerification.needsUser ,user.myinfo) // Funciona
+router.post('/logout', user.logout) //Funciona
+router.put('/modify-user', user.put) //Funciona
+router.put('/modify-mydata', user.modifyMyData) //Funciona
+router.put('/shipping-data-requirement',  user.shippingDataRequirement ,user.put) //Funciona
+router.get('/users', user.get) // Funciona
+router.get('/myinfo', user.myinfo) // Funciona
 // router.post('/create-user', user.post)
 
 //Form endpoints:
@@ -32,14 +32,14 @@ router.get('/myinfo', sessionVerification.needsUser ,user.myinfo) // Funciona
 // router.post('/create-admin', sessionVerification.needsAdmin ,admin.post) // No va
 
 //Form endpoints:
-router.get('/donate-products', sessionVerification.needsAdmin ,form.get) //Funciona
-router.post('/donate-form', sessionVerification.needsUser ,form.post) //Funciona
+router.get('/donate-products', form.get) //Funciona
+router.post('/donate-form', form.post) //Funciona
 
 //Product endpoints:
-router.post('/product', sessionVerification.needsAdmin ,product.post) //Funciona
+router.post('/product', product.post) //Funciona
 router.get('/products', product.get)
-router.put('/product/modify/:id', sessionVerification.needsAdmin ,product.put)
-router.delete('/product/delete/:id', sessionVerification.needsAdmin ,product.delete)
+router.put('/product/modify/:id', product.put)
+router.delete('/product/delete/:id', product.delete)
 
 //Category endpoints:
 router.get('/category', category.get)
@@ -54,13 +54,13 @@ const shopController = require('./shop')
 
 // router.get('/', shopController.getIndex);    
 router.get('/shop' ,shopController.getProducts) //  -> Usar /products
-router.get('/cart', sessionVerification.needsUser ,shopController.getCart)
-router.post('/cart', sessionVerification.needsUser ,shopController.postCart)
+router.get('/cart', shopController.getCart)
+router.post('/cart', shopController.postCart)
 // router.get('/checkout', shopController.getCheckout);
 // router.get('/orders', shopController.getOrders);
 // router.get('/products/:productId', shopController.getProduct);
-router.delete('/cart-delete', sessionVerification.needsUser ,shopController.postCartDeleteCart)
-router.put('/putCart/:id', sessionVerification.needsUser ,shopController.putCart)
+router.delete('/cart-delete', shopController.postCartDeleteCart)
+router.put('/putCart/:id', shopController.putCart)
 // router.post('/create-order', shopController.postOrder);
 
 //---------------shopping Orders ------------------
@@ -71,7 +71,7 @@ router.get('/getOrder', shopControllerOrder.getOrder);
 router.post('/create-order', shopControllerOrder.postCreateOrder)
 
 //--------------shopping routes --------------------
-router.get('/sessions', sessionVerification.needsAdmin ,sessions.get);
+router.get('/sessions', sessions.get);
 router.get('/counter', sessions.counter);
 
 

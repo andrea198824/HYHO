@@ -60,23 +60,23 @@ server.use((req, res, next) => {
   // -----------------sessions----------------------
   
   //-----------------auth0----------------------
-//   const { auth } = require('express-openid-connect');
+  const { auth } = require('express-openid-connect');
 
-//   const config = {
-//     authRequired: false,
-//     auth0Logout: true,
-//     baseURL: 'http://localhost:3001',
-//     clientID: 'YOUR_CLIENT_ID',
-//     issuerBaseURL: 'https://YOUR_DOMAIN',
-//     secret: 'LONG_RANDOM_STRING'
-//   };
+  const config = {
+    authRequired: false,
+    auth0Logout: true,
+    secret: 'a long, randomly-generated string stored in env',
+    baseURL: 'http://localhost:3001',
+    clientID: 'MdbJSOTKpRdZE7FfCVXVaYmnqHnWrHRi',
+    issuerBaseURL: 'https://dev-9xm6ldt3.us.auth0.com'
+  };
 
-// // auth router attaches /login, /logout, and /callback routes to the baseURL
-//   server.use(auth(config));
+// auth router attaches /login, /logout, and /callback routes to the baseURL
+  server.use(auth(config));
 
-//   server.get('/', (req, res) => {
-//     res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out')
-//   });
+  server.get('/', (req, res) => {
+    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out')
+  });
   //-----------------auth0----------------------
   
   
