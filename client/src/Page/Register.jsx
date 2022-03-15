@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { Icon } from '@material-ui/core'
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link, useNavigate } from 'react-router-dom'
@@ -204,6 +205,8 @@ const Register = () => {
         }));
     }
 
+    const [showPassword, setShowPasword] = useState(true)
+
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(createUser(input))
@@ -291,24 +294,30 @@ const Register = () => {
 
                     <DivItemTres>
                         <div>
+                            
                             <Item0
                                 onChange={(e) => handleInputChange(e)}
-                                type='password'
+                                type={showPassword ? 'password' : 'text'}
                                 name='password'
                                 placeholder="Contraseña"
+                               
                             />
+                            {showPassword ? < Icon onClick={() => setShowPasword(!showPassword)}>visibility_off</Icon> : <Icon onClick={() => setShowPasword(!showPassword)}>visibility</Icon> }
                             {errors.password && (
                                 <Paragraph>{errors.password}</Paragraph>
                             )}
                         </div>
 
                         <div>
+                            
                             <Item1
                                 onChange={(e) => handleInputChange(e)}
-                                type='password'
+                                type={showPassword ? 'password' : 'text'}
                                 name='passwordb'
                                 placeholder="Confirmar Contraseña"
+                                
                             />
+                            {showPassword ? < Icon onClick={() => setShowPasword(!showPassword)}>visibility_off</Icon> : <Icon onClick={() => setShowPasword(!showPassword)}>visibility</Icon>}
                             {errors.passwordb && (
                                 <Paragraph>{errors.passwordb}</Paragraph>
                             )}
