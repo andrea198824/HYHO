@@ -11,7 +11,8 @@ import store from './store/index'
 import axios from 'axios';
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
+axios.defaults.baseURL = "https://hybho.herokuapp.com" || "http://localhost:3001"
+    // process.env.REACT_APP_API || "http://localhost:3001";
 
 ReactDOM.render(
     <React.StrictMode>
