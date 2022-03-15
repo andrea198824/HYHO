@@ -31,34 +31,56 @@ server.use((req, res, next) => {
 
 
 //-----------------sessions----------------------
-server.use(function(req,res,next){
-  res.locals.session = req.session;
-  next();
-});
+// server.use(function(req,res,next){
+//   res.locals.session = req.session;
+//   next();
+// });
 
-const SessionStore = require('express-session-sequelize')(expressSession.Store);
-const Sequelize = require('sequelize');
+// const SessionStore = require('express-session-sequelize')(expressSession.Store);
+// const Sequelize = require('sequelize');
 
-const { conn } = require('./db.js');
+// const { conn } = require('./db.js');
 
-const sequelizeSessionStore = new SessionStore({
-  db: conn,
-});
+// const sequelizeSessionStore = new SessionStore({
+//   db: conn,
+// });
 
-server.use(expressSession(
-  {
-    name: 'sid',
-    secret:'secret', // Debería estar en un archivo de environment
-    resave: true,
-    store: sequelizeSessionStore,
-    saveUninitialized: true,
-    cookie:{
-      maxAge: 1000 * 60 * 60 * 2 // Está en milisegundos --> 2hs
-    }
-  }
-));
+// server.use(expressSession(
+//   {
+//     name: 'sid',
+//     secret:'secret', // Debería estar en un archivo de environment
+//     resave: true,
+//     store: sequelizeSessionStore,
+//     saveUninitialized: true,
+//     cookie:{
+//       maxAge: 1000 * 60 * 60 * 2 // Está en milisegundos --> 2hs
+//     }
+//   }
+//   ));
+  // -----------------sessions----------------------
+  
+  //-----------------auth0----------------------
+  const { auth } = require('express-openid-connect');
 
-server.use('/', routes);
+  const config = {
+    authRequired: false,
+    auth0Logout: true,
+    secret: 'a long, randomly-generated string stored in env',
+    baseURL: 'http://localhost:3001',
+    clientID: 'MdbJSOTKpRdZE7FfCVXVaYmnqHnWrHRi',
+    issuerBaseURL: 'https://dev-9xm6ldt3.us.auth0.com'
+  };
+
+// auth router attaches /login, /logout, and /callback routes to the baseURL
+  server.use(auth(config));
+
+  server.get('/', (req, res) => {
+    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out')
+  });
+  //-----------------auth0----------------------
+  
+  
+  server.use('/', routes);
 
 // Error catching endware.
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
