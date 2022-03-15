@@ -117,22 +117,40 @@ exports.post = async function(req, res, next) {
     } else {
       res.status(400).send({info: "Bad request"});
     }
-              
-      
-
 }
 
 
 exports.put = async function (req, res, next) {
   const {id} = req.params
   const  product  = req.body;
+ 
   try {
-    let prod = await Products.update(product, {
-      where: {
-        id: id,
-      },
-      include: Category,
-    });
+     await Products.update(product,{
+        where: {
+          id: id
+        }})
+     const prod = await Products.findOne( {
+          where: {
+            id: id,
+          },
+        })     
+  
+    if(product.categories.length){
+     
+     await product.categories.forEach((el) => Category.findOrCreate
+       ( {
+        where: { name: el },
+        attributes: ["id"]
+      }))
+      let cat = await  Category.findAll( {
+        where: {
+          name: product.categories,
+        },
+      }) 
+      
+         await cat.forEach((el) => prod.setCategories(el.id))
+    }
+
         return res.json({modificate: true});
   } catch (error) {
     next(error);
