@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
+import { Icon } from '@material-ui/core'
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link } from 'react-router-dom';
@@ -41,9 +42,12 @@ const Form = styled.form`
 
 const Input = styled.input`
   flex: 1;
-  min-width: 40%;
+  min-width: 85%;
   margin: 10px 0;
   padding: 10px;
+`;
+
+const Div = styled.div`
 `;
 
 const Button = styled.button`
@@ -77,6 +81,8 @@ const Login = () => {
         password: '',
     });
 
+    const [showPassword, setShowPasword] = useState(true)
+
     const handleInputChange = function (e) {
         e.preventDefault()
         setUserData({
@@ -105,13 +111,18 @@ const Login = () => {
                         placeholder='Usuario'
                         required
                     />
-                    <Input
-                        onChange={handleInputChange}
-                        name='password'
-                        value={userData.password}
-                        type='password'
-                        placeholder="Contraseña"
-                    />
+
+                    <Div>
+                        <Input
+                            onChange={handleInputChange}
+                            name='password'
+                            value={userData.password}
+                            type={showPassword ? 'password' : 'text'}
+                            placeholder="Contraseña"
+                        />
+                        {showPassword ? < Icon onClick={() => setShowPasword(!showPassword)}>visibility_off</Icon> : <Icon onClick={() => setShowPasword(!showPassword)}>visibility</Icon>}
+                    </Div>
+
                     <Button disabled={!userData.password || !userData.input} >
                         Iniciar Sesion
                     </Button>
@@ -122,7 +133,6 @@ const Login = () => {
                         <Anchor to='/register'>Registrarse</Anchor>
                     </Link>
                 </Form>
-                <LoguinBtn />
             </Wrapper>
         </Container>
     );
