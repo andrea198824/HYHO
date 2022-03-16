@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router';
-
+import FileBase from 'react-file-base64';
+import axios from 'axios';
 
 const Container = styled.div`
   width: 100vw;
@@ -87,24 +88,32 @@ const linkStyle = {
 export function validate(input) {
     
     let errors = {};
-    
+    console.log(input.title)
     if (!input.title) {
         errors.title = 'Nombre Es Requerido';
     } else if (!/^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/.test(input.title)) {
+        console.log("entro al else if")
         errors.title = 'Nombre es Invalido';
-    }
+    } else{
+        delete errors.title 
+    } 
 
     
     if (!input.description) {
         errors.description = 'Description is required';
     } else if (input.description.length < 10) {
         errors.description = 'Description must have at least 10 characters'
-    }
+    }else{
+        delete errors.description 
+    } 
+
     if (!input.cantidad) {
         errors.cantidad = 'Amount is required';
     } else if (input.cantidad.length < 1) {
         errors.cantidad = 'Must have at least 1 Product'
-    }
+    }else{
+        delete errors.cantidad 
+    } 
 
 
 
@@ -112,10 +121,12 @@ export function validate(input) {
 
    
 
-    if (Object.keys(errors).length === 0) {
+    if (Object.keys(errors).length <= 1) {
         errors.disabled = true
+    } else {
+        errors.disabled = false
     }
-    else errors.disabled = false
+   
 
     return errors;
 };
@@ -131,6 +142,9 @@ const DonarProduct= () => {
         cantidad:'',
         descriptions:'',
     });
+    const getBaseFile = (files) => {
+        setInput(prevState =>({...prevState,image:files.base64}) )
+    }
     
     const handleInputChange = function (e) {
         e.preventDefault()
@@ -138,25 +152,35 @@ const DonarProduct= () => {
         setInput({
             
             ...input,
-            [e.target.title]: e.target.value
+            [e.target.name]: e.target.value
         });
 
         setErrors(validate({
             ...input,
-            [e.target.title]: e.target.value
+            [e.target.name]: e.target.value
         }));
     }
 
     const handleSubmit = (e) => {
+        console.log("entro al submit", input)
         e.preventDefault()
+        
+        axios.post('/donate-form', input)
+        .then((res) =>{ console.log("entro res", res)
+        alert(` Gracias por tu donacion`)
+        navigate("/")}
+        )
+      }
+      
+       
+
+      console.log(errors)
         
             
         
-            navigate("/");
-        
         
           
-    }
+    
 
     
     
@@ -167,7 +191,7 @@ const DonarProduct= () => {
             <Wrapper>
                 <Title> Donar Producto</Title>
                
-                <Form onSubmit={(e) => handleSubmit(e)}>
+                <Form onSubmit={handleSubmit}>
                     <div>
                         <Input
                             onChange={(e) => handleInputChange(e)}
@@ -196,7 +220,7 @@ const DonarProduct= () => {
                         <Input
                             onChange={(e) => handleInputChange(e)}
                             type='text'
-                            name='descriptions'
+                            name='description'
                             placeholder="Descripcion"
                         />
                         {errors.lastName && (
@@ -204,8 +228,8 @@ const DonarProduct= () => {
                         )}
                     </div>
                     <div>
-                        <form action='/donate-form' method='POST' encType='multipart/form-data'>
-                    <Input
+                       
+                    {/* <Input
                             onChange={(e) => handleInputChange(e)}
                             type='file'
                             name='image'
@@ -213,12 +237,13 @@ const DonarProduct= () => {
                             // accept='.jpeg, .png, .jpg'
                             // placeholder="Carga tu imagen"
                             // value={input.image}
-                        />
+                        /> */}
+                        <FileBase type="file" multiple={false} onDone={getBaseFile} />
 
                         {errors.image && (
                             <Paragraph>{errors.image}</Paragraph>
                         )}
-                        </form>
+                        
                     </div>
                    
                     
