@@ -7,6 +7,7 @@ import {
     GET_CATEGORIES,
     CREATE_ADMIN,
     ADD_TO_CART,
+    GET_TOKEN,
 } from "../actions";
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
     categories: [],
     filteredProducts: [],
     shoppingCart: JSON.parse(localStorage.getItem('shoppingCart')) || [],
+    token: "",
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -46,6 +48,8 @@ export default function rootReducer(state = initialState, action) {
         case ADD_TO_CART:
             if (state.shoppingCart.some(el => el.id === parseInt(action.payload))) return state;
             return { ...state, shoppingCart: state.shoppingCart.concat(state.products.filter(product => product.id === parseInt(action.payload))) };
+        case GET_TOKEN:
+            return {...state, token: action.payload}
         default:
             return state;
     }
