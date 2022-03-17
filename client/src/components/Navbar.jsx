@@ -99,9 +99,6 @@ const Navbar = () => {
         dispatch(getProducts())
         // console.log("Lo de abajo muestra si el usuario esta logueado")
         // dispatch(getUserStatus())
-        console.log(user)
-        console.log(window.location.origin)
-        console.log(document.URL)
     }, [])
 
     useEffect(() => {
@@ -109,6 +106,7 @@ const Navbar = () => {
     }, [cartProducts])
 
     const onChangeSearch = (e) => {
+        console.log(user)
         setSearch(e.target.value)
     }
 
@@ -136,30 +134,43 @@ const Navbar = () => {
                     </SearchContainer>
                 </Center>
 
-                {user ? <Right>
-                    <MenuItem onClick={() => logout({ returnTo: window.location.origin })} >Cerrar Sesion</MenuItem>
-                    <MenuItem>
-                        <Link to='/cart' style={linkStyle}>
-                            <Badge badgeContent={cartProducts.length} color="primary">
-                                <ShoppingCartOutlined />
-                            </Badge>
-                        </Link>
-                    </MenuItem>
-                </Right>
-                    :
-                    <Right>
-                        <Link to='/register' style={linkStyle}>
-                            <MenuItem>Registrarse</MenuItem>
-                        </Link>
-                        <MenuItem onClick={loginWithRedirect}>Iniciar Sesion</MenuItem>
-                        <MenuItem>
-                            <Link to='/cart' style={linkStyle}>
-                                <Badge badgeContent={cartProducts.length} color="primary">
-                                    <ShoppingCartOutlined />
-                                </Badge>
-                            </Link>
-                        </MenuItem>
-                    </Right>
+                {
+                    isLoading ?
+                        <Right>
+                            <MenuItem>Cargando...</MenuItem>
+                            <MenuItem>
+                                <Link to='/cart' style={linkStyle}>
+                                    <Badge badgeContent={cartProducts.length} color="primary">
+                                        <ShoppingCartOutlined />
+                                    </Badge>
+                                </Link>
+                            </MenuItem>
+                        </Right>
+                        :
+                        user ? <Right>
+                            <MenuItem onClick={() => logout({ returnTo: window.location.origin })} >Cerrar Sesion</MenuItem>
+                            <MenuItem>
+                                <Link to='/cart' style={linkStyle}>
+                                    <Badge badgeContent={cartProducts.length} color="primary">
+                                        <ShoppingCartOutlined />
+                                    </Badge>
+                                </Link>
+                            </MenuItem>
+                        </Right>
+                            :
+                            <Right>
+                                <Link to='/register' style={linkStyle}>
+                                    <MenuItem>Registrarse</MenuItem>
+                                </Link>
+                                <MenuItem onClick={loginWithRedirect}>Iniciar Sesion</MenuItem>
+                                <MenuItem>
+                                    <Link to='/cart' style={linkStyle}>
+                                        <Badge badgeContent={cartProducts.length} color="primary">
+                                            <ShoppingCartOutlined />
+                                        </Badge>
+                                    </Link>
+                                </MenuItem>
+                            </Right>
 
                 }
 
