@@ -76,6 +76,27 @@ exports.register = async function (req, res, next) {
 
 }
 
+exports.isadmin = async function (req, res, next) {
+    try {
+        let {
+            user,
+        }
+            = req.body;
+
+        let {
+            email,
+        } = user;
+
+        let emailUser = await User.findAll({
+            where: { email: email }
+        })
+
+        res.status(200).send({info: emailUser[0].admin_verified})
+    } catch (error) {
+        res.status(400).send({info: error})
+    }
+}
+
 exports.verifyUser = async function (req, res, next) {
 
 
