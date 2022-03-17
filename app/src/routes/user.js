@@ -97,6 +97,29 @@ exports.isadmin = async function (req, res, next) {
     }
 }
 
+exports.ismailautenticated = async function (req, res, next) {
+    try {
+        let {
+            user,
+        }
+            = req.body;
+
+        let {
+            email,
+        } = user;
+
+        let emailUser = await User.findAll({
+            where: { email: email }
+        })
+        if (emailUser.length) res.status(200).send({info: emailUser[0].email_verified})
+        if (!emailUser.length) res.status(401).send({info: "User is not in the database"})
+    } catch (error) {
+        res.status(404).send({info: error})
+    }
+}
+
+
+
 exports.verifyUser = async function (req, res, next) {
 
 
