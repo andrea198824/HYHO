@@ -5,12 +5,8 @@ import {
     ORDER_BY_PRICE,
     FILTER_BY_CATEGORY,
     GET_CATEGORIES,
-    CREATE_USER,
     CREATE_ADMIN,
-    LOGIN_USER,
     ADD_TO_CART,
-    LOGOUT_USER,
-    GET_USER_STATUS
 } from "../actions";
 
 const initialState = {
@@ -19,7 +15,6 @@ const initialState = {
     categories: [],
     filteredProducts: [],
     shoppingCart: JSON.parse(localStorage.getItem('shoppingCart')) || [],
-    userIsLogin: false,
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -46,19 +41,8 @@ export default function rootReducer(state = initialState, action) {
                 return { ...state, filteredProducts: state.products };
             }
             return { ...state, filteredProducts: state.products.filter(product => product.category === action.payload) }
-        case CREATE_USER:
-            return state;
-        case LOGIN_USER:
-            console.log("LOGIN - REDUCER", action.payload)
-            return state;
-        case LOGOUT_USER:
-            console.log("LOGOUT", action.payload)
-            return state;
         case CREATE_ADMIN:
             return state;
-        case GET_USER_STATUS:
-            console.log(action.payload.data.info)
-            return {...state, userIsLogin: true};
         case ADD_TO_CART:
             if (state.shoppingCart.some(el => el.id === parseInt(action.payload))) return state;
             return { ...state, shoppingCart: state.shoppingCart.concat(state.products.filter(product => product.id === parseInt(action.payload))) };
