@@ -129,30 +129,24 @@ exports.verifyUser = async function (req, res, next) {
 }
 
 exports.verifyAdmin = async function (req, res, next) {
-
     try {
         const {
-            id
-        } = req.query
+            user
+        } = req.body
 
-        let bdTotal = await getDbUser();
-        // console.log(bdTotal)
-        if (id) {
-            let prodName = await bdTotal.filter((user) =>
-                user.id == id
-            );
-            if (!prodName.length) {//si no hay algún nombre
-                res
-                    .status(404)
-                    .send({ info: "Sorry, the product you are looking for is not here." });
-            } else {
-                prodName[0].set({ adminVerificated: true })
-                await prodName[0].save();
-                res.status(201).send(prodName[0])
-            }
-        } else {
-            res.status(404).send({ info: "No id" });
+        const {
+            email
+        } = user
+        
+        let emailUser = await User.findAll({
+            where: { email: email }
+        })
+        if (emailUser.length && emailUser[0].admin_verified) res.status(200).send({info: "User is already an admin"})
+        if (emailUser.length && !emailUser[0].admin_verified) {
+            emailUser[0].set({ admin_verified: true })
+            res.status(200).send({info: emailUser[0].admin_verified})
         }
+        if (!emailUser.length) res.status(401).send({info: "User is not in the database"})
     } catch (error) {
         next(error);
     }
