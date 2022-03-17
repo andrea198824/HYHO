@@ -4,16 +4,13 @@ import {
   MailOutline,
   Phone,
   Pinterest,
-  Map,
+  Room,
   Twitter
 } from '@material-ui/icons'
 import styled from 'styled-components'
 import { mobile } from '../responsive'
 import { Link } from 'react-router-dom'
 import mercadoPago from '../Img/mercadoPago.png'
-import { requirePropFactory } from '@material-ui/core'
-
-import Mapa from '../Page/Mapa'
 
 const Container = styled.div`
   display: flex;
@@ -132,8 +129,13 @@ const Footer = () => {
           <Link onClick={onClickLink} to='/cart' style={linkListItems}>
             <ListItem>Carro de compras</ListItem>
           </Link>
-          <ListItem>Dona dinero</ListItem>
-          <ListItem>Dona productos</ListItem>
+          <Link onClick={onClickLink} to='/donatedinero' style={linkListItems}>
+            <ListItem>Dona dinero</ListItem>
+          </Link>
+
+          <Link onClick={onClickLink} to='/donateproduct' style={linkListItems}>
+            <ListItem>Dona productos</ListItem>
+          </Link>
           <Link onClick={onClickLink} to='/products' style={linkListItems}>
             <ListItem>Tienda</ListItem>
           </Link>
@@ -145,15 +147,9 @@ const Footer = () => {
         <Title>Contacto</Title>
         <ContactItem>
           <Link onClick={onClickLink} to={'/Mapa'}>
-            <Map
-            // googleMapURL= {`https://maps.googleapis.com/maps/api/js?key=${credentials.apiKey}`}
-            // containerElement = {<div style={{height: '400px'}}/>}
-            // mapElement={<div style={{height: '100%'}}/>}
-            // loadingElement = {<p>Loading...</p>}
-            style={{ linkListItems }}
-            />
+            <Room style={{ linkListItems }} />
           </Link>
-          &nbsp; 101 margarita, CABA, Buenos Aires
+          &nbsp; Av. 9 de Julio, C1043 CABA, Argentina
         </ContactItem>
         <ContactItem>
           <Phone style={{ marginRight: '10px' }} /> +01 101 10 01

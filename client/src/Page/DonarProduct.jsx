@@ -5,6 +5,10 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router'
 import FileBase from 'react-file-base64'
 import axios from 'axios'
+import NavBar from '../components/Navbar'
+import { Height } from '@material-ui/icons'
+
+
 
 const Container = styled.div`
   width: 100vw;
@@ -79,13 +83,14 @@ const linkStyle = {
   padding: '5px'
 }
 
-const button = {
-//  margin: '2px',
+const fileBase = styled.div 
+` height: '20px',
+ width: '10px'`
 
-}
 
 const file = {
-    padding: '8px'
+  padding: '8px',
+ 
 }
 
 export function validate (input) {
@@ -138,7 +143,7 @@ const DonarProduct = () => {
   const getBaseFile = files => {
     setInput(prevState => ({ ...prevState, image: files.base64 }))
   }
-
+  
   const handleInputChange = function (e) {
     e.preventDefault()
 
@@ -169,7 +174,10 @@ const DonarProduct = () => {
   console.log(errors)
 
   return (
+    <div>
+    <NavBar />
     <Container>
+     
       <Wrapper>
         <Title> Donar Producto</Title>
 
@@ -193,7 +201,6 @@ const DonarProduct = () => {
             />
             {errors.cantidad && <Paragraph>{errors.cantidad}</Paragraph>}
           </div>
-
           <div>
             <Input
               onChange={e => handleInputChange(e)}
@@ -203,21 +210,14 @@ const DonarProduct = () => {
             />
             {errors.lastName && <Paragraph>{errors.descriptions}</Paragraph>}
           </div>
-          <div style = {file}>
-            {/* <Input
-                            onChange={(e) => handleInputChange(e)}
-                            type='file'
-                            name='image'
-                            id="file"
-                            // accept='.jpeg, .png, .jpg'
-                            // placeholder="Carga tu imagen"
-                            // value={input.image}
-                        /> */}
-            <FileBase  type='file' multiple={false} onDone={getBaseFile} />
+        
+        
+
+          <div style={file}>
+            <FileBase type='file' multiple={false} onDone={getBaseFile} />
 
             {errors.image && <Paragraph>{errors.image}</Paragraph>}
           </div>
-
           <Div>
             <Link to='/' style={linkStyle}>
               <Button type='submit' disabled={!errors.disabled}>
@@ -225,12 +225,13 @@ const DonarProduct = () => {
               </Button>
             </Link>
             <Link to='/' style={linkStyle}>
-              <Button style={button}>Volver</Button>
+              <Button style={Button}>Volver</Button>
             </Link>
           </Div>
         </Form>
       </Wrapper>
     </Container>
+    </div>
   )
 }
 export default DonarProduct

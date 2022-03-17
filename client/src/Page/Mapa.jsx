@@ -5,7 +5,7 @@ import Maps from '../components/Maps'
 export default function Mapa () {
   return (
     <Maps
-      googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${credentials.apiKey}`}
+      googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${credentials.apiKey}&libraries=geometry,drawing,places&callback=initMap`}
       containerElement={<div style={{ height: '400px' }} />}
       mapElement={<div style={{ height: '100%' }} />}
       loadingElement={<p>Loading...</p>}
