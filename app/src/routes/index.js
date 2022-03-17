@@ -11,6 +11,7 @@ var product = require('./product')
 var newsletter = require('./newsletter')
 var category = require('./category')
 var sessions = require('./sessions')
+var getPayment = require('./mercadopago')
 const router = Router()
 
 //User endpoints:
@@ -72,6 +73,9 @@ router.post('/create-order', shopControllerOrder.postCreateOrder)
 //--------------shopping routes --------------------
 router.get('/sessions', sessionVerification.needsAdmin ,sessions.get);
 router.get('/counter', sessions.counter);
+
+//-------------mercadopago-------------
+router.get('/mercadopago', getPayment.get)
 
 
 
