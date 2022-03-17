@@ -1,14 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import { Auth0Provider } from '@auth0/auth0-react'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './store/index'
-//import dotenv from "dotenv";
-//dotenv.config();
 import axios from 'axios';
+import { Auth0Provider } from "@auth0/auth0-react";
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
@@ -17,13 +15,13 @@ axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            {/* <Auth0Provider
-                domain='dev-6-pd01tf.us.auth0.com'
-                clientId='CoqjB60NK71zxNxmcmcxX9kXZVQ5l4C0'
+            <Auth0Provider
+                domain="dev-b75rcpfv.us.auth0.com"
+                clientId="NBMOqa8iTFpzpEIMRj8slobadJnL6DuC"
                 redirectUri={window.location.origin}
-            > */}
-            <App />
-            {/* </Auth0Provider> */}
+            >
+                <App />
+            </Auth0Provider>
         </Provider>
     </React.StrictMode>,
     document.getElementById('root')
