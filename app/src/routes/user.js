@@ -90,8 +90,6 @@ exports.isadmin = async function (req, res, next) {
         let emailUser = await User.findAll({
             where: { email: email }
         })
-        console.log(emailUser)
-
         if (emailUser.length) res.status(200).send({info: emailUser[0].admin_verified})
         if (!emailUser.length) res.status(401).send({info: "User is not in the database"})
     } catch (error) {
