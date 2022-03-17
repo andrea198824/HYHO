@@ -54,26 +54,6 @@ export const filterByCategory = (category) => {
     }
 }
 
-export const createUser = (payload) => {
-    return async function (dispatch) {
-        const response = await axios.post('/register', payload)
-        dispatch({
-            type: CREATE_USER,
-            payload: response
-        })
-    }
-}
-
-export const loginUser = (userData) => {
-    return async function (dispatch) {
-        const response = await axios.post('/login', userData)
-        dispatch({
-            type: LOGIN_USER,
-            payload: response
-        })
-    }
-}
-
 export const createadmin = (payload) => {
     return async function (dispatch) {
         const response = axios.post('/create-admin', payload)
@@ -91,26 +71,6 @@ export const addToCart = (productID) => {
     }
 }
 
-export const logoutUser = () => {
-    return async function (dispatch) {
-        const response = await axios.post('/logout')
-        console.log("LOGOUT", response)
-        dispatch({
-            type: LOGOUT_USER,
-            payload: response
-        })
-    }
-}
-
-export const getUserStatus = () => {
-    return async function (dispatch) {
-        const response = await axios.get('/login-status')
-        dispatch({
-            type: GET_USER_STATUS,
-            payload: response
-        })
-    }
-}
 export const postCartInfo = (cart) => {
     return async function (dispatch) {
         const response = await axios.post('/cart', JSON.stringify(cart))

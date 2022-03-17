@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, getUserStatus, logoutUser, searchProducts } from '../store/actions';
+import { getProducts, searchProducts } from '../store/actions';
 import LogoHyho from '..//Img/logoLargo.gif';
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -91,14 +91,11 @@ const Navbar = () => {
 
     const [search, setSearch] = useState("")
     const cartProducts = useSelector(state => state.shoppingCart)
-    const userStatus = useSelector(state => state.userIsLogin)
     const { user, isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
 
 
     useEffect(() => {
         dispatch(getProducts())
-        // console.log("Lo de abajo muestra si el usuario esta logueado")
-        // dispatch(getUserStatus())
     }, [])
 
     useEffect(() => {
@@ -159,10 +156,7 @@ const Navbar = () => {
                         </Right>
                             :
                             <Right>
-                                <Link to='/register' style={linkStyle}>
-                                    <MenuItem>Registrarse</MenuItem>
-                                </Link>
-                                <MenuItem onClick={loginWithRedirect}>Iniciar Sesion</MenuItem>
+                                <MenuItem onClick={loginWithRedirect}>Iniciar Sesion / Registrarse</MenuItem>
                                 <MenuItem>
                                     <Link to='/cart' style={linkStyle}>
                                         <Badge badgeContent={cartProducts.length} color="primary">

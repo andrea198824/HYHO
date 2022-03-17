@@ -4,9 +4,9 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Home from './Page/Home';
 import Product from "./Page/Product";
 import ProductList from "./Page/ProductList";
-import Register from './Page/Register';
+//import Register from './Page/Register';
+// import Login from './Page/Login';
 import Cart from './Page/Cart';
-import Login from './Page/Login';
 import InfoSlider from './Page/InfoSlider';
 import RecoverPassword from './Page/RecoverPassword';
 import RegisterAdmin from './Page/RegiterAdmin';
@@ -23,8 +23,8 @@ function App() {
                     <Route path="/products" element={<ProductList />} />
                     <Route path="/product/:id" element={<Product />} />
                     <Route exact path='/cart' element={<Cart />} />
-                    <Route exact path='/login' element={<Login />} />
-                    <Route exact path='/register' element={<Register />} />
+                    {/* <Route exact path='/login' element={<Login />} />
+                    <Route exact path='/register' element={<Register />} /> */}
                     <Route exact path='/infoSlider' element={<InfoSlider />} />
                     <Route exact path='/registeradmin' element={<RegisterAdmin />} />
                     <Route exact path='/recoverpassword' element={<RecoverPassword />} />
