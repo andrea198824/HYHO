@@ -40,5 +40,9 @@ module.exports = sequelize => {
       type: DataTypes.STRING,
       allowNull: true
     },
+    picture: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
   })
 }
