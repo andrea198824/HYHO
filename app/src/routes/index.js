@@ -64,6 +64,7 @@ router.get('/admin/authorized', jwtAdminCheck,function (req, res) {
 
 //User endpoints:
 router.post('/register', jwtCheck, user.register) //Funciona con auth0 y token
+router.get('/isadmin', jwtCheck, user.isadmin) //Funciona con auth0 y token
 
 router.get('/login-status', user.status) //Funciona
 router.put('/verify-user', user.verifyUser) //Funciona
