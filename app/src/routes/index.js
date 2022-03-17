@@ -13,6 +13,55 @@ var category = require('./category')
 var sessions = require('./sessions')
 const router = Router()
 
+//-----------------auth0-tokens---------------------
+var jwt = require('express-jwt');
+var jwks = require('jwks-rsa');
+
+//user and guest token
+const jwtCheck = jwt({
+      secret: jwks.expressJwtSecret({
+          cache: true,
+          rateLimit: true,
+          jwksRequestsPerMinute: 5,
+          jwksUri: 'https://dev-9xm6ldt3.us.auth0.com/.well-known/jwks.json'
+    }),
+    audience: 'http://localhost:3001',
+    issuer: 'https://dev-9xm6ldt3.us.auth0.com/',
+    algorithms: ['RS256']
+});
+
+
+//admin token
+const jwtAdminCheck = jwt({
+  secret: jwks.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: 'https://dev-9xm6ldt3.us.auth0.com/.well-known/jwks.json'
+}),
+audience: 'http://localhost:3001/admin',
+issuer: 'https://dev-9xm6ldt3.us.auth0.com/',
+algorithms: ['RS256']
+});
+
+
+//-----------------auth0-tokens---------------------
+
+//--------------------test-tokens-endpoints--------------------
+
+//Endpoint protected by guest token
+router.get('/authorized', jwtCheck,function (req, res) {
+    res.send('Secured Resource');
+});
+
+//Endpoint protected by admin token
+router.get('/admin/authorized', jwtAdminCheck,function (req, res) {
+    res.send('Secured Resource');
+});
+
+//--------------------test-tokens-endpoints--------------------
+
+
 //User endpoints:
 router.get('/login-status', user.status) //Funciona
 router.post('/register', user.register) //Funciona
