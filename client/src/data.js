@@ -4,6 +4,7 @@ export const sliderItems = [
     video:
       'https://drive.google.com/file/d/1OZCeG9EA00y6d3kOYbpeWDet8Q2WEVTj/view?usp=sharing',
     bg: '8aa290'
+
   },
   {
     id: 1,

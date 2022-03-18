@@ -24,6 +24,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   width: 40%;
+ 
   padding: 20px;
   background-color: white;
   ${mobile({ width: '75%' })}
@@ -83,14 +84,14 @@ const linkStyle = {
   padding: '5px'
 }
 
-const fileBase = styled.div 
-` height: '20px',
- width: '10px'`
-
+const fileBase = {
+    margin: '20px',
+    padding: '10px'
+}
 
 const file = {
-  padding: '8px',
- 
+    padding: '25px',
+    margin: '5px'
 }
 
 export function validate (input) {
@@ -214,7 +215,7 @@ const DonarProduct = () => {
         
 
           <div style={file}>
-            <FileBase type='file' multiple={false} onDone={getBaseFile} />
+            <FileBase styled={fileBase} type='file' multiple={false} onDone={getBaseFile} />
 
             {errors.image && <Paragraph>{errors.image}</Paragraph>}
           </div>
@@ -225,7 +226,7 @@ const DonarProduct = () => {
               </Button>
             </Link>
             <Link to='/' style={linkStyle}>
-              <Button style={Button}>Volver</Button>
+              <Button>Volver</Button>
             </Link>
           </Div>
         </Form>
