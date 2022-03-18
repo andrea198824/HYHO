@@ -98,6 +98,9 @@ const Navbar = () => {
 
     useEffect(() => {
         dispatch(getProducts())
+        if (!isLoading && user) {
+            dispatch(addUser(user, token))
+        }
     }, [])
 
     useEffect(() => {
@@ -105,7 +108,6 @@ const Navbar = () => {
     }, [cartProducts])
 
     const onChangeSearch = async (e) => {
-        console.log(user)
         setSearch(e.target.value)
     }
 
@@ -124,15 +126,7 @@ const Navbar = () => {
             })
     }
 
-    // if (!isLoading && user) {
-
-    // }
-
-    const onClickPostUser = (e) => {
-        e.preventDefault();
-        dispatch(addUser(user, token))
-    }
-
+    
 
     return (
         <Container>
@@ -166,7 +160,6 @@ const Navbar = () => {
                         :
                         user ?
                             <Right>
-                                <MenuItem onClick={onClickPostUser}>Post User</MenuItem>
                                 <MenuItem onClick={() => logout({ returnTo: window.location.origin })} >Cerrar Sesion</MenuItem>
                                 <MenuItem>
                                     <Link to='/cart' style={linkStyle}>

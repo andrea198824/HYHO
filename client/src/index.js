@@ -16,8 +16,8 @@ ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
             <Auth0Provider
-                domain="dev-b75rcpfv.us.auth0.com"
-                clientId="NBMOqa8iTFpzpEIMRj8slobadJnL6DuC"
+                domain="dev-9xm6ldt3.us.auth0.com"
+                clientId="mEDvzNGloEwhBEtisZEb1BwfOTn4DCDS"
                 redirectUri={window.location.origin}
                 audience='http://localhost:3001'
                 scope="read:current_user"

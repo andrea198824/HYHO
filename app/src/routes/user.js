@@ -39,18 +39,13 @@ exports.register = async function (req, res, next) {
     try {
         //Checks query.
         let {
-            user,
-        }
-            = req.body;
-
-        let {
             email,
             email_verified,
             nickname,
             picture,
             given_name,
             family_name,
-        } = user;
+        } = req.body;
 
         let emailUser = await User.findAll({
             where: { email: email }
