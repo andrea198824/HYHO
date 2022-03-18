@@ -140,6 +140,7 @@ exports.verifyAdmin = async function (req, res, next) {
         if (emailUser.length && emailUser[0].admin_verified) res.status(200).send({info: "User is already an admin"})
         if (emailUser.length && !emailUser[0].admin_verified) {
             emailUser[0].set({ admin_verified: true })
+            await emailUser[0].save();
             res.status(200).send({info: emailUser[0].admin_verified})
         }
         if (!emailUser.length) res.status(401).send({info: "User is not in the database"})
@@ -255,42 +256,46 @@ exports.myinfo = async function (req, res, next) {
 exports.put = async function (req, res, next) {
     try {
         let {
-            id,
-            fullName,
             email,
-            password,
+            nickname,
+            picture,
+            given_name,
+            family_name,
             billing_address,
             shipping_address,
             phone,
         } = req.body;
 
-        id = id ? id : req.session.userId
+        
+        let emailUser = await User.findAll({
+            where: { email: email }
+        })
+        
 
-        let bdTotal = await getDbUser();
-        // console.log(bdTotal)
-        if (id) {
-            let prodName = await bdTotal.filter((user) =>
-                user.id == id
-            );
-            if (!prodName.length) {//si no hay algún nombre
-                res
-                    .status(404)
-                    .send({ info: "Sorry, the product you are looking for is not here." });
+        if (email) {
+            let emailUser = await User.findAll({
+                where: { email: email }
+            })
+            if (!emailUser.length) {
+                res.status(401).send({info: "User is not in the database"})
             } else {
-                if (fullName) prodName[0].set({ fullName })
-                if (email) prodName[0].set({ email })
-                if (password) prodName[0].set({ password: CryptoJS.HmacSHA1(prodName[0].securityString, password).toString(CryptoJS.enc.Base64) })
-                if (billing_address) prodName[0].set({ billing_address })
-                if (shipping_address) prodName[0].set({ shipping_address })
-                if (phone) prodName[0].set({ phone })
-                await prodName[0].save();
-                res.status(201).send(prodName[0])
+                if (email) emailUser[0].set({ email })
+                if (nickname) emailUser[0].set({ nickname })
+                if (picture) emailUser[0].set({ picture })
+                if (given_name) emailUser[0].set({ given_name })
+                if (family_name) emailUser[0].set({ family_name })
+                if (billing_address) emailUser[0].set({ billing_address })
+                if (shipping_address) emailUser[0].set({ shipping_address })
+                if (phone) emailUser[0].set({ phone })
+
+                await emailUser[0].save();
+                res.status(201).send(emailUser[0])
             }
         } else {
-            res.status(404).send({ info: "No id" });
+            res.status(404).send({ info: "No email" });
         }
     } catch (error) {
-        next(error);
+        next({ info: error });
     }
 }
 

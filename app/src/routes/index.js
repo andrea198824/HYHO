@@ -75,11 +75,8 @@ router.get('/myinfo', jwtCheck, user.myinfo) //Funciona con auth0 y token
 // router.put('/verify-user', user.verifyUser) //Funciona
 // router.post('/login', user.login) //Funciona
 // router.post('/logout', user.logout) //Funciona
-// router.put('/modify-user', user.put) //Funciona
 // router.put('/modify-mydata', user.modifyMyData) //Funciona
 // router.put('/shipping-data-requirement',  user.shippingDataRequirement ,user.put) //Funciona
-// router.get('/users', user.get) // Funciona
-// router.get('/myinfo', user.myinfo) // Funciona
 // router.post('/create-user', user.post)
 
 //Form endpoints:
