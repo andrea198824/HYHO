@@ -88,10 +88,10 @@ router.get('/donate-products', jwtAdminCheck , form.get) //Funciona con auth0 y 
 router.post('/donate-form', jwtCheck , form.post) //Funciona con auth0 y token
 
 //Product endpoints:
-router.post('/product', product.post) //Funciona
-router.get('/products', product.get)
-router.put('/product/modify/:id', product.put)
-router.delete('/product/delete/:id', product.delete)
+router.post('/product', jwtAdminCheck , product.post) //Funciona
+router.get('/products', jwtCheck , product.get)
+router.put('/product/modify/:id', jwtAdminCheck , product.put)
+router.delete('/product/delete/:id', jwtAdminCheck , product.delete)
 
 //Category endpoints:
 router.get('/category', jwtCheck , category.get)
