@@ -8,14 +8,13 @@ import donarObjetos from  '../Img/donarObjetos.png';
 import donarDinero from  '../Img/donaDinero.png';
 import compraTienda2 from  '../Img/compraTienda2.png';
 
+
+
 const Div = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   Align-items: center;
-  margin-top: 40px;
 `;
-
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
@@ -85,16 +84,16 @@ const Categories = () => {
         <Title>¿Como colaborar?</Title>
       <Container>
           <Card>
-             <Title>Dona Procutos</Title>
+             <Title>Dona Productos</Title>
              <ImageG src= {donarObjetos} />
              <P>Sacale una foto, llena el formulario y dona un producto. Luego de chequear que esté en condiciones, lo subiremos a la tienda On-Line para ser vendido y con el dinero de la venta poder ayudar a las causas benéficas.</P>
-               <Link style={linkStyle} onClick={onClickButton} to='/'>
+               <Link style={linkStyle} onClick={onClickButton} to='/donateproduct'>
                  <Image src= {donar_objeto} />
                  <P>Colaborar</P> 
                </Link>       
           </Card>
           <Card>
-            <Title>Compra en la tienda</Title>
+            <Title>Compra en la Tienda</Title>
             <ImageG src= {compraTienda2} />
             <P>Al comprar, todo el dinero de esa compra será destinado una obra benéfica</P>
             <Link style={linkStyle} onClick={onClickButton} to='/products'>
@@ -103,10 +102,10 @@ const Categories = () => {
             </Link>
           </Card>
           <Card>  
-            <Title>Dona dinero</Title>
+            <Title>Dona Dinero</Title>
             <ImageG src= {donarDinero} />
             <P>Ayúdanos a ayudar con tu donación, el monto que desee sera bien recibido</P>
-            <Link style={linkStyle} onClick={onClickButton} to='/'>
+            <Link style={linkStyle} onClick={onClickButton} to='/donatedinero'>
               <Image src= {donar_dinero}/>
               <P>Colaborar</P> 
             </Link>
