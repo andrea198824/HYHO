@@ -118,9 +118,9 @@ router.put('/putCart/:id', jwtCheck , shopController.putCart)
 //---------------shopping Orders ------------------
 
 const shopControllerOrder = require('./shopOrder')
-router.delete('/deleteOrder', shopControllerOrder.deleteOrder);
-router.get('/getOrder', shopControllerOrder.getOrder);
-router.post('/create-order', shopControllerOrder.postCreateOrder)
+router.delete('/deleteOrder', jwtCheck , shopControllerOrder.deleteOrder);
+router.get('/getOrder', jwtCheck , shopControllerOrder.getOrder);
+router.post('/create-order', jwtCheck , shopControllerOrder.postCreateOrder)
 
 //--------------shopping routes --------------------
 // router.get('/sessions', sessions.get);
