@@ -141,8 +141,10 @@ const Footer = () => {
       <Right>
         <Title>Contacto</Title>
         <ContactItem>
+        <Link onClick={onClickLink} to='/mapa'>
           <Room style={{ marginRight: '10px' }} /> &nbsp; Av. 9 de Julio, C1043
           CABA, Argentina
+          </Link> 
         </ContactItem>
         <ContactItem>
           <Phone style={{ marginRight: '10px' }} /> +01 101 10 01

@@ -1,32 +1,17 @@
 import React from 'react'
-import {
-  GoogleMap,
-  withScriptjs,
-  withGoogleMap,
-  Marker
-} from 'react-google-maps'
-import { Link } from 'react-router-dom'
+import credentials from '../credentials'
+import Maps from '../components/Maps'
 
-function Map({ lat, lng }) {
-    
+export default function Mapa () {
   return (
-      <div>
-          <GoogleMap
-              defaultZoom={15}
-              defaultCenter={{ lat, lng }}
-          ></GoogleMap>
-
-
-          <Marker
-              draggable={true}
-              position={{ lat, lng }}
-          >
-          </Marker>
-          
-          <p>Podes encontrarnos en Av. 9 de Julio, C1043 CABA, Argentina</p>
-          <Link to='/'>Back</Link>
-      </div>
+      <Maps
+         // lat={-34.6037851} lng={-58.381775}
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${credentials.apiKey}&libraries=geometry,drawing,places&callback=initMap`}
+          containerElement={<div style={{ height: '400px' }} />}
+          mapElement={<div style={{ height: '100%' }} />}
+          loadingElement={<p>Loading...</p>}
+      />
+    
   )
 }
-//lat: -34.6037851, lng: -58.381775
-export default withScriptjs(withGoogleMap(Map))
+////lat: -34.6037851, lng: -58.381775
