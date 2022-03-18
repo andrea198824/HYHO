@@ -57,7 +57,7 @@ exports.getCart = async function (req, res, next) {
 exports.postCart = async function (req, res, next) {
 //   const { cart, userId } = req.body
   const { cart } = req.body
-  const { userId } = req.session
+  const { userId } = req.query
  
   try {
     let [act, created] = await Cart.findOrCreate({

@@ -8,11 +8,9 @@ import axios from 'axios'
 import NavBar from '../components/Navbar'
 import { Height } from '@material-ui/icons'
 
-
-
 const Container = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 90vh;
   background: linear-gradient(#d3f7db, #f7dbd3),
     url('https://lavozdemotul.com/wp-content/uploads/2016/08/registration-page-background-504-1.png')
       center;
@@ -20,6 +18,10 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media (max-width: 320px) {
+    display: none;
+    width: 40px;
+  }
 `
 
 const Wrapper = styled.div`
@@ -28,16 +30,27 @@ const Wrapper = styled.div`
   padding: 20px;
   background-color: white;
   ${mobile({ width: '75%' })}
+  @media (max-width: 320px) {
+    display: none;
+    width: 40px;
+  }
 `
 
 const Title = styled.h1`
   font-size: 24px;
   font-weight: 300;
+  padding-left: 30%
+  @media (max-width: 320px) {
+    display: none;
+  }
 `
 
 const Form = styled.form`
   display: flex;
   flex-wrap: wrap;
+  @media (max-width: 320px) {
+    display: none;
+  }
 `
 
 const Input = styled.input`
@@ -50,8 +63,9 @@ const Input = styled.input`
 const Button = styled.button`
   width: 40%;
   margin-top: 20px;
+  padding-right: 10px
   border: none;
-  padding: 15px 25px;
+  padding: 15px 30px 15px 20px;
   background-color: #dbd3f7;
   color: #4d4442;
   cursor: pointer;
@@ -60,8 +74,12 @@ const Button = styled.button`
     background-color: gray;
     color: black;
     opacity: 0.7;
-    cursor: default;
+    cursor: pointer;
   }
+  &:hover {
+    background: dark-gray;
+  }
+  
 `
 
 const Paragraph = styled.p`
@@ -85,13 +103,13 @@ const linkStyle = {
 }
 
 const fileBase = {
-    margin: '20px',
-    padding: '10px'
+  margin: '20px',
+  padding: '10px'
 }
 
 const file = {
-    padding: '25px',
-    margin: '5px'
+  padding: '25px',
+  margin: '5px'
 }
 
 export function validate (input) {
@@ -176,20 +194,19 @@ const DonarProduct = () => {
 
   return (
     <div>
-    <NavBar />
-    <Container>
-     
-      <Wrapper>
-        <Title> Donar Producto</Title>
+      <NavBar />
+      <Container>
+        <Wrapper>
+          <Title> Donar Producto</Title>
 
-        <Form onSubmit={handleSubmit}>
-          <div>
-            <Input
-              onChange={e => handleInputChange(e)}
-              type='text'
-              name='title'
-              placeholder='Nombre del Producto'
-            />
+          <Form onSubmit={handleSubmit}>
+            <div>
+              <Input
+                onChange={e => handleInputChange(e)}
+                type='text'
+                name='title'
+                placeholder='Nombre del Producto'
+              />
 
             {errors.title && <Paragraph>{errors.title}</Paragraph>}
           </div>
