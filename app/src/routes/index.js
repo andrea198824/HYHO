@@ -76,6 +76,9 @@ router.get('/counter', sessions.counter);
 
 //-------------mercadopago-------------
 router.get('/mercadopago', getPayment.get)
+router.get('/mercadopago/pagos', getPayment.pagos)
+router.get('/mercadopago/pagos/:id', getPayment.pagosId)
+
 
 
 
