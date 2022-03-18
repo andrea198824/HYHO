@@ -5,8 +5,9 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, searchProducts } from '../store/actions';
+import { getProducts, searchProducts, getToken, addUser } from '../store/actions';
 import LogoHyho from '..//Img/logoLargo.gif';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Container = styled.div`
   height: 80px; 
@@ -90,13 +91,23 @@ const Navbar = () => {
 
     const [search, setSearch] = useState("")
     const cartProducts = useSelector(state => state.shoppingCart)
+    const token = useSelector(state => state.token)
+
+    const { user, isAuthenticated, isLoading, loginWithRedirect, logout, getAccessTokenSilently } = useAuth0();
 
 
     useEffect(() => {
         dispatch(getProducts())
+        if (!isLoading && user) {
+            dispatch(addUser(user, token))
+        }
     }, [])
 
-    const onChangeSearch = (e) => {
+    useEffect(() => {
+        localStorage.setItem('shoppingCart', JSON.stringify(cartProducts))
+    }, [cartProducts])
+
+    const onChangeSearch = async (e) => {
         setSearch(e.target.value)
     }
 
@@ -107,17 +118,25 @@ const Navbar = () => {
         if (search) navigate('/products')
     }
 
+
+    if (!isLoading) {
+        getAccessTokenSilently()
+            .then(res => {
+                dispatch(getToken(res))
+            })
+    }
+
     
 
     return (
         <Container>
             <Wrapper>
                 <Left>
-                  <Link to='/' style={linkStyle}>
-                    <h1> TU.ong </h1>
-                  </Link>
-                      <ImgLogo src={LogoHyho}></ImgLogo>
-                        {/* <Slogan> "Help Yourself By Helping Others" </Slogan> */}
+                    <Link to='/' style={linkStyle}>
+                        <h1> TU.ong </h1>
+                    </Link>
+                    <ImgLogo src={LogoHyho}></ImgLogo>
+                    {/* <Slogan> "Help Yourself By Helping Others" </Slogan> */}
                 </Left>
                 <Center>
                     <SearchContainer onSubmit={handleSearch}>
@@ -125,21 +144,45 @@ const Navbar = () => {
                         <Search style={{ color: "gray", fontSize: 20 }} />
                     </SearchContainer>
                 </Center>
-                <Right>
-                    <Link to='/register' style={linkStyle}>
-                        <MenuItem>Registrarse</MenuItem>
-                    </Link>
-                    <Link to='/login' style={linkStyle}>
-                        <MenuItem>Iniciar Sesion</MenuItem>
-                    </Link>
-                    <MenuItem>
-                        <Link to='/cart' style={linkStyle}>
-                            <Badge badgeContent={cartProducts.length} color="primary">
-                                <ShoppingCartOutlined />
-                            </Badge>
-                        </Link>
-                    </MenuItem>
-                </Right>
+
+                {
+                    isLoading ?
+                        <Right>
+                            <MenuItem>Cargando...</MenuItem>
+                            <MenuItem>
+                                <Link to='/cart' style={linkStyle}>
+                                    <Badge badgeContent={cartProducts.length} color="primary">
+                                        <ShoppingCartOutlined />
+                                    </Badge>
+                                </Link>
+                            </MenuItem>
+                        </Right>
+                        :
+                        user ?
+                            <Right>
+                                <MenuItem onClick={() => logout({ returnTo: window.location.origin })} >Cerrar Sesion</MenuItem>
+                                <MenuItem>
+                                    <Link to='/cart' style={linkStyle}>
+                                        <Badge badgeContent={cartProducts.length} color="primary">
+                                            <ShoppingCartOutlined />
+                                        </Badge>
+                                    </Link>
+                                </MenuItem>
+                            </Right>
+                            :
+                            <Right>
+                                <MenuItem onClick={loginWithRedirect}>Iniciar Sesion / Registrarse</MenuItem>
+                                <MenuItem>
+                                    <Link to='/cart' style={linkStyle}>
+                                        <Badge badgeContent={cartProducts.length} color="primary">
+                                            <ShoppingCartOutlined />
+                                        </Badge>
+                                    </Link>
+                                </MenuItem>
+                            </Right>
+
+                }
+
             </Wrapper>
         </Container>
     );

@@ -18,6 +18,10 @@ export default function NewProduct() {
           <input type="text" placeholder="..." />
         </div>
         <div className="addProductItem">
+          <label>Precio</label>
+          <input type="text" placeholder="$" />
+        </div>
+        <div className="addProductItem">
           <label>Activo</label>
           <select name="active" id="active">
             <option value="yes">Yes</option>

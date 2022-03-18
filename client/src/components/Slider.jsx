@@ -82,6 +82,14 @@ const InfoContainer = styled.div`
   padding: 50px;
 `;
 
+const ContTitle = styled.div`
+  
+  // background-color: #dbd3f7;
+  border: 0.5px solid #dbd3f7 ;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+`;
 const Title = styled.h1`
 
   color:#8aa290;

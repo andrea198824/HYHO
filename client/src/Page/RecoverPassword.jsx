@@ -47,6 +47,12 @@ const Button = styled.button`
   color: #4d4442;
   cursor: pointer;
   margin-bottom: 10px;
+&:disabled {
+    background-color: gray;
+    color: black;
+    opacity: 0.7;
+    cursor: default;
+  }
 `
 
 const Anchor = styled.div`

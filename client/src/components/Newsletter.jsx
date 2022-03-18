@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 
 
+
 const Container = styled.div`
   height: 60vh;
   background-color: #f7dbd3;
@@ -96,10 +97,12 @@ const Newsletter = () => {
           e.preventDefault()
           axios.post('http://localhost:3001/newsletter', input)
           .then((res) =>{
-          alert(`${input.email} Creado Correctamente`)
+          alert(`${input.email} gracias por subscribirte`)
           window.scrollTo(0,0)}
           )
         }
+
+        
                   
 
   return (
@@ -112,6 +115,7 @@ const Newsletter = () => {
                   type='email'
                   name='email'
                   placeholder="Tu email..."
+                 
               />
               
 
