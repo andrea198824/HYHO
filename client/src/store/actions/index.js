@@ -8,13 +8,11 @@ export const GET_DETAILS = 'GET_DETAILS';
 export const ORDER_BY_PRICE = "ORDER_BY_PRICE"
 export const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY"
 export const GET_CATEGORIES = "GET_CATEGORIES"
-export const CREATE_USER = "CREATE_USER"
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const CREATE_ADMIN = 'CREATE_ADMIN';
-export const LOGIN_USER = 'LOGIN_USER';
-export const LOGOUT_USER = "LOGOUT_USER";
-export const GET_USER_STATUS = 'GET_USER_STATUS';
 export const POST_CART_INFO = 'POST_CART_INFO';
+export const GET_TOKEN = 'GET_TOKEN';
+export const ADD_USER = 'ADD_USER';
 
 
 export const getProducts = () => {
@@ -77,5 +75,27 @@ export const postCartInfo = (cart) => {
         console.log(response)
     }
 }
+export const getToken = (token) => {
+    return {
+        type: GET_TOKEN,
+        payload: token
+    }
+}
+export const addUser = (data, token) => {
+    console.log(`Bearer ${token}`)
+    return async function (dispatch) {
+        const response = await axios.post('/register', data, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+
+        })
+        dispatch({
+            type: ADD_USER,
+            payload: response
+        })
+    }
+}
+
 
 

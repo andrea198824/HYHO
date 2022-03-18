@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, searchProducts } from '../store/actions';
+import { getProducts, searchProducts, getToken, addUser } from '../store/actions';
 import LogoHyho from '..//Img/logoLargo.gif';
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -91,19 +91,23 @@ const Navbar = () => {
 
     const [search, setSearch] = useState("")
     const cartProducts = useSelector(state => state.shoppingCart)
-    const { user, isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
+    const token = useSelector(state => state.token)
+
+    const { user, isAuthenticated, isLoading, loginWithRedirect, logout, getAccessTokenSilently } = useAuth0();
 
 
     useEffect(() => {
         dispatch(getProducts())
+        if (!isLoading && user) {
+            dispatch(addUser(user, token))
+        }
     }, [])
 
     useEffect(() => {
         localStorage.setItem('shoppingCart', JSON.stringify(cartProducts))
     }, [cartProducts])
 
-    const onChangeSearch = (e) => {
-        console.log(user)
+    const onChangeSearch = async (e) => {
         setSearch(e.target.value)
     }
 
@@ -113,6 +117,16 @@ const Navbar = () => {
         setSearch("")
         if (search) navigate('/products')
     }
+
+
+    if (!isLoading) {
+        getAccessTokenSilently()
+            .then(res => {
+                dispatch(getToken(res))
+            })
+    }
+
+    
 
     return (
         <Container>
@@ -144,16 +158,17 @@ const Navbar = () => {
                             </MenuItem>
                         </Right>
                         :
-                        user ? <Right>
-                            <MenuItem onClick={() => logout({ returnTo: window.location.origin })} >Cerrar Sesion</MenuItem>
-                            <MenuItem>
-                                <Link to='/cart' style={linkStyle}>
-                                    <Badge badgeContent={cartProducts.length} color="primary">
-                                        <ShoppingCartOutlined />
-                                    </Badge>
-                                </Link>
-                            </MenuItem>
-                        </Right>
+                        user ?
+                            <Right>
+                                <MenuItem onClick={() => logout({ returnTo: window.location.origin })} >Cerrar Sesion</MenuItem>
+                                <MenuItem>
+                                    <Link to='/cart' style={linkStyle}>
+                                        <Badge badgeContent={cartProducts.length} color="primary">
+                                            <ShoppingCartOutlined />
+                                        </Badge>
+                                    </Link>
+                                </MenuItem>
+                            </Right>
                             :
                             <Right>
                                 <MenuItem onClick={loginWithRedirect}>Iniciar Sesion / Registrarse</MenuItem>
