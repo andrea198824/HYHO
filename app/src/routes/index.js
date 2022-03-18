@@ -64,12 +64,13 @@ router.get('/admin/authorized', jwtAdminCheck,function (req, res) {
 
 //User endpoints:
 router.post('/register', jwtCheck, user.register) //Funciona con auth0 y token
+router.get('/isadmin', jwtCheck, user.isadmin) //Funciona con auth0 y token
+router.put('/verify-admin', jwtAdminCheck, user.verifyAdmin) //Funciona
 
-router.get('/login-status', user.status) //Funciona
-router.put('/verify-user', user.verifyUser) //Funciona
-router.put('/verify-admin', user.verifyAdmin) //Funciona
-router.post('/login', user.login) //Funciona
-router.post('/logout', user.logout) //Funciona
+// router.get('/login-status', user.status) //Funciona
+// router.put('/verify-user', user.verifyUser) //Funciona
+// router.post('/login', user.login) //Funciona
+// router.post('/logout', user.logout) //Funciona
 router.put('/modify-user', user.put) //Funciona
 router.put('/modify-mydata', user.modifyMyData) //Funciona
 router.put('/shipping-data-requirement',  user.shippingDataRequirement ,user.put) //Funciona
