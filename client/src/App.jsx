@@ -12,6 +12,7 @@ import RecoverPassword from './Page/RecoverPassword';
 import RegisterAdmin from './Page/RegiterAdmin';
 import DonarProduct from './Page/DonarProduct';
 import DonarDinero from './Page/DonarDinero';
+import Mapa from './Page/Mapa'
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
                     <Route exact path='/recoverpassword' element={<RecoverPassword />} />
                     <Route exact path='/donateproduct' element={<DonarProduct />} />
                     <Route exact path='/donatedinero' element={<DonarDinero />} />
+                    <Route exact path='/mapa' element={<Mapa />} />
                 </Routes>
              </Router>
             </div>
