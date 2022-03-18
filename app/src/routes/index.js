@@ -94,11 +94,11 @@ router.put('/product/modify/:id', product.put)
 router.delete('/product/delete/:id', product.delete)
 
 //Category endpoints:
-router.get('/category', category.get)
+router.get('/category', jwtCheck , category.get)
 
 //Newsletter
-router.post('/newsletter', newsletter.post)
-router.get('/newsletter', newsletter.get)
+router.post('/newsletter', jwtAdminCheck , newsletter.post)
+router.get('/newsletter', jwtAdminCheck , newsletter.get)
 
 //--------------shopping routes --------------------
 
