@@ -57,7 +57,7 @@ exports.get = async function (req, res, next) {
 
 exports.post = async function(req, res, next) {
   // console.log("post")
-
+try {
   let {
     formId,
     title, 
@@ -110,13 +110,17 @@ exports.post = async function(req, res, next) {
           }).then(el => {
             console.log('el:', el[0])
             productCreated.setForm(el[0])
-          })
+          }).catch(error => console.log(error))
     }
     if (productCreated !== {}) {
       res.status(200).send(productCreated);
     } else {
       res.status(400).send({info: "Bad request"});
     }
+} catch (error) {
+  res.status(400).send({info: error});
+}
+  
 }
 
 
