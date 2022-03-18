@@ -8,11 +8,9 @@ import axios from 'axios'
 import NavBar from '../components/Navbar'
 import { Height } from '@material-ui/icons'
 
-
-
 const Container = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 90vh;
   background: linear-gradient(#d3f7db, #f7dbd3),
     url('https://lavozdemotul.com/wp-content/uploads/2016/08/registration-page-background-504-1.png')
       center;
@@ -20,6 +18,10 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media (max-width: 320px) {
+    display: none;
+    width: 40px;
+  }
 `
 
 const Wrapper = styled.div`
@@ -27,16 +29,27 @@ const Wrapper = styled.div`
   padding: 20px;
   background-color: white;
   ${mobile({ width: '75%' })}
+  @media (max-width: 320px) {
+    display: none;
+    width: 40px;
+  }
 `
 
 const Title = styled.h1`
   font-size: 24px;
   font-weight: 300;
+  padding-left: 30%
+  @media (max-width: 320px) {
+    display: none;
+  }
 `
 
 const Form = styled.form`
   display: flex;
   flex-wrap: wrap;
+  @media (max-width: 320px) {
+    display: none;
+  }
 `
 
 const Input = styled.input`
@@ -49,8 +62,9 @@ const Input = styled.input`
 const Button = styled.button`
   width: 40%;
   margin-top: 20px;
+  padding-right: 10px
   border: none;
-  padding: 15px 25px;
+  padding: 15px 30px 15px 20px;
   background-color: #dbd3f7;
   color: #4d4442;
   cursor: pointer;
@@ -59,8 +73,12 @@ const Button = styled.button`
     background-color: gray;
     color: black;
     opacity: 0.7;
-    cursor: default;
+    cursor: pointer;
   }
+  &:hover {
+    background: dark-gray;
+  }
+  
 `
 
 const Paragraph = styled.p`
@@ -83,14 +101,14 @@ const linkStyle = {
   padding: '5px'
 }
 
-const fileBase = styled.div 
-` height: '20px',
- width: '10px'`
-
+const fileBase = {
+  margin: '20px',
+  padding: '10px'
+}
 
 const file = {
-  padding: '8px',
- 
+  padding: '25px',
+  margin: '5px'
 }
 
 export function validate (input) {
@@ -143,7 +161,7 @@ const DonarProduct = () => {
   const getBaseFile = files => {
     setInput(prevState => ({ ...prevState, image: files.base64 }))
   }
-  
+
   const handleInputChange = function (e) {
     e.preventDefault()
 
@@ -175,62 +193,64 @@ const DonarProduct = () => {
 
   return (
     <div>
-    <NavBar />
-    <Container>
-     
-      <Wrapper>
-        <Title> Donar Producto</Title>
+      <NavBar />
+      <Container>
+        <Wrapper>
+          <Title> Donar Producto</Title>
 
-        <Form onSubmit={handleSubmit}>
-          <div>
-            <Input
-              onChange={e => handleInputChange(e)}
-              type='text'
-              name='title'
-              placeholder='Nombre del Producto'
-            />
+          <Form onSubmit={handleSubmit}>
+            <div>
+              <Input
+                onChange={e => handleInputChange(e)}
+                type='text'
+                name='title'
+                placeholder='Nombre del Producto'
+              />
 
-            {errors.title && <Paragraph>{errors.title}</Paragraph>}
-          </div>
-          <div>
-            <Input
-              onChange={e => handleInputChange(e)}
-              type='number'
-              name='cantidad'
-              placeholder='Cantidad'
-            />
-            {errors.cantidad && <Paragraph>{errors.cantidad}</Paragraph>}
-          </div>
-          <div>
-            <Input
-              onChange={e => handleInputChange(e)}
-              type='text'
-              name='description'
-              placeholder='Descripcion'
-            />
-            {errors.lastName && <Paragraph>{errors.descriptions}</Paragraph>}
-          </div>
-        
-        
+              {errors.title && <Paragraph>{errors.title}</Paragraph>}
+            </div>
+            <div>
+              <Input
+                onChange={e => handleInputChange(e)}
+                type='number'
+                name='cantidad'
+                placeholder='Cantidad'
+              />
+              {errors.cantidad && <Paragraph>{errors.cantidad}</Paragraph>}
+            </div>
+            <div>
+              <Input
+                onChange={e => handleInputChange(e)}
+                type='text'
+                name='description'
+                placeholder='Descripcion'
+              />
+              {errors.lastName && <Paragraph>{errors.descriptions}</Paragraph>}
+            </div>
 
-          <div style={file}>
-            <FileBase type='file' multiple={false} onDone={getBaseFile} />
+            <div style={file}>
+              <FileBase
+                style={fileBase}
+                type='file'
+                multiple={false}
+                onDone={getBaseFile}
+              />
 
-            {errors.image && <Paragraph>{errors.image}</Paragraph>}
-          </div>
-          <Div>
-            <Link to='/' style={linkStyle}>
-              <Button type='submit' disabled={!errors.disabled}>
-                Crear
-              </Button>
-            </Link>
-            <Link to='/' style={linkStyle}>
-              <Button style={Button}>Volver</Button>
-            </Link>
-          </Div>
-        </Form>
-      </Wrapper>
-    </Container>
+              {errors.image && <Paragraph>{errors.image}</Paragraph>}
+            </div>
+            <Div>
+              <Link to='/' style={linkStyle}>
+                <Button type='submit' disabled={!errors.disabled}>
+                  Crear
+                </Button>
+              </Link>
+              <Link to='/' style={linkStyle}>
+                <Button>Volver</Button>
+              </Link>
+            </Div>
+          </Form>
+        </Wrapper>
+      </Container>
     </div>
   )
 }

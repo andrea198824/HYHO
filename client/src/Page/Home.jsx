@@ -7,6 +7,14 @@ import Newsletter from "../components/Newsletter";
 import Products from "../components/Products";
 import Slider from "../components/Slider";
 import PopularProducts from '../components/PopularProducts';
+import styled from 'styled-components'
+
+// const home = styled.div `
+//   @media (max-width: 320px) {
+//     display: none;
+//     width: 40px;
+//   }
+// `
 
 const Home = () => {
   return (
