@@ -123,8 +123,8 @@ router.get('/getOrder', shopControllerOrder.getOrder);
 router.post('/create-order', shopControllerOrder.postCreateOrder)
 
 //--------------shopping routes --------------------
-router.get('/sessions', sessions.get);
-router.get('/counter', sessions.counter);
+// router.get('/sessions', sessions.get);
+// router.get('/counter', sessions.counter);
 
 
 

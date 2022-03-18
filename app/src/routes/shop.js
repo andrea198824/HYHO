@@ -37,33 +37,41 @@ const getDb = async () => {
 }
 exports.getCart = async function (req, res, next) {
 //   const { userId } = req.query
-  const { userId } = req.session
+  const { email } = req.body
   try {
+    let user = await User.findAll({
+      where: {
+        email: email
+      }
+    })
     let cart = await Cart.findAll({
       where: {
-        userId: userId
+        userId: user[0].id
       }
     })
     cart.length
       ? res.status(200).send(cart)
       : res.status(404).send('No se escuentra carrito')
   } catch (error) {
-    next(error)
+    next({info: error})
   }
 }
 
 
 
 exports.postCart = async function (req, res, next) {
-//   const { cart, userId } = req.body
-  const { cart } = req.body
-  const { userId } = req.session
+  const { cart, email } = req.body
  
   try {
+    let user = await User.findAll({
+      where: {
+        email: email
+      }
+    })
     let [act, created] = await Cart.findOrCreate({
       where: {
         cart,
-        userId
+        userId: user[0].id
       }
     })
     console.log(created)
