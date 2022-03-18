@@ -65,17 +65,21 @@ router.get('/admin/authorized', jwtAdminCheck,function (req, res) {
 //User endpoints:
 router.post('/register', jwtCheck, user.register) //Funciona con auth0 y token
 router.get('/isadmin', jwtCheck, user.isadmin) //Funciona con auth0 y token
-router.put('/verify-admin', jwtAdminCheck, user.verifyAdmin) //Funciona
+router.put('/verify-admin', jwtAdminCheck, user.verifyAdmin) //Funciona con auth0 y token
+router.put('/modify-user', jwtCheck , user.put) //Funciona con auth0 y token
+router.get('/users', jwtAdminCheck, user.get) //Funciona con auth0 y token
+router.get('/myinfo', jwtCheck, user.myinfo) //Funciona con auth0 y token
+
 
 // router.get('/login-status', user.status) //Funciona
 // router.put('/verify-user', user.verifyUser) //Funciona
 // router.post('/login', user.login) //Funciona
 // router.post('/logout', user.logout) //Funciona
-router.put('/modify-user', user.put) //Funciona
-router.put('/modify-mydata', user.modifyMyData) //Funciona
-router.put('/shipping-data-requirement',  user.shippingDataRequirement ,user.put) //Funciona
-router.get('/users', user.get) // Funciona
-router.get('/myinfo', user.myinfo) // Funciona
+// router.put('/modify-user', user.put) //Funciona
+// router.put('/modify-mydata', user.modifyMyData) //Funciona
+// router.put('/shipping-data-requirement',  user.shippingDataRequirement ,user.put) //Funciona
+// router.get('/users', user.get) // Funciona
+// router.get('/myinfo', user.myinfo) // Funciona
 // router.post('/create-user', user.post)
 
 //Form endpoints:
@@ -83,8 +87,8 @@ router.get('/myinfo', user.myinfo) // Funciona
 // router.post('/create-admin', sessionVerification.needsAdmin ,admin.post) // No va
 
 //Form endpoints:
-router.get('/donate-products', form.get) //Funciona
-router.post('/donate-form', form.post) //Funciona
+router.get('/donate-products', jwtAdminCheck , form.get) //Funciona con auth0 y token
+router.post('/donate-form', jwtCheck , form.post) //Funciona con auth0 y token
 
 //Product endpoints:
 router.post('/product', product.post) //Funciona
