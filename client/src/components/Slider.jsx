@@ -1,11 +1,10 @@
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { sliderItems } from "../data";
 import { mobile } from "../responsive";
 import { Link } from 'react-router-dom';
 import videoLanding from  "../Img/landing_verde.mp4";
-
 
 
 const Div = styled.div`
@@ -113,8 +112,12 @@ const Button = styled.button`
   border: 0.5px solid lightgray
 `;
 
+
+// <video  ref={vidRef} muted autoPlay loop src={videoLanding} />;
+
 const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
+  const vidRef= useRef();
   const handleClick = (direction) => {
     if (direction === "left") {
       setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 3);
@@ -123,6 +126,9 @@ const Slider = () => {
     }
   };
 
+  useEffect(() =>{
+    vidRef.current.play();
+  },[]);
   return (
     
     <Div>
@@ -134,7 +140,7 @@ const Slider = () => {
       <Wrapper slideIndex={slideIndex}>
         {sliderItems.map((item) => (
           <Slide bg={item.bg} key={item.id}>
-            { item.video ? <Video autoplay controls src={videoLanding} type="video/mp4"/>:
+            { item.video ? <Video ref={vidRef} muted autoplay controls src={videoLanding} type="video/mp4"/>:
             <>
             <ImgContainer>
               <Image src={item.img[0]} />
