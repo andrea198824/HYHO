@@ -67,8 +67,9 @@ router.post('/register', jwtCheck, user.register) //Funciona con auth0 y token
 router.get('/isadmin', jwtCheck, user.isadmin) //Funciona con auth0 y token
 router.put('/verify-admin', jwtAdminCheck, user.verifyAdmin) //Funciona con auth0 y token
 router.put('/modify-user', jwtCheck , user.put) //Funciona con auth0 y token
-router.get('/users', jwtAdminCheck, user.get) // Funciona
-router.get('/myinfo', jwtCheck, user.myinfo) // Funciona
+router.get('/users', jwtAdminCheck, user.get) //Funciona con auth0 y token
+router.get('/myinfo', jwtCheck, user.myinfo) //Funciona con auth0 y token
+
 
 // router.get('/login-status', user.status) //Funciona
 // router.put('/verify-user', user.verifyUser) //Funciona
@@ -83,8 +84,8 @@ router.get('/myinfo', jwtCheck, user.myinfo) // Funciona
 // router.post('/create-admin', sessionVerification.needsAdmin ,admin.post) // No va
 
 //Form endpoints:
-router.get('/donate-products', form.get) //Funciona
-router.post('/donate-form', form.post) //Funciona
+router.get('/donate-products', jwtAdminCheck , form.get) //Funciona con auth0 y token
+router.post('/donate-form', jwtCheck , form.post) //Funciona con auth0 y token
 
 //Product endpoints:
 router.post('/product', product.post) //Funciona

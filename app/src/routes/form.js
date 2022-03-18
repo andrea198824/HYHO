@@ -10,6 +10,7 @@ const getDbForm = async () => {
 exports.post = async function(req, res){  // lalala.post
     try {
         let {
+            email,
             title,
             price,
             weight,
@@ -40,11 +41,10 @@ exports.post = async function(req, res){  // lalala.post
         }
 
     stock = stock ? stock : 1;
-    
-    let id = req.session.userId
 
-    if (!id) {
-        res.send({info: "No id"});
+
+    if (!email) {
+        res.send({info: "No email"});
         return
         }
     
@@ -59,7 +59,7 @@ exports.post = async function(req, res){  // lalala.post
     
     
     await User.findAll({
-                where: { id: id }
+                where: { email: email }
             }).then(el => {
             // console.log('el:', el[0])
             formCreated.setUser(el[0])
@@ -68,9 +68,7 @@ exports.post = async function(req, res){  // lalala.post
         formCreated
       );
     }).catch((err) => {
-      res.send(
-        err
-      );
+        res.status(404).send({info: err});
     })
     } catch (error) {
         res.status(404).send(error)
@@ -101,7 +99,7 @@ exports.get = async function (req, res, next){
             res.status(200).send(bdTotal);
         }
     } catch (error) {
-        next(error);
+        res.status(404).send({info: error});
     }
 }
 
