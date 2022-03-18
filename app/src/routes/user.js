@@ -125,13 +125,14 @@ exports.verifyUser = async function (req, res, next) {
 
 exports.verifyAdmin = async function (req, res, next) {
     try {
-        const {
-            user
-        } = req.body
-
-        const {
-            email
-        } = user
+        let {
+            email,
+            email_verified,
+            nickname,
+            picture,
+            given_name,
+            family_name,
+        } = req.body;
         
         let emailUser = await User.findAll({
             where: { email: email }
