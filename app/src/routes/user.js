@@ -74,13 +74,13 @@ exports.register = async function (req, res, next) {
 exports.isadmin = async function (req, res, next) {
     try {
         let {
-            user,
-        }
-            = req.body;
-
-        let {
             email,
-        } = user;
+            email_verified,
+            nickname,
+            picture,
+            given_name,
+            family_name,
+        } = req.body;
 
         let emailUser = await User.findAll({
             where: { email: email }
