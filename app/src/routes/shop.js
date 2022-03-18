@@ -28,7 +28,7 @@ const getDb = async () => {
   return await Cart.findAll({
     include: {
       model: User,
-      attributes: [id],
+      attributes: [email],
       through: {
         attributes: []
       }
@@ -46,7 +46,7 @@ exports.getCart = async function (req, res, next) {
     })
     let cart = await Cart.findAll({
       where: {
-        userId: user[0].id
+        email: email
       }
     })
     cart.length
@@ -61,13 +61,14 @@ exports.getCart = async function (req, res, next) {
 
 exports.postCart = async function (req, res, next) {
   const { cart, email } = req.body
- 
+  console.log(req.body)
   try {
     let user = await User.findAll({
       where: {
         email: email
       }
     })
+    console.log("USER: ", user)
     let [act, created] = await Cart.findOrCreate({
       where: {
         cart,
