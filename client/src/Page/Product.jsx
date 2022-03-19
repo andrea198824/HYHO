@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { mobile } from "../responsive";
-import { getDetails, addToCart } from '../store/actions';
+import { getDetails, modifyQuantityDetails, addToCartFromDetails } from '../store/actions';
 
 const Container = styled.div``;
 
@@ -102,15 +102,19 @@ const Button = styled.button`
 const Product = () => {
     const dispatch = useDispatch();
     const id = useParams().id;
-    const product = useSelector(state => state.details)[0]
+    const product = useSelector(state => state.details)
 
     useEffect(() => {
         dispatch(getDetails(id))
     }, [])
 
     const onClickAddCart = (e) => {
-        dispatch(addToCart(id))
+        dispatch(addToCartFromDetails(product))
         alert("Producto Añadido")
+    }
+
+    const onClickQuantity = (e) => {
+        dispatch(modifyQuantityDetails(e.currentTarget.getAttribute('value')))
     }
 
     return (
@@ -127,30 +131,32 @@ const Product = () => {
                         {product && product.description}
                     </Desc>
                     <Price>$ {product && product.price}</Price>
+                    <br />
+                    <br /> { /* Utilizo br porque por algun motivo marginBottom no esta funcionando */}
                     <Stock>Stock: {product && product.stock}</Stock>
                     <FilterContainer>
-                        {/* <Filter>
-                            <FilterTitle>Color</FilterTitle>
-                            <FilterColor color="black" />
-                            <FilterColor color="darkblue" />
-                            <FilterColor color="gray" />
-                        </Filter>
-                        <Filter>
-                            <FilterTitle>Size</FilterTitle>
-                            <FilterSize>
-                                <FilterSizeOption>XS</FilterSizeOption>
-                                <FilterSizeOption>S</FilterSizeOption>
-                                <FilterSizeOption>M</FilterSizeOption>
-                                <FilterSizeOption>L</FilterSizeOption>
-                                <FilterSizeOption>XL</FilterSizeOption>
-                            </FilterSize>
-                        </Filter> */}
                     </FilterContainer>
                     <AddContainer>
                         <AmountContainer>
-                            <Remove />
-                            <Amount>1</Amount>
-                            <Add />
+                            {
+                                product.quantity - 1 !== 0
+                                    ?
+                                    <Remove value='-' onClick={onClickQuantity} />
+                                    :
+                                    <Remove style={{ visibility: "hidden" }} />
+                            }
+                            {
+                                product.stock === 1 ?
+                                    null
+                                    :
+                                    <Amount>{product && product.quantity}</Amount>
+                            }
+                            {
+                                product.quantity < product.stock ?
+                                    <Add value='+' onClick={onClickQuantity} />
+                                    :
+                                    <Add style={{ visibility: "hidden" }} />
+                            }
                         </AmountContainer>
                         <Button onClick={onClickAddCart}> AGREGAR AL CARRITO </Button>
                     </AddContainer>

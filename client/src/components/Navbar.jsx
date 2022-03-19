@@ -1,11 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Badge } from "@material-ui/core";
-import { Search, ShoppingCartOutlined } from "@material-ui/icons";
+import { Autorenew, Search, ShoppingCartOutlined } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, searchProducts, getToken, addUser } from '../store/actions';
+import { getProducts, searchProducts, getToken, addUser, checkUserInDb } from '../store/actions';
 import LogoHyho from '..//Img/logoLargo.gif';
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -85,6 +86,14 @@ const linkStyle = {
     color: 'inherit',
 }
 
+const profilePic = {
+    width: "auto",
+    height: "40px",
+    padding: "4px",
+    borderRadius: "2rem",
+    
+}
+
 const Navbar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -92,14 +101,16 @@ const Navbar = () => {
     const [search, setSearch] = useState("")
     const cartProducts = useSelector(state => state.shoppingCart)
     const token = useSelector(state => state.token)
+    const userInDB = useSelector(state => state.userInDB)
 
-    const { user, isAuthenticated, isLoading, loginWithRedirect, logout, getAccessTokenSilently } = useAuth0();
+    const { user, isLoading, loginWithRedirect, logout, getAccessTokenSilently } = useAuth0();
 
 
     useEffect(() => {
         dispatch(getProducts())
-        if (!isLoading && user) {
+        if (!isLoading && user && userInDB === false) {
             dispatch(addUser(user, token))
+            dispatch(checkUserInDb())
         }
     }, [])
 
@@ -118,7 +129,6 @@ const Navbar = () => {
         if (search) navigate('/products')
     }
 
-
     if (!isLoading) {
         getAccessTokenSilently()
             .then(res => {
@@ -126,7 +136,7 @@ const Navbar = () => {
             })
     }
 
-    
+
 
     return (
         <Container>
@@ -161,6 +171,7 @@ const Navbar = () => {
                         user ?
                             <Right>
                                 <MenuItem onClick={() => logout({ returnTo: window.location.origin })} >Cerrar Sesion</MenuItem>
+                                <img src={user.picture} style={profilePic} alt="" />
                                 <MenuItem>
                                     <Link to='/cart' style={linkStyle}>
                                         <Badge badgeContent={cartProducts.length} color="primary">

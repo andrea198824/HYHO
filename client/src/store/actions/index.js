@@ -13,6 +13,12 @@ export const CREATE_ADMIN = 'CREATE_ADMIN';
 export const POST_CART_INFO = 'POST_CART_INFO';
 export const GET_TOKEN = 'GET_TOKEN';
 export const ADD_USER = 'ADD_USER';
+export const MODIFY_QUANTITY = 'MODIFY_QUANTITY';
+export const MODIFY_QUANTITY_DETAILS = 'MODIFY_QUANTITY_DETAILS';
+export const ADD_TO_CART_FROM_DETAILS = 'ADD_TO_CART_FROM_DETAILS';
+export const CHECK_USER_IN_DB = 'CHECK_USER_IN_DB';
+export const CONCAT_SHOP_CART = 'CONCAT_SHOP_CART';
+export const DELETE_SHOP_CART = 'DELETE_SHOP_CART';
 
 
 export const getProducts = () => {
@@ -62,6 +68,31 @@ export const createadmin = (payload) => {
     }
 }
 
+export const getToken = (token) => {
+    return {
+        type: GET_TOKEN,
+        payload: token
+    }
+}
+
+export const addUser = (data, token) => {
+    return async function (dispatch) {
+        try {
+            const response = await axios.post('/register', data, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+
+            })
+            dispatch({
+                type: ADD_USER,
+                payload: response
+            })
+        } catch (err) {
+            return
+        }
+    }
+}
 export const addToCart = (productID) => {
     return {
         type: ADD_TO_CART,
@@ -69,32 +100,56 @@ export const addToCart = (productID) => {
     }
 }
 
-export const postCartInfo = (cart) => {
-    return async function (dispatch) {
-        const response = await axios.post('/cart', JSON.stringify(cart))
-        console.log(response)
-    }
-}
-export const getToken = (token) => {
+export const modifyQuantity = (id, value) => {
     return {
-        type: GET_TOKEN,
-        payload: token
+        type: MODIFY_QUANTITY,
+        id,
+        value
     }
 }
-export const addUser = (data, token) => {
-    console.log(`Bearer ${token}`)
+
+export const modifyQuantityDetails = (value) => {
+    return {
+        type: MODIFY_QUANTITY_DETAILS,
+        value
+    }
+}
+
+export const addToCartFromDetails = (details) => {
+    return {
+        type: ADD_TO_CART_FROM_DETAILS,
+        payload: details
+    }
+}
+
+export const checkUserInDb = () => {
+    return {
+        type: CHECK_USER_IN_DB,
+    }
+}
+
+export const postShopCart = (user, cart, token) => {
+    let email = user.email;
+    let body = { email, cart }
     return async function (dispatch) {
-        const response = await axios.post('/register', data, {
+        const response = axios.post('/cart', body, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
-
         })
         dispatch({
-            type: ADD_USER,
+            type: POST_CART_INFO,
             payload: response
         })
     }
+}
+
+export const concatShopCart = () => {
+
+}
+
+export const deleteShopCart = () => {
+
 }
 
 
