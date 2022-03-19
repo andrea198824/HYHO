@@ -7,8 +7,9 @@ import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { modifyQuantity, deleteShopCart, getShopCart } from "../store/actions";
+import { modifyQuantity, deleteShopCart, deleteLocalShopCart, compareProductsShopCart } from "../store/actions";
 import { useAuth0 } from '@auth0/auth0-react'
+import { useEffect } from "react";
 
 const Container = styled.div``;
 
@@ -170,6 +171,7 @@ const useStyles = makeStyles(theme => ({
 
 const Cart = () => {
     const dispatch = useDispatch()
+    const products = useSelector(state => state.products)
     const cartProducts = useSelector(state => state.shoppingCart)
     let subTotal = 0;
     cartProducts.forEach(el => subTotal += el.price * el.quantity)
@@ -177,13 +179,24 @@ const Cart = () => {
     const { user, isLoading } = useAuth0()
     const token = useSelector(state => state.token)
 
+    useEffect(() => {
+        if (products.length > 1) {
+            dispatch(compareProductsShopCart())
+        }
+    }, [products])
+
 
     const onClickProduct = (e) => {
         dispatch(modifyQuantity(e.currentTarget.getAttribute('id'), e.currentTarget.getAttribute('value')))
     }
 
     const onClickDeleteCart = (e) => {
-        dispatch(deleteShopCart(user.email, token))
+        if (user && !isLoading && window.confirm("Esto eliminara tu carrito tanto localmente como de la nube. Deseas proseguir?")) {
+            dispatch(deleteShopCart(user.email, token))
+        }
+        if (!user && !isLoading && window.confirm("Esto solo eliminara tu carrito localmente, si deseas eliminarlo de la nube requieres tener una sesion iniciada. Deseas proseguir? ")) {
+            dispatch(deleteLocalShopCart())
+        }
     }
 
 
@@ -197,7 +210,10 @@ const Cart = () => {
                     <Link to='/products' style={linkStyle}>
                         <TopButton className={classes.Buttons}>CONTINUAR COMPRANDO</TopButton>
                     </Link>
-                    <TopButton className={classes.Buttons} onClick={onClickDeleteCart}>LIMPIAR CARRITO</TopButton>
+                    {isLoading
+                        ? <TopButton style={{ visibility: "hidden" }} />
+                        : <TopButton className={classes.Buttons} onClick={onClickDeleteCart}>LIMPIAR CARRITO</TopButton>
+                    }
                     {/* <TopTexts>
                         <TopText>Lista de Deseados</TopText>
                     </TopTexts> */}
@@ -210,7 +226,7 @@ const Cart = () => {
                                     <Image src={el.image} />
                                     <Details>
                                         <ProductName>
-                                            <b>Producto:</b>  {el.fullname}
+                                            <b>Producto:</b>  {el.title}
                                         </ProductName>
                                         <ProductId>
                                             <b>Stock:</b> {el.stock}
@@ -238,31 +254,39 @@ const Cart = () => {
                                 </PriceDetail>
                                 <Hr />
                             </Product>
-                        )) : "No hay productos en el carrito"}
+                        )) : <Title > Sin Productos  </Title>}
 
                     </Info>
                     <Summary>
                         <SummaryTitle>RESUMEN</SummaryTitle>
-                        <SummaryItem>
-                            <SummaryItemText>Subtotal</SummaryItemText>
-                            <SummaryItemPrice>$ {subTotal}</SummaryItemPrice>
-                        </SummaryItem>
-                        <SummaryItem>
+                        {
+                            subTotal === 0
+                                ? <SummaryItem style={{ visibility: "hidden" }} />
+                                : <SummaryItem>
+                                    <SummaryItemText>Subtotal</SummaryItemText>
+                                    <SummaryItemPrice>$ {subTotal}</SummaryItemPrice>
+                                </SummaryItem>
+                        }
+                        {/* <SummaryItem>
                             {/* <SummaryItemText>Descuento</SummaryItemText>
                             <SummaryItemPrice>$ -5.90</SummaryItemPrice> */}
-                        </SummaryItem>
-                        <SummaryItem type="total">
-                            <SummaryItemText>Total</SummaryItemText>
-                            <SummaryItemPrice>$ {subTotal}</SummaryItemPrice>
-                        </SummaryItem>
+                        {/* </SummaryItem> */}
                         {
-                            isLoading ?
-                                null
-                                :
-                                user ?
-                                    <Button className={classes.Buttons}>COMPRAR</Button>
-                                    :
-                                    <Title> Inicia Sesion Para Continuar </Title>
+                            subTotal === 0
+                                ? <SummaryItem style={{ visibility: "hidden" }} />
+                                : <SummaryItem type="total">
+                                    <SummaryItemText>Total</SummaryItemText>
+                                    <SummaryItemPrice>$ {subTotal}</SummaryItemPrice>
+                                </SummaryItem>
+                        }
+                        {
+                            isLoading
+                                ? null
+                                : user
+                                    ? <Button className={classes.Buttons}>COMPRAR</Button>
+                                    : subTotal === 0
+                                        ? <Title style={{ fontSize: "25px" }}> Agrega Productos Para Continuar </Title>
+                                        : <Title> Inicia Sesion Para Continuar </Title>
                         }
                     </Summary>
                 </Bottom>
