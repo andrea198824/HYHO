@@ -33,9 +33,9 @@ function Maps  (props)  {
         defaultCenter={{ lat: -34.6037851, lng: -58.381775 }}
       ></GoogleMap>
 
-      <Marker
-        draggable={true}
-        position={{ lat: -34.6037851, lng: -58.381775 }}
+       <Marker
+         draggable={true}
+         position={{ lat: -34.6037851, lng: -58.381775 }}
       ></Marker>
 
        <p>Podes encontrarnos en Av. 9 de Julio, C1043 CABA, Argentina</p>
