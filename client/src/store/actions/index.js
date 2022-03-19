@@ -17,6 +17,7 @@ export const MODIFY_QUANTITY = 'MODIFY_QUANTITY';
 export const MODIFY_QUANTITY_DETAILS = 'MODIFY_QUANTITY_DETAILS';
 export const ADD_TO_CART_FROM_DETAILS = 'ADD_TO_CART_FROM_DETAILS';
 export const CHECK_USER_IN_DB = 'CHECK_USER_IN_DB';
+export const GET_SHOP_CART = 'GET_SHOP_CART';
 export const CONCAT_SHOP_CART = 'CONCAT_SHOP_CART';
 export const DELETE_SHOP_CART = 'DELETE_SHOP_CART';
 export const PUT_SHOP_CART = 'PUT_SHOP_CART';
@@ -129,6 +130,20 @@ export const checkUserInDb = () => {
     }
 }
 
+export const getShopCart = (email, token) => {
+    return async function (dispatch) {
+        const response = await axios.get(`/cart/${email}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+        dispatch({
+            type: GET_SHOP_CART,
+            payload: response.data
+        })
+    }
+}
+
 export const postShopCart = (email, cart, token) => {
     cart = JSON.stringify(cart)
     return async function (dispatch) {
@@ -163,8 +178,21 @@ export const concatShopCart = () => {
 
 }
 
-export const deleteShopCart = () => {
-
+export const deleteShopCart = (email, token) => {
+    return async function (dispatch) {
+        const response = await axios.delete(`/deleteCart`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            data: {
+                email
+            }
+        })
+        dispatch({
+            type: DELETE_SHOP_CART,
+            payload: response
+        })
+    }
 }
 
 

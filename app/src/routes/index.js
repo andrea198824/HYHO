@@ -106,12 +106,12 @@ const shopController = require('./shop')
 
 // router.get('/', shopController.getIndex);    
 router.get('/shop' , jwtCheck , shopController.getProducts) //  -> Usar /products
-router.get('/cart', jwtCheck, shopController.getCart)
+router.get('/cart/:email', jwtCheck, shopController.getCart)
 router.post('/cart', jwtCheck , shopController.postCart)
 // router.get('/checkout', shopController.getCheckout);
 // router.get('/orders', shopController.getOrders);
 // router.get('/products/:productId', shopController.getProduct);
-router.delete('/cart-delete', jwtCheck , shopController.postCartDeleteCart)
+router.delete('/deleteCart', jwtCheck , shopController.postCartDeleteCart)
 router.put('/putCart', jwtCheck , shopController.putCart)
 // router.post('/create-order', shopController.postOrder);
 

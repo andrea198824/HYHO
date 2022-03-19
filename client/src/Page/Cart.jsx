@@ -7,7 +7,7 @@ import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { modifyQuantity, postShopCart } from "../store/actions";
+import { modifyQuantity, deleteShopCart, getShopCart } from "../store/actions";
 import { useAuth0 } from '@auth0/auth0-react'
 
 const Container = styled.div``;
@@ -175,6 +175,7 @@ const Cart = () => {
     cartProducts.forEach(el => subTotal += el.price * el.quantity)
     const classes = useStyles();
     const { user, isLoading } = useAuth0()
+    const token = useSelector(state => state.token)
 
 
     const onClickProduct = (e) => {
@@ -182,7 +183,7 @@ const Cart = () => {
     }
 
     const onClickDeleteCart = (e) => {
-        dispatch(postShopCart())
+        dispatch(deleteShopCart(user.email, token))
     }
 
 

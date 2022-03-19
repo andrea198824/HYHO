@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, searchProducts, getToken, addUser, checkUserInDb, postShopCart, putShopCart } from '../store/actions';
+import { getProducts, searchProducts, getToken, addUser, checkUserInDb, postShopCart, putShopCart, getShopCart } from '../store/actions';
 import LogoHyho from '..//Img/logoLargo.gif';
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -102,6 +102,7 @@ const Navbar = () => {
     const cartProducts = useSelector(state => state.shoppingCart)
     const token = useSelector(state => state.token)
     const userInDB = useSelector(state => state.userInDB)
+    const dbShopCart = useSelector(state => state.dbShopCart)
 
     const { user, isLoading, loginWithRedirect, logout, getAccessTokenSilently } = useAuth0();
 
@@ -115,6 +116,8 @@ const Navbar = () => {
                 dispatch(postShopCart(user.email, cartProducts, token))
             }, 2000)
         }
+        if (!isLoading && user) dispatch(getShopCart(user.email, token))
+        if (!isLoading && user && !dbShopCart.length) dispatch(postShopCart(user.email, cartProducts, token))
     }, [])
 
     useEffect(() => {
@@ -139,8 +142,6 @@ const Navbar = () => {
                 dispatch(getToken(res))
             })
     }
-
-
 
     return (
         <Container>

@@ -36,8 +36,7 @@ const getDb = async () => {
     })
 }
 exports.getCart = async function (req, res, next) {
-    //   const { userId } = req.query
-    const { email } = req.body
+    const { email } = req.params;
     try {
         let user = await User.findAll({
             where: {
@@ -46,12 +45,12 @@ exports.getCart = async function (req, res, next) {
         })
         let cart = await Cart.findAll({
             where: {
-                email: email
+                userId: user[0].id
             }
         })
         cart.length
             ? res.status(200).send(cart)
-            : res.status(404).send('No se escuentra carrito')
+            : res.status(404).send('Cart dont found')
     } catch (error) {
         next({ info: error })
     }
@@ -83,11 +82,16 @@ exports.postCart = async function (req, res, next) {
 }
 
 exports.postCartDeleteCart = async (req, res, next) => {
-    const { id } = req.body // ID del Cart
+    const { email } = req.body
     try {
-        let prod = await Cart.destroy({
+        let user = await User.findAll({
             where: {
-                id: id
+                email: email
+            }
+        })
+        await Cart.destroy({
+            where: {
+                userId: user[0].id
             }
         })
         return res.json({ eliminado: true })

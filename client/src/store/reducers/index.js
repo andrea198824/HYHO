@@ -12,6 +12,7 @@ import {
     MODIFY_QUANTITY_DETAILS,
     ADD_TO_CART_FROM_DETAILS,
     CHECK_USER_IN_DB,
+    GET_SHOP_CART,
 } from "../actions";
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
     categories: [],
     filteredProducts: [],
     shoppingCart: JSON.parse(localStorage.getItem('shoppingCart')) || [],
+    dbShopCart: [],
     token: "",
     userInDB: false,
 }
@@ -71,7 +73,9 @@ export default function rootReducer(state = initialState, action) {
             if (state.shoppingCart.some(el => el.id === parseInt(action.payload.id))) return state;
             return { ...state, shoppingCart: state.shoppingCart.concat(action.payload) }
         case CHECK_USER_IN_DB:
-            return { ...state, userInDB: true}
+            return { ...state, userInDB: true }
+        case GET_SHOP_CART:
+            return { ...state, dbShopCart: JSON.parse(action.payload[0].cart) }
         default:
             return state;
     }
