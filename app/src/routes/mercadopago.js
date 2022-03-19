@@ -17,16 +17,27 @@ mercadopago.configure({
 exports.get = async function (req, res, next)  {
 
     //const {id_user} = req.params
-  const userId= 1 // id carrito
-  const id = 2
+  //const userId= 1 // id carrito
+  const {email} = req.body
+try{
+ //Cargamos el carrido de la bd
+ let user = await User.findAll({
+    where: {
+        email: email
+    }
+})
 
 
-  //Cargamos el carrido de la bd
-  const carrito = [
-    {title: "Producto 1", quantity: 5, price: 10},
-    {title: "Producto 2", quantity: 15, price: 102},
-    {title: "Producto 3", quantity: 6, price: 200}
-  ]
+
+let cart = await Cart.findAll({
+    where: {
+        userId: user[0].id
+    }
+})
+
+  const carrito = await Cart.map({
+
+  })
   
   //se respeta el formato por que asi lo pide mercadopago
   const items_ml = carrito.map(i => ({
@@ -66,6 +77,7 @@ exports.get = async function (req, res, next)  {
   .catch(function(error){
     console.log(error);
   })
+}
 }
 
 
