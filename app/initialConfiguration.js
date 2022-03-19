@@ -174,26 +174,25 @@ const products = [
 ]
 
 let securityString = "randomString"
-let password = "12345678"
+let password = "K%Ec&G*RADs^"
 password = CryptoJS.HmacSHA1(securityString, password).toString(CryptoJS.enc.Base64)
 exports.do = async () => {
-    // let user = await User.findAll({
-    //   where: {id: 1}
-    // })
-    // if (!user.length) {
-    //   await User.create({
-    //     fullName:"Admin",
-    //     email:"Admin@gmail.com",
-    //     password,
-    //     securityString,
-    //     emailVerificated:true,
-    //     adminVerificated:true,
-    //     billing_address:"",
-    //     shipping_address:"",
-    //     phone:"",
-    //   });
-    // }
-    // let dbProducts = await Products.findAll();
+    let user = await User.findAll({
+      where: {email: "kefay63703@tourcc.com"}
+    })
+    if (!user.length) {
+      await User.create({
+        email: "kefay63703@tourcc.com",
+        email_verified: true,
+        admin_verified: true,
+        name: "kefay63703@tourcc.com",
+        nickname: "kefay63703",
+        picture: "https://s.gravatar.com/avatar/411a1155a712213ca70d45045b6e6fa1?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fke.png",
+        sub: "auth0|62339a9d4883ca0069cf043b",
+        updated_at: "2022-03-17T20:31:25.686Z",
+      });
+    }
+    let dbProducts = await Products.findAll();
     if (true) {
       await Promise.all(
         products.map(async (el) => {
