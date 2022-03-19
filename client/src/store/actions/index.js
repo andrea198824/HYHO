@@ -19,6 +19,7 @@ export const ADD_TO_CART_FROM_DETAILS = 'ADD_TO_CART_FROM_DETAILS';
 export const CHECK_USER_IN_DB = 'CHECK_USER_IN_DB';
 export const CONCAT_SHOP_CART = 'CONCAT_SHOP_CART';
 export const DELETE_SHOP_CART = 'DELETE_SHOP_CART';
+export const PUT_SHOP_CART = 'PUT_SHOP_CART';
 
 
 export const getProducts = () => {
@@ -128,17 +129,31 @@ export const checkUserInDb = () => {
     }
 }
 
-export const postShopCart = (user, cart, token) => {
-    let email = user.email;
-    let body = { email, cart }
+export const postShopCart = (email, cart, token) => {
+    cart = JSON.stringify(cart)
     return async function (dispatch) {
-        const response = axios.post('/cart', body, {
+        const response = await axios.post('/cart', { email, cart }, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
         })
         dispatch({
             type: POST_CART_INFO,
+            payload: response
+        })
+    }
+}
+
+export const putShopCart = (email, cart, token) => {
+    cart = JSON.stringify(cart)
+    return async function (dispatch) {
+        const response = await axios.put('/putCart', { email, cart }, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+        dispatch({
+            type: PUT_SHOP_CART,
             payload: response
         })
     }

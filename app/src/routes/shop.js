@@ -24,60 +24,59 @@ exports.getProducts = async function (req, res, next) {
 
 
 const getDb = async () => {
-  
-  return await Cart.findAll({
-    include: {
-      model: User,
-      attributes: [email],
-      through: {
-        attributes: []
-      }
-    }
-  })
+
+    return await Cart.findAll({
+        include: {
+            model: User,
+            attributes: [email],
+            through: {
+                attributes: []
+            }
+        }
+    })
 }
 exports.getCart = async function (req, res, next) {
-//   const { userId } = req.query
-  const { email } = req.body
-  try {
-    let user = await User.findAll({
-      where: {
-        email: email
-      }
-    })
-    let cart = await Cart.findAll({
-      where: {
-        email: email
-      }
-    })
-    cart.length
-      ? res.status(200).send(cart)
-      : res.status(404).send('No se escuentra carrito')
-  } catch (error) {
-    next({info: error})
-  }
+    //   const { userId } = req.query
+    const { email } = req.body
+    try {
+        let user = await User.findAll({
+            where: {
+                email: email
+            }
+        })
+        let cart = await Cart.findAll({
+            where: {
+                email: email
+            }
+        })
+        cart.length
+            ? res.status(200).send(cart)
+            : res.status(404).send('No se escuentra carrito')
+    } catch (error) {
+        next({ info: error })
+    }
 }
 
 
 
 exports.postCart = async function (req, res, next) {
-  const { cart, email } = req.body
-  console.log(req.body)
-  try {
-    let user = await User.findAll({
-      where: {
-        email: email
-      }
-    })
-    console.log("USER: ", user)
-    let [act, created] = await Cart.findOrCreate({
-      where: {
-        cart,
-        userId: user[0].id
-      }
-    })
-    console.log(created)
-
-        return res.status(200).send('Table and user created successfully')
+    const { cart, email } = req.body
+    try {
+        let user = await User.findAll({
+            where: {
+                email: email
+            }
+        })
+        //console.log("USER: ", user)
+        let [act, created] = await Cart.findOrCreate({
+            where: {
+                cart,
+                userId: user[0].id
+            }
+        })
+        //console.log(created)
+        if (created) return res.status(201).send("Cart created succesfully")
+        else return res.status(200).send('Cart was found and for consequence it wasnt created')
     } catch (error) {
         next(error)
     }
@@ -98,14 +97,18 @@ exports.postCartDeleteCart = async (req, res, next) => {
 }
 
 exports.putCart = async (req, res, next) => {
-    const { cart } = req.body
-    const { id } = req.params //ID del cart
+    const { cart, email } = req.body
     try {
+        let user = await User.findAll({
+            where: {
+                email: email
+            }
+        })
         let prod = await Cart.update(
             { cart: cart },
             {
                 where: {
-                    id: id
+                    userId: user[0].id
                 }
             }
         )

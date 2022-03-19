@@ -112,7 +112,7 @@ router.post('/cart', jwtCheck , shopController.postCart)
 // router.get('/orders', shopController.getOrders);
 // router.get('/products/:productId', shopController.getProduct);
 router.delete('/cart-delete', jwtCheck , shopController.postCartDeleteCart)
-router.put('/putCart/:id', jwtCheck , shopController.putCart)
+router.put('/putCart', jwtCheck , shopController.putCart)
 // router.post('/create-order', shopController.postOrder);
 
 //---------------shopping Orders ------------------

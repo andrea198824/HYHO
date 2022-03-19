@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, searchProducts, getToken, addUser, checkUserInDb } from '../store/actions';
+import { getProducts, searchProducts, getToken, addUser, checkUserInDb, postShopCart, putShopCart } from '../store/actions';
 import LogoHyho from '..//Img/logoLargo.gif';
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -91,7 +91,7 @@ const profilePic = {
     height: "40px",
     padding: "4px",
     borderRadius: "2rem",
-    
+
 }
 
 const Navbar = () => {
@@ -111,11 +111,15 @@ const Navbar = () => {
         if (!isLoading && user && userInDB === false) {
             dispatch(addUser(user, token))
             dispatch(checkUserInDb())
+            setTimeout(() => {
+                dispatch(postShopCart(user.email, cartProducts, token))
+            }, 2000)
         }
     }, [])
 
     useEffect(() => {
         localStorage.setItem('shoppingCart', JSON.stringify(cartProducts))
+        if (user && !isLoading) dispatch(putShopCart(user.email, cartProducts, token))
     }, [cartProducts])
 
     const onChangeSearch = async (e) => {
