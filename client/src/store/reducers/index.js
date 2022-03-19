@@ -13,6 +13,7 @@ import {
     ADD_TO_CART_FROM_DETAILS,
     CHECK_USER_IN_DB,
     GET_SHOP_CART,
+    DELETE_SHOP_CART,
 } from "../actions";
 
 const initialState = {
@@ -76,6 +77,9 @@ export default function rootReducer(state = initialState, action) {
             return { ...state, userInDB: true }
         case GET_SHOP_CART:
             return { ...state, dbShopCart: JSON.parse(action.payload[0].cart) }
+        case DELETE_SHOP_CART:
+            localStorage.removeItem("shoppingCart")
+            return { ...state, shoppingCart: [] };
         default:
             return state;
     }

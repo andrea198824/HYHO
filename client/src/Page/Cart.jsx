@@ -183,7 +183,12 @@ const Cart = () => {
     }
 
     const onClickDeleteCart = (e) => {
-        dispatch(deleteShopCart(user.email, token))
+        if (user && !isLoading && window.confirm("Esto eliminara tu carrito tanto localmente como de la nube. Deseas proseguir?")) {
+            dispatch(deleteShopCart(user.email, token))
+        }
+        if (!user && !isLoading && window.confirm("Esto solo eliminara tu carrito localmente, si deseas eliminarlo de la nube requieres tener una sesion iniciada. Deseas proseguir? ")) {
+            dispatch(deleteShopCart(user.email, token))
+        }
     }
 
 
@@ -197,7 +202,10 @@ const Cart = () => {
                     <Link to='/products' style={linkStyle}>
                         <TopButton className={classes.Buttons}>CONTINUAR COMPRANDO</TopButton>
                     </Link>
-                    <TopButton className={classes.Buttons} onClick={onClickDeleteCart}>LIMPIAR CARRITO</TopButton>
+                    {isLoading
+                        ? <TopButton style={{ visibility: "hidden" }} />
+                        : <TopButton className={classes.Buttons} onClick={onClickDeleteCart}>LIMPIAR CARRITO</TopButton>
+                    }
                     {/* <TopTexts>
                         <TopText>Lista de Deseados</TopText>
                     </TopTexts> */}
