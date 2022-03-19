@@ -7,9 +7,9 @@ const getDbAdmin = async () => {
 }
 
 exports.post = async function(req, res){
-    res.status(404).send({info: "Endpoint no longer avaliable"});
+    res.status(404).send({info: "Endpoint no longer available"});
 }
 
 exports.get = async function (req, res, next){
-            res.status(404).send({info: "Endpoint no longer avaliable"});
+            res.status(404).send({info: "Endpoint no longer available"});
 }

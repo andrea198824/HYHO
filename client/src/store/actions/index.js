@@ -21,18 +21,34 @@ export const GET_SHOP_CART = 'GET_SHOP_CART';
 export const CONCAT_SHOP_CART = 'CONCAT_SHOP_CART';
 export const DELETE_SHOP_CART = 'DELETE_SHOP_CART';
 export const PUT_SHOP_CART = 'PUT_SHOP_CART';
+export const DELETE_LOCAL_SHOP_CART = 'DELETE_LOCAL_SHOP_CAR';
+export const COMPARE_PRODUCTS_SHOP_CART = 'COMPARE_PRODUCTS_SHOP_CART';
 
 
 export const getProducts = () => {
-    return {
-        type: GET_PRODUCTS,
-        payload: products,
+    return async function (dispatch) {
+        try {
+            const response = await axios.get('/products')
+            dispatch({
+                type: GET_PRODUCTS,
+                payload: response.data
+            })
+        } catch (err) {
+            console.log(err)
+        }
     }
 }
 export const getCategories = () => {
-    return {
-        type: GET_CATEGORIES,
-        payload: productCategory
+    return async function (dispatch) {
+        try {
+            const response = await axios.get('/category')
+            dispatch({
+                type: GET_CATEGORIES,
+                payload: response.data
+            })
+        } catch (err) {
+            console.log(err)
+        }
     }
 }
 export const searchProducts = (input) => {
@@ -56,7 +72,7 @@ export const orderByPrice = (type) => {
 export const filterByCategory = (category) => {
     return {
         type: FILTER_BY_CATEGORY,
-        payload: parseInt(category),
+        payload: category,
     }
 }
 
@@ -192,6 +208,18 @@ export const deleteShopCart = (email, token) => {
             type: DELETE_SHOP_CART,
             payload: response
         })
+    }
+}
+
+export const deleteLocalShopCart = () => {
+    return {
+        type: DELETE_LOCAL_SHOP_CART
+    }
+}
+
+export const compareProductsShopCart = () => {
+    return {
+        type: COMPARE_PRODUCTS_SHOP_CART,
     }
 }
 

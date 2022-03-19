@@ -126,9 +126,9 @@ const Product = () => {
                     <Image src={product ? product.image : 'https://acegif.com/wp-content/uploads/loading-53.gif'} />
                 </ImgContainer>
                 <InfoContainer>
-                    <Title>{product && product.fullname}</Title>
+                    <Title>{product && product.title}</Title>
                     <Desc>
-                        {product && product.description}
+                        {product && product.descriptions}
                     </Desc>
                     <Price>$ {product && product.price}</Price>
                     <br />

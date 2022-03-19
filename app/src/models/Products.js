@@ -16,20 +16,25 @@ module.exports = sequelize => {
     },
     descriptions: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true,
     },
     image: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: false,
     },
     stock: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: false,
     },
-    avaliable: {
+    available: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true,
     },
+    quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1
+    }
   })
 }

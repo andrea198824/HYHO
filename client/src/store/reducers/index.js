@@ -14,6 +14,8 @@ import {
     CHECK_USER_IN_DB,
     GET_SHOP_CART,
     DELETE_SHOP_CART,
+    DELETE_LOCAL_SHOP_CART,
+    COMPARE_PRODUCTS_SHOP_CART,
 } from "../actions";
 
 const initialState = {
@@ -32,7 +34,7 @@ export default function rootReducer(state = initialState, action) {
         case GET_PRODUCTS:
             return { ...state, products: action.payload }
         case SEARCH_PRODUCTS:
-            return { ...state, filteredProducts: state.products.filter(item => item.fullname.toLowerCase().includes(action.payload.toLowerCase())) }
+            return { ...state, filteredProducts: state.products.filter(item => item.title.toLowerCase().includes(action.payload.toLowerCase())) }
         case GET_DETAILS:
             return { ...state, details: state.products.filter(item => item.id === parseInt(action.payload))[0] }
         case ORDER_BY_PRICE:
@@ -50,7 +52,7 @@ export default function rootReducer(state = initialState, action) {
             if (action.payload === "default") {
                 return { ...state, filteredProducts: state.products };
             }
-            return { ...state, filteredProducts: state.products.filter(product => product.category === action.payload) }
+            return { ...state, filteredProducts: state.products.filter(product => product.category.includes(action.payload)) }
         case CREATE_ADMIN:
             return state;
         case ADD_TO_CART:
@@ -80,6 +82,20 @@ export default function rootReducer(state = initialState, action) {
         case DELETE_SHOP_CART:
             localStorage.removeItem("shoppingCart")
             return { ...state, shoppingCart: [] };
+        case DELETE_LOCAL_SHOP_CART:
+            localStorage.removeItem("shoppingCart")
+            return { ...state, shoppingCart: [] };
+        case COMPARE_PRODUCTS_SHOP_CART:
+            let productsIds = [];
+            state.shoppingCart.forEach(cartItem => {
+                state.products.forEach(prodItem => {
+                    if(cartItem.id === prodItem.id && !productsIds.includes(prodItem.id)) productsIds.push(prodItem.id) 
+                })
+            })
+
+            const newShoppingCart = state.products.filter(el => productsIds.includes(el.id))
+            console.log(newShoppingCart)
+            return { ...state, shoppingCart: newShoppingCart }
         default:
             return state;
     }
