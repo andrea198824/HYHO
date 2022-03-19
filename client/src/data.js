@@ -76,7 +76,7 @@ export const popularProducts = [
     },
     {
         id: 8,
-        image: "https://http2.mlstatic.com/D_NQ_NP_823809-MLA48575528008_122021-O.webp",
+        image: "https://http2.mlstatic.com/D_NQ_NP_723203-MLA45838835726_052021-O.webp",
     },
     {
         id: 9,
