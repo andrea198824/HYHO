@@ -96,6 +96,7 @@ export const products = [
         stock: 1,
         available: true,
         category: 2,
+        quantity: 1,
     },
     {
         id: 2,
@@ -107,6 +108,7 @@ export const products = [
         stock: 2,
         available: true,
         category: 1,
+        quantity: 1,
     },
     {
         id: 3,
@@ -115,9 +117,10 @@ export const products = [
         weight: 5,
         description: "Un poco descuidado pero funciona bien",
         image: "https://i2.wp.com/gadwoman.com/wp-content/uploads/2012/04/Monitor-Toshiba.jpg?resize=640%2C400&ssl=1",
-        stock: 0,
+        stock: 1,
         available: false,
         category: 1,
+        quantity: 1,
     },
     {
         id: 4,
@@ -129,6 +132,7 @@ export const products = [
         stock: 4,
         available: true,
         category: 1,
+        quantity: 1,
     },
     {
         id: 5,
@@ -140,6 +144,7 @@ export const products = [
         stock: 1,
         available: true,
         category: 1,
+        quantity: 1,
     },
     {
         id: 6,
@@ -151,6 +156,7 @@ export const products = [
         stock: 2,
         available: true,
         category: 3,
+        quantity: 1,
     },
     {
         id: 7,
@@ -162,6 +168,7 @@ export const products = [
         stock: 5,
         available: true,
         category:3 ,
+        quantity: 1,
     },
     {
         id: 8,
@@ -173,6 +180,7 @@ export const products = [
         stock: 1,
         available: true,
         category: 3,
+        quantity: 1,
     },
     {
         id: 9,
@@ -181,9 +189,10 @@ export const products = [
         weight: 120,
         description: "Este cuatriciclo está preparado para actividades que necesiten gran capacidad de carga, poder y espacio. Su diseño ayuda a desplazarse de una forma más cómoda.",
         image: "https://www.derechoenzapatillas.com/wp-content/uploads/2018/08/cuatriciclos-reglamentaci%C3%B3n.jpg",
-        stock: 0,
+        stock: 1,
         available: false,
         category: 3,
+        quantity: 1,
     },
     {
         id: 10,
@@ -195,6 +204,7 @@ export const products = [
         stock: 8,
         available: true,
         category:2,
+        quantity: 1,
     },
     {
         id: 11,
@@ -206,6 +216,7 @@ export const products = [
         stock: 2,
         available: true,
         category: 2,
+        quantity: 1,
     },
     {
         id: 12,
@@ -217,6 +228,7 @@ export const products = [
         stock: 1,
         available: true,
         category: 1,
+        quantity: 1,
     },
     {
         id: 13,
@@ -225,9 +237,10 @@ export const products = [
         weight: 30,
         description: "Con la cama elástica Gadnic Pro T8FT vas a poder disfrutar de horas interminables de diversión. Saltos y piruetas más los beneficios físicos que genera esta actividad, permitirán que disfrutés de momentos recreativos inolvidables.",
         image: "https://http2.mlstatic.com/D_NQ_NP_623458-MLA48601215547_122021-O.webp",
-        stock: 0,
+        stock: 2,
         available: false,
         category: 4,
+        quantity: 1,
     },
     {
         id: 14,
@@ -239,6 +252,7 @@ export const products = [
         stock: 6,
         available: true,
         category: 2,
+        quantity: 1,
     }
 ]
 

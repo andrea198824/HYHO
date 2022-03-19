@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import styled from "styled-components";
 import Product from "./Product";
 import { useState, useEffect } from 'react';
@@ -26,27 +27,27 @@ const Products = () => {
     const [order, setOrder] = useState('')
 
     const viewLastProducts = currentPage * productsPerPage;
-    const viewFirstProducts = viewLastProducts - productsPerPage ;
+    const viewFirstProducts = viewLastProducts - productsPerPage;
     const currentProducts = products.slice(viewFirstProducts, viewLastProducts)
-    
-    const paged = (PageNumber)=> {
-      setCurrentPage(PageNumber)
-      window.scrollTo(0, 0)
+
+    const paged = (PageNumber) => {
+        setCurrentPage(PageNumber)
+        window.scrollTo(0, 0)
     }
-    
+
     return (
         <Div>
-        <Container>
-         {filteredProducts.length ? filteredProducts.map((item)=>(<Product item={item} key={item.id} />))         
-             :
-             currentProducts?.map((item) => (<Product item={item} key={item.id} />))
-         }
-       </Container>
-         { filteredProducts.length ? <Paged productsPerPage= {productsPerPage} products={filteredProducts.length} paged={paged} /> 
-            :
-           <Paged productsPerPage= {productsPerPage} products={products.length} paged={paged} />         
-         }
-     </Div>
+            <Container>
+                {filteredProducts.length ? filteredProducts.map((item) => (<Product item={item} key={item.id} />))
+                    :
+                    currentProducts?.map((item) => (<Product item={item} key={item.id} />))
+                }
+            </Container>
+            {filteredProducts.length ? <Paged productsPerPage={productsPerPage} products={filteredProducts.length} paged={paged} />
+                :
+                <Paged productsPerPage={productsPerPage} products={products.length} paged={paged} />
+            }
+        </Div>
     );
 };
 

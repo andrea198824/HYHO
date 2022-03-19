@@ -177,19 +177,19 @@ exports.login = async function (req, res, next) {
                 .status(404)
                 .send({ info: "Sorry, theres no registered user with that email or username." });
         } else {
-            console.log("userToLogin[0].securityString   :", userToLogin[0].securityString)
-            console.log("password   :", password)
+            //console.log("userToLogin[0].securityString   :", userToLogin[0].securityString)
+            //console.log("password   :", password)
             password = CryptoJS.HmacSHA1(userToLogin[0].securityString, password).toString(CryptoJS.enc.Base64)
-            console.log("Input password :", password);
-            console.log("Database password :", userToLogin[0].password);
-            console.log("userToLogin[0].emailVerificated :", userToLogin[0].emailVerificated);
+            //console.log("Input password :", password);
+            //console.log("Database password :", userToLogin[0].password);
+            //console.log("userToLogin[0].emailVerificated :", userToLogin[0].emailVerificated);
             if (
                 userToLogin[0].password == password &&
                 userToLogin[0].emailVerificated
             ) {
                 req.session.userId = userToLogin[0].id;
                 req.session.name = userToLogin[0].adminVerificated ? "admin" : "user";
-                console.log(req.session)
+                //console.log(req.session)
                 res.status(201).send({
                     info: {
                         user: userToLogin[0],
