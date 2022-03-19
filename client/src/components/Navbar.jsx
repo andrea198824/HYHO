@@ -121,7 +121,9 @@ const Navbar = () => {
 
     useEffect(() => {
         localStorage.setItem('shoppingCart', JSON.stringify(cartProducts))
-        if (!isLoading && user) dispatch(putShopCart(user.email, cartProducts, token))
+        if (!isLoading && user) {
+            dispatch(putShopCart(user.email, cartProducts, token))
+        }
     }, [cartProducts])
 
     const onChangeSearch = async (e) => {
