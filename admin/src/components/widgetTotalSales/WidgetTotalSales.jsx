@@ -1,4 +1,4 @@
-import "./widgetLg.css";
+import "./widgetTotalSales.css";
 
 export default function WidgetProductSales() {
   const Button = ({ type }) => {
