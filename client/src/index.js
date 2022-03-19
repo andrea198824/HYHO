@@ -3,14 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import store from './store/index'
 import axios from 'axios';
 import { Auth0Provider } from "@auth0/auth0-react";
+import { getCategories, getProducts} from './store/actions'
 
 //axios.defaults.withCredentials = true;
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
+store.dispatch(getCategories())
+store.dispatch(getProducts())
 
 ReactDOM.render(
     <React.StrictMode>
