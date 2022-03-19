@@ -105,9 +105,9 @@ router.get('/newsletter', jwtAdminCheck , newsletter.get)
 const shopController = require('./shop')
 
 // router.get('/', shopController.getIndex);    
-router.get('/shop' , jwtCheck , shopController.getProducts) //  -> Usar /products
-router.get('/cart/:email', jwtCheck, shopController.getCart)
-router.post('/cart', jwtCheck , shopController.postCart)
+router.get('/shop' , jwtCheck , shopController.getProducts) //  -> Usar /products //Funciona
+router.get('/cart/:email', jwtCheck, shopController.getCart) //Funciona
+router.post('/cart', jwtCheck , shopController.postCart) //Funciona
 // router.get('/checkout', shopController.getCheckout);
 // router.get('/orders', shopController.getOrders);
 // router.get('/products/:productId', shopController.getProduct);
