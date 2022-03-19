@@ -94,7 +94,6 @@ export default function rootReducer(state = initialState, action) {
             })
 
             const newShoppingCart = state.products.filter(el => productsIds.includes(el.id))
-            console.log(newShoppingCart)
             return { ...state, shoppingCart: newShoppingCart }
         default:
             return state;
