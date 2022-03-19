@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, searchProducts, getToken, addUser, checkUserInDb, postShopCart, putShopCart, getShopCart } from '../store/actions';
+import { getProducts, searchProducts, getToken, addUser, checkUserInDb, postShopCart, putShopCart, getShopCart, getCategories } from '../store/actions';
 import LogoHyho from '..//Img/logoLargo.gif';
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -99,6 +99,7 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     const [search, setSearch] = useState("")
+    const products = useSelector(state => state.products)
     const cartProducts = useSelector(state => state.shoppingCart)
     const token = useSelector(state => state.token)
     const userInDB = useSelector(state => state.userInDB)
@@ -106,9 +107,7 @@ const Navbar = () => {
 
     const { user, isLoading, loginWithRedirect, logout, getAccessTokenSilently } = useAuth0();
 
-
     useEffect(() => {
-        dispatch(getProducts())
         if (!isLoading && user && userInDB === false) {
             dispatch(addUser(user, token))
             dispatch(checkUserInDb())
@@ -122,7 +121,7 @@ const Navbar = () => {
 
     useEffect(() => {
         localStorage.setItem('shoppingCart', JSON.stringify(cartProducts))
-        if (user && !isLoading) dispatch(putShopCart(user.email, cartProducts, token))
+        if (!isLoading && user) dispatch(putShopCart(user.email, cartProducts, token))
     }, [cartProducts])
 
     const onChangeSearch = async (e) => {

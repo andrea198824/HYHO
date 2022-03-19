@@ -89,12 +89,12 @@ router.post('/donate-form', jwtCheck , form.post) //Funciona con auth0 y token
 
 //Product endpoints:
 router.post('/product', jwtAdminCheck , product.post) //Funciona
-router.get('/products', jwtCheck , product.get)
+router.get('/products', product.get)
 router.put('/product/modify/:id', jwtAdminCheck , product.put)
 router.delete('/product/delete/:id', jwtAdminCheck , product.delete)
 
 //Category endpoints:
-router.get('/category', jwtCheck , category.get)
+router.get('/category', category.get)
 
 //Newsletter
 router.post('/newsletter', jwtAdminCheck , newsletter.post)
