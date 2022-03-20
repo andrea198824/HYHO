@@ -126,7 +126,10 @@ router.post('/create-order', jwtCheck , shopControllerOrder.postCreateOrder)
 // router.get('/sessions', sessions.get);
 // router.get('/counter', sessions.counter);
 
-
+var getPayment = require('./mercadopago')
+router.get('/mercadopago', getPayment.get)
+router.get('/mercadopago/pagos', getPayment.pagos)
+router.get('/mercadopago/pagos/:id', getPayment.pagosId)
 
 
 

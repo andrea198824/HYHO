@@ -4,26 +4,14 @@ const { DataTypes, DatabaseError } = require('sequelize')
 module.exports = sequelize => {
   // defino el modelo
   sequelize.define('order', {
-    title: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    price: { 
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    quantity: { 
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
     status:{  
       type: DataTypes.ENUM('created', 'processing', 'cancelled', 'completed'),
       allowNull: false
   },
   payment_id:{
-      type: DataTypes.INTEGER,
-      defaultValue: 0
-  },
+      type: DataTypes.STRING,
+      defaultValue: ""
+    },
   payment_status:{
       type: DataTypes.STRING,
       defaultValue: ""
@@ -32,5 +20,8 @@ module.exports = sequelize => {
       type: DataTypes.BIGINT,
       defaultValue: 0
   },
+  cart: {
+    type: DataTypes.ARRAY(DataTypes.JSON),
+}
   })
 }

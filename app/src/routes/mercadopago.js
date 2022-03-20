@@ -1,9 +1,10 @@
 "use strict";
-const { Payment, Cart, Order} = require('../db.js');
+const {Cart, Order, User} = require('../db.js');
 //const server = require('express').Router();
 require("dotenv").config();
 // SDK de Mercado Pago
 const mercadopago = require ('mercadopago');
+const order = require('../models/order.js');
 
 const { ACCESS_TOKEN } = process.env;
 
@@ -17,19 +18,19 @@ mercadopago.configure({
 exports.get = async function (req, res, next)  {
 
     //const {id_user} = req.params
-  const userId= 1 // id carrito
-  const id = 2
+  const {email, cart} = req.body // id carrito
+ 
+    let user = await User.findAll({
+        where: {
+            email: email
+        }
+    })
+    
+    let userId = await user[0].id
 
-
-  //Cargamos el carrido de la bd
-  const carrito = [
-    {title: "Producto 1", quantity: 5, price: 10},
-    {title: "Producto 2", quantity: 15, price: 102},
-    {title: "Producto 3", quantity: 6, price: 200}
-  ]
-  
-  //se respeta el formato por que asi lo pide mercadopago
-  const items_ml = carrito.map(i => ({
+    console.log("--------------------------------------------", userId)
+    //se respeta el formato por que asi lo pide mercadopago
+  const items_ml = cart.map(i => ({
     title: i.title,
     unit_price: i.price,
     quantity: i.quantity,
@@ -37,7 +38,7 @@ exports.get = async function (req, res, next)  {
 
   // Crea un objeto de preferencia
   let preference = {
-    items: items_ml,
+ items: items_ml,
     external_reference : `${userId}`,
     payment_methods: {
       excluded_payment_types: [
@@ -58,16 +59,16 @@ exports.get = async function (req, res, next)  {
 
   .then(function(response){
     console.info('respondio')
-  //Este valor reemplazará el string"<%= global.id %>" en tu HTML
-    global.id = response.body.id;
-    console.log(response.body)
-    res.json({ id: global.id });
-  })
-  .catch(function(error){
-    console.log(error);
-  })
-}
-
+    //Este valor reemplazará el string"<%= global.id %>" en tu HTML
+      global.id = response.body.id;
+      console.log(response.body)
+      res.json({ id: global.id });
+    })
+    .catch(function(error){
+      console.log(error);
+    })
+  }
+    
 
 //Ruta que recibe la información del pago
 exports.pagos = async function (req, res) {
@@ -76,31 +77,39 @@ exports.pagos = async function (req, res) {
   const payment_status= req.query.status
   const external_reference = req.query.external_reference
   const merchant_order_id= req.query.merchant_order_id
-  console.log("EXTERNAL REFERENCE ", external_reference)
+  const items = req.query.items
+  const status = req.query.status
+  //console.log("EXTERNAL REFERENCE ", external_reference)
+  console.log("item------------------------------------", items)
 
+    const cart=await Cart.findAll({
+        where:{
+            userId: external_reference
+        }
+    })
   //Aquí edito el status de mi orden
-  Order.findByPk(id)
-  .then((order) => {
-    order.payment_id= payment_id
-    order.payment_status= payment_status
-    order.merchant_order_id = merchant_order_id
-    order.status = "completed"
-    console.info('Salvando order')
-    order.save()
-    .then((_) => {
-      console.info('redirect success')
-      
-      return res.redirect("http://localhost:3000")
+  Order.create({
+    payment_id: payment_id,
+    payment_status: payment_status,
+    merchant_order_id : merchant_order_id,
+    status : status,
+    userId: external_reference,
+    cart: cart
     })
-    .catch((err) =>{
-      console.error('error al salvar', err)
-      return res.redirect(`http://localhost:3000/?error=${err}&where=al+salvar`)
-    })
-  })
-  .catch(err =>{
-    console.error('error al buscar', err)
-    return res.redirect(`http://localhost:3000/?error=${err}&where=al+buscar`)
-  })
+
+
+
+    return res.redirect("http://localhost:3000")
+    
+//     .catch((err) =>{
+//       console.error('error al salvar', err)
+//       return res.redirect(`http://localhost:3000/?error=${err}&where=al+salvar`)
+//     })
+//   })
+//   .catch(err =>{
+//     console.error('error al buscar', err)
+//     return res.redirect(`http://localhost:3000/?error=${err}&where=al+buscar`)
+//   })
 
   //proceso los datos del pago 
   //redirijo de nuevo a react con mensaje de exito, falla o pendiente
