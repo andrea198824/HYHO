@@ -283,7 +283,9 @@ const Cart = () => {
                             isLoading
                                 ? null
                                 : user
-                                    ? <Button className={classes.Buttons}>COMPRAR</Button>
+                                    ? <Link to='/mercadopago'>
+                                    <Button className={classes.Buttons}>COMPRAR</Button>
+                                    </Link> 
                                     : subTotal === 0
                                         ? <Title style={{ fontSize: "25px" }}> Agrega Productos Para Continuar </Title>
                                         : <Title> Inicia Sesion Para Continuar </Title>
