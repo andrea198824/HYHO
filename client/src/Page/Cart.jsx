@@ -286,7 +286,7 @@ const Cart = () => {
                                     ? <Link to='/MercadoPago'>
                                         <Button className={classes.Buttons}>COMPRAR</Button>
                                     </Link>
-                                    : subTotal === 0
+                                    : subTotal === 0 || !user
                                         ? <Title style={{ fontSize: "25px" }}> Agrega Productos Para Continuar </Title>
                                         : <Title> Inicia Sesion Para Continuar </Title>
                         }
