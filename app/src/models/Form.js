@@ -11,11 +11,9 @@ module.exports = (sequelize) => {
       },
       price: {
         type: DataTypes.FLOAT,
-        allowNull: false
       },
       weight: {
         type: DataTypes.FLOAT,
-        allowNull: false
       },
       descriptions: {
         type: DataTypes.TEXT,
@@ -27,7 +25,6 @@ module.exports = (sequelize) => {
       },
       stock: {
         type: DataTypes.INTEGER,
-        allowNull: false
       },
 });
 };

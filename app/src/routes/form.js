@@ -23,14 +23,14 @@ exports.post = async function(req, res){  // lalala.post
         res.send({info: "No title"});
         return
         }
-    if (!price) {
-        res.send({info: "No price"});
-        return
-        }
-    if (!weight) {
-        res.send({info: "No weight"});
-        return
-        }
+    // if (!price) {
+    //     res.send({info: "No price"});
+    //     return
+    //     }
+    // if (!weight) {
+    //     res.send({info: "No weight"});
+    //     return
+    //     }
     if (!descriptions) {
         res.send({info: "No descriptions"});
         return
