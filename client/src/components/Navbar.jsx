@@ -1,12 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Badge } from "@material-ui/core";
-import { Search, ShoppingCartOutlined } from "@material-ui/icons";
+import { Autorenew, Search, ShoppingCartOutlined } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, getUserStatus, logoutUser, searchProducts } from '../store/actions';
+import { getProducts, searchProducts, getToken, addUser, checkUserInDb, postShopCart, putShopCart, getShopCart, getCategories } from '../store/actions';
 import LogoHyho from '..//Img/logoLargo.gif';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Container = styled.div`
   height: 80px; 
@@ -84,26 +86,45 @@ const linkStyle = {
     color: 'inherit',
 }
 
+const profilePic = {
+    width: "auto",
+    height: "40px",
+    padding: "4px",
+    borderRadius: "2rem",
+
+}
+
 const Navbar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [search, setSearch] = useState("")
+    const products = useSelector(state => state.products)
     const cartProducts = useSelector(state => state.shoppingCart)
-    const userStatus = useSelector(state => state.userIsLogin)
+    const token = useSelector(state => state.token)
+    const userInDB = useSelector(state => state.userInDB)
+    const dbShopCart = useSelector(state => state.dbShopCart)
 
+    const { user, isLoading, loginWithRedirect, logout, getAccessTokenSilently } = useAuth0();
 
     useEffect(() => {
-        dispatch(getProducts())
-        console.log("Lo de abajo muestra si el usuario esta logueado")
-        dispatch(getUserStatus())
+        if (!isLoading && user && userInDB === false) {
+            dispatch(addUser(user, token))
+            dispatch(checkUserInDb())
+            setTimeout(() => {
+                dispatch(postShopCart(user.email, cartProducts, token))
+            }, 2000)
+        }
+        if (!isLoading && user) dispatch(getShopCart(user.email, token))
+        if (!isLoading && user && !dbShopCart.length) dispatch(postShopCart(user.email, cartProducts, token))
     }, [])
 
     useEffect(() => {
         localStorage.setItem('shoppingCart', JSON.stringify(cartProducts))
+        if (!isLoading && user) dispatch(putShopCart(user.email, cartProducts, token))
     }, [cartProducts])
 
-    const onChangeSearch = (e) => {
+    const onChangeSearch = async (e) => {
         setSearch(e.target.value)
     }
 
@@ -114,12 +135,13 @@ const Navbar = () => {
         if (search) navigate('/products')
     }
 
-    const onClickLogout = (e) => {
-        e.preventDefault()
-        dispatch(logoutUser())
-        dispatch(getUserStatus())
-        window.location.reload(true)
+    if (!isLoading) {
+        getAccessTokenSilently()
+            .then(res => {
+                dispatch(getToken(res))
+            })
     }
+
     return (
         <Container>
             <Wrapper>
@@ -137,32 +159,42 @@ const Navbar = () => {
                     </SearchContainer>
                 </Center>
 
-                {userStatus ? <Right>
-                    <MenuItem onClick={onClickLogout}>Cerrar Sesion</MenuItem>
-                    <MenuItem>
-                        <Link to='/cart' style={linkStyle}>
-                            <Badge badgeContent={cartProducts.length} color="primary">
-                                <ShoppingCartOutlined />
-                            </Badge>
-                        </Link>
-                    </MenuItem>
-                </Right>
-                    :
-                    <Right>
-                        <Link to='/register' style={linkStyle}>
-                            <MenuItem>Registrarse</MenuItem>
-                        </Link>
-                        <Link to='/login' style={linkStyle}>
-                            <MenuItem>Iniciar Sesion</MenuItem>
-                        </Link>
-                        <MenuItem>
-                            <Link to='/cart' style={linkStyle}>
-                                <Badge badgeContent={cartProducts.length} color="primary">
-                                    <ShoppingCartOutlined />
-                                </Badge>
-                            </Link>
-                        </MenuItem>
-                    </Right>
+                {
+                    isLoading ?
+                        <Right>
+                            <MenuItem>Cargando...</MenuItem>
+                            <MenuItem>
+                                <Link to='/cart' style={linkStyle}>
+                                    <Badge badgeContent={cartProducts.length} color="primary">
+                                        <ShoppingCartOutlined />
+                                    </Badge>
+                                </Link>
+                            </MenuItem>
+                        </Right>
+                        :
+                        user ?
+                            <Right>
+                                <MenuItem onClick={() => logout({ returnTo: window.location.origin })} >Cerrar Sesion</MenuItem>
+                                <img src={user.picture} style={profilePic} alt="" />
+                                <MenuItem>
+                                    <Link to='/cart' style={linkStyle}>
+                                        <Badge badgeContent={cartProducts.length} color="primary">
+                                            <ShoppingCartOutlined />
+                                        </Badge>
+                                    </Link>
+                                </MenuItem>
+                            </Right>
+                            :
+                            <Right>
+                                <MenuItem onClick={loginWithRedirect}>Iniciar Sesion / Registrarse</MenuItem>
+                                <MenuItem>
+                                    <Link to='/cart' style={linkStyle}>
+                                        <Badge badgeContent={cartProducts.length} color="primary">
+                                            <ShoppingCartOutlined />
+                                        </Badge>
+                                    </Link>
+                                </MenuItem>
+                            </Right>
 
                 }
 

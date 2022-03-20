@@ -7,26 +7,25 @@ import {
 } from 'react-google-maps'
 import { Link } from 'react-router-dom'
 
-function Map({ lat, lng }) {
-    
+
+function Maps() {
   return (
-      <div>
-          <GoogleMap
-              defaultZoom={15}
-              defaultCenter={{ lat, lng }}
-          ></GoogleMap>
+    <div>
+       <GoogleMap
+         defaultZoom={15}
+         defaultCenter={{ lat: -34.6037851, lng: -58.381775 }}
+       ></GoogleMap>
 
+       <Marker
+         draggable={true}
+         position={{ lat: -34.6037851, lng: -58.381775 }}
+      ></Marker>
 
-          <Marker
-              draggable={true}
-              position={{ lat, lng }}
-          >
-          </Marker>
-          
-          <p>Podes encontrarnos en Av. 9 de Julio, C1043 CABA, Argentina</p>
-          <Link to='/'>Back</Link>
+      <p>Podes encontrarnos en Av. 9 de Julio, C1043 CABA, Argentina</p>
+      <Link to='/'>Back</Link>
       </div>
   )
 }
-//lat: -34.6037851, lng: -58.381775
-export default withScriptjs(withGoogleMap(Map))
+
+// //lat: -34.6037851, lng: -58.381775
+export default withScriptjs(withGoogleMap(Maps))

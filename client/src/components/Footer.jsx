@@ -129,13 +129,8 @@ const Footer = () => {
           <Link onClick={onClickLink} to='/cart' style={linkListItems}>
             <ListItem>Carro de compras</ListItem>
           </Link>
-          <Link onClick={onClickLink} to='/donatedinero' style={linkListItems}>
-            <ListItem>Dona dinero</ListItem>
-          </Link>
-
-          <Link onClick={onClickLink} to='/donateproduct' style={linkListItems}>
-            <ListItem>Dona productos</ListItem>
-          </Link>
+          <ListItem>Dona dinero</ListItem>
+          <ListItem>Dona productos</ListItem>
           <Link onClick={onClickLink} to='/products' style={linkListItems}>
             <ListItem>Tienda</ListItem>
           </Link>
@@ -146,10 +141,10 @@ const Footer = () => {
       <Right>
         <Title>Contacto</Title>
         <ContactItem>
-          <Link onClick={onClickLink} to={'/Mapa'}>
-            <Room style={{ linkListItems }} />
-          </Link>
-          &nbsp; Av. 9 de Julio, C1043 CABA, Argentina
+        <Link onClick={onClickLink} to='/mapa' style={linkListItems}>
+          <Room style={{ marginRight: '10px' }} /> &nbsp; Av. 9 de Julio, C1043
+          CABA, Argentina
+          </Link> 
         </ContactItem>
         <ContactItem>
           <Phone style={{ marginRight: '10px' }} /> +01 101 10 01
