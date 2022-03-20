@@ -266,6 +266,19 @@ exports.put = async function (req, res, next) {
             phone,
         } = req.body;
 
+        console.log(req.body)
+
+        console.log(
+            'ACAAAAAAAA',
+            email,
+            nickname,
+            picture,
+            given_name,
+            family_name,
+            billing_address,
+            shipping_address,
+            phone,
+        )
         
         let emailUser = await User.findAll({
             where: { email: email }

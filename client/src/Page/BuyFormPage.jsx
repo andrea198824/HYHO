@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
+import { useAuth0 } from '@auth0/auth0-react';
 import { Icon } from '@material-ui/core'
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link, useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar';
 import Announcement from '../components/Announcement';
+import { getToken, modifyuser } from '../store/actions';
+
+
+
+
 // import { createUser } from '../store/actions';
 
 const Container = styled.div`
@@ -177,21 +183,29 @@ export function validate(input) {
     return errors;
 };
 
-const buyForm = () => {
+const BuyFormPage = () => {
 
-    
-    const dispatch = useDispatch()
-    // const navigate = useNavigate()
+    const dispatch = useDispatch();
+    const { user, getAccessTokenSilently, isLoading } = useAuth0();
+    const token = useSelector( state => state.token)
 
     const [errors, setErrors] = useState({});
     const [input, setInput] = useState({
-        street : '',
-        number : '',
+        street: '',
+        number: '',
         state: '',
-        city : '',
-        phone : ''
+        city: '',
+        phone: ''
     });
 
+    if (!isLoading) {
+        getAccessTokenSilently()
+            .then(res => {
+                dispatch(getToken(res))              
+            })
+
+    }
+        
     const handleInputChange = function (e) {
         e.preventDefault()
         setInput({
@@ -205,12 +219,11 @@ const buyForm = () => {
         }));
     }
 
-   
-
     const handleSubmit = (e) => {
-        // e.preventDefault()
-        // dispatch(createUser(input))
-        // navigate("/");
+        e.preventDefault()
+        console.log('Desde Pagina', JSON.stringify(input))
+        dispatch(modifyuser(input, user, token))
+        
     }
       
     return (
@@ -223,9 +236,7 @@ const buyForm = () => {
                 <Title>Datos De Envios</Title>
 
             <Wrapper>
-
-                    
-               
+                     
                 <Form onSubmit={(e) => handleSubmit(e)}>
 
                         <DivItemUno>
@@ -319,4 +330,4 @@ const buyForm = () => {
             </div>
     );
 };
-export default buyForm;
+export default BuyFormPage;

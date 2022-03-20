@@ -16,6 +16,7 @@ import {
     DELETE_SHOP_CART,
     DELETE_LOCAL_SHOP_CART,
     COMPARE_PRODUCTS_SHOP_CART,
+    MODIFY_USER
 } from "../actions";
 
 const initialState = {
@@ -95,6 +96,10 @@ export default function rootReducer(state = initialState, action) {
 
             const newShoppingCart = state.products.filter(el => productsIds.includes(el.id))
             return { ...state, shoppingCart: newShoppingCart }
+        case MODIFY_USER:
+            return {
+                ...state
+            }
         default:
             return state;
     }
