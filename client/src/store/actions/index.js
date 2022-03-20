@@ -23,6 +23,41 @@ export const DELETE_SHOP_CART = 'DELETE_SHOP_CART';
 export const PUT_SHOP_CART = 'PUT_SHOP_CART';
 export const DELETE_LOCAL_SHOP_CART = 'DELETE_LOCAL_SHOP_CAR';
 export const COMPARE_PRODUCTS_SHOP_CART = 'COMPARE_PRODUCTS_SHOP_CART';
+export const MODIFY_USER = 'MODIFY_USER'
+
+
+export const modifyuser = (data, user, token) => {
+    let shipping_address = {
+        street: data.street,
+        number: data.number,
+        state: data.state,
+        city: data.city
+     }
+    console.log('desde Action',data, token)
+    return async function (dispatch) {
+        const response = await axios.put('/modify-user', {
+            email: user.email,
+            nickname: user.nickname,
+            picture: user.picture,
+            given_name: user.given_name,
+            family_name: user.family_name,
+            billing_address: 'x',
+            shipping_address: JSON.stringify(shipping_address),
+            phone: data.phone
+
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+        dispatch({
+            type: MODIFY_USER,
+            payload: response
+        })
+
+    }
+}
+
 
 
 export const getProducts = () => {

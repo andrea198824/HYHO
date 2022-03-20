@@ -12,7 +12,8 @@ import RecoverPassword from './Page/RecoverPassword';
 import RegisterAdmin from './Page/RegiterAdmin';
 import DonarProduct from './Page/DonarProduct';
 import DonarDinero from './Page/DonarDinero';
-import Mapa from './Page/Mapa'
+import Mapa from './Page/Mapa';
+import BuyFormPage from './Page/BuyFormPage'
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
                     <Route exact path='/donateproduct' element={<DonarProduct />} />
                     <Route exact path='/donatedinero' element={<DonarDinero />} />
                     <Route exact path='/mapa' element={<Mapa />} />
+                    <Route exact path='/buyformpage' element={<BuyFormPage />} />
                 </Routes>
              </Router>
             </div>
