@@ -13,6 +13,7 @@ import RegisterAdmin from './Page/RegiterAdmin';
 import DonarProduct from './Page/DonarProduct';
 import DonarDinero from './Page/DonarDinero';
 import Mapa from './Page/Mapa'
+import MercadoPago from './Page/MercadoPago';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
                     <Route exact path='/donateproduct' element={<DonarProduct />} />
                     <Route exact path='/donatedinero' element={<DonarDinero />} />
                     <Route exact path='/mapa' element={<Mapa />} />
+                    <Route exact path='/MercadoPago' element={<MercadoPago />} />
                 </Routes>
              </Router>
             </div>

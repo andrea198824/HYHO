@@ -1,0 +1,18 @@
+.MercadoPago {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.button {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.bckButton {
+  margin-top: 5px;
+  height: 35px;
+  width: 85px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
