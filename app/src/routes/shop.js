@@ -2,6 +2,7 @@
 
 const { Cart, Order, Products, User } = require('../db')
 
+//carrito compras
 
 exports.getProducts = async function (req, res, next) {
     const { id } = req.query //ID del producto
@@ -43,6 +44,7 @@ exports.getCart = async function (req, res, next) {
                 email: email
             }
         })
+        console.log(user)
         let cart = await Cart.findAll({
             where: {
                 userId: user[0].id
