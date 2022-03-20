@@ -3,20 +3,33 @@ import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import { userRows } from "../../dummyData";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getUsers } from '../../store/actions';
+
 
 export default function UserList() {
+
+  const dispatch = useDispatch();
+  const allUsers = useSelector((state)=> state.users);
+  const token = useSelector((state)=> state.token);
   const [data, setData] = useState(userRows);
 
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
   };
   
+  useEffect (()=>{
+    dispatch(getUsers(token));
+    console.log(allUsers)
+    setData(data.concat(allUsers))
+  },[dispatch])
+
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
     {
       field: "user",
-      headerName: "User",
+      headerName: "Usuario",
       width: 200,
       renderCell: (params) => {
         return (
@@ -34,13 +47,8 @@ export default function UserList() {
       width: 120,
     },
     {
-      field: "transaction",
-      headerName: "Transaction Volume",
-      width: 160,
-    },
-    {
       field: "action",
-      headerName: "Action",
+      headerName: "Accion",
       width: 150,
       renderCell: (params) => {
         return (

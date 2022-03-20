@@ -4,17 +4,25 @@ const { DataTypes, DatabaseError } = require('sequelize')
 module.exports = sequelize => {
   // defino el modelo
   sequelize.define('order', {
-    order: {
+    status:{  
+      type: DataTypes.ENUM('created', 'processing', 'cancelled', 'completed'),
+      allowNull: false
+  },
+  payment_id:{
       type: DataTypes.STRING,
-      allowNull: false
+      defaultValue: ""
     },
-    status: {
-      type: DataTypes.ENUM('Active', 'Cancelled', 'Finalized'),
-      allowNull: true
-    },
-    total: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    }
+
+  payment_status:{
+      type: DataTypes.STRING,
+      defaultValue: ""
+  },
+  merchant_order_id: {
+      type: DataTypes.BIGINT,
+      defaultValue: 0
+  },
+  cart: {
+    type: DataTypes.ARRAY(DataTypes.JSON),
+}
   })
 }

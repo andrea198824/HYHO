@@ -27,6 +27,7 @@
     "ioredis": "^4.19.2",
     "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^2.0.5",
+    "mercadopago": "^1.5.12",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.6",
     "pg": "^8.5.1",

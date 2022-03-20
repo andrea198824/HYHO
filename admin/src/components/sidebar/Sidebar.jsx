@@ -38,9 +38,9 @@ export default function Sidebar() {
                 Usuarios
               </li>
             </Link>
-            <Link to="/newUser" className="link">
+            <Link to="https://hyho.vercel.app/register" className="link">
               <li className="sidebarListItem">
-                <Storefront className="sidebarIcon" />
+                <PermIdentity className="sidebarIcon" />
                 Nuevo Usuario
               </li>
             </Link>
@@ -51,7 +51,6 @@ export default function Sidebar() {
               </li>
             </Link>
             <Link to="/newProduct" className="link">
-
               <li className="sidebarListItem">
                 <Storefront className="sidebarIcon" />
                 Nuevo Producto
@@ -60,6 +59,15 @@ export default function Sidebar() {
             <li className="sidebarListItem">
               <AttachMoney className="sidebarIcon" />
               ventas
+            </li>
+          </ul>
+        </div>
+        <div className="sidebarMenu">
+          <h3 className="sidebarTitle">Donaciones</h3>
+          <ul className="sidebarList">
+            <li className="sidebarListItem">
+              <DynamicFeed className="sidebarIcon" />
+              Formularios donaciones de productos
             </li>
           </ul>
         </div>
