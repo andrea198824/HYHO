@@ -228,7 +228,7 @@ const DonarProduct = () => {
   const handleSubmit = e => {
     console.log('entro al submit', input)
     e.preventDefault()
-    dispatch(dispatch(donarProducto(input,email,token)))
+    dispatch(donarProducto(input,email,token))
 }
 
 
@@ -281,7 +281,7 @@ const DonarProduct = () => {
             <Item0
               onChange={e => handleInputChange(e)}
               type='text'
-              name='description'
+              name='descriptions'
               placeholder='Descripcion'
             />
             {errors.lastName && <Paragraph>{errors.descriptions}</Paragraph>}
@@ -297,11 +297,9 @@ const DonarProduct = () => {
           </DivItemUno>
           <DivItemDos>
           <div>
-            <Link to='/' style={linkStyle}>
               <Button type='submit' disabled={!errors.disabled}>
                 Donar
               </Button>
-            </Link>
             <Link to='/' style={linkStyle}>
               <Button>Volver</Button>
             </Link>

@@ -146,6 +146,7 @@ export const donarProducto = (payload,email,token) => {
       })
     
     }  catch (err) {
+        console.log(err)
                   return
               }
         
