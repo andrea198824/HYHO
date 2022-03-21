@@ -86,6 +86,9 @@ User.hasMany(Products)
 User.hasOne(Cart)
 Cart.belongsTo(User)
 
+Cart.hasOne(Order) //CAMBIADO
+Order.belongsTo(Cart) //CAMBIADO
+
 Cart.belongsToMany(Products, {
   through: 'cart_Item'
 })

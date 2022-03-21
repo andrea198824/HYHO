@@ -77,11 +77,9 @@ exports.postCart = async function (req, res, next) {
 
         if (!cartDb[0]) {
             //console.log("No se encontro carrito")
-            await Cart.findOrCreate({
-                where: {
-                    cart,
+            await Cart.create({
+                    cart: JSON.stringify(cart),
                     userId: user[0].id
-                }
             })
             return res.status(201).send("Cart created succesfully")
         }

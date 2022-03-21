@@ -18,18 +18,25 @@ mercadopago.configure({
 exports.get = async function (req, res, next)  {
 
     //const {id_user} = req.params
-  const {email, cart} = req.body // id carrito
+  let {email, cart} = req.body // id carrito
+
+
+  cart = Array.isArray(cart) ? JSON.stringify(cart) : cart;//--> SALE UN STRING
  
-    let user = await User.findAll({
+    let cartDb = await Cart.findAll({
         where: {
-            email: email
+          cart: cart
         }
     })
     
-    let userId = await user[0].id
+    let cartId = cartDb[0].id
 
-    console.log("--------------------------------------------", userId)
+    // console.log("--------------------------------------------", cartId)
     //se respeta el formato por que asi lo pide mercadopago
+
+    cart = typeof cart === 'string' ? JSON.parse(cart) : cart; //--> SALE UN ARRAY
+
+
   const items_ml = cart.map(i => ({
     title: i.title,
     unit_price: i.price,
@@ -39,7 +46,7 @@ exports.get = async function (req, res, next)  {
   // Crea un objeto de preferencia
   let preference = {
  items: items_ml,
-    external_reference : `${userId}`,
+    external_reference : `${cartId}`,
     payment_methods: {
       excluded_payment_types: [
         {
@@ -77,24 +84,25 @@ exports.pagos = async function (req, res) {
   const payment_status= req.query.status
   const external_reference = req.query.external_reference
   const merchant_order_id= req.query.merchant_order_id
-  const items = req.query.items
+  // const items = req.query.items
   const status = req.query.status
   //console.log("EXTERNAL REFERENCE ", external_reference)
-  console.log("item------------------------------------", items)
+  // console.log("item------------------------------------", items)
 
-    const cart=await Cart.findAll({
+    const cart = await Cart.findAll({
         where:{
-            userId: external_reference
+            id: external_reference
         }
     })
+
   //Aquí edito el status de mi orden
   Order.create({
     payment_id: payment_id,
     payment_status: payment_status,
     merchant_order_id : merchant_order_id,
     status : status,
-    userId: external_reference,
-    cart: cart
+    userId: cart[0].userId,
+    cartId: external_reference
     })
 
 
