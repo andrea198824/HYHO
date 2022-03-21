@@ -317,7 +317,7 @@ const Cart = () => {
                         {
                             isLoading
                                 ? null
-                                : user
+                                : user && subTotal !== 0
                                     ? <Link to='/mercadopago'>
                                         <Button className={classes.Buttons}>COMPRAR</Button>
                                     </Link>
