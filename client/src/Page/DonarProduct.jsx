@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router'
 import {useDispatch, useSelector} from "react-redux"
 import FileBase from 'react-file-base64'
-import axios from 'axios'
 import NavBar from '../components/Navbar'
 import { Height } from '@material-ui/icons'
 import { donarProducto, getToken  } from '../store/actions'
@@ -216,7 +215,7 @@ const DonarProduct = () => {
 
     setErrors(
       validate({
-        ...input,
+        ...input, 
         [e.target.name]: e.target.value
       })
     )
@@ -286,8 +285,8 @@ const DonarProduct = () => {
         
         
 
-          <div style={file}>
-            <FileBase styled={fileBase} type='file' multiple={false} onDone={getBaseFile} />
+          <div >
+            <FileBase type='file' multiple={false} onDone={getBaseFile} />
 
             {errors.image && <Paragraph>{errors.image}</Paragraph>}
           </div>
