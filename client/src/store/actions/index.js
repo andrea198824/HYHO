@@ -16,15 +16,46 @@ export const ADD_USER = 'ADD_USER';
 export const MODIFY_QUANTITY = 'MODIFY_QUANTITY';
 export const MODIFY_QUANTITY_DETAILS = 'MODIFY_QUANTITY_DETAILS';
 export const ADD_TO_CART_FROM_DETAILS = 'ADD_TO_CART_FROM_DETAILS';
-export const CHECK_USER_IN_DB = 'CHECK_USER_IN_DB';
 export const GET_SHOP_CART = 'GET_SHOP_CART';
 export const CONCAT_SHOP_CART = 'CONCAT_SHOP_CART';
 export const DELETE_SHOP_CART = 'DELETE_SHOP_CART';
 export const PUT_SHOP_CART = 'PUT_SHOP_CART';
 export const DELETE_LOCAL_SHOP_CART = 'DELETE_LOCAL_SHOP_CAR';
 export const COMPARE_PRODUCTS_SHOP_CART = 'COMPARE_PRODUCTS_SHOP_CART';
+export const MODIFY_USER = 'MODIFY_USER';
+export const REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART';
 
+export const modifyuser = (data, user, token) => {
+    let shipping_address = {
+        street: data.street,
+        number: data.number,
+        state: data.state,
+        city: data.city
+    }
+    //console.log('desde Action',data, token)
+    return async function (dispatch) {
+        const response = await axios.put('/modify-user', {
+            email: user.email,
+            nickname: user.nickname,
+            picture: user.picture,
+            given_name: user.given_name,
+            family_name: user.family_name,
+            billing_address: 'x',
+            shipping_address: JSON.stringify(shipping_address),
+            phone: data.phone
 
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+        dispatch({
+            type: MODIFY_USER,
+            payload: response
+        })
+
+    }
+}
 export const getProducts = () => {
     return async function (dispatch) {
         try {
@@ -139,13 +170,6 @@ export const addToCartFromDetails = (details) => {
         payload: details
     }
 }
-
-export const checkUserInDb = () => {
-    return {
-        type: CHECK_USER_IN_DB,
-    }
-}
-
 export const getShopCart = (email, token) => {
     return async function (dispatch) {
         const response = await axios.get(`/cart/${email}`, {
@@ -159,7 +183,6 @@ export const getShopCart = (email, token) => {
         })
     }
 }
-
 export const postShopCart = (email, cart, token) => {
     cart = JSON.stringify(cart)
     return async function (dispatch) {
@@ -174,7 +197,6 @@ export const postShopCart = (email, cart, token) => {
         })
     }
 }
-
 export const putShopCart = (email, cart, token) => {
     cart = JSON.stringify(cart)
     return async function (dispatch) {
@@ -189,9 +211,10 @@ export const putShopCart = (email, cart, token) => {
         })
     }
 }
-
 export const concatShopCart = () => {
-
+    return {
+        type: CONCAT_SHOP_CART,
+    }
 }
 
 export const deleteShopCart = (email, token) => {
@@ -223,5 +246,12 @@ export const compareProductsShopCart = () => {
     }
 }
 
+export const removeItemFromCart = (id) => {
+    console.log("Entra al action")
+    return {
+        type: REMOVE_ITEM_FROM_CART,
+        id
+    }
+}
 
 

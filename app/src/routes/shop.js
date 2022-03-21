@@ -42,7 +42,7 @@ exports.getCart = async function (req, res, next) {
         email: email
       }
     })
-    console.log(user)
+    //console.log(user)
     let cart = await Cart.findAll({
       where: {
         userId: user[0].id

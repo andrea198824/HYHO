@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Badge } from "@material-ui/core";
-import { Autorenew, Search, ShoppingCartOutlined } from "@material-ui/icons";
+import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, searchProducts, getToken, addUser, checkUserInDb, postShopCart, putShopCart, getShopCart, getCategories } from '../store/actions';
+import { searchProducts, putShopCart, getShopCart, postShopCart, concatShopCart } from '../store/actions';
 import LogoHyho from '..//Img/logoLargo.gif';
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -96,52 +96,22 @@ const profilePic = {
 
 const Navbar = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
-    const [search, setSearch] = useState("")
-    const products = useSelector(state => state.products)
     const cartProducts = useSelector(state => state.shoppingCart)
     const token = useSelector(state => state.token)
-    const userInDB = useSelector(state => state.userInDB)
-    const dbShopCart = useSelector(state => state.dbShopCart)
-
-    const { user, isLoading, loginWithRedirect, logout, getAccessTokenSilently } = useAuth0();
+    const { user, isLoading, loginWithRedirect, logout } = useAuth0();
 
     useEffect(() => {
-        if (!isLoading && user && userInDB === false) {
-            dispatch(addUser(user, token))
-            dispatch(checkUserInDb())
-            setTimeout(() => {
-                dispatch(postShopCart(user.email, cartProducts, token))
-            }, 2000)
-        }
-        if (!isLoading && user) dispatch(getShopCart(user.email, token))
-        if (!isLoading && user && !dbShopCart.length) dispatch(postShopCart(user.email, cartProducts, token))
+        if (!isLoading && user) dispatch(postShopCart(user.email, cartProducts, token))
     }, [])
 
     useEffect(() => {
         localStorage.setItem('shoppingCart', JSON.stringify(cartProducts))
-        if (!isLoading && user) dispatch(putShopCart(user.email, cartProducts, token))
+        if (!isLoading && user) {
+            dispatch(putShopCart(user.email, cartProducts, token))
+        }
     }, [cartProducts])
-
-    const onChangeSearch = async (e) => {
-        setSearch(e.target.value)
-    }
-
-    const handleSearch = (e) => {
-        e.preventDefault();
-        dispatch(searchProducts(search))
-        setSearch("")
-        if (search) navigate('/products')
-    }
-
-    if (!isLoading) {
-        getAccessTokenSilently()
-            .then(res => {
-                dispatch(getToken(res))
-            })
-    }
-
+    
     return (
         <Container>
             <Wrapper>
@@ -152,12 +122,6 @@ const Navbar = () => {
                     <ImgLogo src={LogoHyho}></ImgLogo>
                     {/* <Slogan> "Help Yourself By Helping Others" </Slogan> */}
                 </Left>
-                <Center>
-                    <SearchContainer onSubmit={handleSearch}>
-                        <Input onChange={onChangeSearch} value={search} placeholder="Buscar..." />
-                        <Search style={{ color: "gray", fontSize: 20 }} />
-                    </SearchContainer>
-                </Center>
 
                 {
                     isLoading ?

@@ -4,20 +4,12 @@ import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
 import WidgetSm from "../../components/widgetSm/WidgetSm";
 // import WidgetLg from "../../components/widgetLg/WidgetLg";
 import { userData } from "../../dummyData";
-import {useAuth0 } from '@auth0/auth0-react';
-import { getToken } from "../../store/actions";
-import { useDispatch } from "react-redux";
+
 import "./home.css";
 
 
-export default function Home() {
 
-const dispatch = useDispatch();
-const {getAccessTokenSilently, isLoading} = useAuth0();
-if (!isLoading) {
-  getAccessTokenSilently()
-  .then( (res)=> dispatch(getToken(res)))
-} 
+export default function Home() {
 
   return (
     <div className="home">

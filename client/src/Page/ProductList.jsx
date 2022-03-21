@@ -1,14 +1,15 @@
-import { useEffect } from "react";
+import {  useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Announcement from "../components/Announcement";
+import { Search } from "@material-ui/icons";
 import Products from "../components/Products";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
-import { orderByPrice, filterByCategory, getCategories } from "../store/actions";
-import { useAuth0 } from '@auth0/auth0-react'
+import { orderByPrice, filterByCategory, searchProducts } from "../store/actions";
+import { useNavigate } from "react-router";
 
 
 
@@ -35,21 +36,45 @@ const FilterText = styled.span`
   ${mobile({ marginRight: "0px" })}
 `;
 
+const SearchContainer = styled.form`
+  border: 0.5px solid lightgray;
+  border-radius: 0.3rem;
+  display: flex;
+  align-items: center;
+  margin-left: 25px;
+  padding: 5px;
+  width: 40%;
+  height: 30%;
+  align-self: center;
+  justify-self: center;
+`;
+
+
+const Input = styled.input`
+  border: none;
+  width: 100%;
+  height: 20px;
+
+  margin-left: 5px;
+
+  ${mobile({ width: "50px" })}
+`;
+
 const Select = styled.select`
   padding: 10px;
   margin-right: 20px;
+  border-radius: 0.3rem;
   ${mobile({ margin: "10px 0px" })}
 `;
-const Option = styled.option``;
+const Option = styled.option`
+ 
+`;
 
 const ProductList = () => {
     const dispatch = useDispatch()
-    const token = useSelector(state => state.token)
-    const { user, isLoading } = useAuth0()
-
-    useEffect(() => {
-        dispatch(getCategories(token))
-    }, [])
+    const [search, setSearch] = useState("")
+    const navigate = useNavigate();
+    const categories = useSelector((state) => state.categories)
 
     const handleSelect = (e) => {
         dispatch(orderByPrice(e.target.value))
@@ -59,7 +84,17 @@ const ProductList = () => {
         dispatch(filterByCategory(e.target.value))
     }
 
-    const categories = useSelector((state) => state.categories)
+    const onChangeSearch = async (e) => {
+        setSearch(e.target.value)
+    }
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        dispatch(searchProducts(search))
+        setSearch("")
+        if (search) navigate('/products')
+    }
+
 
     return (
         <Container>
@@ -76,6 +111,12 @@ const ProductList = () => {
                         {categories.map(c => <Option key={c.id} value={c.title}>{c.name}</Option>)}
                     </Select>
                 </Filter>
+
+                <SearchContainer onSubmit={handleSearch}>
+                    <Input onChange={onChangeSearch} value={search} placeholder="Buscar..." />
+                    <Search style={{ color: "gray", fontSize: 20 }} />
+                </SearchContainer>
+
                 <Filter>
                     <FilterText>Ordenar:</FilterText>
                     <Select onChange={handleSelect}>
