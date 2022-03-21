@@ -23,7 +23,7 @@ export const PUT_SHOP_CART = 'PUT_SHOP_CART';
 export const DELETE_LOCAL_SHOP_CART = 'DELETE_LOCAL_SHOP_CAR';
 export const COMPARE_PRODUCTS_SHOP_CART = 'COMPARE_PRODUCTS_SHOP_CART';
 export const MODIFY_USER = 'MODIFY_USER';
-
+export const REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART';
 
 export const modifyuser = (data, user, token) => {
     let shipping_address = {
@@ -246,5 +246,12 @@ export const compareProductsShopCart = () => {
     }
 }
 
+export const removeItemFromCart = (id) => {
+    console.log("Entra al action")
+    return {
+        type: REMOVE_ITEM_FROM_CART,
+        id
+    }
+}
 
 

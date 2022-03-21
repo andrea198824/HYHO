@@ -7,7 +7,7 @@ import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { modifyQuantity, deleteShopCart, deleteLocalShopCart, compareProductsShopCart, concatShopCart } from "../store/actions";
+import { modifyQuantity, deleteShopCart, deleteLocalShopCart, compareProductsShopCart, concatShopCart, removeItemFromCart } from "../store/actions";
 import { useAuth0 } from '@auth0/auth0-react'
 import { useEffect } from "react";
 
@@ -114,11 +114,6 @@ const ProductPrice = styled.div`
   ${mobile({ marginBottom: "20px" })}
 `;
 
-const Hr = styled.hr`
-  background-color: #eee;
-  border: none;
-  height: 1px;
-`;
 
 const Summary = styled.div`
   flex: 1;
@@ -150,6 +145,40 @@ const Button = styled.button`
   background-color: black;
   color: white;
   font-weight: 600;
+`;
+
+const Hr = styled.hr`
+  background: linear-gradient(to right, white,  black);
+  margin-bottom: -1px;
+  margin-top: -1px;
+  border: none;
+  height: 1px;
+  width: 97%;
+`;
+
+const DeleteButton = styled.button`
+  width: 3%;
+  padding: 10px;
+  border: none;
+  background-color: black;
+  color: white;
+  font-weight: 600;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  cursor: pointer;
+  transition: 0.5s ease; 
+  &:hover {
+      width: 5%;
+  }
+`;
+
+const AltWrapper = styled.div`
+padding: 5px;
+  padding-right: 0;
+  margin-top: 1rem;
+  margin-right: 2rem;
+  user-select: none;
+  ${mobile({ padding: "10px" })}
 `;
 
 const linkStyle = {
@@ -197,6 +226,10 @@ const Cart = () => {
         }
     }
 
+    const onClickDeleteItem = (e) => {
+        dispatch(removeItemFromCart(e.target.value))
+    }
+
 
     return (
         <Container>
@@ -219,39 +252,43 @@ const Cart = () => {
                 <Bottom>
                     <Info>
                         {cartProducts.length ? cartProducts.map(el => (
-                            <Product key={el.id}>
-                                <ProductDetail>
-                                    <Image src={el.image} />
-                                    <Details>
-                                        <ProductName>
-                                            <b>Producto:</b>  {el.title}
-                                        </ProductName>
-                                        <ProductId>
-                                            <b>Stock:</b> {el.stock}
-                                        </ProductId>
-
-                                    </Details>
-                                </ProductDetail>
-                                <PriceDetail>
-                                    <ProductAmountContainer>
-                                        {
-                                            el.quantity < el.stock ?
-                                                <Add className={classes.AddAndMinus} id={el.id} value='+' onClick={onClickProduct} />
-                                                :
-                                                <Add style={{ visibility: "hidden" }} />
-                                        }
-                                        <ProductAmount>{el.quantity}</ProductAmount>
-                                        {
-                                            el.quantity - 1 !== 0 ?
-                                                <Remove className={classes.AddAndMinus} id={el.id} value='-' onClick={onClickProduct} />
-                                                :
-                                                <Remove style={{ visibility: "hidden" }} />
-                                        }
-                                    </ProductAmountContainer>
-                                    <ProductPrice>$ {el.price * el.quantity}</ProductPrice>
-                                </PriceDetail>
+                            <AltWrapper>
                                 <Hr />
-                            </Product>
+                                <Product key={el.id}>
+                                    <ProductDetail>
+                                        <Image src={el.image} />
+                                        <Details>
+                                            <ProductName style={{ userSelect: "text" }}>
+                                                <b>Producto:</b>  {el.title}
+                                            </ProductName>
+                                            <ProductId>
+                                                <b>Stock:</b> {el.stock}
+                                            </ProductId>
+
+                                        </Details>
+                                    </ProductDetail>
+                                    <PriceDetail>
+                                        <ProductAmountContainer>
+                                            {
+                                                el.quantity < el.stock ?
+                                                    <Add className={classes.AddAndMinus} id={el.id} value='+' onClick={onClickProduct} />
+                                                    :
+                                                    <Add style={{ visibility: "hidden" }} />
+                                            }
+                                            <ProductAmount>{el.quantity}</ProductAmount>
+                                            {
+                                                el.quantity - 1 !== 0 ?
+                                                    <Remove className={classes.AddAndMinus} id={el.id} value='-' onClick={onClickProduct} />
+                                                    :
+                                                    <Remove style={{ visibility: "hidden" }} />
+                                            }
+                                        </ProductAmountContainer>
+                                        <ProductPrice>$ {el.price * el.quantity}</ProductPrice>
+                                    </PriceDetail>
+                                    <DeleteButton value={el.id} onClick={onClickDeleteItem}> X </DeleteButton>
+                                </Product>
+                                <Hr />
+                            </AltWrapper>
                         )) : <Title > Sin Productos  </Title>}
 
                     </Info>
