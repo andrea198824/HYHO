@@ -1,4 +1,4 @@
-import { Add, Remove } from "@material-ui/icons";
+import { Add, Autorenew, Remove } from "@material-ui/icons";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
@@ -21,6 +21,8 @@ const Wrapper = styled.div`
 const ImgContainer = styled.div`
   flex: 1;
 `;
+
+
 
 const Image = styled.img`
   max-width: 80%;
@@ -103,11 +105,21 @@ const Product = () => {
     const dispatch = useDispatch();
     const id = useParams().id;
     const product = useSelector(state => state.details)
+    const allProducts = useSelector(state => state.products)
 
     useEffect(() => {
-        dispatch(getDetails(id))
+        if (allProducts.length) dispatch(getDetails(id))
     }, [])
 
+    if (!allProducts.length) {
+        setTimeout(() => {
+            dispatch(getDetails(id))
+        }, 2000)
+    }
+
+
+
+    // dispatch(getDetails(id))
     const onClickAddCart = (e) => {
         dispatch(addToCartFromDetails(product))
         alert("Producto Añadido")
@@ -121,47 +133,55 @@ const Product = () => {
         <Container >
             <Navbar />
             <Announcement />
-            <Wrapper>
-                <ImgContainer>
-                    <Image src={product ? product.image : 'https://acegif.com/wp-content/uploads/loading-53.gif'} />
-                </ImgContainer>
-                <InfoContainer>
-                    <Title>{product && product.title}</Title>
-                    <Desc>
-                        {product && product.descriptions}
-                    </Desc>
-                    <Price>$ {product && product.price}</Price>
-                    <br />
-                    <br /> { /* Utilizo br porque por algun motivo marginBottom no esta funcionando */}
-                    <Stock>Stock: {product && product.stock}</Stock>
-                    <FilterContainer>
-                    </FilterContainer>
-                    <AddContainer>
-                        <AmountContainer>
-                            {
-                                product.quantity - 1 !== 0
-                                    ?
-                                    <Remove value='-' onClick={onClickQuantity} />
-                                    :
-                                    <Remove style={{ visibility: "hidden" }} />
-                            }
-                            {
-                                product.stock === 1 ?
-                                    null
-                                    :
-                                    <Amount>{product && product.quantity}</Amount>
-                            }
-                            {
-                                product.quantity < product.stock ?
-                                    <Add value='+' onClick={onClickQuantity} />
-                                    :
-                                    <Add style={{ visibility: "hidden" }} />
-                            }
-                        </AmountContainer>
-                        <Button onClick={onClickAddCart}> AGREGAR AL CARRITO </Button>
-                    </AddContainer>
-                </InfoContainer>
-            </Wrapper>
+            {
+                product && product.id
+                    ? <Wrapper>
+                        <ImgContainer>
+                            <Image src={product ? product.image : 'https://acegif.com/wp-content/uploads/loading-53.gif'} />
+                        </ImgContainer>
+                        <InfoContainer>
+                            <Title>{product && product.title}</Title>
+                            <Desc>
+                                {product && product.descriptions}
+                            </Desc>
+                            <Price>$ {product && product.price}</Price>
+                            <br />
+                            <br /> { /* Utilizo br porque por algun motivo marginBottom no esta funcionando */}
+                            <Stock>Stock: {product && product.stock}</Stock>
+                            <FilterContainer>
+                            </FilterContainer>
+                            <AddContainer>
+                                <AmountContainer>
+                                    {
+                                        product && product.quantity - 1 !== 0
+                                            ?
+                                            <Remove value='-' onClick={onClickQuantity} />
+                                            :
+                                            <Remove style={{ visibility: "hidden" }} />
+                                    }
+                                    {
+                                        product && product.stock === 1 ?
+                                            null
+                                            :
+                                            <Amount>{product && product.quantity}</Amount>
+                                    }
+                                    {
+                                        product && product.quantity < product.stock ?
+                                            <Add value='+' onClick={onClickQuantity} />
+                                            :
+                                            <Add style={{ visibility: "hidden" }} />
+                                    }
+                                </AmountContainer>
+                                <Button onClick={onClickAddCart}> AGREGAR AL CARRITO </Button>
+                            </AddContainer>
+                        </InfoContainer>
+                    </Wrapper>
+
+                    : <ImgContainer>
+                        <Image src='https://acegif.com/wp-content/uploads/loading-53.gif'></Image>
+                    </ImgContainer>
+            }
+
             <Newsletter />
             <Footer />
         </Container>

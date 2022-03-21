@@ -11,7 +11,6 @@ import {
     MODIFY_QUANTITY,
     MODIFY_QUANTITY_DETAILS,
     ADD_TO_CART_FROM_DETAILS,
-    CHECK_USER_IN_DB,
     GET_SHOP_CART,
     DELETE_SHOP_CART,
     DELETE_LOCAL_SHOP_CART,
@@ -27,7 +26,6 @@ const initialState = {
     shoppingCart: JSON.parse(localStorage.getItem('shoppingCart')) || [],
     dbShopCart: [],
     token: "",
-    userInDB: false,
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -76,8 +74,6 @@ export default function rootReducer(state = initialState, action) {
         case ADD_TO_CART_FROM_DETAILS:
             if (state.shoppingCart.some(el => el.id === parseInt(action.payload.id))) return state;
             return { ...state, shoppingCart: state.shoppingCart.concat(action.payload) }
-        case CHECK_USER_IN_DB:
-            return { ...state, userInDB: true }
         case GET_SHOP_CART:
             return { ...state, dbShopCart: JSON.parse(action.payload[0].cart) }
         case DELETE_SHOP_CART:

@@ -1,5 +1,5 @@
 import './App.css';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Home from './Page/Home';
 import Product from "./Page/Product";
@@ -14,12 +14,33 @@ import DonarProduct from './Page/DonarProduct';
 import DonarDinero from './Page/DonarDinero';
 import Mapa from './Page/Mapa';
 import BuyFormPage from './Page/BuyFormPage'
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { addUser, getCategories, getProducts, getToken } from './store/actions'
+import { useAuth0 } from '@auth0/auth0-react';
+
 
 
 function App() {
+    const dispatch = useDispatch();
+    const { user, isLoading, getAccessTokenSilently } = useAuth0();
+
+    useEffect(() => {
+        dispatch(getCategories())
+        dispatch(getProducts())
+    }, [])
+
+    if (!isLoading) {
+        getAccessTokenSilently()
+            .then(res => {
+                dispatch(getToken(res))
+                dispatch(addUser(user, res))
+            })
+    }
+
     return (
-            <div className={"App"}>
-             <Router>
+        <div className={"App"}>
+            <Router>
                 <Routes>
                     <Route exact path='/' element={<Home />} />
                     <Route path="/products" element={<ProductList />} />
@@ -35,8 +56,8 @@ function App() {
                     <Route exact path='/mapa' element={<Mapa />} />
                     <Route exact path='/buyformpage' element={<BuyFormPage />} />
                 </Routes>
-             </Router>
-            </div>
+            </Router>
+        </div>
     );
 }
 export default App;

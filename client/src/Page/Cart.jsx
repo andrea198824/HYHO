@@ -183,7 +183,7 @@ const Cart = () => {
         if (products.length > 1) {
             dispatch(compareProductsShopCart())
         }
-    }, [products])
+    }, [dispatch, products])
 
 
     const onClickProduct = (e) => {
@@ -284,8 +284,8 @@ const Cart = () => {
                                 ? null
                                 : user
                                     ? <Link to='/mercadopago'>
-                                    <Button className={classes.Buttons}>COMPRAR</Button>
-                                    </Link> 
+                                        <Button className={classes.Buttons}>COMPRAR</Button>
+                                    </Link>
                                     : subTotal === 0
                                         ? <Title style={{ fontSize: "25px" }}> Agrega Productos Para Continuar </Title>
                                         : <Title> Inicia Sesion Para Continuar </Title>
