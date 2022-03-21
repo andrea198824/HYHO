@@ -18,109 +18,147 @@ mercadopago.configure({
 exports.get = async function (req, res, next)  {
 
     //const {id_user} = req.params
-  let {email, cart} = req.body // id carrito
-
-
-  cart = Array.isArray(cart) ? JSON.stringify(cart) : cart;//--> SALE UN STRING
- 
-    let cartDb = await Cart.findAll({
-        where: {
-          cart: cart
-        }
-    })
+    try {
+      let {email, cart} = req.body // id carrito
     
-    let cartId = cartDb[0].id
-
-    // console.log("--------------------------------------------", cartId)
-    //se respeta el formato por que asi lo pide mercadopago
-
-    cart = typeof cart === 'string' ? JSON.parse(cart) : cart; //--> SALE UN ARRAY
-
-
-  const items_ml = cart.map(i => ({
-    title: i.title,
-    unit_price: i.price,
-    quantity: i.quantity,
-  }))
-
-  // Crea un objeto de preferencia
-  let preference = {
- items: items_ml,
-    external_reference : `${cartId}`,
-    payment_methods: {
-      excluded_payment_types: [
-        {
-          id: "atm"
-        }
-      ],
-      installments: 3  //Cantidad máximo de cuotas
-    },
-    back_urls: {
-      success: 'http://localhost:3001/mercadopago/pagos',
-      failure: 'http://localhost:3001/mercadopago/pagos',
-      pending: 'http://localhost:3001/mercadopago/pagos',
-    },
-  };
-
-  mercadopago.preferences.create(preference)
-
-  .then(function(response){
-    console.info('respondio')
-    //Este valor reemplazará el string"<%= global.id %>" en tu HTML
-      global.id = response.body.id;
-      console.log(response.body)
-      res.json({ id: global.id });
-    })
-    .catch(function(error){
-      console.log(error);
-    })
+    
+      cart = Array.isArray(cart) ? JSON.stringify(cart) : cart;//--> SALE UN STRING
+     
+        let cartDb = await Cart.findAll({
+            where: {
+              cart: cart
+            }
+        })
+        
+        let cartId = cartDb[0].id
+    
+        // console.log("--------------------------------------------", cartId)
+        //se respeta el formato por que asi lo pide mercadopago
+    
+        cart = typeof cart === 'string' ? JSON.parse(cart) : cart; //--> SALE UN ARRAY
+    
+    
+      const items_ml = cart.map(i => ({
+        title: i.title,
+        unit_price: i.price,
+        quantity: i.quantity,
+      }))
+    
+      // Crea un objeto de preferencia
+      let preference = {
+     items: items_ml,
+        external_reference : `${cartId}`,
+        payment_methods: {
+          excluded_payment_types: [
+            {
+              id: "atm"
+            }
+          ],
+          installments: 3  //Cantidad máximo de cuotas
+        },
+        back_urls: {
+          success: 'http://localhost:3001/mercadopago/pagos',
+          failure: 'http://localhost:3001/mercadopago/pagos',
+          pending: 'http://localhost:3001/mercadopago/pagos',
+        },
+      };
+    
+      mercadopago.preferences.create(preference)
+    
+      .then(function(response){
+        console.info('respondio')
+        //Este valor reemplazará el string"<%= global.id %>" en tu HTML
+          global.id = response.body.id;
+          console.log(response.body)
+          res.json({ id: global.id });
+        })
+        .catch(function(error){
+          console.log(error);
+        })
+      
+    } catch (error) {
+      console.log("error  :",error)
+      res.sendStatus(404)
+    }
   }
     
 
 //Ruta que recibe la información del pago
 exports.pagos = async function (req, res) {
-  console.info("EN LA RUTA PAGOS ", req)
-  const payment_id= req.query.payment_id
-  const payment_status= req.query.status
-  const external_reference = req.query.external_reference
-  const merchant_order_id= req.query.merchant_order_id
-  // const items = req.query.items
-  const status = req.query.status
-  //console.log("EXTERNAL REFERENCE ", external_reference)
-  // console.log("item------------------------------------", items)
-
-    const cart = await Cart.findAll({
-        where:{
-            id: external_reference
+  try {
+    console.info("EN LA RUTA PAGOS ", req)
+    const payment_id= req.query.payment_id
+    const payment_status= req.query.status
+    const external_reference = req.query.external_reference
+    const merchant_order_id= req.query.merchant_order_id
+    // const items = req.query.items
+    const status = req.query.status
+    //console.log("EXTERNAL REFERENCE ", external_reference)
+    // console.log("item------------------------------------", items)
+  
+      const cart = await Cart.findAll({
+          where:{
+              id: external_reference
+          }
+      })
+      console.log("---------------------------cart :",cart)
+  
+      
+      let detail = cart[0].dataValues.cart //Array
+  
+      
+      detail = typeof detail === 'string' ? JSON.parse(detail) : detail;
+      
+      console.log("---------------------------detail :",detail)
+      detail = Array.isArray(detail) ? 
+      detail.map(e => {
+        let toReturn = {
+          title: e.title,
+          total: e.price * e.quantity
         }
-    })
-
-  //Aquí edito el status de mi orden
-  Order.create({
-    payment_id: payment_id,
-    payment_status: payment_status,
-    merchant_order_id : merchant_order_id,
-    status : status,
-    userId: cart[0].userId,
-    cartId: external_reference
-    })
-
-
-
-    return res.redirect("http://localhost:3000")
-    
-//     .catch((err) =>{
-//       console.error('error al salvar', err)
-//       return res.redirect(`http://localhost:3000/?error=${err}&where=al+salvar`)
-//     })
-//   })
-//   .catch(err =>{
-//     console.error('error al buscar', err)
-//     return res.redirect(`http://localhost:3000/?error=${err}&where=al+buscar`)
-//   })
-
-  //proceso los datos del pago 
-  //redirijo de nuevo a react con mensaje de exito, falla o pendiente
+        return toReturn
+      }) : detail
+  
+  
+      let Total = 0; //Unidad
+      for (let i = 0; i < detail.length; i++) {
+        Total = detail[i].total + Total
+      }
+      
+  
+    //Aquí edito el status de mi orden
+    Order.create({
+          payment_id: payment_id,
+          payment_status: payment_status,
+          merchant_order_id : merchant_order_id,
+          status : status,
+          userId: cart[0].userId,
+          cartId: external_reference,
+          total:Total,
+          detail:JSON.stringify(detail),
+      })
+  
+  
+  
+      return res.redirect("http://localhost:3000")
+      
+  //     .catch((err) =>{
+  //       console.error('error al salvar', err)
+  //       return res.redirect(`http://localhost:3000/?error=${err}&where=al+salvar`)
+  //     })
+  //   })
+  //   .catch(err =>{
+  //     console.error('error al buscar', err)
+  //     return res.redirect(`http://localhost:3000/?error=${err}&where=al+buscar`)
+  //   })
+  
+    //proceso los datos del pago 
+    //redirijo de nuevo a react con mensaje de exito, falla o pendiente
+ 
+  } catch (error) {
+    console.log("error  :",error)
+    res.sendStatus(404)
+  }
 }
 
 
