@@ -16,7 +16,6 @@ export const ADD_USER = 'ADD_USER';
 export const MODIFY_QUANTITY = 'MODIFY_QUANTITY';
 export const MODIFY_QUANTITY_DETAILS = 'MODIFY_QUANTITY_DETAILS';
 export const ADD_TO_CART_FROM_DETAILS = 'ADD_TO_CART_FROM_DETAILS';
-export const CHECK_USER_IN_DB = 'CHECK_USER_IN_DB';
 export const GET_SHOP_CART = 'GET_SHOP_CART';
 export const CONCAT_SHOP_CART = 'CONCAT_SHOP_CART';
 export const DELETE_SHOP_CART = 'DELETE_SHOP_CART';
@@ -33,7 +32,7 @@ export const modifyuser = (data, user, token) => {
         state: data.state,
         city: data.city
      }
-    console.log('desde Action',data, token)
+    //console.log('desde Action',data, token)
     return async function (dispatch) {
         const response = await axios.put('/modify-user', {
             email: user.email,
@@ -175,11 +174,6 @@ export const addToCartFromDetails = (details) => {
     }
 }
 
-export const checkUserInDb = () => {
-    return {
-        type: CHECK_USER_IN_DB,
-    }
-}
 
 export const getShopCart = (email, token) => {
     return async function (dispatch) {
