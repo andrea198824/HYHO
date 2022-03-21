@@ -18,6 +18,9 @@ import {
     COMPARE_PRODUCTS_SHOP_CART,
     DONAR_PRODUCTO,
     
+    MODIFY_USER,
+    CONCAT_SHOP_CART,
+    REMOVE_ITEM_FROM_CART
 } from "../actions";
 
 const initialState = {
@@ -99,12 +102,20 @@ export default function rootReducer(state = initialState, action) {
             let productsIds = [];
             state.shoppingCart.forEach(cartItem => {
                 state.products.forEach(prodItem => {
-                    if(cartItem.id === prodItem.id && !productsIds.includes(prodItem.id)) productsIds.push(prodItem.id) 
+                    if (cartItem.id === prodItem.id && !productsIds.includes(prodItem.id)) productsIds.push(prodItem.id)
                 })
             })
 
             const newShoppingCart = state.products.filter(el => productsIds.includes(el.id))
-            return { ...state, shoppingCart: newShoppingCart }
+            return { ...state, shoppingCart: newShoppingCart };
+        case CONCAT_SHOP_CART:
+            let shopCartIds = [];
+            state.shoppingCart.forEach(el => shopCartIds.push(el.id))
+            const filteredDbCart = state.dbShopCart.filter(el => !shopCartIds.includes(el.id))
+            const newShopCart = state.shoppingCart.concat(filteredDbCart)
+            return { ...state, shoppingCart: newShopCart };
+        case REMOVE_ITEM_FROM_CART:
+            return { ...state, shoppingCart: state.shoppingCart.filter(el => el.id !== parseInt(action.id)) }
         default:
             return state;
     }

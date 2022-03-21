@@ -89,7 +89,7 @@ const Product = ({ item }) => {
 
     return (
         <Container onClick={onClickProduct} >
-        
+
             <Circle />
             <Image src={item.image} />
             <Info>

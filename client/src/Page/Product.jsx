@@ -1,4 +1,4 @@
-import { Add, Remove } from "@material-ui/icons";
+import { Add, Autorenew, Remove } from "@material-ui/icons";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { mobile } from "../responsive";
-import { getDetails, addToCart } from '../store/actions';
+import { getDetails, modifyQuantityDetails, addToCartFromDetails } from '../store/actions';
 
 const Container = styled.div``;
 
@@ -21,6 +21,8 @@ const Wrapper = styled.div`
 const ImgContainer = styled.div`
   flex: 1;
 `;
+
+
 
 const Image = styled.img`
   max-width: 80%;
@@ -102,60 +104,84 @@ const Button = styled.button`
 const Product = () => {
     const dispatch = useDispatch();
     const id = useParams().id;
-    const product = useSelector(state => state.details)[0]
+    const product = useSelector(state => state.details)
+    const allProducts = useSelector(state => state.products)
 
     useEffect(() => {
-        dispatch(getDetails(id))
+        if (allProducts.length) dispatch(getDetails(id))
     }, [])
 
+    if (!allProducts.length) {
+        setTimeout(() => {
+            dispatch(getDetails(id))
+        }, 2000)
+    }
+
+
+
+    // dispatch(getDetails(id))
     const onClickAddCart = (e) => {
-        dispatch(addToCart(id))
+        dispatch(addToCartFromDetails(product))
         alert("Producto Añadido")
+    }
+
+    const onClickQuantity = (e) => {
+        dispatch(modifyQuantityDetails(e.currentTarget.getAttribute('value')))
     }
 
     return (
         <Container >
             <Navbar />
             <Announcement />
-            <Wrapper>
-                <ImgContainer>
-                    <Image src={product ? product.image : 'https://acegif.com/wp-content/uploads/loading-53.gif'} />
-                </ImgContainer>
-                <InfoContainer>
-                    <Title>{product && product.fullname}</Title>
-                    <Desc>
-                        {product && product.description}
-                    </Desc>
-                    <Price>$ {product && product.price}</Price>
-                    <Stock>Stock: {product && product.stock}</Stock>
-                    <FilterContainer>
-                        {/* <Filter>
-                            <FilterTitle>Color</FilterTitle>
-                            <FilterColor color="black" />
-                            <FilterColor color="darkblue" />
-                            <FilterColor color="gray" />
-                        </Filter>
-                        <Filter>
-                            <FilterTitle>Size</FilterTitle>
-                            <FilterSize>
-                                <FilterSizeOption>XS</FilterSizeOption>
-                                <FilterSizeOption>S</FilterSizeOption>
-                                <FilterSizeOption>M</FilterSizeOption>
-                                <FilterSizeOption>L</FilterSizeOption>
-                                <FilterSizeOption>XL</FilterSizeOption>
-                            </FilterSize>
-                        </Filter> */}
-                    </FilterContainer>
-                    <AddContainer>
-                        <AmountContainer>
-                            <Remove />
-                            <Amount>1</Amount>
-                            <Add />
-                        </AmountContainer>
-                        <Button onClick={onClickAddCart}> AGREGAR AL CARRITO </Button>
-                    </AddContainer>
-                </InfoContainer>
-            </Wrapper>
+            {
+                product && product.id
+                    ? <Wrapper>
+                        <ImgContainer>
+                            <Image src={product ? product.image : 'https://acegif.com/wp-content/uploads/loading-53.gif'} />
+                        </ImgContainer>
+                        <InfoContainer>
+                            <Title>{product && product.title}</Title>
+                            <Desc>
+                                {product && product.descriptions}
+                            </Desc>
+                            <Price>$ {product && product.price}</Price>
+                            <br />
+                            <br /> { /* Utilizo br porque por algun motivo marginBottom no esta funcionando */}
+                            <Stock>Stock: {product && product.stock}</Stock>
+                            <FilterContainer>
+                            </FilterContainer>
+                            <AddContainer>
+                                <AmountContainer>
+                                    {
+                                        product && product.quantity - 1 !== 0
+                                            ?
+                                            <Remove value='-' onClick={onClickQuantity} />
+                                            :
+                                            <Remove style={{ visibility: "hidden" }} />
+                                    }
+                                    {
+                                        product && product.stock === 1 ?
+                                            null
+                                            :
+                                            <Amount>{product && product.quantity}</Amount>
+                                    }
+                                    {
+                                        product && product.quantity < product.stock ?
+                                            <Add value='+' onClick={onClickQuantity} />
+                                            :
+                                            <Add style={{ visibility: "hidden" }} />
+                                    }
+                                </AmountContainer>
+                                <Button onClick={onClickAddCart}> AGREGAR AL CARRITO </Button>
+                            </AddContainer>
+                        </InfoContainer>
+                    </Wrapper>
+
+                    : <ImgContainer>
+                        <Image src='https://acegif.com/wp-content/uploads/loading-53.gif'></Image>
+                    </ImgContainer>
+            }
+
             <Newsletter />
             <Footer />
         </Container>

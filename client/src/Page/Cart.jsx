@@ -1,4 +1,5 @@
 import { Add, Remove } from "@material-ui/icons";
+import { makeStyles } from '@material-ui/core/styles'
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
@@ -6,8 +7,9 @@ import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
+import { modifyQuantity, deleteShopCart, deleteLocalShopCart, compareProductsShopCart, concatShopCart, removeItemFromCart } from "../store/actions";
+import { useAuth0 } from '@auth0/auth0-react'
 import { useEffect } from "react";
-import { addToCartDB } from "../store/actions";
 
 const Container = styled.div``;
 
@@ -101,20 +103,17 @@ const ProductAmountContainer = styled.div`
 const ProductAmount = styled.div`
   font-size: 24px;
   margin: 5px;
+  user-select: none;
   ${mobile({ margin: "5px 15px" })}
 `;
 
 const ProductPrice = styled.div`
   font-size: 30px;
   font-weight: 200;
+  user-select: none;
   ${mobile({ marginBottom: "20px" })}
 `;
 
-const Hr = styled.hr`
-  background-color: #eee;
-  border: none;
-  height: 1px;
-`;
 
 const Summary = styled.div`
   flex: 1;
@@ -148,21 +147,87 @@ const Button = styled.button`
   font-weight: 600;
 `;
 
+const Hr = styled.hr`
+  background: linear-gradient(to right, white,  black);
+  margin-bottom: -1px;
+  margin-top: -1px;
+  border: none;
+  height: 1px;
+  width: 97%;
+`;
+
+const DeleteButton = styled.button`
+  width: 3%;
+  padding: 10px;
+  border: none;
+  background-color: black;
+  color: white;
+  font-weight: 600;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  cursor: pointer;
+  transition: 0.5s ease; 
+  &:hover {
+      width: 5%;
+  }
+`;
+
+const AltWrapper = styled.div`
+padding: 5px;
+  padding-right: 0;
+  margin-top: 1rem;
+  margin-right: 2rem;
+  user-select: none;
+  ${mobile({ padding: "10px" })}
+`;
+
 const linkStyle = {
     textDecoration: "none",
     color: 'inherit',
 }
+const useStyles = makeStyles(theme => ({
+    AddAndMinus: {
+        "&:hover": { fontSize: "30px" },
+        "transition": "0.2s ease",
+        "cursor": "pointer"
+    },
+    Buttons: {
+        "&:hover": { fontSize: "15px", textDecoration: "underline" },
+        "transition": "0.2s ease",
+        "cursor": "pointer"
+    }
+}))
 
 const Cart = () => {
     const dispatch = useDispatch()
+    const products = useSelector(state => state.products)
     const cartProducts = useSelector(state => state.shoppingCart)
     let subTotal = 0;
-    cartProducts.forEach(el => subTotal += el.price)
+    cartProducts.forEach(el => subTotal += el.price * el.quantity)
+    const classes = useStyles();
+    const { user, isLoading } = useAuth0()
+    const token = useSelector(state => state.token)
+
+    useEffect(() => {
+        if (products.length > 1) dispatch(compareProductsShopCart())
+    }, [dispatch, products])
 
 
     const onClickProduct = (e) => {
-        // Para sumar y restar productos, en desarrollo
+        dispatch(modifyQuantity(e.currentTarget.getAttribute('id'), e.currentTarget.getAttribute('value')))
+    }
 
+    const onClickDeleteCart = (e) => {
+        if (user && !isLoading && window.confirm("Esto eliminara tu carrito tanto localmente como de la nube. Deseas proseguir?")) {
+            dispatch(deleteShopCart(user.email, token))
+        }
+        if (!user && !isLoading && window.confirm("Esto solo eliminara tu carrito localmente, si deseas eliminarlo de la nube requieres tener una sesion iniciada. Deseas proseguir? ")) {
+            dispatch(deleteLocalShopCart())
+        }
+    }
+
+    const onClickDeleteItem = (e) => {
+        dispatch(removeItemFromCart(e.target.value))
     }
 
 
@@ -173,57 +238,93 @@ const Cart = () => {
             <Wrapper>
                 <Title>TUS COSAS</Title>
                 <Top>
-                    <Link to='/' style={linkStyle}>
-                        <TopButton>CONTINUAR COMPRANDO</TopButton>
+                    <Link to='/products' style={linkStyle}>
+                        <TopButton className={classes.Buttons}>CONTINUAR COMPRANDO</TopButton>
                     </Link>
-                    <TopTexts>
-                        <TopText>Lista de Deseados (0)</TopText>
-                    </TopTexts>
+                    {isLoading
+                        ? <TopButton style={{ visibility: "hidden" }} />
+                        : <TopButton className={classes.Buttons} onClick={onClickDeleteCart}>LIMPIAR CARRITO</TopButton>
+                    }
+                    {/* <TopTexts>
+                        <TopText>Lista de Deseados</TopText>
+                    </TopTexts> */}
                 </Top>
                 <Bottom>
                     <Info>
                         {cartProducts.length ? cartProducts.map(el => (
-                            <Product key={el.id}>
-                                <ProductDetail>
-                                    <Image src={el.image} />
-                                    <Details>
-                                        <ProductName>
-                                            <b>Producto:</b>  {el.fullname}
-                                        </ProductName>
-                                        <ProductId>
-                                            <b>Stock:</b> {el.stock}
-                                        </ProductId>
-
-                                    </Details>
-                                </ProductDetail>
-                                <PriceDetail>
-                                    <ProductAmountContainer>
-                                        <Add name={el.id} value='+' onClick={onClickProduct} />
-                                        <ProductAmount>2</ProductAmount>
-                                        <Remove name={el.id} value='-' onClick={onClickProduct} />
-                                    </ProductAmountContainer>
-                                    <ProductPrice>$ {el.price}</ProductPrice>
-                                </PriceDetail>
+                            <AltWrapper>
                                 <Hr />
-                            </Product>
-                        )) : "No hay productos en el carrito"}
+                                <Product key={el.id}>
+                                    <ProductDetail>
+                                        <Image src={el.image} />
+                                        <Details>
+                                            <ProductName style={{ userSelect: "text" }}>
+                                                <b>Producto:</b>  {el.title}
+                                            </ProductName>
+                                            <ProductId>
+                                                <b>Stock:</b> {el.stock}
+                                            </ProductId>
+
+                                        </Details>
+                                    </ProductDetail>
+                                    <PriceDetail>
+                                        <ProductAmountContainer>
+                                            {
+                                                el.quantity < el.stock ?
+                                                    <Add className={classes.AddAndMinus} id={el.id} value='+' onClick={onClickProduct} />
+                                                    :
+                                                    <Add style={{ visibility: "hidden" }} />
+                                            }
+                                            <ProductAmount>{el.quantity}</ProductAmount>
+                                            {
+                                                el.quantity - 1 !== 0 ?
+                                                    <Remove className={classes.AddAndMinus} id={el.id} value='-' onClick={onClickProduct} />
+                                                    :
+                                                    <Remove style={{ visibility: "hidden" }} />
+                                            }
+                                        </ProductAmountContainer>
+                                        <ProductPrice>$ {el.price * el.quantity}</ProductPrice>
+                                    </PriceDetail>
+                                    <DeleteButton value={el.id} onClick={onClickDeleteItem}> X </DeleteButton>
+                                </Product>
+                                <Hr />
+                            </AltWrapper>
+                        )) : <Title > Sin Productos  </Title>}
 
                     </Info>
                     <Summary>
                         <SummaryTitle>RESUMEN</SummaryTitle>
-                        <SummaryItem>
-                            <SummaryItemText>Subtotal</SummaryItemText>
-                            <SummaryItemPrice>$ {subTotal}</SummaryItemPrice>
-                        </SummaryItem>
-                        <SummaryItem>
+                        {
+                            subTotal === 0
+                                ? <SummaryItem style={{ visibility: "hidden" }} />
+                                : <SummaryItem>
+                                    <SummaryItemText>Subtotal</SummaryItemText>
+                                    <SummaryItemPrice>$ {subTotal}</SummaryItemPrice>
+                                </SummaryItem>
+                        }
+                        {/* <SummaryItem>
                             {/* <SummaryItemText>Descuento</SummaryItemText>
                             <SummaryItemPrice>$ -5.90</SummaryItemPrice> */}
-                        </SummaryItem>
-                        <SummaryItem type="total">
-                            <SummaryItemText>Total</SummaryItemText>
-                            <SummaryItemPrice>$ {subTotal}</SummaryItemPrice>
-                        </SummaryItem>
-                        <Button>COMPRAR</Button>
+                        {/* </SummaryItem> */}
+                        {
+                            subTotal === 0
+                                ? <SummaryItem style={{ visibility: "hidden" }} />
+                                : <SummaryItem type="total">
+                                    <SummaryItemText>Total</SummaryItemText>
+                                    <SummaryItemPrice>$ {subTotal}</SummaryItemPrice>
+                                </SummaryItem>
+                        }
+                        {
+                            isLoading
+                                ? null
+                                : user && subTotal !== 0
+                                    ? <Link to='/mercadopago'>
+                                        <Button className={classes.Buttons}>COMPRAR</Button>
+                                    </Link>
+                                    : subTotal === 0
+                                        ? <Title style={{ fontSize: "25px" }}> Agrega Productos Para Continuar </Title>
+                                        : <Title> Inicia Sesion Para Continuar </Title>
+                        }
                     </Summary>
                 </Bottom>
             </Wrapper>

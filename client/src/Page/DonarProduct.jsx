@@ -196,9 +196,13 @@ const DonarProduct = () => {
   const [input, setInput] = useState({
     email: '',
     title: '',
+    price:'',
+    weight:'',
     image: '',
-    cantidad: '',
     descriptions: '',
+    stock: '',
+    category:[],
+
 
   })
   const getBaseFile = files => {

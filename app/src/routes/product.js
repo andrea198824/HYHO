@@ -37,27 +37,49 @@ exports.get = async function (req, res, next) {
   try {
     const { id } = req.query
     let bdTotal = await getDbInfo()
-    if (id) {
-      let prodName = await getDbInfoById(id)
-      prodName.length //si hay algún nombre
-        ? res.status(200).send(prodName)
-        : res
-            .status(404)
-            .send({
-              info: 'Sorry, the product you are looking for is not here.'
-            })
-    } else {
-      res.status(200).send(bdTotal)
+
+    let toReturn = []
+    for (let i = 0; i < bdTotal.length; i++) {
+      toReturn[i]= {
+        id: bdTotal[i].id,
+        title: bdTotal[i].title,
+        price: bdTotal[i].price,
+        weight: bdTotal[i].weight,
+        descriptions: bdTotal[i].descriptions,
+        image: bdTotal[i].image,
+        stock: bdTotal[i].stock,
+        available: bdTotal[i].available,
+        quantity: bdTotal[i].quantity,
+        createdAt: bdTotal[i].createdAt,
+        updatedAt: bdTotal[i].updatedAt,
+        formId: bdTotal[i].formId,
+        userId: bdTotal[i].userId,
+        categories: []
+      }
+      toReturn[i].categories = bdTotal[i].categories.map((e) => {
+      return e.dataValues.name
+    })
     }
+    if (id) {
+      toReturn = toReturn.filter(e => e.id == id);
+      if (toReturn.length) {
+        res.status(200).send(toReturn)
+      } else {
+        res.status(200).send({info: "The product you are lokking for doesnt exist."})
+      }
+      toReturn = toReturn.filter(e => e.id == id);
+    }
+    res.status(200).send(toReturn)
+
   } catch (error) {
-    next(error)
+    next({info: error})
   }
 }
 
 
 exports.post = async function(req, res, next) {
   // console.log("post")
-
+try {
   let {
     formId,
     title, 
@@ -110,29 +132,51 @@ exports.post = async function(req, res, next) {
           }).then(el => {
             console.log('el:', el[0])
             productCreated.setForm(el[0])
-          })
+          }).catch(error => console.log(error))
     }
     if (productCreated !== {}) {
       res.status(200).send(productCreated);
     } else {
       res.status(400).send({info: "Bad request"});
     }
-              
-      
-
+} catch (error) {
+  res.status(400).send({info: error});
+}
+  
 }
 
 
 exports.put = async function (req, res, next) {
   const {id} = req.params
   const  product  = req.body;
+ 
   try {
-    let prod = await Products.update(product, {
-      where: {
-        id: id,
-      },
-      include: Category,
-    });
+     await Products.update(product,{
+        where: {
+          id: id
+        }})
+     const prod = await Products.findOne( {
+          where: {
+            id: id,
+          },
+        })     
+  
+    if(product.categories.length){
+     
+     await product.categories.forEach((el) => Category.findOrCreate
+       ( {
+        where: { name: el },
+        attributes: ["id"]
+      }))
+      let cat = await  Category.findAll( {
+        where: {
+          name: product.categories,
+        },
+      }) 
+      
+         await cat.forEach((el) => prod.setCategories(el.id))
+    }
+
         return res.json({modificate: true});
   } catch (error) {
     next(error);

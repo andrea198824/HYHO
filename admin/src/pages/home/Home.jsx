@@ -1,18 +1,23 @@
+import React from "react";
 import Chart from "../../components/chart/Chart";
 import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
-import "./home.css";
-import { userData } from "../../dummyData";
 import WidgetSm from "../../components/widgetSm/WidgetSm";
-import WidgetLg from "../../components/widgetLg/WidgetLg";
+// import WidgetLg from "../../components/widgetLg/WidgetLg";
+import { userData } from "../../dummyData";
+
+import "./home.css";
+
+
 
 export default function Home() {
+
   return (
     <div className="home">
       <FeaturedInfo />
-      <Chart data={userData} title="User Analytics" grid dataKey="Active User"/>
+      <Chart data={userData} title="Analisis de Mercado" grid dataKey="Active User"/>
       <div className="homeWidgets">
-        {/* <WidgetSm/> */}
-        <WidgetLg/>
+        {/* <WidgetLg/> */}
+        <WidgetSm/>
       </div>
     </div>
   );

@@ -3,13 +3,18 @@
 const { Cart, Order, Products, User } = require('../db')
 
 exports.postCreateOrder = async function (req, res, next) {
-  const { total, status, order, userId } = req.body
+  const { total, status, order, email } = req.body
 
   try {
+    let user = await User.findAll({
+      where: {
+        email: email
+      }
+    })
     let [act, created] = await Order.findOrCreate({
       where: {
         order,
-        userId,
+        userId: user[0].id,
         total,
         status
       }
@@ -23,11 +28,16 @@ exports.postCreateOrder = async function (req, res, next) {
 }
 
 exports.getOrder = async function (req, res, next) {
-  const { userId } = req.query
+  const { email } = req.query
   try {
+    let user = await User.findAll({
+      where: {
+        email: email
+      }
+    })
     let order = await Order.findAll({
       where: {
-        userId: userId
+        userId: user[0].id
       }
     })
     order.length
