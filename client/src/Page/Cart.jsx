@@ -7,7 +7,7 @@ import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { modifyQuantity, deleteShopCart, deleteLocalShopCart, compareProductsShopCart } from "../store/actions";
+import { modifyQuantity, deleteShopCart, deleteLocalShopCart, compareProductsShopCart, concatShopCart } from "../store/actions";
 import { useAuth0 } from '@auth0/auth0-react'
 import { useEffect } from "react";
 
@@ -180,9 +180,7 @@ const Cart = () => {
     const token = useSelector(state => state.token)
 
     useEffect(() => {
-        if (products.length > 1) {
-            dispatch(compareProductsShopCart())
-        }
+        if (products.length > 1) dispatch(compareProductsShopCart())
     }, [dispatch, products])
 
 

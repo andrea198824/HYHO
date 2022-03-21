@@ -22,7 +22,7 @@ export const DELETE_SHOP_CART = 'DELETE_SHOP_CART';
 export const PUT_SHOP_CART = 'PUT_SHOP_CART';
 export const DELETE_LOCAL_SHOP_CART = 'DELETE_LOCAL_SHOP_CAR';
 export const COMPARE_PRODUCTS_SHOP_CART = 'COMPARE_PRODUCTS_SHOP_CART';
-export const MODIFY_USER = 'MODIFY_USER'
+export const MODIFY_USER = 'MODIFY_USER';
 
 
 export const modifyuser = (data, user, token) => {
@@ -31,7 +31,7 @@ export const modifyuser = (data, user, token) => {
         number: data.number,
         state: data.state,
         city: data.city
-     }
+    }
     //console.log('desde Action',data, token)
     return async function (dispatch) {
         const response = await axios.put('/modify-user', {
@@ -56,9 +56,6 @@ export const modifyuser = (data, user, token) => {
 
     }
 }
-
-
-
 export const getProducts = () => {
     return async function (dispatch) {
         try {
@@ -173,8 +170,6 @@ export const addToCartFromDetails = (details) => {
         payload: details
     }
 }
-
-
 export const getShopCart = (email, token) => {
     return async function (dispatch) {
         const response = await axios.get(`/cart/${email}`, {
@@ -188,7 +183,6 @@ export const getShopCart = (email, token) => {
         })
     }
 }
-
 export const postShopCart = (email, cart, token) => {
     cart = JSON.stringify(cart)
     return async function (dispatch) {
@@ -203,7 +197,6 @@ export const postShopCart = (email, cart, token) => {
         })
     }
 }
-
 export const putShopCart = (email, cart, token) => {
     cart = JSON.stringify(cart)
     return async function (dispatch) {
@@ -218,9 +211,10 @@ export const putShopCart = (email, cart, token) => {
         })
     }
 }
-
 export const concatShopCart = () => {
-
+    return {
+        type: CONCAT_SHOP_CART,
+    }
 }
 
 export const deleteShopCart = (email, token) => {

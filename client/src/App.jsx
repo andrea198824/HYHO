@@ -16,7 +16,7 @@ import Mapa from './Page/Mapa';
 import BuyFormPage from './Page/BuyFormPage'
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { addUser, getCategories, getProducts, getToken } from './store/actions'
+import { addUser, concatShopCart, getCategories, getProducts, getShopCart, getToken } from './store/actions'
 import { useAuth0 } from '@auth0/auth0-react';
 
 
@@ -29,12 +29,16 @@ function App() {
         dispatch(getCategories())
         dispatch(getProducts())
     }, [])
-
+    
     if (!isLoading) {
         getAccessTokenSilently()
-            .then(res => {
-                dispatch(getToken(res))
-                dispatch(addUser(user, res))
+        .then(res => {
+            dispatch(getToken(res))
+            dispatch(addUser(user, res))
+            dispatch(getShopCart(user.email, res))
+            setTimeout(()=> {
+                dispatch(concatShopCart())
+            }, 2000)
             })
     }
 

@@ -15,7 +15,8 @@ import {
     DELETE_SHOP_CART,
     DELETE_LOCAL_SHOP_CART,
     COMPARE_PRODUCTS_SHOP_CART,
-    MODIFY_USER
+    MODIFY_USER,
+    CONCAT_SHOP_CART
 } from "../actions";
 
 const initialState = {
@@ -86,12 +87,18 @@ export default function rootReducer(state = initialState, action) {
             let productsIds = [];
             state.shoppingCart.forEach(cartItem => {
                 state.products.forEach(prodItem => {
-                    if(cartItem.id === prodItem.id && !productsIds.includes(prodItem.id)) productsIds.push(prodItem.id) 
+                    if (cartItem.id === prodItem.id && !productsIds.includes(prodItem.id)) productsIds.push(prodItem.id)
                 })
             })
 
             const newShoppingCart = state.products.filter(el => productsIds.includes(el.id))
-            return { ...state, shoppingCart: newShoppingCart }
+            return { ...state, shoppingCart: newShoppingCart };
+        case CONCAT_SHOP_CART:
+            let shopCartIds = [];
+            state.shoppingCart.forEach(el => shopCartIds.push(el.id))
+            const filteredDbCart = state.dbShopCart.filter(el => !shopCartIds.includes(el.id))
+            const newShopCart = state.shoppingCart.concat(filteredDbCart)
+            return {...state, shoppingCart: newShopCart};
         case MODIFY_USER:
             return {
                 ...state
