@@ -5,21 +5,31 @@ import {
     ORDER_BY_PRICE,
     FILTER_BY_CATEGORY,
     GET_CATEGORIES,
-    CREATE_USER,
     CREATE_ADMIN,
-    LOGIN_USER,
     ADD_TO_CART,
-    LOGOUT_USER,
-    GET_USER_STATUS
+    GET_TOKEN,
+    MODIFY_QUANTITY,
+    MODIFY_QUANTITY_DETAILS,
+    ADD_TO_CART_FROM_DETAILS,
+    CHECK_USER_IN_DB,
+    GET_SHOP_CART,
+    DELETE_SHOP_CART,
+    DELETE_LOCAL_SHOP_CART,
+    COMPARE_PRODUCTS_SHOP_CART,
+    DONAR_PRODUCTO,
+    
 } from "../actions";
 
 const initialState = {
     products: [],
-    details: [],
+    details: {},
     categories: [],
     filteredProducts: [],
     shoppingCart: JSON.parse(localStorage.getItem('shoppingCart')) || [],
-    userIsLogin: false,
+    dbShopCart: [],
+    token: "",
+    userInDB: false,
+    donarProducto:[],
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -27,9 +37,9 @@ export default function rootReducer(state = initialState, action) {
         case GET_PRODUCTS:
             return { ...state, products: action.payload }
         case SEARCH_PRODUCTS:
-            return { ...state, filteredProducts: state.products.filter(item => item.fullname.toLowerCase().includes(action.payload.toLowerCase())) }
+            return { ...state, filteredProducts: state.products.filter(item => item.title.toLowerCase().includes(action.payload.toLowerCase())) }
         case GET_DETAILS:
-            return { ...state, details: state.products.filter(item => item.id === parseInt(action.payload)) }
+            return { ...state, details: state.products.filter(item => item.id === parseInt(action.payload))[0] }
         case ORDER_BY_PRICE:
             if (action.payload === 'desc') {
                 return { ...state, filteredProducts: [...state.filteredProducts].sort((prev, next) => prev.price - next.price), products: [...state.products].sort((prev, next) => prev.price - next.price) }
@@ -45,23 +55,56 @@ export default function rootReducer(state = initialState, action) {
             if (action.payload === "default") {
                 return { ...state, filteredProducts: state.products };
             }
-            return { ...state, filteredProducts: state.products.filter(product => product.category === action.payload) }
-        case CREATE_USER:
+            return { ...state, filteredProducts: state.products.filter(product => product.category.includes(action.payload)) }
+        case DONAR_PRODUCTO:
+           return { 
+               ...state, 
+               donarProducto : [...state.donarProducto, action.payload]
+            }
+
+
+            case CREATE_ADMIN:
             return state;
-        case LOGIN_USER:
-            console.log("LOGIN - REDUCER", action.payload)
-            return state;
-        case LOGOUT_USER:
-            console.log("LOGOUT", action.payload)
-            return state;
-        case CREATE_ADMIN:
-            return state;
-        case GET_USER_STATUS:
-            console.log(action.payload.data.info)
-            return {...state, userIsLogin: true};
         case ADD_TO_CART:
             if (state.shoppingCart.some(el => el.id === parseInt(action.payload))) return state;
             return { ...state, shoppingCart: state.shoppingCart.concat(state.products.filter(product => product.id === parseInt(action.payload))) };
+        case GET_TOKEN:
+            return { ...state, token: action.payload }
+        case MODIFY_QUANTITY:
+            const modifiedShoppingCart = state.shoppingCart.map(el => {
+                if (parseInt(el.id) === parseInt(action.id)) {
+                    if (action.value === '+') return { ...el, quantity: el.quantity + 1 }
+                    if (action.value === '-') return { ...el, quantity: el.quantity - 1 }
+                }
+                return el;
+            })
+            return { ...state, shoppingCart: modifiedShoppingCart }
+
+        case MODIFY_QUANTITY_DETAILS:
+            return { ...state, details: { ...state.details, quantity: action.value === '+' ? state.details.quantity + 1 : state.details.quantity - 1 } }
+        case ADD_TO_CART_FROM_DETAILS:
+            if (state.shoppingCart.some(el => el.id === parseInt(action.payload.id))) return state;
+            return { ...state, shoppingCart: state.shoppingCart.concat(action.payload) }
+        case CHECK_USER_IN_DB:
+            return { ...state, userInDB: true }
+        case GET_SHOP_CART:
+            return { ...state, dbShopCart: JSON.parse(action.payload[0].cart) }
+        case DELETE_SHOP_CART:
+            localStorage.removeItem("shoppingCart")
+            return { ...state, shoppingCart: [] };
+        case DELETE_LOCAL_SHOP_CART:
+            localStorage.removeItem("shoppingCart")
+            return { ...state, shoppingCart: [] };
+        case COMPARE_PRODUCTS_SHOP_CART:
+            let productsIds = [];
+            state.shoppingCart.forEach(cartItem => {
+                state.products.forEach(prodItem => {
+                    if(cartItem.id === prodItem.id && !productsIds.includes(prodItem.id)) productsIds.push(prodItem.id) 
+                })
+            })
+
+            const newShoppingCart = state.products.filter(el => productsIds.includes(el.id))
+            return { ...state, shoppingCart: newShoppingCart }
         default:
             return state;
     }
