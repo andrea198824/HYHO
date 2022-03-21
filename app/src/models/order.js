@@ -5,7 +5,7 @@ module.exports = sequelize => {
   // defino el modelo
   sequelize.define('order', {
     status:{  
-      type: DataTypes.ENUM('created', 'processing', 'cancelled', 'completed', "approved"),
+      type: DataTypes.STRING,
       allowNull: false
   },
   payment_id:{
@@ -19,6 +19,14 @@ module.exports = sequelize => {
   },
   merchant_order_id: {
       type: DataTypes.BIGINT,
+      defaultValue: 0
+  },
+  total: {
+      type: DataTypes.BIGINT,
+      defaultValue: 0
+  },
+  detail: {
+      type: DataTypes.TEXT,
       defaultValue: 0
   },
 //   cart: {
