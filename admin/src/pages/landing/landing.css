@@ -1,0 +1,28 @@
+
+/* .html, body{
+    height:100%;
+    margin:0;
+    display: flex;
+    flex-direction: column;
+  } 
+  */
+
+
+.cnt {
+    display: flex;
+    height:100%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.loginButton {
+    margin-top: 10px;
+    padding: 7px 10px;
+    border: none;
+    border-radius: 10px;
+    background-color:#8aa290;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+  }

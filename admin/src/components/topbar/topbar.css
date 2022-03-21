@@ -28,6 +28,9 @@
 }
 
 .topbarIconContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   position: relative;
   cursor: pointer;
   margin-right: 10px;

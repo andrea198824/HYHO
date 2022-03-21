@@ -9,12 +9,20 @@ export default function Topbar() {
         <div className="topLeft">
           <span className="logo">Tu.ong</span>
         </div>
-        <div className="topRight">
-          <div className="topbarIconContainer">
-            <ExitToApp />
-          </div>
-          <img src="https://images.pexels.com/photos/1526814/pexels-photo-1526814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="" className="topAvatar" />
-        </div>
+        { isLoading ?
+            <div className="topRight">
+              <h3>CARGANDO...</h3>
+            </div>
+            :
+            user &&
+           <div className="topRight">
+             <div className="topbarIconContainer" onClick={() => logout({ returnTo: window.location.origin })} >
+               <h3>Cerrar Sesion</h3>
+               <ExitToApp />
+             <img src={user.picture} style={profilePic} alt="" />
+             </div>
+           </div>
+        }
       </div>
     </div>
   );
