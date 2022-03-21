@@ -11,10 +11,13 @@ import {
     MODIFY_QUANTITY,
     MODIFY_QUANTITY_DETAILS,
     ADD_TO_CART_FROM_DETAILS,
+    CHECK_USER_IN_DB,
     GET_SHOP_CART,
     DELETE_SHOP_CART,
     DELETE_LOCAL_SHOP_CART,
     COMPARE_PRODUCTS_SHOP_CART,
+    DONAR_PRODUCTO,
+    
     MODIFY_USER,
     CONCAT_SHOP_CART,
     REMOVE_ITEM_FROM_CART
@@ -28,6 +31,8 @@ const initialState = {
     shoppingCart: JSON.parse(localStorage.getItem('shoppingCart')) || [],
     dbShopCart: [],
     token: "",
+    userInDB: false,
+    donarProducto:[],
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -53,7 +58,16 @@ export default function rootReducer(state = initialState, action) {
             if (action.payload === "default") {
                 return { ...state, filteredProducts: state.products };
             }
-            return { ...state, filteredProducts: state.products.filter(product => product.categories.includes(action.payload)) }
+            return { ...state, filteredProducts: state.products.filter(product => product.category.includes(action.payload)) }
+        case DONAR_PRODUCTO:
+           return { 
+               ...state, 
+               donarProducto : [...state.donarProducto, action.payload]
+            }
+
+
+            case CREATE_ADMIN:
+            return state;
         case ADD_TO_CART:
             if (state.shoppingCart.some(el => el.id === parseInt(action.payload))) return state;
             return { ...state, shoppingCart: state.shoppingCart.concat(state.products.filter(product => product.id === parseInt(action.payload))) };
@@ -74,6 +88,8 @@ export default function rootReducer(state = initialState, action) {
         case ADD_TO_CART_FROM_DETAILS:
             if (state.shoppingCart.some(el => el.id === parseInt(action.payload.id))) return state;
             return { ...state, shoppingCart: state.shoppingCart.concat(action.payload) }
+        case CHECK_USER_IN_DB:
+            return { ...state, userInDB: true }
         case GET_SHOP_CART:
             return { ...state, dbShopCart: JSON.parse(action.payload[0].cart) }
         case DELETE_SHOP_CART:
