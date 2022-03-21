@@ -15,7 +15,7 @@ const profilePic = {
 export default function Topbar() {
 
   const token = useSelector(state => state.token)
-  const { user, isLoading, loginWithRedirect, logout } = useAuth0();
+  const { user, isLoading, logout } = useAuth0();
   console.log("este es el user:", user);
  
   return (
