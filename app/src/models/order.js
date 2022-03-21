@@ -29,8 +29,5 @@ module.exports = sequelize => {
       type: DataTypes.TEXT,
       defaultValue: 0
   },
-//   cart: {
-//     type: DataTypes.TEXT,
-// }
   })
 }
