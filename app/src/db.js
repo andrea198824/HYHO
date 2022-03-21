@@ -3,6 +3,7 @@ const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const { userInfo } = require('os');
+//const Donation = require('./models/Donation');
 const {
   DB_USER, DB_PASSWORD, DB_HOST, DB_NAME
 } = process.env;
@@ -59,7 +60,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Cart, Category, Products, Form, Order, User } = sequelize.models
+const { Cart, Category, Products, Form, Order, User, Donation } = sequelize.models
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
@@ -101,7 +102,8 @@ Order.belongsToMany(Products, {
 Products.belongsToMany(Order, {
   through: 'order_Item'
 })
-
+User.hasOne(Donation)
+Donation.belongsTo(User)
 
 
 
