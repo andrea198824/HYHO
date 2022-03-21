@@ -96,9 +96,7 @@ const profilePic = {
 
 const Navbar = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
-    const [search, setSearch] = useState("")
     const cartProducts = useSelector(state => state.shoppingCart)
     const token = useSelector(state => state.token)
     const { user, isLoading, loginWithRedirect, logout } = useAuth0();
@@ -112,20 +110,8 @@ const Navbar = () => {
         if (!isLoading && user) {
             dispatch(putShopCart(user.email, cartProducts, token))
         }
-
     }, [cartProducts])
-
-    const onChangeSearch = async (e) => {
-        setSearch(e.target.value)
-    }
-
-    const handleSearch = (e) => {
-        e.preventDefault();
-        dispatch(searchProducts(search))
-        setSearch("")
-        if (search) navigate('/products')
-    }
-
+    
     return (
         <Container>
             <Wrapper>
@@ -136,12 +122,6 @@ const Navbar = () => {
                     <ImgLogo src={LogoHyho}></ImgLogo>
                     {/* <Slogan> "Help Yourself By Helping Others" </Slogan> */}
                 </Left>
-                <Center>
-                    <SearchContainer onSubmit={handleSearch}>
-                        <Input onChange={onChangeSearch} value={search} placeholder="Buscar..." />
-                        <Search style={{ color: "gray", fontSize: 20 }} />
-                    </SearchContainer>
-                </Center>
 
                 {
                     isLoading ?
