@@ -20,23 +20,23 @@ exports.post = async function(req, res){  // lalala.post
           } = req.body;
 
     if (!title) {
-        res.send({info: "No title"});
+        res.status(404).send({info: "No title"});
         return
         }
     if (!price) {
-        res.send({info: "No price"});
+        res.status(404).send({info: "No price"});
         return
         }
     if (!weight) {
-        res.send({info: "No weight"});
+        res.status(404).send({info: "No weight"});
         return
         }
     if (!descriptions) {
-        res.send({info: "No descriptions"});
+        res.status(404).send({info: "No descriptions"});
         return
         }
     if (!image) {
-        res.send({info: "No image"});
+        res.status(404).send({info: "No image"});
         return
         }
 
@@ -44,7 +44,7 @@ exports.post = async function(req, res){  // lalala.post
 
 
     if (!email) {
-        res.send({info: "No email"});
+        res.status(404).send({info: "No email"});
         return
         }
     
