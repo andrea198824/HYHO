@@ -175,7 +175,7 @@ const DonarDinero= () => {
 
     const [errors, setErrors] = useState({});
     const [input, setInput] = useState({
-        nombre:'',
+        title:'',
         apellido:'',
         cantidad:'',
         email:'',
@@ -187,12 +187,12 @@ const DonarDinero= () => {
         setInput({
             
             ...input,
-            [e.target.title]: e.target.value
+            [e.target.name]: e.target.value
         });
 
         setErrors(validate({
             ...input,
-            [e.target.title]: e.target.value
+            [e.target.name]: e.target.value
         }));
     }
 
@@ -220,7 +220,7 @@ const DonarDinero= () => {
                         <Item0
                             onChange={(e) => handleInputChange(e)}
                             type='text'
-                            name='nombre'
+                            name='title'
                             placeholder="Nombre"
                         />
 
@@ -258,7 +258,7 @@ const DonarDinero= () => {
                             onChange={(e) => handleInputChange(e)}
                             type='text'
                             name='cantidad'
-                            placeholder="Cantidad"
+                            placeholder="$"
                         />
                         {errors.cantidad && (
                             <Paragraph>{errors.cantidad}</Paragraph>
