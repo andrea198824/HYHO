@@ -171,7 +171,7 @@ export const getUsers = (token) => {
             })
             dispatch({
                type: GET_USERS,
-               payload: users,
+               payload: users.data,
             })
         }  catch (err) {
             console.log(err)
