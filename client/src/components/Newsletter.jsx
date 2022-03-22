@@ -104,6 +104,8 @@ const Newsletter = () => {
         const handleClick = e => {
           e.preventDefault()
           dispatch(newsletter(input,token))
+          alert("Gracias por tu suscripcion.")
+          window.scrollTo(0, 0)
           
          
           
