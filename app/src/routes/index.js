@@ -130,6 +130,7 @@ var getPayment = require('./mercadopago')
 router.get('/mercadopago', getPayment.get)
 router.get('/mercadopago/pagos', getPayment.pagos)
 router.get('/mercadopago/pagos/:id', getPayment.pagosId)
+router.get('/mercadopago/OrderUser', getPayment.getOrderUser)
 
 //--------------donation money------------------
 
