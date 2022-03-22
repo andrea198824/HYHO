@@ -1,19 +1,14 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUsers } from '../../store/actions';
 import "./widgetSm.css";
-import { Visibility } from "@material-ui/icons";
 
 export default function WidgetSm() {
   
   const dispatch = useDispatch();
   const allUsers = useSelector((state)=> state.users);
   const [firtUsers, setFirtUsers] = useState([]);
-  const token = "";
   useEffect (()=>{
-    dispatch(getUsers(token));
-    console.log(allUsers)
     setFirtUsers(allUsers.slice(allUsers.length-5))
   },[dispatch])
 

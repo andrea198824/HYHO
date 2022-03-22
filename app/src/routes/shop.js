@@ -44,7 +44,7 @@ exports.getCart = async function (req, res, next) {
                 email: email
             }
         })
-        console.log(user)
+        //console.log(user)
         let cart = await Cart.findAll({
             where: {
                 userId: user[0].id
@@ -61,23 +61,34 @@ exports.getCart = async function (req, res, next) {
 
 
 exports.postCart = async function (req, res, next) {
-    const { cart, email } = req.body
     try {
+        const { cart, email } = req.body
+
         let user = await User.findAll({
             where: {
                 email: email
             }
         })
-        //console.log("USER: ", user)
-        let [act, created] = await Cart.findOrCreate({
+        let cartDb = await Cart.findAll({
             where: {
-                cart,
                 userId: user[0].id
             }
         })
-        //console.log(created)
-        if (created) return res.status(201).send("Cart created succesfully")
-        else return res.status(200).send('Cart was found and for consequence it wasnt created')
+
+        if (!cartDb[0]) {
+            //console.log("No se encontro carrito")
+            await Cart.create({
+                    cart: JSON.stringify(cart),
+                    userId: user[0].id
+            })
+            return res.status(201).send("Cart created succesfully")
+        }
+
+        else {
+            //console.log("Se encontro carrito")
+            return res.status(200).send('Cart was found and for consequence it wasnt created')
+        }
+
     } catch (error) {
         next(error)
     }

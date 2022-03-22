@@ -8,7 +8,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export default function Chart({ title, data, dataKey, grid }) {
+const Chart = ({ title, data, dataKey, grid }) => {
 
   return (
     <div className="chart">
@@ -21,6 +21,11 @@ export default function Chart({ title, data, dataKey, grid }) {
           {grid && <CartesianGrid stroke="#6a7c6e" strokeDasharray="5 5" />}
         </LineChart>
       </ResponsiveContainer>
-    </div>
-  );
+  </div>
+  )
 }
+
+export default Chart
+
+
+

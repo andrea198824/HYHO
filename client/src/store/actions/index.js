@@ -23,8 +23,42 @@ export const DELETE_SHOP_CART = 'DELETE_SHOP_CART';
 export const PUT_SHOP_CART = 'PUT_SHOP_CART';
 export const DELETE_LOCAL_SHOP_CART = 'DELETE_LOCAL_SHOP_CAR';
 export const COMPARE_PRODUCTS_SHOP_CART = 'COMPARE_PRODUCTS_SHOP_CART';
+export const DONAR_PRODUCTO = " DONAR_PRODUCTO"
+export const MODIFY_USER = 'MODIFY_USER';
+export const REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART';
+export const NEWSLETTER = "NEWSLETTER"
 
+export const modifyuser = (data, user, token) => {
+    let shipping_address = {
+        street: data.street,
+        number: data.number,
+        state: data.state,
+        city: data.city
+    }
+    //console.log('desde Action',data, token)
+    return async function (dispatch) {
+        const response = await axios.put('/modify-user', {
+            email: user.email,
+            nickname: user.nickname,
+            picture: user.picture,
+            given_name: user.given_name,
+            family_name: user.family_name,
+            billing_address: 'x',
+            shipping_address: JSON.stringify(shipping_address),
+            phone: data.phone
 
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+        dispatch({
+            type: MODIFY_USER,
+            payload: response
+        })
+
+    }
+}
 export const getProducts = () => {
     return async function (dispatch) {
         try {
@@ -84,8 +118,57 @@ export const createadmin = (payload) => {
             payload: response
         })
     }
+}  
+
+export const newsletter = (email,token) => {
+    console.log(email, "HOLA!!!!")
+    return async function (dispatch){
+        const response = axios.post('/newsletter',email,{
+            
+            headers: {
+                     Authorization: `Bearer ${token}`,
+                                 }
+          })
+        dispatch({
+            type: NEWSLETTER,
+            payload: email
+        })
+    }
 }
 
+
+
+export const donarProducto = (payload,email,token) => {
+ 
+    
+    return async function (dispatch) {
+      try{
+          const response = axios.post('/donate-form',{
+            email,
+            title:payload.title,
+            price:0,
+            weight:0,
+            descriptions:payload.descriptions,
+            image:payload.image,
+            stock:payload.cantidad,
+         } ,{
+            
+        headers: {
+                 Authorization: `Bearer ${token}`,
+                             }
+      })
+      dispatch({
+          type: DONAR_PRODUCTO,
+          payload: response
+      })
+    
+    }  catch (err) {
+        console.log(err)
+                  return
+              }
+        
+    }
+}
 export const getToken = (token) => {
     return {
         type: GET_TOKEN,
@@ -190,8 +273,11 @@ export const putShopCart = (email, cart, token) => {
     }
 }
 
-export const concatShopCart = () => {
 
+export const concatShopCart = () => {
+    return {
+        type: CONCAT_SHOP_CART,
+    }
 }
 
 export const deleteShopCart = (email, token) => {
@@ -220,6 +306,14 @@ export const deleteLocalShopCart = () => {
 export const compareProductsShopCart = () => {
     return {
         type: COMPARE_PRODUCTS_SHOP_CART,
+    }
+}
+
+export const removeItemFromCart = (id) => {
+    console.log("Entra al action")
+    return {
+        type: REMOVE_ITEM_FROM_CART,
+        id
     }
 }
 

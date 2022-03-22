@@ -16,6 +16,11 @@ import {
     DELETE_SHOP_CART,
     DELETE_LOCAL_SHOP_CART,
     COMPARE_PRODUCTS_SHOP_CART,
+    DONAR_PRODUCTO,
+    MODIFY_USER,
+    CONCAT_SHOP_CART,
+    REMOVE_ITEM_FROM_CART,
+    NEWSLETTER,
 } from "../actions";
 
 const initialState = {
@@ -27,6 +32,8 @@ const initialState = {
     dbShopCart: [],
     token: "",
     userInDB: false,
+    donarProducto:[],
+    email:[],
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -52,8 +59,20 @@ export default function rootReducer(state = initialState, action) {
             if (action.payload === "default") {
                 return { ...state, filteredProducts: state.products };
             }
-            return { ...state, filteredProducts: state.products.filter(product => product.category.includes(action.payload)) }
-        case CREATE_ADMIN:
+            return { ...state, filteredProducts: state.products.filter(product =>  product.categories.includes(action.payload)) }
+        case DONAR_PRODUCTO:
+           return { 
+               ...state, 
+               donarProducto : [...state.donarProducto, action.payload]
+            }
+            case NEWSLETTER :
+                return{
+                    ...state,
+                    email : [...state.email, action.payload]
+                }
+
+
+            case CREATE_ADMIN:
             return state;
         case ADD_TO_CART:
             if (state.shoppingCart.some(el => el.id === parseInt(action.payload))) return state;
@@ -89,12 +108,20 @@ export default function rootReducer(state = initialState, action) {
             let productsIds = [];
             state.shoppingCart.forEach(cartItem => {
                 state.products.forEach(prodItem => {
-                    if(cartItem.id === prodItem.id && !productsIds.includes(prodItem.id)) productsIds.push(prodItem.id) 
+                    if (cartItem.id === prodItem.id && !productsIds.includes(prodItem.id)) productsIds.push(prodItem.id)
                 })
             })
 
             const newShoppingCart = state.products.filter(el => productsIds.includes(el.id))
-            return { ...state, shoppingCart: newShoppingCart }
+            return { ...state, shoppingCart: newShoppingCart };
+        case CONCAT_SHOP_CART:
+            let shopCartIds = [];
+            state.shoppingCart.forEach(el => shopCartIds.push(el.id))
+            const filteredDbCart = state.dbShopCart.filter(el => !shopCartIds.includes(el.id))
+            const newShopCart = state.shoppingCart.concat(filteredDbCart)
+            return { ...state, shoppingCart: newShopCart };
+        case REMOVE_ITEM_FROM_CART:
+            return { ...state, shoppingCart: state.shoppingCart.filter(el => el.id !== parseInt(action.id)) }
         default:
             return state;
     }
