@@ -13,7 +13,7 @@ import NewProduct from "./pages/newProduct/NewProduct";
 import WidgetTotalSales from "./components/widgetTotalSales/WidgetTotalSales";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuth0 } from '@auth0/auth0-react';
-import { getToken, getUsers } from './store/actions';
+import { getToken, getUsers, getProducts, getCategories } from './store/actions';
 
 
 
@@ -30,6 +30,8 @@ function App() {
                 dispatch(getToken(res))
                 setTimeout(() => {
                     dispatch(getUsers(res))
+                    dispatch(getProducts(res))
+                    dispatch(getCategories(res))
                 }, 2000)
             })
     }
