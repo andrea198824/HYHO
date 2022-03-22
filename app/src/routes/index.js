@@ -185,12 +185,15 @@ router.get('/admin/mercadopago/OrderUser', jwtAdminCheck , getPayment.getOrderUs
 
 //--------------donation money------------------
 
-var donation = require('./donation')
-router.post('/donation', jwtCheck , donation.postDonation)
+// var donation = require('./donation')
+// router.post('/donation', jwtCheck , donation.postDonation)
+// router.get('/donationInfo', jwtCheck , donation.getDonations)
+// router.get('/admin/donationInfo', jwtAdminCheck , donation.getDonations)
 
-router.get('/donationInfo', jwtCheck , donation.getDonations)
-router.get('/admin/donationInfo', jwtAdminCheck , donation.getDonations)
+//--------------donation MERCADOPAGO------------------.
 
-
+var donationMp = require('./mercadoPD')
+router.get('/mercadopago-donation', jwtCheck , donationMp.get)
+router.get('/mercadopago-donation/pagosDonation', donationMp.pagosDonation)
 
 module.exports = router
