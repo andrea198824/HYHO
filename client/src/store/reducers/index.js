@@ -59,7 +59,7 @@ export default function rootReducer(state = initialState, action) {
             if (action.payload === "default") {
                 return { ...state, filteredProducts: state.products };
             }
-            return { ...state, filteredProducts: state.products.filter(product => product.category.includes(action.payload)) }
+            return { ...state, filteredProducts: state.products.filter(product =>  product.categories.includes(action.payload)) }
         case DONAR_PRODUCTO:
            return { 
                ...state, 
