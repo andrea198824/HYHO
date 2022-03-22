@@ -209,7 +209,10 @@ exports.getTotalVentas = async function (req, res, next) {
   let {year, month} = req.body
 
   year ? year = year-1900 : year
-  month ? month - 1 : month
+  if(month) month = month - 1
+
+  console.log("year :",year)
+  console.log("month :",month)
 
 
   try {
@@ -219,9 +222,9 @@ exports.getTotalVentas = async function (req, res, next) {
         status: 'approved'
       }
     })
-   if(year){ ordenes.filter(el => el.createdAt.getYear() == year) }
+   if(year){ ordenes = ordenes.filter(el => el.createdAt.getYear() == year) }
    
-   if(month && year){ ordenes.filter(el => el.createdAt.getMonth() == month) }
+   if(month && year){ ordenes = ordenes.filter(el => el.createdAt.getMonth() == month) }
 
    if(month && !year){res.status(404).send({info:"se necesita año"})}
 
@@ -235,9 +238,9 @@ exports.getTotalVentas = async function (req, res, next) {
     for (let i= 0; i < ordenes.length; i++) {
      
       Total = parseInt(ordenes[i].total) + Total
-      Total2 = i + Total2
+      Total2 = i
      }
-  
+     Total2 = Total2 + 1
      res.status(200).send({Total, Total2})
     } catch (error) {
       next(error)
