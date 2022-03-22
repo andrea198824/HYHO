@@ -38,12 +38,12 @@ export default function Sidebar() {
                 Usuarios
               </li>
             </Link>
-            <Link to="https://hyho.vercel.app/register" className="link">
+            {/* <Link to="https://hyho.vercel.app/register" className="link">
               <li className="sidebarListItem">
                 <PermIdentity className="sidebarIcon" />
                 Nuevo Usuario
               </li>
-            </Link>
+            </Link> */}
             <Link to="/products" className="link">
               <li className="sidebarListItem">
                 <Storefront className="sidebarIcon" />

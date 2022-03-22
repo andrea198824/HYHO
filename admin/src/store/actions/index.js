@@ -78,14 +78,14 @@ export const putProduct = (id, data, token) => {
 export const deleteProduct = (id, token) => {
     return async function (dispatch) {
         try {
-            const response = await axios.put(`/product/delete/${id}`, {
+            const response = await axios.delete(`/product/delete/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
             })
             dispatch({
                 type: DELETE_PRODUCT,
-                payload: response,
+                payload: id,
             })
         }  catch (err) {
             console.log(err)
