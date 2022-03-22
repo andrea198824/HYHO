@@ -175,7 +175,7 @@ router.post('/admin/create-order', jwtAdminCheck , shopControllerOrder.postCreat
 
 var getPayment = require('./mercadopago')
 router.get('/mercadopago', jwtCheck , getPayment.get)
-router.get('/mercadopago/pagos', jwtCheck , getPayment.pagos)
+router.get('/mercadopago/pagos', getPayment.pagos)
 
 router.get('/mercadopago/pagos/:id', jwtCheck , getPayment.pagosId)
 router.get('/admin/mercadopago/pagos/:id', jwtAdminCheck , getPayment.pagosId)
