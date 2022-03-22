@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const { Sequelize } = require('sequelize')
-const { Admin, Category, Form, Order, Products, User } = require('../db')
+const { Admin, Category, Form, Order, Products, User, Donation } = require('../db')
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 var form = require('./form')
@@ -97,7 +97,7 @@ router.delete('/product/delete/:id', jwtAdminCheck , product.delete)
 router.get('/category', category.get)
 
 //Newsletter
-router.post('/newsletter', jwtAdminCheck , newsletter.post)
+router.post('/newsletter', jwtCheck , newsletter.post)
 router.get('/newsletter', jwtAdminCheck , newsletter.get)
 
 //--------------shopping routes --------------------
@@ -130,6 +130,13 @@ var getPayment = require('./mercadopago')
 router.get('/mercadopago', getPayment.get)
 router.get('/mercadopago/pagos', getPayment.pagos)
 router.get('/mercadopago/pagos/:id', getPayment.pagosId)
+
+//--------------donation money------------------
+
+var donation = require('./donation')
+router.post('/donation', donation.postDonation)
+router.get('/donationInfo', donation.getDonations)
+
 
 
 module.exports = router

@@ -57,25 +57,37 @@ exports.getCart = async function (req, res, next) {
 }
 
 exports.postCart = async function (req, res, next) {
-  const { cart, email } = req.body
-  try {
-    let user = await User.findAll({
-      where: {
-        email: email
-      }
-    })
-    console.log('USER: ', user)
-    let act,
-      created = await Cart.create({
-        cart,
-        userId: user[0].id
-      })
-    //console.log(created)
-    if (created) return res.status(201).send('Cart created succesfully')
-    else return res.status(200).send('Cart was found and wasnt created')
-  } catch (error) {
-    next(error)
-  }
+    try {
+        const { cart, email } = req.body
+
+        let user = await User.findAll({
+            where: {
+                email: email
+            }
+        })
+        let cartDb = await Cart.findAll({
+            where: {
+                userId: user[0].id
+            }
+        })
+
+        if (!cartDb[0]) {
+            //console.log("No se encontro carrito")
+            await Cart.create({
+                    cart: JSON.stringify(cart),
+                    userId: user[0].id
+            })
+            return res.status(201).send("Cart created succesfully")
+        }
+
+        else {
+            //console.log("Se encontro carrito")
+            return res.status(200).send('Cart was found and for consequence it wasnt created')
+        }
+
+    } catch (error) {
+        next(error)
+    }
 }
 
 exports.postCartDeleteCart = async (req, res, next) => {

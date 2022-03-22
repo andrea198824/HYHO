@@ -4,114 +4,135 @@ import styled from 'styled-components'
 import { mobile } from '../responsive'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router'
+import {useDispatch, useSelector} from "react-redux"
 import FileBase from 'react-file-base64'
-import axios from 'axios'
 import NavBar from '../components/Navbar'
 import { Height } from '@material-ui/icons'
+import { donarProducto, getToken  } from '../store/actions'
+import { useAuth0 } from '@auth0/auth0-react';
+import Announcement from '../components/Announcement'
 
 const Container = styled.div`
   width: 100vw;
-  height: 90vh;
-  background: linear-gradient(#d3f7db, #f7dbd3),
-    url('https://lavozdemotul.com/wp-content/uploads/2016/08/registration-page-background-504-1.png')
+  height: 82vh;
+  background: linear-gradient(
+      #d3f7db,
+      #f7dbd3
+    ),
+    url("https://lavozdemotul.com/wp-content/uploads/2016/08/registration-page-background-504-1.png")
       center;
   background-size: cover;
   display: flex;
+justify-content: center;
   align-items: center;
-  justify-content: center;
-  @media (max-width: 320px) {
-    display: none;
-    width: 40px;
-  }
-`
+flex-direction: column;
+  
+`;
 
 const Wrapper = styled.div`
   width: 40%;
- 
+  height: 380px;
   padding: 20px;
   background-color: white;
-  ${mobile({ width: '75%' })}
-  @media (max-width: 320px) {
-    display: none;
-    width: 40px;
-  }
-`
+display: flex;
+justify-content: center;
+  align-items: center;
+flex-direction: column;
+  ${mobile({ width: "75%" })}
+    
+`;
 
 const Title = styled.h1`
+   padding-bottom: 20px;
   font-size: 24px;
   font-weight: 300;
-  padding-left: 30%
-  @media (max-width: 320px) {
-    display: none;
-  }
-`
+  text-align: center;
+`;
 
 const Form = styled.form`
-  display: flex;
-  flex-wrap: wrap;
-  @media (max-width: 320px) {
-    display: none;
-  }
-`
-
-const Input = styled.input`
-  flex: 1;
-  min-width: 40%;
-  margin: 20px 10px 0px 0px;
-  padding: 10px;
-`
+   
+`;
 
 const Button = styled.button`
-  width: 40%;
+  width: 100%;
   margin-top: 20px;
-  padding-right: 10px
   border: none;
-  padding: 15px 30px 15px 20px;
+  padding: 15px 20px;
+  
   background-color: #dbd3f7;
-  color: #4d4442;
+  color:#4d4442;
   cursor: pointer;
-
-  &:disabled {
+ &:disabled {
     background-color: gray;
     color: black;
     opacity: 0.7;
-    cursor: pointer;
+    cursor: default;
   }
-  &:hover {
-    background: dark-gray;
-  }
-  
-`
+`;
 
 const Paragraph = styled.p`
   color: red;
-  font-size: 15px;
-  font-weight: 3;
+  font-size: 10px;
+  font-weight: 2;
+`;
+
+const DivItemUno = styled.div`
+padding-top:80px;
+ display:flex;
+  justify-content: center;
+  align-items: center;
+ flex-direction: column;
+  height: 15vh; /*Este valor lo puedes omitir si la altura de tu componente esta definida*/
 `
 
-const Div = styled.div`
-    display:'flex',
-    position: 'absolute',
-    justify-content: 'space-around',
-    
+const DivItemDos = styled.div`
+  padding-top:35px;
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  justify-content:space-around;
+  align-items:unset;
+  align-content:flex-end;
+  height: 20vh; /*Este valor lo puedes omitir si la altura de tu componente esta definida*/
+`
+
+const DivItemTres = styled.div`
+ display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  justify-content:space-around;
+  align-items:unset;
+  align-content:flex-start;
+  height: 20vh; /*Este valor lo puedes omitir si la altura de tu componente esta definida*/
+`
+
+const Item0 = styled.input`
+order:1;
+  flex:0 1 center;
+  align-self:flex-start;
+  height:4vh;
+  width:20vh;
+  margin-top: 3vh;
+`
+
+const Item1 = styled.input`
+order:2;
+  flex:0 1 center;
+  align-self:flex-start;
+  height:5vh;
+  width:25vh;
+  margin-top: 3vh;
 `
 
 const linkStyle = {
-  textDecoration: 'none',
-  color: 'inherit',
-  width: '50%',
-  padding: '5px'
+    textDecoration: "none",
+    color: 'inherit',
+    width: '50%',
+    padding: '5px'
 }
 
-const fileBase = {
-  margin: '20px',
-  padding: '10px'
-}
-
-const file = {
-  padding: '25px',
-  margin: '5px'
-}
+const Input = styled.input`
+`
 
 export function validate (input) {
   let errors = {}
@@ -140,6 +161,11 @@ export function validate (input) {
   } else {
     delete errors.cantidad
   }
+  if (!input.email) {
+            errors.mail = 'Correo Requerido';
+        } else if (!/\S+@\S+\.\S+/.test(input.email)) {
+            errors.mail = 'Correo Invalido';
+        }
 
   if (Object.keys(errors).length <= 1) {
     errors.disabled = true
@@ -153,12 +179,31 @@ export function validate (input) {
 const DonarProduct = () => {
   const navigate = useNavigate()
 
+  const dispatch = useDispatch()
+  const { email, getAccessTokenSilently, isLoading } = useAuth0();
+  const token = useSelector( state => state.token)
+
+  if (!isLoading) {
+    getAccessTokenSilently()
+        .then(res => {
+            dispatch(getToken(res))              
+        })
+  
+  }
+
+
   const [errors, setErrors] = useState({})
   const [input, setInput] = useState({
+    email: '',
     title: '',
+    price:'',
+    weight:'',
     image: '',
-    cantidad: '',
-    descriptions: ''
+    descriptions: '',
+    stock: '',
+    category:[],
+
+
   })
   const getBaseFile = files => {
     setInput(prevState => ({ ...prevState, image: files.base64 }))
@@ -174,7 +219,7 @@ const DonarProduct = () => {
 
     setErrors(
       validate({
-        ...input,
+        ...input, 
         [e.target.name]: e.target.value
       })
     )
@@ -183,26 +228,38 @@ const DonarProduct = () => {
   const handleSubmit = e => {
     console.log('entro al submit', input)
     e.preventDefault()
+    dispatch(donarProducto(input,email,token))
+}
 
-    axios.post('/donate-form', input).then(res => {
-      console.log('entro res', res)
-      alert(` Gracias por tu donacion`)
-      navigate('/')
-    })
-  }
 
   console.log(errors)
 
   return (
     <div>
       <NavBar />
+      <Announcement/>
+
       <Container>
-        <Wrapper>
           <Title> Donar Producto</Title>
+      
+      <Wrapper>
 
           <Form onSubmit={handleSubmit}>
+          <DivItemUno>
+          <div>
+                           <Item0
+                                onChange={(e) => handleInputChange(e)}
+                                type='email'
+                                name='email'
+                                placeholder="Correo"
+                            />
+                            {errors.mail && (
+                                 <Paragraph>{errors.mail}</Paragraph>
+                                
+                            )}
+                        </div>
             <div>
-              <Input
+              <Item0
                 onChange={e => handleInputChange(e)}
                 type='text'
                 name='title'
@@ -212,7 +269,7 @@ const DonarProduct = () => {
             {errors.title && <Paragraph>{errors.title}</Paragraph>}
           </div>
           <div>
-            <Input
+            <Item0
               onChange={e => handleInputChange(e)}
               type='number'
               name='cantidad'
@@ -221,10 +278,10 @@ const DonarProduct = () => {
             {errors.cantidad && <Paragraph>{errors.cantidad}</Paragraph>}
           </div>
           <div>
-            <Input
+            <Item0
               onChange={e => handleInputChange(e)}
               type='text'
-              name='description'
+              name='descriptions'
               placeholder='Descripcion'
             />
             {errors.lastName && <Paragraph>{errors.descriptions}</Paragraph>}
@@ -232,21 +289,22 @@ const DonarProduct = () => {
         
         
 
-          <div style={file}>
-            <FileBase styled={fileBase} type='file' multiple={false} onDone={getBaseFile} />
+          <div >
+            <FileBase type='file' multiple={false} onDone={getBaseFile} />
 
             {errors.image && <Paragraph>{errors.image}</Paragraph>}
           </div>
-          <Div>
-            <Link to='/' style={linkStyle}>
+          </DivItemUno>
+          <DivItemDos>
+          <div>
               <Button type='submit' disabled={!errors.disabled}>
-                Crear
+                Donar
               </Button>
-            </Link>
             <Link to='/' style={linkStyle}>
               <Button>Volver</Button>
             </Link>
-          </Div>
+          </div>
+          </DivItemDos>
         </Form>
       </Wrapper>
     </Container>

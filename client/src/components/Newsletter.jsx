@@ -1,9 +1,11 @@
 import { Send } from "@material-ui/icons";
-import { useState } from "react";
+import React,{ useState } from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import { useNavigate } from "react-router";
-import axios from "axios";
+import { useAuth0 } from '@auth0/auth0-react'
+import { newsletter, getToken } from "../store/actions";
+import {useDispatch, useSelector} from "react-redux"
+
 
 
 
@@ -83,11 +85,17 @@ export function validate(input) {
 };
 
 const Newsletter = () => {
+
+  const dispatch = useDispatch()
+  const token = useSelector(state => state.token)
+  
+
+ 
     
     const [errors, setErrors] = useState({});
-    const [input, setInput] = useState({
-        email: '',
-    });
+    const [input, setInput] = useState(
+        {email:""}
+    );
 
     const handleInputChange = function (e) {
         e.preventDefault()
@@ -103,11 +111,10 @@ const Newsletter = () => {
     }
         const handleClick = e => {
           e.preventDefault()
-          axios.post('http://localhost:3001/newsletter', input)
-          .then((res) =>{
-          alert(`${input.email} gracias por subscribirte`)
-          window.scrollTo(0,0)}
-          )
+          dispatch(newsletter(input,token))
+          
+         
+          
         }
 
         
