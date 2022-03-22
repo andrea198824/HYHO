@@ -56,7 +56,7 @@ exports.get = async function (req, res, next) {
 
 
 exports.post = async function(req, res, next) {
-  // console.log("post")
+  console.log("post")
 try {
   let {
     formId,
