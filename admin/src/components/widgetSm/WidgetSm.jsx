@@ -12,7 +12,7 @@ export default function WidgetSm() {
   const [firtUsers, setFirtUsers] = useState([]);
   const token = "";
   useEffect (()=>{
-    dispatch(getUsers(token));
+    //dispatch(getUsers(token)); No esta funcionando, se hace dispatch antes de que el token este en el state
     console.log(allUsers)
     setFirtUsers(allUsers.slice(allUsers.length-5))
   },[dispatch])

@@ -20,7 +20,7 @@ export default function UserList() {
   };
   
   useEffect (()=>{
-    dispatch(getUsers(token));
+    //dispatch(getUsers(token)); No esta funcionando, se hace dispatch antes de que el token este en el state
     console.log(allUsers)
     setData(data.concat(allUsers))
   },[dispatch])
