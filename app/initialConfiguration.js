@@ -173,6 +173,22 @@ const products = [
     }
 ]
 
+function randomIntFromInterval(min, max) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+  
+
+function getOrder () {
+    let date = new Date(randomIntFromInterval(2000, 2022),Math.floor(Math.random()*12),Math.floor(Math.random()*29),3,24,0);
+    return  {
+        status: "approved",
+        payment_status: "approved",
+        total: Math.floor(Math.random() * 2000),
+        createdAt: date,
+        updatedAt: date
+    }
+} 
+
 let securityString = "randomString"
 let password = "K%Ec&G*RADs^"
 password = CryptoJS.HmacSHA1(securityString, password).toString(CryptoJS.enc.Base64)
@@ -224,4 +240,7 @@ exports.do = async () => {
           })
       )
     }
+    for (let i = 0; i < 40; i++) {
+        await Order.create(getOrder());
+      }
   }

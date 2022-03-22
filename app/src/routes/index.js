@@ -183,6 +183,9 @@ router.get('/admin/mercadopago/pagos/:id', jwtAdminCheck , getPayment.pagosId)
 router.get('/mercadopago/OrderUser', jwtCheck , getPayment.getOrderUser)
 router.get('/admin/mercadopago/OrderUser', jwtAdminCheck , getPayment.getOrderUser)
 
+
+router.get('/admin/mercadopago/totalVentas', jwtAdminCheck , getPayment.getTotalVentas)
+
 //--------------donation money------------------
 
 var donation = require('./donation')
