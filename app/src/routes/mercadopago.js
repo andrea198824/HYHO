@@ -27,10 +27,7 @@ exports.get = async function (req, res, next) {
     //const {id_user} = req.params
     try {
       let {email, cart} = req.body // id carrito
-    
-    
       cart = Array.isArray(cart) ? JSON.stringify(cart) : cart;//--> SALE UN STRING
-     
         let cartDb = await Cart.findAll({
             where: {
               cart: cart
@@ -38,12 +35,9 @@ exports.get = async function (req, res, next) {
         })
         
         let cartId = cartDb[0].id
-    
         // console.log("--------------------------------------------", cartId)
         //se respeta el formato por que asi lo pide mercadopago
-    
         cart = typeof cart === 'string' ? JSON.parse(cart) : cart; //--> SALE UN ARRAY
-    
     
       const items_ml = cart.map(i => ({
         title: i.title,
@@ -53,7 +47,7 @@ exports.get = async function (req, res, next) {
     
       // Crea un objeto de preferencia
       let preference = {
-     items: items_ml,
+        items: items_ml,
         external_reference : `${cartId}`,
         payment_methods: {
           excluded_payment_types: [
