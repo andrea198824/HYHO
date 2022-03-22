@@ -174,15 +174,17 @@ router.post('/admin/create-order', jwtAdminCheck , shopControllerOrder.postCreat
 // router.get('/counter', sessions.counter);
 
 var getPayment = require('./mercadopago')
-router.get('/mercadopago', getPayment.get)
-router.get('/mercadopago/pagos', getPayment.pagos)
-router.get('/mercadopago/pagos/:id', getPayment.pagosId)
+router.get('/mercadopago', jwtCheck , getPayment.get)
+router.get('/mercadopago/pagos', jwtCheck , getPayment.pagos)
+router.get('/mercadopago/pagos/:id', jwtCheck , getPayment.pagosId)
 
 //--------------donation money------------------
 
 var donation = require('./donation')
-router.post('/donation', donation.postDonation)
-router.get('/donationInfo', donation.getDonations)
+router.post('/donation', jwtCheck , donation.postDonation)
+
+router.get('/donationInfo', jwtCheck , donation.getDonations)
+router.get('/admin/donationInfo', jwtAdminCheck , donation.getDonations)
 
 
 
