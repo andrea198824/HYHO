@@ -97,7 +97,7 @@ router.delete('/product/delete/:id', jwtAdminCheck , product.delete)
 router.get('/category', category.get)
 
 //Newsletter
-router.post('/newsletter', jwtAdminCheck , newsletter.post)
+router.post('/newsletter', jwtCheck , newsletter.post)
 router.get('/newsletter', jwtAdminCheck , newsletter.get)
 
 //--------------shopping routes --------------------

@@ -17,10 +17,10 @@ import {
     DELETE_LOCAL_SHOP_CART,
     COMPARE_PRODUCTS_SHOP_CART,
     DONAR_PRODUCTO,
-    
     MODIFY_USER,
     CONCAT_SHOP_CART,
-    REMOVE_ITEM_FROM_CART
+    REMOVE_ITEM_FROM_CART,
+    NEWSLETTER,
 } from "../actions";
 
 const initialState = {
@@ -33,6 +33,7 @@ const initialState = {
     token: "",
     userInDB: false,
     donarProducto:[],
+    email:[],
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -64,6 +65,11 @@ export default function rootReducer(state = initialState, action) {
                ...state, 
                donarProducto : [...state.donarProducto, action.payload]
             }
+            case NEWSLETTER :
+                return{
+                    ...state,
+                    email : [...state.email, action.payload]
+                }
 
 
             case CREATE_ADMIN:
