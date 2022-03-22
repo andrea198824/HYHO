@@ -62,14 +62,29 @@ router.get('/admin/authorized', jwtAdminCheck,function (req, res) {
 //--------------------test-tokens-endpoints--------------------
 
 
+const logger =  (req, res, next) => {
+    console.log("loogger")
+    next()
+}
+//--------------------users-endpoints----------------------------------------
 //User endpoints:
 router.post('/register', jwtCheck, user.register) //Funciona con auth0 y token
-router.get('/isadmin', jwtCheck, user.isadmin) //Funciona con auth0 y token
-router.put('/verify-admin', jwtAdminCheck, user.verifyAdmin) //Funciona con auth0 y token
-router.put('/modify-user', jwtCheck , user.put) //Funciona con auth0 y token
-router.get('/users', jwtAdminCheck, user.get) //Funciona con auth0 y token
-router.get('/myinfo', jwtCheck, user.myinfo) //Funciona con auth0 y token
+router.post('/admin/register', jwtAdminCheck, user.register) //Funciona con auth0 y token
 
+router.get('/isadmin', jwtCheck, user.isadmin) //Funciona con auth0 y token
+router.get('/admin/isadmin', jwtAdminCheck, user.isadmin) //Funciona con auth0 y token
+
+router.put('/admin/verify-admin', jwtAdminCheck, user.verifyAdmin) //Funciona con auth0 y token
+
+router.put('/modify-user', jwtCheck , user.put) //Funciona con auth0 y token
+router.put('/admin/modify-user', jwtAdminCheck , user.put) //Funciona con auth0 y token
+
+router.get('/admin/users', logger ,jwtAdminCheck, user.get) //Funciona con auth0 y token
+
+router.get('/myinfo', jwtCheck, user.myinfo) //Funciona con auth0 y token
+router.get('/admin/myinfo', jwtAdminCheck, user.myinfo) //Funciona con auth0 y token
+
+//--------------------users-endpoints----------------------------------------
 
 // router.get('/login-status', user.status) //Funciona
 // router.put('/verify-user', user.verifyUser) //Funciona
@@ -83,44 +98,76 @@ router.get('/myinfo', jwtCheck, user.myinfo) //Funciona con auth0 y token
 // router.get('/admins', sessionVerification.needsAdmin ,admin.get) // No va
 // router.post('/create-admin', sessionVerification.needsAdmin ,admin.post) // No va
 
+//--------------------form-endpoints----------------------------------------
+
 //Form endpoints:
-router.get('/donate-products', jwtAdminCheck , form.get) //Funciona con auth0 y token
+router.get('/admin/donate-products', jwtAdminCheck , form.get) //Funciona con auth0 y token
+
 router.post('/donate-form', jwtCheck , form.post) //Funciona con auth0 y token
+router.post('/admin/donate-form', jwtAdminCheck , form.post) //Funciona con auth0 y token
+
+//--------------------form-endpoints----------------------------------------
+
+
+
+//--------------------products-endpoints----------------------------------------
 
 //Product endpoints:
-router.post('/product', jwtAdminCheck , product.post) //Funciona
-router.get('/products', product.get)
-router.put('/product/modify/:id', jwtAdminCheck , product.put)
-router.delete('/product/delete/:id', jwtAdminCheck , product.delete)
+router.post('/admin/product', jwtAdminCheck , product.post) //Funciona
 
+router.get('/products', jwtCheck , product.get)
+router.get('/admin/products', jwtAdminCheck , product.get)
+
+router.put('/admin/product/modify/:id', jwtAdminCheck , product.put)
+router.delete('/admin/product/delete/:id', jwtAdminCheck , product.delete)
+
+//--------------------products-endpoints----------------------------------------
+
+//--------------------category-endpoints----------------------------------------
 //Category endpoints:
-router.get('/category', category.get)
+router.get('/category', jwtCheck , category.get)
+router.get('/admin/category', jwtAdminCheck , category.get)
 
 //Newsletter
 router.post('/newsletter', jwtCheck , newsletter.post)
-router.get('/newsletter', jwtAdminCheck , newsletter.get)
+router.post('/admin/newsletter', jwtAdminCheck , newsletter.post)
+
+router.get('/admin/newsletter', jwtAdminCheck , newsletter.get)
+//--------------------category-endpoints----------------------------------------
 
 //--------------shopping routes --------------------
 
 const shopController = require('./shop')
 
-// router.get('/', shopController.getIndex);    
-router.get('/shop' , jwtCheck , shopController.getProducts) //  -> Usar /products //Funciona
-router.get('/cart/:email', jwtCheck, shopController.getCart) //Funciona
-router.post('/cart', jwtCheck , shopController.postCart) //Funciona
-// router.get('/checkout', shopController.getCheckout);
-// router.get('/orders', shopController.getOrders);
-// router.get('/products/:productId', shopController.getProduct);
+router.get('/shop' , jwtCheck , shopController.getProducts) 
+router.get('/admin/shop' , jwtAdminCheck , shopController.getProducts) 
+
+router.get('/cart/:email', jwtCheck, shopController.getCart) 
+router.get('/admin/cart/:email', jwtAdminCheck, shopController.getCart) 
+
+router.post('/cart', jwtCheck , shopController.postCart) 
+router.post('/admin/cart', jwtAdminCheck , shopController.postCart) 
+
 router.delete('/deleteCart', jwtCheck , shopController.postCartDeleteCart)
+router.delete('/admin/deleteCart', jwtAdminCheck , shopController.postCartDeleteCart)
+
 router.put('/putCart', jwtCheck , shopController.putCart)
-// router.post('/create-order', shopController.postOrder);
+router.put('/admin/putCart', jwtAdminCheck , shopController.putCart)
+
+
 
 //---------------shopping Orders ------------------
 
 const shopControllerOrder = require('./shopOrder')
 router.delete('/deleteOrder', jwtCheck , shopControllerOrder.deleteOrder);
+router.delete('/admin/deleteOrder', jwtAdminCheck , shopControllerOrder.deleteOrder);
+
 router.get('/getOrder', jwtCheck , shopControllerOrder.getOrder);
+router.get('/admin/getOrder', jwtAdminCheck , shopControllerOrder.getOrder);
+
 router.post('/create-order', jwtCheck , shopControllerOrder.postCreateOrder)
+router.post('/admin/create-order', jwtAdminCheck , shopControllerOrder.postCreateOrder)
+
 
 //--------------shopping routes --------------------
 // router.get('/sessions', sessions.get);
