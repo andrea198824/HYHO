@@ -144,7 +144,7 @@ export const donarProducto = (payload,email,token) => {
     return async function (dispatch) {
       try{
           const response = axios.post('/donate-form',{
-            email,
+            email:payload.email,
             title:payload.title,
             price:0,
             weight:0,
