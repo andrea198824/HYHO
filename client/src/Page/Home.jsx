@@ -1,12 +1,12 @@
-import React from "react";
-import Announcement from "../components/Announcement";
-import Categories from "../components/Categories";
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
-import Newsletter from "../components/Newsletter";
-import Products from "../components/Products";
-import Slider from "../components/Slider";
-import PopularProducts from '../components/PopularProducts';
+import React from 'react'
+import Announcement from '../components/Announcement'
+import Categories from '../components/Categories'
+import Footer from '../components/Footer'
+import Navbar from '../components/Navbar'
+import Newsletter from '../components/Newsletter'
+import Products from '../components/Products'
+import Slider from '../components/Slider'
+import PopularProducts from '../components/PopularProducts'
 
 const Home = () => {
   return (
@@ -15,11 +15,11 @@ const Home = () => {
       <Navbar />
       <Slider />
       <Categories />
-      <PopularProducts/>
-      <Newsletter/>
-      <Footer/> 
+      <PopularProducts />
+      <Newsletter />
+      <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

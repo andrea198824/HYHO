@@ -7,11 +7,21 @@ import { Link } from 'react-router-dom';
 import videoLanding from  "../Img/landing_verde.mp4";
 
 
+
 const Div = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  ${mobile({ display: "none" })}
+  @media (max-width: 320px) {
+    display: none;
+   
+  // }
+  // @media (min-width: 390px) {
+  //   display: none;
+    
+  // }
 `;
 
 const Container = styled.div`
@@ -21,6 +31,13 @@ const Container = styled.div`
   position: relative;
   overflow: hidden;
   ${mobile({ display: "none" })}
+  // @media (min-width: 320px) {
+  //   display: none;
+  //   padding-top: 10px;
+  // }
+  // @media (min-width: 390px) {
+  //   display: none;
+  // }
 `;
 
 const Arrow = styled.div`
@@ -47,6 +64,7 @@ const Wrapper = styled.div`
   display: flex;
   transition: all 1.5s ease;
   transform: translateX(${(props) => props.slideIndex * -100}vw);
+  
 `;
 
 const Slide = styled.div`
@@ -69,6 +87,7 @@ const ImgContainer = styled.div`
 const Image = styled.img`
   height: 80%;
   width: 100%;
+  ${mobile({ display: "none" })}
 `;
 
 const Video = styled.video`
@@ -84,7 +103,7 @@ const InfoContainer = styled.div`
 
 const ContTitle = styled.div`
   
-  // background-color: #dbd3f7;
+  background-color: #dbd3f7;
   border: 0.5px solid #dbd3f7 ;
   border-radius: 10px;
   margin: 10px;
@@ -95,6 +114,13 @@ const Title = styled.h1`
   color:#8aa290;
   font-size: 40px;
   margin: 6px;
+  // @media (min-width: 320px) {
+  // 
+  //  font-size: 30px;
+  // padding-top: 10px;
+  // }
+  ${mobile({ display: "none" })}
+  
 `;
 
 const Desc = styled.p`

@@ -1,19 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Badge } from "@material-ui/core";
-import { Search, ShoppingCartOutlined } from "@material-ui/icons";
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import { mobile } from "../responsive";
+import { Badge } from '@material-ui/core'
+import { Search, ShoppingCartOutlined } from '@material-ui/icons'
+import { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import { mobile } from '../responsive'
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from "react-redux";
-import { searchProducts, putShopCart, getShopCart, postShopCart, concatShopCart } from '../store/actions';
-import LogoHyho from '..//Img/logoLargo.gif';
-import { useAuth0 } from "@auth0/auth0-react";
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  searchProducts,
+  putShopCart,
+  getShopCart,
+  postShopCart,
+  concatShopCart
+} from '../store/actions'
+import LogoHyho from '..//Img/logoLargo.gif'
+import { useAuth0 } from '@auth0/auth0-react'
+import Counter from './Counter'
 
 const Container = styled.div`
-  height: 80px; 
-  ${mobile({ height: "50px" })}
-`;
+  height: 80px;
+  ${mobile({ height: '50px', width: 'cover' })}
+`
 
 const Wrapper = styled.div`
   background-color: #f7dbd3;
@@ -21,15 +28,15 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  ${mobile({ padding: "10px 0px" })}
-`;
+  ${mobile({ padding: '1px 10px', width: '100%' })}
+`
 
 const Left = styled.div`
   flex: 1;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-`;
+`
 
 const SearchContainer = styled.form`
   border: 0.5px solid lightgray;
@@ -38,7 +45,7 @@ const SearchContainer = styled.form`
   margin-left: 25px;
   padding: 5px;
   width: 60%;
-`;
+`
 
 const Input = styled.input`
   border: none;
@@ -47,21 +54,21 @@ const Input = styled.input`
 
   margin-left: 5px;
 
-  ${mobile({ width: "50px" })}
-`;
+  ${mobile({ width: '50px' })}
+`
 
 const Center = styled.div`
   flex: 1;
   text-align: center;
-`;
+`
 
 const Right = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  ${mobile({ flex: 2, justifyContent: "center" })}
-`;
+  ${mobile({ flex: 2, justifyContent: 'center' })}
+`
 
 const MenuItem = styled.div`
   font-size: 14px;
@@ -69,8 +76,8 @@ const MenuItem = styled.div`
   margin-left: 25px;
   margin-right: 10px;
   text-decoration: none;
-  ${mobile({ fontSize: "12px", marginLeft: "10px" })}
-`;
+  ${mobile({ fontSize: '12px', marginLeft: '10px' })}
+`
 
 const ImgLogo = styled.img`
   width: auto;
@@ -78,93 +85,95 @@ const ImgLogo = styled.img`
   padding: 4px ;
   margin-left: 80px;
   alt= "logo no disponible"
-${mobile({ fontSize: "24px" })}
-`;
+${mobile({ fontSize: '24px' })}
+`
 
 const linkStyle = {
-    textDecoration: "none",
-    color: 'inherit',
+  textDecoration: 'none',
+  color: 'inherit'
 }
 
 const profilePic = {
-    width: "auto",
-    height: "40px",
-    padding: "4px",
-    borderRadius: "2rem",
-
+  width: 'auto',
+  height: '40px',
+  padding: '4px',
+  borderRadius: '2rem'
 }
 
 const Navbar = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-    const cartProducts = useSelector(state => state.shoppingCart)
-    const token = useSelector(state => state.token)
-    const { user, isLoading, loginWithRedirect, logout } = useAuth0();
+  const cartProducts = useSelector(state => state.shoppingCart)
+  const token = useSelector(state => state.token)
+  const { user, isLoading, loginWithRedirect, logout } = useAuth0()
 
-    useEffect(() => {
-        if (!isLoading && user) dispatch(postShopCart(user.email, cartProducts, token))
-    }, [])
+  useEffect(() => {
+    if (!isLoading && user)
+      dispatch(postShopCart(user.email, cartProducts, token))
+  }, [])
 
-    useEffect(() => {
-        localStorage.setItem('shoppingCart', JSON.stringify(cartProducts))
-        if (!isLoading && user) {
-            dispatch(putShopCart(user.email, cartProducts, token))
-        }
-    }, [cartProducts])
-    
-    return (
-        <Container>
-            <Wrapper>
-                <Left>
-                    <Link to='/' style={linkStyle}>
-                        <h1> TU.ong </h1>
-                    </Link>
-                    <ImgLogo src={LogoHyho}></ImgLogo>
-                    {/* <Slogan> "Help Yourself By Helping Others" </Slogan> */}
-                </Left>
+  useEffect(() => {
+    localStorage.setItem('shoppingCart', JSON.stringify(cartProducts))
+    if (!isLoading && user) {
+      dispatch(putShopCart(user.email, cartProducts, token))
+    }
+  }, [cartProducts])
 
-                {
-                    isLoading ?
-                        <Right>
-                            <MenuItem>Cargando...</MenuItem>
-                            <MenuItem>
-                                <Link to='/cart' style={linkStyle}>
-                                    <Badge badgeContent={cartProducts.length} color="primary">
-                                        <ShoppingCartOutlined />
-                                    </Badge>
-                                </Link>
-                            </MenuItem>
-                        </Right>
-                        :
-                        user ?
-                            <Right>
-                                <MenuItem onClick={() => logout({ returnTo: window.location.origin })} >Cerrar Sesion</MenuItem>
-                                <img src={user.picture} style={profilePic} alt="" />
-                                <MenuItem>
-                                    <Link to='/cart' style={linkStyle}>
-                                        <Badge badgeContent={cartProducts.length} color="primary">
-                                            <ShoppingCartOutlined />
-                                        </Badge>
-                                    </Link>
-                                </MenuItem>
-                            </Right>
-                            :
-                            <Right>
-                                <MenuItem onClick={loginWithRedirect}>Iniciar Sesion / Registrarse</MenuItem>
-                                <MenuItem>
-                                    <Link to='/cart' style={linkStyle}>
-                                        <Badge badgeContent={cartProducts.length} color="primary">
-                                            <ShoppingCartOutlined />
-                                        </Badge>
-                                    </Link>
-                                </MenuItem>
-                            </Right>
+  return (
+    <Container>
+      <Wrapper>
+        <Left>
+          <Link to='/' style={linkStyle}>
+            <h1> TU.ong </h1>
+          </Link>
+          <ImgLogo src={LogoHyho}></ImgLogo>
+          {/* <Slogan> "Help Yourself By Helping Others" </Slogan> */}
+        </Left>
+        <Counter />
+        {isLoading ? (
+          <Right>
+            <MenuItem>Cargando...</MenuItem>
+            <MenuItem>
+              <Link to='/cart' style={linkStyle}>
+                <Badge badgeContent={cartProducts.length} color='primary'>
+                  <ShoppingCartOutlined />
+                </Badge>
+              </Link>
+            </MenuItem>
+          </Right>
+        ) : user ? (
+          <Right>
+            <MenuItem
+              onClick={() => logout({ returnTo: window.location.origin })}
+            >
+              Cerrar Sesion
+            </MenuItem>
+            <img src={user.picture} style={profilePic} alt='' />
+            <MenuItem>
+              <Link to='/cart' style={linkStyle}>
+                <Badge badgeContent={cartProducts.length} color='primary'>
+                  <ShoppingCartOutlined />
+                </Badge>
+              </Link>
+            </MenuItem>
+          </Right>
+        ) : (
+          <Right>
+            <MenuItem onClick={loginWithRedirect}>
+              Iniciar Sesion / Registrarse
+            </MenuItem>
+            <MenuItem>
+              <Link to='/cart' style={linkStyle}>
+                <Badge badgeContent={cartProducts.length} color='primary'>
+                  <ShoppingCartOutlined />
+                </Badge>
+              </Link>
+            </MenuItem>
+          </Right>
+        )}
+      </Wrapper>
+    </Container>
+  )
+}
 
-                }
-
-            </Wrapper>
-        </Container>
-    );
-};
-
-export default Navbar;
+export default Navbar

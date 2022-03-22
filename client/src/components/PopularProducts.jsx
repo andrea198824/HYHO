@@ -7,6 +7,13 @@ const Container = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    @media (min-width: 320px) {
+      
+        background: #f7dbd3 0.65;
+        box-shadow: inset 5px 5px 10px #d4bcb5, inset -5px -5px 10px #fffaf1;
+        position: relative;
+       
+      }
 `;
 
 const PopularProducts = () => {
