@@ -7,8 +7,8 @@ const getDbEmail = async () => {
 };
 
 exports.post = async function (req, res) {
-  const { email } = req.body;
-  console.log(req.body);
+  const  {email}  = req.body;
+  console.log(req.body, "AQUI!!!!!!!!");
   try {
     let newEmail = await Newsletter.findOrCreate({ where: { email: email } });
     res.send(newEmail);

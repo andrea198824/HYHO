@@ -26,6 +26,7 @@ export const COMPARE_PRODUCTS_SHOP_CART = 'COMPARE_PRODUCTS_SHOP_CART';
 export const DONAR_PRODUCTO = " DONAR_PRODUCTO"
 export const MODIFY_USER = 'MODIFY_USER';
 export const REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART';
+export const NEWSLETTER = "NEWSLETTER"
 
 export const modifyuser = (data, user, token) => {
     let shipping_address = {
@@ -117,7 +118,23 @@ export const createadmin = (payload) => {
             payload: response
         })
     }
-}    
+}  
+
+export const newsletter = (email,token) => {
+    console.log(email, "HOLA!!!!")
+    return async function (dispatch){
+        const response = axios.post('/newsletter',email,{
+            
+            headers: {
+                     Authorization: `Bearer ${token}`,
+                                 }
+          })
+        dispatch({
+            type: NEWSLETTER,
+            payload: email
+        })
+    }
+}
 
 
 
