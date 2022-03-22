@@ -115,7 +115,7 @@ router.post('/admin/donate-form', jwtAdminCheck , form.post) //Funciona con auth
 //Product endpoints:
 router.post('/admin/product', jwtAdminCheck , product.post) //Funciona
 
-router.get('/products', jwtCheck , product.get)
+router.get('/products', product.get)
 router.get('/admin/products', jwtAdminCheck , product.get)
 
 router.put('/admin/product/modify/:id', jwtAdminCheck , product.put)
@@ -125,7 +125,7 @@ router.delete('/admin/product/delete/:id', jwtAdminCheck , product.delete)
 
 //--------------------category-endpoints----------------------------------------
 //Category endpoints:
-router.get('/category', jwtCheck , category.get)
+router.get('/category', category.get)
 router.get('/admin/category', jwtAdminCheck , category.get)
 
 //Newsletter
