@@ -169,25 +169,8 @@ exports.pagos = async function (req, res) {
 }
 
 //Busco información de una orden de pago
-exports.pagosId = async function (req, res) {
-  const mp = new mercadopago(ACCESS_TOKEN)
-  const id = req.params.id
-  console.info('Buscando el id', id)
-  mp.get(`/v1/payments/search`, { status: 'pending' }) //{"external_reference":id})
-    .then(resultado => {
-      console.info('resultado', resultado)
-      res.json({ resultado: resultado })
-    })
-    .catch(err => {
-      console.error('No se consulto:', err)
-      res.json({
-        error: err
-      })
-    })
-}
-
-exports.getOrderUserId = async function (res, req, next) {
-  const email = req.query.email
+exports.getOrderUser = async function (req, res, next) {
+  const {email} = req.body
 
   try {
     let user = await User.findAll({
@@ -198,6 +181,25 @@ exports.getOrderUserId = async function (res, req, next) {
     let ord = await Order.findAll({
       where: {
         userId: user[0].id
+      }
+    })
+    ord.length
+      ? res.status(200).send(ord)
+      : res.status(404).send('Order not found')
+  } catch (error) {
+    next(error)
+  }
+}
+
+//Busco información de una orden de pago
+ exports.pagosId = async function (req, res, next) {
+
+   const id = req.params.id
+   try {
+  
+    let ord = await Order.findAll({
+      where: {
+        id: Number(id)
       }
     })
     ord.length

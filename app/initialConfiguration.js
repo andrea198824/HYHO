@@ -113,7 +113,7 @@ const products = [
     },
     {
         id: 10,
-        title: "Rem Kingdom Vintage Cuello Desbocado Bote Abierto",
+        title: "Remera Kingdom Vintage Cuello Desbocado Bote Abierto",
         price: 1423,
         weight: 0.1,
         descriptions: "",

@@ -31,7 +31,7 @@ export const getProducts = () => {
         const products = await axios.get('/products')
         dispatch({
            type: GET_PRODUCTS,
-           payload: products,
+           payload: products.data,
         })
       } catch (err) {
           console.log(err)
@@ -171,7 +171,7 @@ export const getUsers = (token) => {
             })
             dispatch({
                type: GET_USERS,
-               payload: users,
+               payload: users.data,
             })
         }  catch (err) {
             console.log(err)

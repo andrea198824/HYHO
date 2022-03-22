@@ -5,7 +5,6 @@ import { userRows } from "../../dummyData";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUsers } from '../../store/actions';
 
 
 export default function UserList() {
@@ -20,7 +19,7 @@ export default function UserList() {
   };
   
   useEffect (()=>{
-    dispatch(getUsers(token));
+    //dispatch(getUsers(token)); No esta funcionando, se hace dispatch antes de que el token este en el state
     console.log(allUsers)
     setData(data.concat(allUsers))
   },[dispatch])
