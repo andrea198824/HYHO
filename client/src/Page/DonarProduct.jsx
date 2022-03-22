@@ -86,7 +86,7 @@ padding-top:80px;
 `
 
 const DivItemDos = styled.div`
-  padding-top:35px;
+  padding-top:55px;
   display:flex;
   flex-direction:row;
   flex-wrap:wrap;
@@ -229,6 +229,8 @@ const DonarProduct = () => {
     console.log('entro al submit', input)
     e.preventDefault()
     dispatch(donarProducto(input,email,token))
+    alert("Gracias por tu Donacion")
+    navigate("/")
 }
 
 
@@ -286,21 +288,22 @@ const DonarProduct = () => {
             />
             {errors.lastName && <Paragraph>{errors.descriptions}</Paragraph>}
           </div>
+          </DivItemUno>
         
-        
-
+          <DivItemDos>
           <div >
+          
             <FileBase type='file' multiple={false} onDone={getBaseFile} />
 
             {errors.image && <Paragraph>{errors.image}</Paragraph>}
           </div>
-          </DivItemUno>
-          <DivItemDos>
+         
+          
           <div>
               <Button type='submit' disabled={!errors.disabled}>
                 Donar
               </Button>
-            <Link to='/' style={linkStyle}>
+            <Link to='/' >
               <Button>Volver</Button>
             </Link>
           </div>
