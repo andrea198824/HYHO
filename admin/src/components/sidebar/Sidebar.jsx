@@ -71,15 +71,16 @@ export default function Sidebar() {
               Formularios donaciones de productos
             </li>
             </Link>
-          </ul>
         </div>
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Newsletter</h3>
           <ul className="sidebarList">
-            <li className="sidebarListItem">
-              <MailOutline className="sidebarIcon" />
-              Mail
-            </li>
+            <Link to="/newsletter" className="link">
+              <li className="sidebarListItem">
+                <MailOutline className="sidebarIcon" />
+                Mail
+              </li>
+            </Link>
           </ul>
         </div>
       </div>

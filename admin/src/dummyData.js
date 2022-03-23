@@ -66,91 +66,91 @@ export const userData = [
 
   export const userRows = [
     {
-      id: 1,
-      username: "Jon Snow",
-      avatar:
-        "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+      id: 100,
+      nickname: "Jon Snow",
+      picture:
+      "https://s.gravatar.com/avatar/411a1155a712213ca70d45045b6e6fa1?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fke.png",
       email: "jon@gmail.com",
       status: "active",
       transaction: "$120.00",
     },
     {
-      id: 2,
-      username: "Jon Snow",
-      avatar:
-        "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+      id: 200,
+      nickname: "Jon Snow",
+      picture:
+      "https://s.gravatar.com/avatar/411a1155a712213ca70d45045b6e6fa1?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fke.png",
       email: "jon@gmail.com",
       status: "active",
       transaction: "$120.00",
     },
     {
-      id: 3,
-      username: "Jon Snow",
-      avatar:
-        "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+      id: 300,
+      nickname: "Jon Snow",
+      picture:
+      "https://s.gravatar.com/avatar/411a1155a712213ca70d45045b6e6fa1?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fke.png",
       email: "jon@gmail.com",
       status: "active",
       transaction: "$120.00",
     },
     {
-      id: 4,
-      username: "Jon Snow",
-      avatar:
-        "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+      id: 400,
+      nickname: "Jon Snow",
+      picture:
+      "https://s.gravatar.com/avatar/411a1155a712213ca70d45045b6e6fa1?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fke.png",
       email: "jon@gmail.com",
       status: "active",
       transaction: "$120.00",
     },
     {
-      id: 5,
-      username: "Jon Snow",
-      avatar:
-        "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+      id: 500,
+      nickname: "Jon Snow",
+      picture:
+      "https://s.gravatar.com/avatar/411a1155a712213ca70d45045b6e6fa1?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fke.png",
       email: "jon@gmail.com",
       status: "active",
       transaction: "$120.00",
     },
     {
-      id: 6,
-      username: "Jon Snow",
-      avatar:
-        "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+      id: 600,
+      nickname: "Jon Snow",
+      picture:
+      "https://s.gravatar.com/avatar/411a1155a712213ca70d45045b6e6fa1?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fke.png",
       email: "jon@gmail.com",
       status: "active",
       transaction: "$120.00",
     },
     {
-      id: 7,
-      username: "Jon Snow",
-      avatar:
-        "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+      id: 700,
+      nickname: "Jon Snow",
+      picture:
+      "https://s.gravatar.com/avatar/411a1155a712213ca70d45045b6e6fa1?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fke.png",
       email: "jon@gmail.com",
       status: "active",
       transaction: "$120.00",
     },
     {
-      id: 8,
-      username: "Jon Snow",
-      avatar:
-        "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+      id: 800,
+      nickname: "Jon Snow",
+      picture:
+      "https://s.gravatar.com/avatar/411a1155a712213ca70d45045b6e6fa1?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fke.png",
       email: "jon@gmail.com",
       status: "active",
       transaction: "$120.00",
     },
     {
-      id: 9,
-      username: "Jon Snow",
-      avatar:
-        "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+      id: 900,
+      nickname: "Jon Snow",
+      picture:
+      "https://s.gravatar.com/avatar/411a1155a712213ca70d45045b6e6fa1?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fke.png",
       email: "jon@gmail.com",
       status: "active",
       transaction: "$120.00",
     },
     {
-      id: 10,
+      id: 1000,
       username: "Jon Snow",
       avatar:
-        "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+      "https://s.gravatar.com/avatar/411a1155a712213ca70d45045b6e6fa1?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fke.png",
       email: "jon@gmail.com",
       status: "active",
       transaction: "$120.00",
