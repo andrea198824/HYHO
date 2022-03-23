@@ -1,35 +1,39 @@
-//import './App.css'
+import './mercadopago.css'
 import { useEffect, useState } from 'react'
 import Checkout from '../components/Checkout'
 import axios from 'axios'
+//import { getShopCart } from '../store/actions'
 
-function MercadoPago() {
-  const [datos, setDatos] = useState("")
+function MercadoPago () {
 
-  useEffect(()=>{
+  const [datos, setDatos] = useState('')
+ 
+  useEffect(() => {
     axios
-    .get("http://localhost:3001/mercadopago")
-    .then((data)=>{
-      setDatos(data.data)
-      console.info('Contenido de data:', data)
-    })
-    .catch(err => console.error(err)) 
-  },[])
+      .get('http://localhost:3001/mercadopago')
+      .then(data => {
+        setDatos(data.data)
+        console.info('Contenido de data:', data)
+      })
+      .catch(err => console.error(err))
+  }, [])
 
 
-  const productos = [
-    {title: "Producto 1", quantity: 5, price: 10.52},
-    {title: "Producto 2", quantity: 15, price: 100.52},
-    {title: "Producto 3", quantity: 6, price: 200}
-  ]
   return (
-    <div className="App">
-      { !productos
-        ? <p>Aguarde un momento....</p> 
-        : <Checkout  productos= {productos} data={datos}/>
-      }
+    <div>
+      <button
+        className='buttonMP'
+        type='button'
+        onClick={e => {
+          e.preventDefault()
+          console.log(global.id)
+         // window.location.href = `https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id= ${global.Id}`
+        }}
+      >
+        Click here if you want to win 1 Million dollars doing nothing at home.
+      </button>
     </div>
-  );
+  )
 }
 
-export default MercadoPago;
+export default MercadoPago
