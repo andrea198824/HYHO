@@ -23,7 +23,7 @@ export const ADD_USER = 'ADD_USER';
 // export const GET_ORDERS = 'GET_ORDERS';
 export const GET_NEWSLETTER = 'GET_NEWSLETTER';
 export const DONATE_PRODUCT = 'DONATE_PRODUCT';
-
+export const GET_DONATION = " GET_DONATION" ;
 
 export const getProducts = () => {
     return async function (dispatch) {
@@ -31,6 +31,24 @@ export const getProducts = () => {
         const products = await axios.get('/products')
         dispatch({
            type: GET_PRODUCTS,
+           payload: products.data,
+        })
+      } catch (err) {
+          console.log(err)
+      }
+    }
+}
+
+export const getDonation = (token) => {
+    return async function (dispatch) {
+      try {
+        const products = await axios.get('/donate-products', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+        dispatch({
+           type: GET_DONATION,
            payload: products.data,
         })
       } catch (err) {
