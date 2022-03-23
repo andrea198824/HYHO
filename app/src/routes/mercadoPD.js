@@ -46,9 +46,9 @@ try{
       installments: 3  //Cantidad máximo de cuotas
     },
     back_urls: {
-      success: 'http://localhost:3001/mercadopago-donation/pagosDonation',
-      failure: 'http://localhost:3001/mercadopago-donation/pagosDonation',
-      pending: 'http://localhost:3001/mercadopago-donation/pagosDonation',
+      success: 'http://localhost:3001/mercadopago-donation/pagos',
+      failure: 'http://localhost:3001/mercadopago-donation/pagos',
+      pending: 'http://localhost:3001/mercadopago-donation/pagos',
     },
   };
 
@@ -77,10 +77,11 @@ exports.pagosDonation = async function (req, res) {
   const payment_status= req.query.status
   const external_reference = req.query.external_reference
   const merchant_order_id= req.query.merchant_order_id
-  //const items = req.query.items
-  const status = req.query.status
+  const preference_id = req.query.preference_id
 
-  let detail = cart[0].dataValues.
+  const status = req.query.status
+  console.log("--------------------------------------", preference_id)
+
 
   Donation.create({
     payment_id: payment_id,
@@ -88,8 +89,12 @@ exports.pagosDonation = async function (req, res) {
     merchant_order_id : merchant_order_id,
     status : status,
     email: external_reference,
-    Items: items
+    preference_id: preference_id,
+    //value: donation
     })
+
+
+
    return res.redirect("http://localhost:3000")
 }
 

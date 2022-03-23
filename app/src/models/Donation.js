@@ -9,15 +9,12 @@ module.exports = (sequelize) => {
     },
     email:{
       type: DataTypes.STRING,
-      allowNull: false,
     },
     title: {
       type: DataTypes.TEXT,
-      allowNull: false,
     },
     quantity: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       defaultValue: 1,
     },
     payment_id: {
@@ -37,5 +34,9 @@ module.exports = (sequelize) => {
       type: DataTypes.BIGINT,
       defaultValue: 0,
     },
+    preference_id:{
+      type: DataTypes.STRING,
+      defaultValue: ""
+    }
   });
 };
