@@ -14,6 +14,7 @@ import {
     ADD_USER,
     GET_NEWSLETTER,
     DONATE_PRODUCT,
+    GET_DONATION,
 } from "../actions";
 
 const initialState = {
@@ -25,6 +26,8 @@ const initialState = {
     newsletter: [],
     donateProduct: [],
     token: "",
+    productsDonate :[],
+
     shoppingCart: JSON.parse(localStorage.getItem('shoppingCart')) || [],
 }
 
@@ -34,6 +37,8 @@ export default function rootReducer(state = initialState, action) {
             return {...state, token:action.payload};
         case GET_PRODUCTS:
             return { ...state, products: action.payload };
+            case GET_DONATION:
+                return {...state, productsDonate: action.payload};
         case ADD_PRODUCT:
             return { ...state, products: state.products.concat(action.payload)};
         case PUT_PRODUCT:

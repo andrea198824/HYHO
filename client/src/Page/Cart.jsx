@@ -7,9 +7,9 @@ import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { modifyQuantity, deleteShopCart, deleteLocalShopCart, compareProductsShopCart, concatShopCart, removeItemFromCart } from "../store/actions";
+import { modifyQuantity, deleteShopCart, deleteLocalShopCart, compareProductsShopCart, removeItemFromCart, getPrefId } from "../store/actions";
 import { useAuth0 } from '@auth0/auth0-react'
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Container = styled.div``;
 
@@ -40,14 +40,14 @@ const TopButton = styled.button`
   color: ${(props) => props.type === "filled" && "white"};
 `;
 
-const TopTexts = styled.div`
-  ${mobile({ display: "none" })}
-`;
-const TopText = styled.span`
-  text-decoration: underline;
-  cursor: pointer;
-  margin: 0px 10px;
-`;
+// const TopTexts = styled.div`
+//   ${mobile({ display: "none" })}
+// `;
+// const TopText = styled.span`
+//   text-decoration: underline;
+//   cursor: pointer;
+//   margin: 0px 10px;
+// `;
 
 const Bottom = styled.div`
   display: flex;
@@ -198,6 +198,23 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
+function addCheckout(prefId, check) {
+
+    var mp = new window.MercadoPago('TEST-4639441c-428c-455b-a470-ff0171c740b0', {
+        locale: 'es-AR'
+    })
+
+    mp.checkout({
+        preference: {
+            id: prefId,
+        },
+        render: {
+            container: `#pay_button`, // Indica el nombre de la clase donde se mostrará el botón de pago
+            label: 'Comprar', // Cambia el texto del botón de pago 
+        },
+    });
+}
+
 const Cart = () => {
     const dispatch = useDispatch()
     const products = useSelector(state => state.products)
@@ -207,10 +224,19 @@ const Cart = () => {
     const classes = useStyles();
     const { user, isLoading } = useAuth0()
     const token = useSelector(state => state.token)
+    const prefId = useSelector(state => state.prefId)
+    const url = useSelector(state => state.url)
+    const [button, setButton] = useState(false)
 
     useEffect(() => {
-        if (products.length > 1) dispatch(compareProductsShopCart())
+        if (products.length) dispatch(compareProductsShopCart())
     }, [dispatch, products])
+
+    useEffect(() => {
+        if (!isLoading) {
+            dispatch(getPrefId({ cart: cartProducts }, token))
+        }
+    }, [cartProducts])
 
 
     const onClickProduct = (e) => {
@@ -229,6 +255,8 @@ const Cart = () => {
     const onClickDeleteItem = (e) => {
         dispatch(removeItemFromCart(e.target.value))
     }
+
+
 
 
     return (
@@ -252,7 +280,7 @@ const Cart = () => {
                 <Bottom>
                     <Info>
                         {cartProducts.length ? cartProducts.map(el => (
-                            <AltWrapper>
+                            <AltWrapper key={el.id}>
                                 <Hr />
                                 <Product key={el.id}>
                                     <ProductDetail>
@@ -317,13 +345,14 @@ const Cart = () => {
                         {
                             isLoading
                                 ? null
-                                : user && subTotal !== 0
-                                    ? <Link to='/mercadopago'>
-                                        <Button className={classes.Buttons}>COMPRAR</Button>
-                                    </Link>
-                                    : subTotal === 0
-                                        ? <Title style={{ fontSize: "25px" }}> Agrega Productos Para Continuar </Title>
-                                        : <Title> Inicia Sesion Para Continuar </Title>
+                                : subTotal !== 0 && prefId && url
+                                    ? <Button className={classes.Buttons} onClick={() => {
+                                        window.location.replace(url);
+                                        return null;
+                                    }}>COMPRAR</Button>
+                                    : !user && subTotal !== 0
+                                        ? <Title> Inicia Sesion Para Continuar </Title>
+                                        : subTotal === 0 && <Title> Agrega Productos Para Continuar </Title>
                         }
                     </Summary>
                 </Bottom>

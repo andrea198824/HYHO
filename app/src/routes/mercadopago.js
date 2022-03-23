@@ -19,6 +19,7 @@ exports.get = async function (req, res, next)  {
 
     //const {id_user} = req.params
     try {
+        console.log("req.body  :",req.body)
       let {email, cart} = req.body // id carrito
     
     
@@ -69,8 +70,10 @@ exports.get = async function (req, res, next)  {
         console.info('respondio')
         //Este valor reemplazará el string"<%= global.id %>" en tu HTML
           global.id = response.body.id;
-          console.log(response.body)
-          res.json({ id: global.id });
+          console.log("response.body    :",response.body)
+          global.init_point = response.body.sandbox_init_point;
+          //console.log(response.body);
+          res.json({ id: global.id, url: global.init_point });
         })
         .catch(function(error){
           console.log(error);
@@ -203,3 +206,46 @@ exports.getOrderUser = async function (req, res, next) {
     next(error)
   }
 }
+
+
+exports.getTotalVentas = async function (req, res, next) {
+  let {year, month} = req.body
+
+  year ? year = year-1900 : year
+  if(month) month = month - 1
+
+  console.log("year :",year)
+  console.log("month :",month)
+
+
+  try {
+
+    let ordenes = await Order.findAll({
+      where: {
+        status: 'approved'
+      }
+    })
+   if(year){ ordenes = ordenes.filter(el => el.createdAt.getYear() == year) }
+   
+   if(month && year){ ordenes = ordenes.filter(el => el.createdAt.getMonth() == month) }
+
+   if(month && !year){res.status(404).send({info:"se necesita año"})}
+
+    // console.log("ordenes[0].typeof--------:", typeof ordenes[0].createdAt)
+    // console.log("ordenes[0].GET YEAR--------:",(ordenes[0].createdAt).getYear())
+    // console.log("ordenes[0].createdAt--------:",ordenes[0].createdAt)
+    // console.log("ordenes[0].cMONTH--------:",(ordenes[17].createdAt).getMonth())
+    let Total2 = 0
+    
+    let Total = 0
+    for (let i= 0; i < ordenes.length; i++) {
+     
+      Total = parseInt(ordenes[i].total) + Total
+      Total2 = i
+     }
+     Total2 = Total2 + 1
+     res.status(200).send({Total, Total2})
+    } catch (error) {
+      next(error)
+    }
+  }

@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router';
-
+// import { useNavigate } from 'react-router';
+import NavBar from '../components/Navbar';
+import Announcement from '../components/Announcement'
 
 const Container = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 82vh;
   background: linear-gradient(
       #d3f7db,
       #f7dbd3
@@ -16,74 +17,116 @@ const Container = styled.div`
       center;
   background-size: cover;
   display: flex;
+justify-content: center;
   align-items: center;
-  justify-content: center;
+flex-direction: column;
+  
 `;
 
 const Wrapper = styled.div`
   width: 40%;
+  height: 380px;
   padding: 20px;
   background-color: white;
+display: flex;
+justify-content: center;
+  align-items: center;
+flex-direction: column;
   ${mobile({ width: "75%" })}
+    
 `;
 
 const Title = styled.h1`
+   padding-bottom: 20px;
   font-size: 24px;
   font-weight: 300;
+  text-align: center;
 `;
 
 const Form = styled.form`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const Input = styled.input`
-  flex: 1;
-  min-width: 40%;
-  margin: 20px 10px 0px 0px;
-  padding: 10px;
+   
 `;
 
 const Button = styled.button`
-  width: 40%;
+  width: 100%;
   margin-top: 20px;
   border: none;
   padding: 15px 20px;
+  
   background-color: #dbd3f7;
   color:#4d4442;
   cursor: pointer;
-
  &:disabled {
     background-color: gray;
     color: black;
     opacity: 0.7;
     cursor: default;
   }
-
 `;
 
 const Paragraph = styled.p`
   color: red;
-  font-size: 15px;
-  font-weight: 3;
+  font-size: 10px;
+  font-weight: 2;
 `;
 
-const Div = styled.div`
-    display:'flex',
-    position: 'absolute',
-    justify-content: 'space-around',
-    
+const DivItemUno = styled.div`
+padding-top:80px;
+ display:flex;
+  justify-content: center;
+  align-items: center;
+ flex-direction: column;
+  height: 15vh; /*Este valor lo puedes omitir si la altura de tu componente esta definida*/
 `
 
-const linkStyle = {
-   
-    textDecoration: "none",
-    color: 'inherit',
-    width: '50%',
-    padding: '5px'
-    
-    
-}
+const DivItemDos = styled.div`
+  padding-top:35px;
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
+  justify-content:space-around;
+  align-items:unset;
+  align-content:flex-end;
+  height: 20vh; /*Este valor lo puedes omitir si la altura de tu componente esta definida*/
+`
+
+// const DivItemTres = styled.div`
+//  display:flex;
+//   flex-direction:row;
+//   flex-wrap:wrap;
+//   justify-content:space-around;
+//   align-items:unset;
+//   align-content:flex-start;
+//   height: 20vh; /*Este valor lo puedes omitir si la altura de tu componente esta definida*/
+// `
+
+const Item0 = styled.input`
+order:1;
+  flex:0 1 center;
+  align-self:flex-start;
+  height:4vh;
+  width:20vh;
+  margin-top: 3vh;
+`
+
+// const Item1 = styled.input`
+// order:2;
+//   flex:0 1 center;
+//   align-self:flex-start;
+//   height:5vh;
+//   width:25vh;
+//   margin-top: 3vh;
+// `
+
+// const linkStyle = {
+//     textDecoration: "none",
+//     color: 'inherit',
+//     width: '50%',
+//     padding: '5px'
+// }
+
+// const Input = styled.input`
+// `
 export function validate(input) {
     
     let errors = {};
@@ -127,12 +170,12 @@ export function validate(input) {
 };
 
 const DonarDinero= () => {
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     
 
     const [errors, setErrors] = useState({});
     const [input, setInput] = useState({
-        nombre:'',
+        title:'',
         apellido:'',
         cantidad:'',
         email:'',
@@ -144,41 +187,40 @@ const DonarDinero= () => {
         setInput({
             
             ...input,
-            [e.target.title]: e.target.value
+            [e.target.name]: e.target.value
         });
 
         setErrors(validate({
             ...input,
-            [e.target.title]: e.target.value
+            [e.target.name]: e.target.value
         }));
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
         
-            
-        
-            navigate("/");
-        
-        
-          
-    }
+        }
 
     
     
       
     return (
+        <div>
+            <NavBar/>
+      <Announcement/>
         <Container>
-            
+        <Title> Donar Dinero</Title>
             <Wrapper>
-                <Title> Donar Dinero</Title>
+                
                
                 <Form onSubmit={(e) => handleSubmit(e)}>
+                <DivItemUno>
                     <div>
-                        <Input
+                        
+                        <Item0
                             onChange={(e) => handleInputChange(e)}
                             type='text'
-                            name='nombre'
+                            name='title'
                             placeholder="Nombre"
                         />
 
@@ -187,7 +229,7 @@ const DonarDinero= () => {
                         )}
                     </div>
                     <div>
-                        <Input
+                        <Item0
                             onChange={(e) => handleInputChange(e)}
                             type='text'
                             name='apellido'
@@ -199,7 +241,7 @@ const DonarDinero= () => {
                     </div>
                    
                     <div>
-                        <Input
+                        <Item0
                             onChange={(e) => handleInputChange(e)}
                             type='email'
                             name='email'
@@ -209,31 +251,33 @@ const DonarDinero= () => {
                             <Paragraph>{errors.mail}</Paragraph>
                         )}
                     </div>
+                    
+                    
                     <div>
-                        <Input
+                        <Item0
                             onChange={(e) => handleInputChange(e)}
-                            type='number'
+                            type='text'
                             name='cantidad'
-                            placeholder="Cantidad"
+                            placeholder="$"
                         />
                         {errors.cantidad && (
                             <Paragraph>{errors.cantidad}</Paragraph>
                         )}
                     </div>
+                    </DivItemUno>
                    
-                   
-                    
-                    <Div>
-                        <Link to='/' style={linkStyle}>
-                            <Button
+                    <DivItemDos>
+                    <div>
+                       
+                            <Button 
                                 type='submit'
-
-                                disabled={!errors.disabled}>Crear</Button>
-                        </Link>
-                        <Link to='/' style={linkStyle}>
+                                disabled={!errors.disabled}>Donar</Button>
+                        
+                        <Link to='/' >
                             <Button>Volver</Button>
                         </Link>
-                    </Div>
+                    </div>
+                    </DivItemDos>
                     
                 </Form>
                 
@@ -241,6 +285,7 @@ const DonarDinero= () => {
             </Wrapper>
             
         </Container>
+        </div>
     );
 };
 export default DonarDinero;

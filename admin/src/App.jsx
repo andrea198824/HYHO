@@ -14,7 +14,7 @@ import WidgetTotalSales from "./components/widgetTotalSales/WidgetTotalSales";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuth0 } from '@auth0/auth0-react';
 import { getToken, getUsers, getProducts, getCategories } from './store/actions';
-
+import DonarProduct from "./pages/DonarProduct/DonarProduct"
 
 
 
@@ -58,6 +58,7 @@ function App() {
                         <Route path="/product/:productId" element={<Product />} />
                         <Route path="/newProduct" element={<NewProduct />} />
                         <Route path="/ventas" element={<WidgetTotalSales />} />
+                        <Route path="/productos-donados" element={<DonarProduct />}/>
                     </Routes>
                 </div>
             </Router>

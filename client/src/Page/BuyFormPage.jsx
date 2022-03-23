@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector} from 'react-redux';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Icon } from '@material-ui/core'
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import { Link, useNavigate } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import Navbar from '../components/Navbar';
 import Announcement from '../components/Announcement';
 import { getToken, modifyuser } from '../store/actions';
@@ -101,15 +100,15 @@ const DivItemDos = styled.div`
   height: 20vh; /*Este valor lo puedes omitir si la altura de tu componente esta definida*/
 `
 
-const DivItemTres = styled.div`
- display:flex;
-  flex-direction:row;
-  flex-wrap:wrap;
-  justify-content:space-around;
-  align-items:unset;
-  align-content:flex-start;
-  height: 20vh; /*Este valor lo puedes omitir si la altura de tu componente esta definida*/
-`
+// const DivItemTres = styled.div`
+//  display:flex;
+//   flex-direction:row;
+//   flex-wrap:wrap;
+//   justify-content:space-around;
+//   align-items:unset;
+//   align-content:flex-start;
+//   height: 20vh; /*Este valor lo puedes omitir si la altura de tu componente esta definida*/
+// `
 
 const Item0 = styled.input`
 order:1;
@@ -120,14 +119,14 @@ order:1;
   margin-top: 3vh;
 `
 
-const Item1 = styled.input`
-order:2;
-  flex:0 1 center;
-  align-self:flex-start;
-  height:5vh;
-  width:25vh;
-  margin-top: 3vh;
-`
+// const Item1 = styled.input`
+// order:2;
+//   flex:0 1 center;
+//   align-self:flex-start;
+//   height:5vh;
+//   width:25vh;
+//   margin-top: 3vh;
+// `
 
 const linkStyle = {
     textDecoration: "none",
@@ -136,9 +135,9 @@ const linkStyle = {
     padding: '5px'
 }
 
-const Input = styled.input`
+// const Input = styled.input`
 
-`
+// `
 
 export function validate(input) {
     let errors = {};

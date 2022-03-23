@@ -2,8 +2,7 @@ import { Send } from "@material-ui/icons";
 import React,{ useState } from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import { useAuth0 } from '@auth0/auth0-react'
-import { newsletter, getToken } from "../store/actions";
+import { newsletter} from "../store/actions";
 import {useDispatch, useSelector} from "react-redux"
 
 
@@ -104,6 +103,8 @@ const Newsletter = () => {
         const handleClick = e => {
           e.preventDefault()
           dispatch(newsletter(input,token))
+          alert("Gracias por tu suscripcion.")
+          window.scrollTo(0, 0)
           
          
           
