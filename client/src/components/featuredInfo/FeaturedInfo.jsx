@@ -11,25 +11,114 @@ export default function FeaturedInfo() {
 
 
 const token = useSelector(state => state.token)
-    const [respuesta, setRespuesta ] = useState("")
-    const {isLoading} = useAuth0()
+    const [totalVentas, setTotalVentas ] = useState("");
+    const [totalDonaciones, setTotalDonaciones ] = useState("");
+    const [totalVentasPrev, setTotalVentasPrev ] = useState("");
+    const [totalDonacionesPrev, setTotalDonacionesPrev ] = useState("");
+    const [totalVentasActual, setTotalVentasActual ] = useState("");
+    const [totalDonacionesActual, setTotalDonacionesActual ] = useState("");
+    const [date, setDate] = useState(new Date());
+    const [donationRatio, setDonationRatio] = useState(0);
+    const [salesRatio, setSalesRatio] = useState(0);
+
     useEffect( () => {
       console.log("token  :",token)
-      if (token) peticion(token)
+      if (token) {
+        getTotalVentas(token)
+        getTotalDonaciones(token)
+        getTotalVentasPrev(token)
+        getTotalDonacionesPrev(token)
+        getTotalVentasActual(token)
+        getTotalDonacionesActual(token)
+      }
   }, [token])
 
-  useEffect( () => {
-    console.log("respuesta  :",respuesta)
+  useEffect(()=>{
+    if(
+      totalVentas &&
+totalDonaciones &&
+totalVentasPrev &&
+totalDonacionesPrev &&
+totalVentasActual &&
+totalDonacionesActual
+    ) {
+      setDonationRatio(100*(totalDonacionesActual-totalDonacionesPrev)/totalDonacionesPrev)
+      setSalesRatio(100*(totalVentasActual-totalVentasPrev)/totalVentasPrev)
+    }
   })
 
-    const peticion = async (token) => {
+  //TOTAL DATA
+    const getTotalVentas = async (token) => {
         const response = await axios.post('/mercadopago/totalVentas',{}, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },  
         })
-        console.log("response axios :",response)
-        await setRespuesta(response.data.Total)
+        // console.log("response axios :",response)
+        await setTotalVentas(response.data.Total)
+    }
+
+    const getTotalDonaciones = async (token) => {
+        const response = await axios.post('/totalDonation',{}, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },  
+        })
+        // console.log("response axios :",response)
+        await setTotalDonaciones(response.data.Total)
+    }
+
+  //PREV MONTH DATA
+    const getTotalVentasPrev = async (token) => {
+        const response = await axios.post('/mercadopago/totalVentas',{
+          year: date.getFullYear(),
+          month: date.getMonth()
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },  
+        })
+        // console.log("response axios :",response)
+        await setTotalVentasPrev(response.data.Total)
+    }
+
+    const getTotalDonacionesPrev = async (token) => {
+        const response = await axios.post('/totalDonation',{
+          year: date.getFullYear(),
+          month: date.getMonth()
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },  
+        })
+        // console.log("response axios :",response)
+        await setTotalDonacionesPrev(response.data.Total)
+    }
+  //ACTUAL MONTH DATA
+    const getTotalVentasActual = async (token) => {
+        const response = await axios.post('/mercadopago/totalVentas',{
+          year: date.getFullYear(),
+          month: date.getMonth()+1
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },  
+        })
+        // console.log("response axios :",response)
+        await setTotalVentasActual(response.data.Total)
+    }
+
+    const getTotalDonacionesActual = async (token) => {
+        const response = await axios.post('/totalDonation',{
+          year: date.getFullYear(),
+          month: date.getMonth()+1
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },  
+        })
+        // console.log("response axios :",response)
+        await setTotalDonacionesActual(response.data.Total)
     }
   // const [income, setIncome] = useState([]);
   // const [perc, setPerc] = useState(10);
@@ -50,9 +139,9 @@ const token = useSelector(state => state.token)
       <div className="featuredItem">
         <span className="featuredTitle">Dinero donado </span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">$5000</span>
+          <span className="featuredMoney">${totalDonaciones}</span>
           <span className="featuredMoneyRate">
-            +2.4 <ArrowUpward className="featuredIcon" />
+          {Math.round(donationRatio * 100) / 100}% <ArrowUpward className="featuredIcon" />
             {/* %{Math.floor(perc)}{" "}
             {perc < 0 ? (
               <ArrowDownward className="featuredIcon negative" />
@@ -66,9 +155,9 @@ const token = useSelector(state => state.token)
       <div className="featuredItem">
         <span className="featuredTitle">ventas</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">$400</span>
+          <span className="featuredMoney">${totalVentas}</span>
           <span className="featuredMoneyRate">
-            -1.4 <ArrowDownward className="featuredIcon negative" />
+          {Math.round(salesRatio * 100) / 100}% <ArrowDownward className="featuredIcon negative" />
             {/* %{Math.floor(perc)}{" "}
             {perc < 0 ? (
               <ArrowDownward className="featuredIcon negative" />
