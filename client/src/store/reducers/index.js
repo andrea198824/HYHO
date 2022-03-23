@@ -36,6 +36,7 @@ const initialState = {
     donarProducto: [],
     email: [],
     prefId: "",
+    url: ""
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -125,7 +126,7 @@ export default function rootReducer(state = initialState, action) {
         case REMOVE_ITEM_FROM_CART:
             return { ...state, shoppingCart: state.shoppingCart.filter(el => el.id !== parseInt(action.id)) }
         case GET_PREF_ID:
-            return {...state, prefId: action.payload.id }
+            return {...state, prefId: action.payload.id , url: action.payload.url}
         default:
             return state;
     }

@@ -225,6 +225,7 @@ const Cart = () => {
     const { user, isLoading } = useAuth0()
     const token = useSelector(state => state.token)
     const prefId = useSelector(state => state.prefId)
+    const url = useSelector(state => state.url)
     const [button, setButton] = useState(false)
 
     useEffect(() => {
@@ -233,23 +234,9 @@ const Cart = () => {
 
     useEffect(() => {
         if (!isLoading) {
-            dispatch(getPrefId(cartProducts, token))
+            dispatch(getPrefId({ cart: cartProducts }, token))
         }
     }, [cartProducts])
-
-    useEffect(() => {
-        if (prefId) {
-            const script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = 'https://sdk.mercadopago.com/js/v2'
-            document.body.appendChild(script)
-            if (!button) {
-                script.addEventListener('load', addCheckout(prefId, button))
-                setButton(true)
-            }
-        }
-    }, [prefId])
-
 
 
     const onClickProduct = (e) => {
@@ -355,21 +342,17 @@ const Cart = () => {
                                     <SummaryItemPrice>$ {subTotal}</SummaryItemPrice>
                                 </SummaryItem>
                         }
-                        {/*  */}
                         {
                             isLoading
                                 ? null
-                                : !prefId
-                                    ? <Title> Cargando... </Title>
-                                    : user && subTotal !== 0
-                                        ? <button id='pay_button' style={{
-                                            border: "none",
-                                            background: "none",
-                                            marginLeft: "40%"
-                                        }} />
-                                        : subTotal === 0
-                                            ? <Title style={{ fontSize: "25px" }}> Agrega Productos Para Continuar </Title>
-                                            : <Title> Inicia Sesion Para Continuar </Title>
+                                : subTotal !== 0 && prefId && url
+                                    ? <Button className={classes.Buttons} onClick={() => {
+                                        window.location.replace(url);
+                                        return null;
+                                    }}>COMPRAR</Button>
+                                    : !user && subTotal !== 0
+                                        ? <Title> Inicia Sesion Para Continuar </Title>
+                                        : subTotal === 0 && <Title> Agrega Productos Para Continuar </Title>
                         }
                     </Summary>
                 </Bottom>

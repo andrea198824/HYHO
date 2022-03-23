@@ -157,7 +157,7 @@ const Footer = () => {
         </ContactItem>
         <ContactItem>
           {/* <Phone style={{ marginRight: '10px' }} /> +01 101 10 01 */}
-          <ReactWhatsapp style={{ marginRight: '10px' ,background: "none", border: "none"}} number="+01 101 10 01" message="Hello World!!!" >
+          <ReactWhatsapp style={{ marginRight: '10px' ,background: "none", border: "none"}} number="+01 101 10 01" message="Welcome to TU.ong !!!" >
             +01 101 10 01
           </ReactWhatsapp>
         </ContactItem>
