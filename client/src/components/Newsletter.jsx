@@ -10,11 +10,19 @@ import {useDispatch, useSelector} from "react-redux"
 
 const Container = styled.div`
   height: 60vh;
+  width: 100%;
   background-color: #f7dbd3;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  ${mobile({ flexDirection: 'column', paddingRight: '10px' })}
+  @media (min-width: 320px) {
+    flex-direction: column;
+    padding-right: 5px;
+  
+  }
+  
 `;
 
 const Title = styled.h1`

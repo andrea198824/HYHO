@@ -1,12 +1,12 @@
 "use strict";
 const {Cart, Order, User} = require('../db.js');
 //const server = require('express').Router();
-require("dotenv").config();
+require('dotenv').config()
 // SDK de Mercado Pago
 const mercadopago = require ('mercadopago');
 const order = require('../models/order.js');
 
-const { ACCESS_TOKEN } = process.env;
+const { ACCESS_TOKEN } = process.env
 
 //Agrega credenciales
 mercadopago.configure({
@@ -164,7 +164,6 @@ exports.pagos = async function (req, res) {
   }
 }
 
-
 //Busco información de una orden de pago
 exports.getOrderUser = async function (req, res, next) {
   const {email} = req.body
@@ -248,4 +247,4 @@ exports.getTotalVentas = async function (req, res, next) {
     } catch (error) {
       next(error)
     }
-  }
+}

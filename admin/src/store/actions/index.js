@@ -58,9 +58,19 @@ export const getDonation = (token) => {
 }
 
 export const addProduct = (payload, token) => {
+    console.log(payload, token)
     return async function (dispatch) {
         try {
-           const response = await axios.post('/product', payload, {
+            const response = await axios.post('/product', {
+                formId: payload.formId,
+                title: payload.title,
+                price: payload.price,
+                weight: payload.weight,
+                descriptions: payload.descriptions,
+                image: payload.image,
+                stock: payload.stock,
+                category: payload.category,
+            }, {
                headers: {
                    Authorization: `Bearer ${token}`,
                }
@@ -247,7 +257,7 @@ export const getNewsletter = (token) => {
            })
            dispatch({
               type: GET_NEWSLETTER,
-              payload: response,
+              payload: response.data,
            })
         }  catch (err) {
             console.log(err)

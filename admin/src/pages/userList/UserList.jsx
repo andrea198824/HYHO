@@ -1,13 +1,15 @@
 import "./userList.css";
+import React from 'react'
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import { userRows } from "../../dummyData";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { getUsers } from '../../store/actions';
 
+const UserList = () => {
 
-export default function UserList() {
 
   const dispatch = useDispatch();
   const allUsers = useSelector((state)=> state.users);
@@ -19,10 +21,16 @@ export default function UserList() {
   };
   
   useEffect (()=>{
-    //dispatch(getUsers(token)); No esta funcionando, se hace dispatch antes de que el token este en el state
-    console.log(allUsers)
-    setData(data.concat(allUsers))
-  },[dispatch])
+    if (allUsers.length) {
+       setData(data.concat(allUsers))
+    }
+  },data)
+
+  if (!allUsers.length) {
+    setTimeout(() => {
+      dispatch(getUsers(token));
+    }, 2000)
+  }
 
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
@@ -33,8 +41,8 @@ export default function UserList() {
       renderCell: (params) => {
         return (
           <div className="userListUser">
-            <img className="userListImg" src={params.row.avatar} alt="" />
-            {params.row.username}
+            <img className="userListImg" src={params.row.picture || params.row.avatar } alt="" />
+            {params.row.nickname || params.row.username}
           </div>
         );
       },
@@ -66,14 +74,20 @@ export default function UserList() {
   ];
 
   return (
-    <div className="userList">
+      <div className="userList">
       <DataGrid
         rows={data}
         disableSelectionOnClick
         columns={columns}
         pageSize={8}
+        rowsPerPageOptions={[8]}
         checkboxSelection
       />
     </div>
-  );
+  )
 }
+
+  
+export default UserList
+
+
