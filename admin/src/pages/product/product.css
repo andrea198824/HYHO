@@ -37,16 +37,16 @@
 }
 
 .productInfoImg {
-  width: 40px;
-  height: 40px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  object-fit: cover;
+  object-fit: contain;
   margin-right: 20px;
 }
 
 .productInfoTop {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .productName {
@@ -55,6 +55,8 @@
 
 .productInfoBottom {
   margin-top: 10px;
+  display: flex;
+  flex-direction	: column;
 }
 
 .productInfoItem {

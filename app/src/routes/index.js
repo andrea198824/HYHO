@@ -174,7 +174,7 @@ router.post('/admin/create-order', jwtAdminCheck , shopControllerOrder.postCreat
 // router.get('/counter', sessions.counter);
 
 var getPayment = require('./mercadopago')
-router.get('/mercadopago', jwtCheck , getPayment.get)
+router.post('/mercadopago', jwtCheck , getPayment.get)
 router.get('/mercadopago/pagos', getPayment.pagos)
 
 router.get('/mercadopago/pagos/:id', jwtCheck , getPayment.pagosId)
@@ -182,6 +182,9 @@ router.get('/admin/mercadopago/pagos/:id', jwtAdminCheck , getPayment.pagosId)
 
 router.get('/mercadopago/OrderUser', jwtCheck , getPayment.getOrderUser)
 router.get('/admin/mercadopago/OrderUser', jwtAdminCheck , getPayment.getOrderUser)
+
+
+router.get('/admin/mercadopago/totalVentas', jwtAdminCheck , getPayment.getTotalVentas)
 
 //--------------donation money------------------
 

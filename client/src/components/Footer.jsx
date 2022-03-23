@@ -11,6 +11,7 @@ import styled from 'styled-components'
 import { mobile } from '../responsive'
 import { Link } from 'react-router-dom'
 import mercadoPago from '../Img/mercadoPago.png'
+import ReactWhatsapp from 'react-whatsapp';
 
 const Container = styled.div`
   display: flex;
@@ -133,13 +134,17 @@ const Footer = () => {
           <Link onClick={onClickLink} to='/cart' style={linkListItems}>
             <ListItem>Carro de compras</ListItem>
           </Link>
-          <ListItem>Dona dinero</ListItem>
-          <ListItem>Dona productos</ListItem>
+          <Link onClick={onClickLink} to='/donatedinero' style={linkListItems}>
+            <ListItem>Dona dinero</ListItem>
+          </Link>
+          <Link onClick={onClickLink} to='/donateproduct' style={linkListItems}>
+            <ListItem>Dona productos</ListItem>
+          </Link>
           <Link onClick={onClickLink} to='/products' style={linkListItems}>
             <ListItem>Tienda</ListItem>
           </Link>
-          <ListItem>Mi cuenta</ListItem>
-          <ListItem>Lista de deseos</ListItem>
+          {/* <ListItem>Mi cuenta</ListItem> */}
+          {/* <ListItem>Lista de deseos</ListItem> */}
         </List>
       </Center>
       <Right>
@@ -151,7 +156,10 @@ const Footer = () => {
           </Link> 
         </ContactItem>
         <ContactItem>
-          <Phone style={{ marginRight: '10px' }} /> +01 101 10 01
+          {/* <Phone style={{ marginRight: '10px' }} /> +01 101 10 01 */}
+          <ReactWhatsapp style={{ marginRight: '10px' ,background: "none", border: "none"}} number="+01 101 10 01" message="Hello World!!!" >
+            +01 101 10 01
+          </ReactWhatsapp>
         </ContactItem>
         <ContactItem>
           <MailOutline style={{ marginRight: '10px' }} /> ayuda@hyho.com
