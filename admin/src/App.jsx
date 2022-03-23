@@ -15,7 +15,7 @@ import Newsletter from "./pages/newsletter/Newsletter";
 import FormDonaciones from "./pages/formDonaciones/FormDonaciones";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuth0 } from '@auth0/auth0-react';
-import { getToken, getUsers, getProducts, getCategories, getNewsletter } from './store/actions';
+import { getToken, getUsers, getProducts, getCategories} from './store/actions';
 
 
 
@@ -34,7 +34,6 @@ function App() {
                     dispatch(getUsers(res))
                     dispatch(getProducts(res))
                     dispatch(getCategories(res))
-                    dispatch(getNewsletter(res))
                 }, 2000)
             })
     }

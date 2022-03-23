@@ -229,7 +229,7 @@ export const getNewsletter = (token) => {
            })
            dispatch({
               type: GET_NEWSLETTER,
-              payload: response,
+              payload: response.data,
            })
         }  catch (err) {
             console.log(err)
