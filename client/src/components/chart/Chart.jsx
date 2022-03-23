@@ -112,8 +112,8 @@ const createData = async (token) => {
         <LineChart data={data2}>
           <XAxis dataKey="month" stroke="#6a7c6e" />
           <Line type="monotone" dataKey="ventas" stroke="#6a7c6e" />
-          <Line type="monotone" dataKey="donaciones" stroke="#6a7c6e" />
-          <Line type="monotone" dataKey="total" stroke="#6a7c6e" />
+          <Line type="monotone" dataKey="donaciones" stroke="#08EF00" />
+          <Line type="monotone" dataKey="total" stroke="#0511C3" />
           <Tooltip />
           {grid && <CartesianGrid stroke="#6a7c6e" strokeDasharray="5 5" />}
         </LineChart>
