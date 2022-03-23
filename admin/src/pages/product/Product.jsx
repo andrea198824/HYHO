@@ -5,6 +5,11 @@ import {productData} from "../../dummyData"
 import { Publish } from "@material-ui/icons";
 
 export default function Product() {
+
+    const[input, setInput]
+
+
+
   return (
     <div className="product">
       <div className="productTitleContainer">
