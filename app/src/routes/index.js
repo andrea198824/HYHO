@@ -193,7 +193,7 @@ router.get('/admin/mercadopago/OrderUser', jwtAdminCheck , getPayment.getOrderUs
 //--------------donation MERCADOPAGO------------------.
 
 var donationMp = require('./mercadoPD')
-router.get('/mercadopago-donation', donationMp.get)
-router.get('/mercadopago-donation/pagos', donationMp.pagosDonation)
+router.post('/mercadopago-donation', donationMp.get)
+router.get('/feedback', donationMp.pagosDonation)
 
 module.exports = router

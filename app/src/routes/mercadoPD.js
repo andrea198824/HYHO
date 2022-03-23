@@ -1,78 +1,91 @@
 "use strict";
-const {Donation, User} = require('../db.js');
+const { Donation, User } = require("../db.js");
 //const server = require('express').Router();
 require("dotenv").config();
 // SDK de Mercado Pago
-const mercadopago = require ('mercadopago');
-const order = require('../models/order.js');
+const mercadopago = require("mercadopago");
+const order = require("../models/order.js");
 
 const { ACCESS_TOKEN } = process.env;
 
 //Agrega credenciales
 mercadopago.configure({
-  access_token: ACCESS_TOKEN
+  access_token: ACCESS_TOKEN,
 });
 
-
 //Ruta que genera la URL de MercadoPago
-exports.get = async function (req, res, next)  {
-try{
+exports.get = async function (req, res, next) {
+  try {
     //const {id_user} = req.params
-  const {email, donation} = req.body // id carrito
- 
-  console.log(req.body)
+    const { email, donation } = req.body; // id carrito
 
-    const donationDB = [
-      {title: "donation", price: donation, quantity:1}
-    ]
+    console.log(req.body);
 
-        //se respeta el formato por que asi lo pide mercadopago
-  const items_ml = donationDB.map(i => ({
-    title: i.title,
-    unit_price: i.price,
-    quantity: i.quantity,
-  }))
+    const donationDB = [{ title: "donation", price: donation, quantity: 1 }];
 
-  // Crea un objeto de preferencia
-  let preference = {
- items: items_ml,
-    external_reference : `${email}`,
-    payment_methods: {
-      excluded_payment_types: [
-        {
-          id: "atm"
-        }
-      ],
-      installments: 3  //Cantidad máximo de cuotas
-    },
-    back_urls: {
-      success: 'http://localhost:3001/mercadopago-donation/pagos',
-      failure: 'http://localhost:3001/mercadopago-donation/pagos',
-      pending: 'http://localhost:3001/mercadopago-donation/pagos',
-    },
-  };
+    //se respeta el formato por que asi lo pide mercadopago
+    const items_ml = donationDB.map((i) => ({
+      title: i.title,
+      unit_price: i.price,
+      quantity: i.quantity,
+    }));
 
-  mercadopago.preferences.create(preference)
+    // Crea un objeto de preferencia
+    let preference = {
+      items: items_ml,
+      external_reference: `${email}`,
+      payment_methods: {
+        excluded_payment_types: [
+          {
+            id: "atm",
+          },
+        ],
+        installments: 3, //Cantidad máximo de cuotas
+      },
+      back_urls: {
+        success: "http://localhost:3001/feedback",
+        failure: "http://localhost:3001/feedback",
+        pending: "http://localhost:3001/feedback",
+      },
+      auto_return: "approved",
+    };
 
-  .then(function(response){
-    console.info('respondio')
-      global.id = response.body.id;
-      console.log(response.body)
-      res.json({ id: global.id });
-    })
-    .catch(function(error){
-      console.log(error);
-    })
-}
-catch (error) {
-  console.log("error  :",error)
-  res.sendStatus(404)
-}
-}
+    mercadopago.preferences
+      .create(preference)
+      .then(function (response) {
+        console.info("respondio");
+        global.id = response.body.id;
+        //global.url = response.body.sandbox_init_point;
+        global.init_point = response.body.sandbox_init_point;
+        //console.log(response.body);
+        res.json({ id: global.id, url: global.init_point });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  } catch (error) {
+    console.log("error  :", error);
+    res.sendStatus(404);
+  }
+};
 
 //Ruta que recibe la información del pago
 exports.pagosDonation = async function (req, res) {
-  console.info("EN LA RUTA PAGOS ", req)
+  console.log(req);
+
+  res.json({
+		Payment: req.query.payment_id,
+		Status: req.query.status,
+		MerchantOrder: req.query.merchant_order_id
+	});
+  /*
+  MercadoPago.get_credentials(code, function(error, resp){
+    //envia req e a resposta para gravar a sessao
+    Login.generateSession(req, resp);
+            res.redirect("/collector/payments");
+      });
+
+  //console.info("EN LA RUTA PAGOS ", req)
   const payment_id= req.query.payment_id
   const payment_status= req.query.status
   const external_reference = req.query.external_reference
@@ -92,19 +105,15 @@ exports.pagosDonation = async function (req, res) {
     preference_id: preference_id,
     //value: donation
     })
-
-
-
-   return res.redirect("http://localhost:3000")
-}
-
-
+*/
+  //return res.redirect("http://localhost:3001")
+};
 
 // exports.pagosId = async function (req, res, next) {
 //   //   const mp = new mercadopago(ACCESS_TOKEN)
 //      const id = req.params.id
 //      try {
-    
+
 //       let ord = await Order.findAll({
 //         where: {
 //           id: Number(id)
