@@ -11,6 +11,7 @@ import styled from 'styled-components'
 import { mobile } from '../responsive'
 import { Link } from 'react-router-dom'
 import mercadoPago from '../Img/mercadoPago.png'
+import ReactWhatsapp from 'react-whatsapp';
 
 const Container = styled.div`
   display: flex;
@@ -147,7 +148,10 @@ const Footer = () => {
           </Link> 
         </ContactItem>
         <ContactItem>
-          <Phone style={{ marginRight: '10px' }} /> +01 101 10 01
+          {/* <Phone style={{ marginRight: '10px' }} /> +01 101 10 01 */}
+          <ReactWhatsapp style={{ marginRight: '10px' ,background: "none", border: "none"}} number="+01 101 10 01" message="Hello World!!!" >
+            +01 101 10 01
+          </ReactWhatsapp>
         </ContactItem>
         <ContactItem>
           <MailOutline style={{ marginRight: '10px' }} /> ayuda@hyho.com
