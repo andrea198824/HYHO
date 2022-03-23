@@ -324,6 +324,7 @@ export const getPrefId = (cart, token) => {
                 Authorization: `Bearer ${token}`,
             }
         })
+        console.log("response.data  :",response.data)
         dispatch({
             type: GET_PREF_ID,
             payload: response.data

@@ -225,6 +225,7 @@ const Cart = () => {
     const { user, isLoading } = useAuth0()
     const token = useSelector(state => state.token)
     const prefId = useSelector(state => state.prefId)
+    const url = useSelector(state => state.url)
     const [button, setButton] = useState(false)
 
     useEffect(() => {
@@ -233,7 +234,7 @@ const Cart = () => {
 
     useEffect(() => {
         if (!isLoading) {
-            dispatch(getPrefId(cartProducts, token))
+            dispatch(getPrefId({cart: cartProducts}, token))
         }
     }, [cartProducts])
 
@@ -356,6 +357,15 @@ const Cart = () => {
                                 </SummaryItem>
                         }
                         {/*  */}
+                        
+                        {
+                            prefId && url &&                            
+                            <TopButton className={classes.Buttons} onClick={() => {
+                                window.location.replace(url);
+                                return null;
+                              }}>COMPRAR PERO POSTA!</TopButton>
+
+                        }
                         {
                             isLoading
                                 ? null
