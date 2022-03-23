@@ -130,13 +130,17 @@ const Footer = () => {
           <Link onClick={onClickLink} to='/cart' style={linkListItems}>
             <ListItem>Carro de compras</ListItem>
           </Link>
-          <ListItem>Dona dinero</ListItem>
-          <ListItem>Dona productos</ListItem>
+          <Link onClick={onClickLink} to='/donatedinero' style={linkListItems}>
+            <ListItem>Dona dinero</ListItem>
+          </Link>
+          <Link onClick={onClickLink} to='/donateproduct' style={linkListItems}>
+            <ListItem>Dona productos</ListItem>
+          </Link>
           <Link onClick={onClickLink} to='/products' style={linkListItems}>
             <ListItem>Tienda</ListItem>
           </Link>
-          <ListItem>Mi cuenta</ListItem>
-          <ListItem>Lista de deseos</ListItem>
+          {/* <ListItem>Mi cuenta</ListItem> */}
+          {/* <ListItem>Lista de deseos</ListItem> */}
         </List>
       </Center>
       <Right>
