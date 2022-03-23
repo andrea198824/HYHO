@@ -72,6 +72,7 @@ export default function Sidebar() {
               Formularios donaciones de productos
             </li>
             </Link>
+          </ul>
         </div>
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Newsletter</h3>
