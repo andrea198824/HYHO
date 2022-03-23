@@ -30,10 +30,19 @@ exports.get = async function (req, res, next) {
       quantity: i.quantity,
     }));
 
+
+    let dondb = await Donation.create({
+      value: donation,
+      email: email
+    })
+
+    let donId = await dondb.id
+
+    console.log(donId)
     // Crea un objeto de preferencia
     let preference = {
       items: items_ml,
-      external_reference: `${email}`,
+      external_reference: `${donId}`,
       payment_methods: {
         excluded_payment_types: [
           {
@@ -43,13 +52,13 @@ exports.get = async function (req, res, next) {
         installments: 3, //Cantidad máximo de cuotas
       },
       back_urls: {
-        success: "http://localhost:3001/feedback",
-        failure: "http://localhost:3001/feedback",
-        pending: "http://localhost:3001/feedback",
+        success: "http://localhost:3001/mercadopago-donation/pagosDonation",
+        failure: "http://localhost:3001/mercadopago-donation/pagosDonation",
+        pending: "http://localhost:3001/mercadopago-donation/pagosDonation",
       },
       auto_return: "approved",
     };
-
+    console.log(preference)
     mercadopago.preferences
       .create(preference)
       .then(function (response) {
@@ -71,19 +80,19 @@ exports.get = async function (req, res, next) {
 
 //Ruta que recibe la información del pago
 exports.pagosDonation = async function (req, res) {
-  console.log(req);
+  // console.log(req);
 
-  res.json({
-		Payment: req.query.payment_id,
-		Status: req.query.status,
-		MerchantOrder: req.query.merchant_order_id
-	});
-  /*
-  MercadoPago.get_credentials(code, function(error, resp){
-    //envia req e a resposta para gravar a sessao
-    Login.generateSession(req, resp);
-            res.redirect("/collector/payments");
-      });
+  // res.json({
+	// 	Payment: req.query.payment_id,
+	// 	Status: req.query.status,
+	// 	MerchantOrder: req.query.merchant_order_id
+	// });
+  
+  // mercadoPago.get_credentials(code, function(error, resp){
+  //   //envia req e a resposta para gravar a sessao
+  //   Login.generateSession(req, resp);
+  //           res.redirect("/collector/payments");
+  //     });
 
   //console.info("EN LA RUTA PAGOS ", req)
   const payment_id= req.query.payment_id
@@ -91,23 +100,43 @@ exports.pagosDonation = async function (req, res) {
   const external_reference = req.query.external_reference
   const merchant_order_id= req.query.merchant_order_id
   const preference_id = req.query.preference_id
-
-  const status = req.query.status
+  
   console.log("--------------------------------------", preference_id)
 
+  const donID = await Donation.findAll({
+    where:{
+        id: external_reference
+    }
+})
+  Donation.findByPk(external_reference)
+  .then((order) => {
+  order.payment_id= payment_id
+  order.payment_status= payment_status
+  order.merchant_order_id = merchant_order_id
+  console.info('Salvando order')
+  order.save()
+  .then((_) => {
+    console.info('redirect success')
+  return res.redirect("http://localhost:3000")
+})
+.catch((err) =>{
+  console.error('error al salvar', err)
+  return res.redirect(`http://localhost:3000/?error=${err}&where=al+salvar`)
+})
+})
+.catch(err =>{
+console.error('error al buscar', err)
+return res.redirect(`http://localhost:3000/?error=${err}&where=al+buscar`)
+})
 
-  Donation.create({
-    payment_id: payment_id,
-    payment_status: payment_status,
-    merchant_order_id : merchant_order_id,
-    status : status,
-    email: external_reference,
-    preference_id: preference_id,
-    //value: donation
-    })
-*/
+//proceso los datos del pago 
+//redirijo de nuevo a react con mensaje de exito, falla o pendiente
+}
+
   //return res.redirect("http://localhost:3001")
-};
+
+
+
 
 // exports.pagosId = async function (req, res, next) {
 //   //   const mp = new mercadopago(ACCESS_TOKEN)
