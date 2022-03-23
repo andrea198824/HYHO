@@ -6,6 +6,7 @@ const donation = {
   fontSize: '26px',
   paddingBottom: '15px',
   paddingLeft: '10px',
+  paddingTop: '12px',
   color: '#8aa290',
   textAlign: 'center',
   flexWrap: 'nowrap'
