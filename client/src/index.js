@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Provider, useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
 import store from './store/index'
 import axios from 'axios';
 import { Auth0Provider } from "@auth0/auth0-react";

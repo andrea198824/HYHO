@@ -123,3 +123,40 @@ exports.postDonation = async function (req, res, next) {
 //         next(error)
 //     }
 // }
+
+exports.getTotalDonations = async function (req, res, next) {
+  let {year, month} = req.body
+
+  year ? year = year-1900 : year
+  if(month) month = month - 1
+
+  console.log("year :",year)
+  console.log("month :",month)
+
+
+  try {
+
+    let donaciones = await Donation.findAll()
+   if(year){ donaciones = donaciones.filter(el => el.createdAt.getYear() == year) }
+   
+   if(month && year){ donaciones = donaciones.filter(el => el.createdAt.getMonth() == month) }
+
+   if(month && !year){res.status(404).send({info:"se necesita año"})}
+
+    // console.log("donaciones[0].typeof--------:", typeof donaciones[0].createdAt)
+    // console.log("donaciones[0].GET YEAR--------:",(donaciones[0].createdAt).getYear())
+    // console.log("donaciones[0].createdAt--------:",donaciones[0].createdAt)
+    // console.log("donaciones[0].cMONTH--------:",(donaciones[17].createdAt).getMonth())
+    let Total2 = 0
+    
+    let Total = 0
+    for (let i= 0; i < donaciones.length; i++) {
+      Total = parseInt(donaciones[i].cantidad) + Total
+      Total2 = i
+     }
+     Total2 = Total2 + 1
+     res.status(200).send({Total, Total2})
+    } catch (error) {
+      next(error)
+    }
+  }

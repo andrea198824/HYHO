@@ -29,17 +29,18 @@ exports.postCreateOrder = async function (req, res, next) {
 
 exports.getOrder = async function (req, res, next) {
   const { email } = req.query
+  
   try {
-    let user = await User.findAll({
-      where: {
-        email: email
-      }
-    })
-    let order = await Order.findAll({
-      where: {
-        userId: user[0].id
-      }
-    })
+    let user
+    if (email){
+      user = await User.findAll({
+        where: {
+          email: email
+        }
+      })
+    }
+    let order = await Order.findAll()
+    if(email) order = order.fiter(e => e.email == email)
     order.length
       ? res.status(200).send(order)
       : res.status(404).send('Cannot find order')

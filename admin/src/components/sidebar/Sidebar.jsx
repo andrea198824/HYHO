@@ -65,13 +65,12 @@ export default function Sidebar() {
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Donaciones</h3>
           <ul className="sidebarList">
-            <Link to="/formDonaciones" className="link">
-              <li className="sidebarListItem">
-                <DynamicFeed className="sidebarIcon" />
-                Formularios donaciones de productos
-              </li>
+          <Link to="/productos-donados" className="link" >
+            <li className="sidebarListItem">
+              <DynamicFeed className="sidebarIcon" />
+              Formularios donaciones de productos
+            </li>
             </Link>
-          </ul>
         </div>
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Newsletter</h3>
