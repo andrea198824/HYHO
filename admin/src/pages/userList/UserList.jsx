@@ -30,7 +30,7 @@ const UserList = () => {
     setTimeout(() => {
       dispatch(getUsers(token));
     }, 2000)
-}
+  }
 
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
