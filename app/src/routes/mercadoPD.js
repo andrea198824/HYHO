@@ -133,25 +133,40 @@ return res.redirect(`http://localhost:3000/?error=${err}&where=al+buscar`)
 //redirijo de nuevo a react con mensaje de exito, falla o pendiente
 }
 
-  //return res.redirect("http://localhost:3001")
+exports.getTotalDonation = async function (req, res, next) {
+  let {year, month} = req.body
+
+  year ? year = year-1900 : year
+  if(month) month = month - 1
+
+  console.log("year :",year)
+  console.log("month :",month)
 
 
+  try {
 
+    let donaciones = await Donation.findAll({
+      where: {
+        payment_status: 'approved'
+      }
+    })
+   if(year){ donaciones = donaciones.filter(el => el.createdAt.getYear() == year) }
+   
+   if(month && year){ donaciones = donaciones.filter(el => el.createdAt.getMonth() == month) }
 
-// exports.pagosId = async function (req, res, next) {
-//   //   const mp = new mercadopago(ACCESS_TOKEN)
-//      const id = req.params.id
-//      try {
+   if(month && !year){res.status(404).send({info:"se necesita año"})}
 
-//       let ord = await Order.findAll({
-//         where: {
-//           id: Number(id)
-//         }
-//       })
-//       ord.length
-//         ? res.status(200).send(ord)
-//         : res.status(404).send('Order not found')
-//     } catch (error) {
-//       next(error)
-//     }
-//   }
+    let Total2 = 0
+    
+    let Total = 0
+    for (let i= 0; i < donaciones.length; i++) {
+     
+      Total = parseInt(donaciones[i].value) + Total
+      Total2 = i
+     }
+     Total2 = Total2 + 1
+     res.status(200).send({Total, Total2})
+    } catch (error) {
+      next(error)
+    }
+  }
