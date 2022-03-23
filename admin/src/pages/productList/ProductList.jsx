@@ -2,22 +2,19 @@ import "./productList.css";
 import React from 'react';
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-// import { productRows } from "../../dummyData";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+
 import { useSelector, useDispatch } from 'react-redux';
 import { getProducts, deleteProduct  } from '../../store/actions';
 
 
 const ProductList = () => {
- 
 
   const dispatch = useDispatch();
   const products = useSelector((state)=> state.products);
   const token = useSelector((state)=> state.token);
   const handleDelete = (id) => {
     dispatch(deleteProduct(id, token));
-    // dispatch(getProducts());
   };
 
   const columns = [

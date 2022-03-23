@@ -23,8 +23,6 @@ const UserList = () => {
   useEffect (()=>{
     if (allUsers.length) {
        setData(data.concat(allUsers))
-       console.log("todos los USUARIOS 🎈:", allUsers);
-       console.log("DATAAA 🎃:", data);
     }
   },data)
 

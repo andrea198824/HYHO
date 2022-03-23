@@ -10,7 +10,6 @@ import "./user.css";
 import { userRows } from "../../dummyData";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { Link } from "react-router-dom";
 import { useParams } from "react-router";
 import { getUsers } from '../../store/actions';
 
@@ -21,7 +20,6 @@ export default function User() {
   const id = useParams().userId;
   const token = useSelector(state=> state.token);
   const users = useSelector(state => state.users);
-  // const user = useSelector(state => state.userDetails);
   const [allUsers, setAllUsers] = useState(userRows);
   const [data, setData] = useState();
   
@@ -30,13 +28,14 @@ export default function User() {
       if (users.length) {
         setAllUsers(allUsers.concat(users));
         setData(allUsers.find(obj=>obj.id == id));
-        console.log("usua 🎋: ",id);
-        console.log("usua 🎀: ",users);
-        console.log("usuariosssss 🎭🎀: ", allUsers);
-        console.log("usuario 🎄: ", data);
-        // console.log("nombre 🎃: ", data.username);
       };
   }, data)
+
+  if (!users.length) {
+    setTimeout(() => {
+        dispatch(getUsers(token))
+    }, 2000)
+  }
 
 
   return (

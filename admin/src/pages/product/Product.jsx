@@ -1,8 +1,5 @@
 import React from 'react';
 import "./product.css";
-// import Chart from "../../components/chart/Chart";
-// import {productData} from "../../dummyData";
-// import { Publish } from "@material-ui/icons";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -23,8 +20,6 @@ const Product = () => {
     useEffect(() => {
         if (allProducts.length) {
             dispatch(getDetails(id))
-        console.log("usua 🎋: ",id);
-        console.log("producto 🎎: ",product);;
         }
     }, [])
 
