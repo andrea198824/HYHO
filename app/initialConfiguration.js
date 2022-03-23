@@ -179,8 +179,8 @@ function randomIntFromInterval(min, max) { // min and max included
 
   
   function getDonation () {
-    let cantidad = randomIntFromInterval(500, 5000)
-    let date = new Date(randomIntFromInterval(2020, 2022),Math.floor(Math.random()*12),Math.floor(Math.random()*29),3,24,0);
+    let cantidad = randomIntFromInterval(500, 2500)
+    let date = new Date(randomIntFromInterval(2020, 2022),Math.floor(Math.random()*11),Math.floor(Math.random()*29),3,24,0);
     return  {
         cantidad,
         createdAt: date,
@@ -189,11 +189,12 @@ function randomIntFromInterval(min, max) { // min and max included
 } 
 
 function getOrder () {
-    let date = new Date(randomIntFromInterval(2000, 2022),Math.floor(Math.random()*12),Math.floor(Math.random()*29),3,24,0);
+    let date = new Date(randomIntFromInterval(2020, 2022),Math.floor(Math.random()*11),Math.floor(Math.random()*29),3,24,0);
+    let total = randomIntFromInterval(10000, 100000)
     return  {
         status: "approved",
         payment_status: "approved",
-        total: Math.floor(Math.random() * 2000),
+        total,
         createdAt: date,
         updatedAt: date
     }
@@ -250,11 +251,11 @@ exports.do = async () => {
           })
       )
     }
-    for (let i = 0; i < 400   
+    for (let i = 0; i < 10   
         ; i++) {
         await Order.create(getOrder());
       }
-    for (let i = 0; i < 400
+    for (let i = 0; i < 30
         
         ; i++) {
         await Donation.create(getDonation());
