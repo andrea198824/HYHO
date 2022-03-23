@@ -16,11 +16,11 @@ const Home = () => {
       <FeaturedInfo />
       <Slider />
       <Categories />
-      <PopularProducts/>
-      <Newsletter/>
-      <Footer/> 
+      <PopularProducts />
+      <Newsletter />
+      <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

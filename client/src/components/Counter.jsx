@@ -12,7 +12,6 @@ const donation = {
   flexWrap: 'nowrap'
 }
 
-
 const Counter = () => {
   return (
     <div style={donation}>
