@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Badge } from "@material-ui/core";
-import { Search, ShoppingCartOutlined } from "@material-ui/icons";
-import { useEffect, useState } from "react";
+import { ShoppingCartOutlined } from "@material-ui/icons";
+import { useEffect} from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import { Link, useNavigate } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { searchProducts, putShopCart, getShopCart, postShopCart, concatShopCart } from '../store/actions';
+import { putShopCart,  postShopCart } from '../store/actions';
 import LogoHyho from '..//Img/logoLargo.gif';
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -29,30 +29,6 @@ const Left = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-`;
-
-const SearchContainer = styled.form`
-  border: 0.5px solid lightgray;
-  display: flex;
-  align-items: center;
-  margin-left: 25px;
-  padding: 5px;
-  width: 60%;
-`;
-
-const Input = styled.input`
-  border: none;
-  width: 100%;
-  height: 20px;
-
-  margin-left: 5px;
-
-  ${mobile({ width: "50px" })}
-`;
-
-const Center = styled.div`
-  flex: 1;
-  text-align: center;
 `;
 
 const Right = styled.div`

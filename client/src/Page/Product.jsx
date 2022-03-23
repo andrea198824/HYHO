@@ -1,4 +1,4 @@
-import { Add, Autorenew, Remove } from "@material-ui/icons";
+import { Add, Remove } from "@material-ui/icons";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";

@@ -17,10 +17,11 @@ import {
     DELETE_LOCAL_SHOP_CART,
     COMPARE_PRODUCTS_SHOP_CART,
     DONAR_PRODUCTO,
-    MODIFY_USER,
     CONCAT_SHOP_CART,
     REMOVE_ITEM_FROM_CART,
     NEWSLETTER,
+    GET_REF_ID,
+    GET_PREF_ID,
 } from "../actions";
 
 const initialState = {
@@ -32,8 +33,9 @@ const initialState = {
     dbShopCart: [],
     token: "",
     userInDB: false,
-    donarProducto:[],
-    email:[],
+    donarProducto: [],
+    email: [],
+    prefId: "",
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -59,20 +61,20 @@ export default function rootReducer(state = initialState, action) {
             if (action.payload === "default") {
                 return { ...state, filteredProducts: state.products };
             }
-            return { ...state, filteredProducts: state.products.filter(product =>  product.categories.includes(action.payload)) }
+            return { ...state, filteredProducts: state.products.filter(product => product.categories.includes(action.payload)) }
         case DONAR_PRODUCTO:
-           return { 
-               ...state, 
-               donarProducto : [...state.donarProducto, action.payload]
+            return {
+                ...state,
+                donarProducto: [...state.donarProducto, action.payload]
             }
-            case NEWSLETTER :
-                return{
-                    ...state,
-                    email : [...state.email, action.payload]
-                }
+        case NEWSLETTER:
+            return {
+                ...state,
+                email: [...state.email, action.payload]
+            }
 
 
-            case CREATE_ADMIN:
+        case CREATE_ADMIN:
             return state;
         case ADD_TO_CART:
             if (state.shoppingCart.some(el => el.id === parseInt(action.payload))) return state;
@@ -122,6 +124,8 @@ export default function rootReducer(state = initialState, action) {
             return { ...state, shoppingCart: newShopCart };
         case REMOVE_ITEM_FROM_CART:
             return { ...state, shoppingCart: state.shoppingCart.filter(el => el.id !== parseInt(action.id)) }
+        case GET_PREF_ID:
+            return {...state, prefId: action.payload.id }
         default:
             return state;
     }
