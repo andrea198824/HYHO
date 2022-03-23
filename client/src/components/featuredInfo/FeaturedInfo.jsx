@@ -1,10 +1,36 @@
 import "./featuredInfo.css";
 import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
-// import { useEffect, useState } from "react";
-// import { userRequest } from "../../requestMethods";
+import { useEffect, useState } from "react";
+import axios from 'axios';
+import { useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 export default function FeaturedInfo() {
+
+
+
+const token = useSelector(state => state.token)
+    const [respuesta, setRespuesta ] = useState("")
+    const {isLoading} = useAuth0()
+    useEffect( () => {
+      console.log("token  :",token)
+      if (token) peticion(token)
+  }, [token])
+
+  useEffect( () => {
+    console.log("respuesta  :",respuesta)
+  })
+
+    const peticion = async (token) => {
+        const response = await axios.post('/mercadopago/totalVentas',{}, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },  
+        })
+        console.log("response axios :",response)
+        await setRespuesta(response.data.Total)
+    }
   // const [income, setIncome] = useState([]);
   // const [perc, setPerc] = useState(10);
 
