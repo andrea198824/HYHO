@@ -141,7 +141,7 @@ export default function NewProduct() {
                                 value={input.weight}
                                 name='weight'
                                 type="integer"
-                                placeholder="^Peso..." />
+                                placeholder="Peso..." />
                         </div>
 
                         <div className="addProductItem">
