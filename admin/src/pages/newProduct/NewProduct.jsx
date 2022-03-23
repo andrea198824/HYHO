@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
+import FileBase from 'react-file-base64'
 import { addProduct } from '../../store/actions';
 import "./newProduct.css";
 
@@ -10,6 +11,7 @@ export default function NewProduct() {
     const token = useSelector(state => state.token)
 
     const [input, setInput] = useState({
+        formId:'',
         title: '',
         category: [],
         price: '',
@@ -19,7 +21,20 @@ export default function NewProduct() {
         stock: '',
     })
 
+    function disabled() {
+        return (!input.formId || !input.title || !input.category ||
+            !input.price || !input.weight || !input.descriptions ||
+            !input.image || !input.stock)
+    }
+
+
     const [category, setCategory] = useState('')
+
+    
+    const getBaseFile = files => {
+        setInput(prevState => ({ ...prevState, image: files.base64 }))
+      
+    }
 
     function hundleOnChange(e) {
         e.preventDefault()
@@ -38,90 +53,133 @@ export default function NewProduct() {
         setCategory(e.target.value)
         setInput({
             ...input,
-            category: [...input.category, category]
+            category: [...input.category, category.slice(0,-1)]
         });
+        
         setCategory('')
     }
 
     function hundleOnSubmit(e) {
         e.preventDefault()
-        console.log(input)
-        setTimeout(()=>{
-            dispatch(addProduct(input, token))
-        },2000)
+        
+        dispatch(addProduct(input, token))
+        setInput({
+            formId: '',
+            title: '',
+            category: [],
+            price: '',
+            weight: '',
+            descriptions: '',
+            image: '',
+            stock: '',
+        })
+        getBaseFile=''
     }
 
     return (
         <div className="newProduct">
             <h1 className="addProductTitle">Nuevo Producto</h1>
             <form onSubmit={(e) => hundleOnSubmit(e)} className="addProductForm">
+                <div className="dosColumns">
+                    <div className="space">
+                        <div
+                            className="addProductItem">
+                            <label>Producto ID</label>
+                            <input
+                                onChange={(e) => hundleOnChange(e)}
+                                value={input.formId}
+                                name='formId'
+                                type="text"
+                                placeholder="Producto ID..." />
+                        </div>
 
-                <div
-                    className="addProductItem">
-                    <label>Nombre</label>
-                    <input
-                        onChange={(e) => hundleOnChange(e)}
-                        name='title'
-                        type="text"
-                        placeholder="nombre..." />
-                </div>
+                        <div
+                            className="addProductItem">
+                            <label>Nombre</label>
+                            <input
+                                onChange={(e) => hundleOnChange(e)}
+                                value={input.title}
+                                name='title'
+                                type="text"
+                                placeholder="nombre..." />
+                        </div>
+                        <div>
+                        <div className="addProductItem">
+                            <label>Categoria</label>
+                                <input onChange={(e) => hundleInputCategory(e)}
+                                    onKeyUp={event => {
+                                        if (event.key === ',') {
+                                            hundleOnCategory(event)
 
-                <div className="addProductItem">
-                    <label>Categoria</label>
-                    <input onChange={(e) => hundleInputCategory(e)}   
-                        onKeyPress={event => {
-                            if (event.key === ',') {
-                                hundleOnCategory(event)
+                                        }
+                                }}
+                                value={category}
+                                name='category'
+                                type="text"
+                                placeholder="Categoria..." />
+
+                            </div>
+                            <div className="category">
                                 
-                            }
-                        }}
-                        value={category}
-                        name='category'
-                        type="text"
-                        placeholder="Categoria..." />
-                        
-                </div>
+                                <label>{input.category+' '}</label>
+                            </div>
+                        </div>
 
-                <div className="addProductItem">
-                    <label>Precio</label>
-                    <input onChange={(e) => hundleOnChange(e)}
-                        name='price'
-                        type="number"
-                        placeholder="Precio..." />
-                </div>
+                        <div className="addProductItem">
+                            <label>Precio</label>
+                            <input onChange={(e) => hundleOnChange(e)}
+                                value={input.price}
+                                name='price'
+                                type="number"
+                                placeholder="Precio..." />
+                        </div>
+                    </div>
+                    <div className="space">
+                        <div className="addProductItem">
+                            <label>Peso</label>
+                            <input onChange={(e) => hundleOnChange(e)}
+                                value={input.weight}
+                                name='weight'
+                                type="integer"
+                                placeholder="^Peso..." />
+                        </div>
 
-                <div className="addProductItem">
-                    <label>Peso</label>
-                    <input onChange={(e) => hundleOnChange(e)}
-                        name='weight'
-                        type="number"
-                        placeholder="^Peso..." />
-                </div>
+                        <div className="addProductItem">
+                            <label>Descripcion</label>
+                            <input onChange={(e) => hundleOnChange(e)}
+                                value={input.descriptions}
+                                name='descriptions'
+                                type="text"
+                                placeholder="Descripcion..." />
+                        </div>
 
-                <div className="addProductItem">
-                    <label>Descripción</label>
-                    <input onChange={(e) => hundleOnChange(e)}
-                        name='desciption'
-                        type="number"
-                        placeholder="Descripción..." />
-                </div>
+                        <div className="addProductItem">
+                            <label>Imagen</label>
+                            <div >
+                                <FileBase
+                                    value={input.image}
+                                    name='file'
+                                    type='file'
+                                    multiple={false}
+                                    onDone={getBaseFile}
+                                />
+                            </div>
+                        </div>
 
-                <div className="addProductItem">
-                    <label>Imagen</label>
-                    <input type="file" id="file" />
+                        <div className="addProductItem">
+                            <label>Stock</label>
+                            <input onChange={(e) => hundleOnChange(e)}
+                                value={input.stock}
+                                name='stock'
+                                type="text"
+                                placeholder="Stok..." />
+                        </div>
+                    </div>
                 </div>
-
-                <div className="addProductItem">
-                    <label>Stock</label>
-                    <input onChange={(e) => hundleOnChange(e)}
-                        name='stock'
-                        type="text"
-                        placeholder="Stok..." />
-                </div>
-
                 <button
                     className="addProductButton"
                     type='submit'
+                    disabled={disabled()}
                 >
                     Cargar
                 </button>

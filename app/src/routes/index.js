@@ -113,7 +113,7 @@ router.post('/admin/donate-form', jwtAdminCheck , form.post) //Funciona con auth
 //--------------------products-endpoints----------------------------------------
 
 //Product endpoints:
-router.post('/admin/product', jwtAdminCheck , product.post) //Funciona
+router.post('/admin/product', jwtAdminCheck, product.post) //Funciona
 
 router.get('/products', product.get)
 router.get('/admin/products', product.get)
