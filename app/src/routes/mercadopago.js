@@ -1,12 +1,12 @@
 "use strict";
 const {Cart, Order, User} = require('../db.js');
 //const server = require('express').Router();
-require("dotenv").config();
+require('dotenv').config()
 // SDK de Mercado Pago
 const mercadopago = require ('mercadopago');
 const order = require('../models/order.js');
 
-const { ACCESS_TOKEN } = process.env;
+const { ACCESS_TOKEN } = process.env
 
 //Agrega credenciales
 mercadopago.configure({
@@ -19,6 +19,7 @@ exports.get = async function (req, res, next)  {
 
     //const {id_user} = req.params
     try {
+        console.log("req.body  :",req.body)
       let {email, cart} = req.body // id carrito
     
     
@@ -69,8 +70,10 @@ exports.get = async function (req, res, next)  {
         console.info('respondio')
         //Este valor reemplazará el string"<%= global.id %>" en tu HTML
           global.id = response.body.id;
-          console.log(response.body)
-          res.json({ id: global.id });
+          console.log("response.body    :",response.body)
+          global.init_point = response.body.sandbox_init_point;
+          //console.log(response.body);
+          res.json({ id: global.id, url: global.init_point });
         })
         .catch(function(error){
           console.log(error);
@@ -161,7 +164,6 @@ exports.pagos = async function (req, res) {
   }
 }
 
-
 //Busco información de una orden de pago
 exports.getOrderUser = async function (req, res, next) {
   const {email} = req.body
@@ -245,4 +247,4 @@ exports.getTotalVentas = async function (req, res, next) {
     } catch (error) {
       next(error)
     }
-  }
+}

@@ -1,13 +1,17 @@
 {
   "ExpandedNodes": [
     "",
+    "\\admin",
+    "\\admin\\src",
+    "\\admin\\src\\store",
+    "\\admin\\src\\store\\actions",
     "\\app",
+    "\\app\\src",
+    "\\app\\src\\routes",
     "\\client",
     "\\client\\src",
-    "\\client\\src\\store",
-    "\\client\\src\\store\\actions",
-    "\\client\\src\\store\\reducers"
+    "\\client\\src\\Page"
   ],
-  "SelectedNode": "\\app",
+  "SelectedNode": "\\app\\src\\routes\\product.js",
   "PreviewInSolutionExplorer": false
 }

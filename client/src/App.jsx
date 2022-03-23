@@ -14,6 +14,7 @@ import DonarProduct from './Page/DonarProduct';
 import DonarDinero from './Page/DonarDinero';
 import Mapa from './Page/Mapa';
 import BuyFormPage from './Page/BuyFormPage'
+import MercadoPago from './Page/mercadopago';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addUser, concatShopCart, getCategories, getProducts, getShopCart, getToken } from './store/actions'
@@ -59,6 +60,7 @@ function App() {
                     <Route exact path='/donatedinero' element={<DonarDinero />} />
                     <Route exact path='/mapa' element={<Mapa />} />
                     <Route exact path='/buyformpage' element={<BuyFormPage />} />
+                    <Route exact path='/mercadopago' element={<MercadoPago/>} />
                 </Routes>
             </Router>
         </div>

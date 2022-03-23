@@ -15,10 +15,8 @@ import Newsletter from "./pages/newsletter/Newsletter";
 import FormDonaciones from "./pages/formDonaciones/FormDonaciones";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuth0 } from '@auth0/auth0-react';
-import { getToken, getUsers, getProducts, getCategories} from './store/actions';
-
-
-
+import { getToken, getUsers, getProducts, getCategories } from './store/actions';
+import DonarProduct from "./pages/DonarProduct/DonarProduct";
 
 
 function App() {
@@ -45,13 +43,10 @@ function App() {
         <div>
             <Router>
                 <Topbar />
-                {/* {!token ? <Landing/> : <Topbar />} */}
                 <div className="container">
                     <Sidebar />
                     <Routes>
-                        {/* <Route path="/" element = {<Home/>}/> */}
                         <Route path="/" element={token ? <Home /> : <Landing />} />
-                        {/* <Route path="about"  element={ shouldRedirect ? (<Navigate replace to="/home" />) : (<About /> /> */}
                         <Route exact path="/landing" element={<Landing />} />
                         <Route path="/users" element={<UserList />} />
                         <Route path="/user/:userId" element={<User />} />
@@ -62,6 +57,7 @@ function App() {
                         <Route path="/ventas" element={<WidgetTotalSales />} />
                         <Route path="/newsletter" element={<Newsletter />} />
                         <Route path="/formDonaciones" element={<FormDonaciones />} />
+                        <Route path="/productos-donados" element={<DonarProduct />}/>
                     </Routes>
                 </div>
             </Router>
