@@ -25,12 +25,12 @@ const Container = styled.div`
     flexDirection: 'column',
 
     height: '110vh'
-  })}
+})}
 `
 
 const Wrapper = styled.div`
   width: 40%;
-  height: 380px;
+  height: 480px;
   padding: 20px;
   background-color: white;
   display: flex;
@@ -53,7 +53,7 @@ flex-direction: column`
 
 const Button = styled.button`
   width: 100%;
-  margin-top: 20px;
+  margin-top: 30px;
   border: none;
   padding: 15px 20px;
 
@@ -135,173 +135,173 @@ const FileBase1 = styled.div`
 // const Input = styled.input`
 // `
 
-export function validate (input) {
-  let errors = {}
-  console.log(input.title)
-  if (!input.title) {
-    errors.title = 'Nombre Es Requerido'
-  } else if (!/^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/.test(input.title)) {
-    console.log('entro al else if')
-    errors.title = 'Nombre es Invalido'
-  } else {
-    delete errors.title
-  }
+export function validate(input) {
+    let errors = {}
+    console.log(input.title)
+    if (!input.title) {
+        errors.title = 'Nombre Es Requerido'
+    } else if (!/^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/.test(input.title)) {
+        console.log('entro al else if')
+        errors.title = 'Nombre es Invalido'
+    } else {
+        delete errors.title
+    }
 
-  if (!input.description) {
-    errors.description = 'Description is required'
-  } else if (input.description.length < 10) {
-    errors.description = 'Description must have at least 10 characters'
-  } else {
-    delete errors.description
-  }
+    if (!input.description) {
+        errors.description = 'Description is required'
+    } else if (input.description.length < 10) {
+        errors.description = 'Description must have at least 10 characters'
+    } else {
+        delete errors.description
+    }
 
-  if (!input.cantidad) {
-    errors.cantidad = 'Amount is required'
-  } else if (input.cantidad.length < 1) {
-    errors.cantidad = 'Must have at least 1 Product'
-  } else {
-    delete errors.cantidad
-  }
-  if (!input.email) {
-    errors.mail = 'Correo Requerido'
-  } else if (!/\S+@\S+\.\S+/.test(input.email)) {
-    errors.mail = 'Correo Invalido'
-  }
+    if (!input.cantidad) {
+        errors.cantidad = 'Amount is required'
+    } else if (input.cantidad.length < 1) {
+        errors.cantidad = 'Must have at least 1 Product'
+    } else {
+        delete errors.cantidad
+    }
+    if (!input.email) {
+        errors.mail = 'Correo Requerido'
+    } else if (!/\S+@\S+\.\S+/.test(input.email)) {
+        errors.mail = 'Correo Invalido'
+    }
 
-  if (Object.keys(errors).length <= 1) {
-    errors.disabled = true
-  } else {
-    errors.disabled = false
-  }
+    if (Object.keys(errors).length <= 1) {
+        errors.disabled = true
+    } else {
+        errors.disabled = false
+    }
 
-  return errors
+    return errors
 }
 
 const DonarProduct = () => {
-  const navigate = useNavigate()
+    const navigate = useNavigate()
 
-  const dispatch = useDispatch()
-  const { email, getAccessTokenSilently, isLoading } = useAuth0()
-  const token = useSelector(state => state.token)
+    const dispatch = useDispatch()
+    const { email, getAccessTokenSilently, isLoading } = useAuth0()
+    const token = useSelector(state => state.token)
 
-  if (!isLoading) {
-    getAccessTokenSilently().then(res => {
-      dispatch(getToken(res))
+    if (!isLoading) {
+        getAccessTokenSilently().then(res => {
+            dispatch(getToken(res))
+        })
+    }
+
+    const [errors, setErrors] = useState({})
+    const [input, setInput] = useState({
+        email: '',
+        title: '',
+        price: '',
+        weight: '',
+        image: '',
+        descriptions: '',
+        stock: '',
+        category: []
     })
-  }
+    const getBaseFile = files => {
+        setInput(prevState => ({ ...prevState, image: files.base64 }))
+    }
 
-  const [errors, setErrors] = useState({})
-  const [input, setInput] = useState({
-    email: '',
-    title: '',
-    price: '',
-    weight: '',
-    image: '',
-    descriptions: '',
-    stock: '',
-    category: []
-  })
-  const getBaseFile = files => {
-    setInput(prevState => ({ ...prevState, image: files.base64 }))
-  }
+    const handleInputChange = function (e) {
+        e.preventDefault()
 
-  const handleInputChange = function (e) {
-    e.preventDefault()
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value
+        })
 
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value
-    })
+        setErrors(
+            validate({
+                ...input,
+                [e.target.name]: e.target.value
+            })
+        )
+    }
 
-    setErrors(
-      validate({
-        ...input,
-        [e.target.name]: e.target.value
-      })
+    const handleSubmit = e => {
+        console.log('entro al submit', input)
+        e.preventDefault()
+        dispatch(donarProducto(input, email, token))
+        alert('Gracias por tu Donacion')
+        navigate('/')
+    }
+
+    console.log(errors)
+
+    return (
+        <div>
+            <NavBar />
+            <Announcement />
+
+            <Container>
+                <Title> Donar Producto</Title>
+
+                <Wrapper>
+                    <Form onSubmit={handleSubmit}>
+                        <DivItemUno>
+                            <div>
+                                <Item0
+                                    onChange={e => handleInputChange(e)}
+                                    type='email'
+                                    name='email'
+                                    placeholder='Correo'
+                                />
+                                {errors.mail && <Paragraph>{errors.mail}</Paragraph>}
+                            </div>
+                            <div>
+                                <Item0
+                                    onChange={e => handleInputChange(e)}
+                                    type='text'
+                                    name='title'
+                                    placeholder='Nombre del Producto'
+                                />
+
+                                {errors.title && <Paragraph>{errors.title}</Paragraph>}
+                            </div>
+                            <div>
+                                <Item0
+                                    onChange={e => handleInputChange(e)}
+                                    type='number'
+                                    name='cantidad'
+                                    placeholder='Cantidad'
+                                />
+                                {errors.cantidad && <Paragraph>{errors.cantidad}</Paragraph>}
+                            </div>
+                            <div>
+                                <Item0
+                                    onChange={e => handleInputChange(e)}
+                                    type='text'
+                                    name='descriptions'
+                                    placeholder='Descripcion'
+                                />
+                                {errors.lastName && (
+                                    <Paragraph>{errors.descriptions}</Paragraph>
+                                )}
+                            </div>
+                        </DivItemUno>
+
+                        <DivItemDos>
+                            <div>
+                                <Button type='submit' disabled={!errors.disabled}>
+                                    Donar
+                                </Button>
+                                <Link to='/'>
+                                    <Button>Volver</Button>
+                                </Link>
+                            </div>
+                        </DivItemDos>
+                    </Form>
+                    <FileBase1>
+                        <FileBase type='file' multiple={false} onDone={getBaseFile} />
+
+                        {errors.image && <Paragraph>{errors.image}</Paragraph>}
+                    </FileBase1>
+                </Wrapper>
+            </Container>
+        </div>
     )
-  }
-
-  const handleSubmit = e => {
-    console.log('entro al submit', input)
-    e.preventDefault()
-    dispatch(donarProducto(input, email, token))
-    alert('Gracias por tu Donacion')
-    navigate('/')
-  }
-
-  console.log(errors)
-
-  return (
-    <div>
-      <NavBar />
-      <Announcement />
-
-      <Container>
-        <Title> Donar Producto</Title>
-
-        <Wrapper>
-          <Form onSubmit={handleSubmit}>
-            <DivItemUno>
-              <div>
-                <Item0
-                  onChange={e => handleInputChange(e)}
-                  type='email'
-                  name='email'
-                  placeholder='Correo'
-                />
-                {errors.mail && <Paragraph>{errors.mail}</Paragraph>}
-              </div>
-              <div>
-                <Item0
-                  onChange={e => handleInputChange(e)}
-                  type='text'
-                  name='title'
-                  placeholder='Nombre del Producto'
-                />
-
-                {errors.title && <Paragraph>{errors.title}</Paragraph>}
-              </div>
-              <div>
-                <Item0
-                  onChange={e => handleInputChange(e)}
-                  type='number'
-                  name='cantidad'
-                  placeholder='Cantidad'
-                />
-                {errors.cantidad && <Paragraph>{errors.cantidad}</Paragraph>}
-              </div>
-              <div>
-                <Item0
-                  onChange={e => handleInputChange(e)}
-                  type='text'
-                  name='descriptions'
-                  placeholder='Descripcion'
-                />
-                {errors.lastName && (
-                  <Paragraph>{errors.descriptions}</Paragraph>
-                )}
-              </div>
-            </DivItemUno>
-
-            <DivItemDos>
-              <div>
-                <Button type='submit' disabled={!errors.disabled}>
-                  Donar
-                </Button>
-                <Link to='/'>
-                  <Button>Volver</Button>
-                </Link>
-              </div>
-            </DivItemDos>
-          </Form>
-          <FileBase1>
-            <FileBase type='file' multiple={false} onDone={getBaseFile} />
-
-            {errors.image && <Paragraph>{errors.image}</Paragraph>}
-          </FileBase1>
-        </Wrapper>
-      </Container>
-    </div>
-  )
 }
 export default DonarProduct
