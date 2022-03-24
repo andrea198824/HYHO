@@ -3,95 +3,95 @@ import styled from 'styled-components'
 import { mobile } from '../responsive'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router'
-import {useDispatch, useSelector} from "react-redux"
+import { useDispatch, useSelector } from 'react-redux'
 import FileBase from 'react-file-base64'
 import NavBar from '../components/Navbar'
-import { donarProducto, getToken  } from '../store/actions'
-import { useAuth0 } from '@auth0/auth0-react';
+import { donarProducto, getToken } from '../store/actions'
+import { useAuth0 } from '@auth0/auth0-react'
 import Announcement from '../components/Announcement'
 
 const Container = styled.div`
   width: 100vw;
-  height: 82vh;
-  background: linear-gradient(
-      #d3f7db,
-      #f7dbd3
-    ),
-    url("https://lavozdemotul.com/wp-content/uploads/2016/08/registration-page-background-504-1.png")
+  height: 85vh;
+  background: linear-gradient(#d3f7db, #f7dbd3),
+    url('https://lavozdemotul.com/wp-content/uploads/2016/08/registration-page-background-504-1.png')
       center;
   background-size: cover;
   display: flex;
-justify-content: center;
+  justify-content: center;
   align-items: center;
-flex-direction: column;
-  
-`;
+  flex-direction: column;
+  ${mobile({
+    flexDirection: 'column',
+
+    height: '110vh'
+  })}
+`
 
 const Wrapper = styled.div`
   width: 40%;
   height: 380px;
   padding: 20px;
   background-color: white;
-display: flex;
-justify-content: center;
+  display: flex;
+  justify-content: center;
   align-items: center;
-flex-direction: column;
-  ${mobile({ width: "75%" })}
-    
-`;
+  flex-direction: column;
+  ${mobile({ width: '75%' })}
+`
 
 const Title = styled.h1`
-   padding-bottom: 20px;
+  padding-bottom: 20px;
   font-size: 24px;
   font-weight: 300;
   text-align: center;
-`;
+`
 
 const Form = styled.form`
-   
-`;
+display: flex,
+flex-direction: column`
 
 const Button = styled.button`
   width: 100%;
   margin-top: 20px;
   border: none;
   padding: 15px 20px;
-  
+
   background-color: #dbd3f7;
-  color:#4d4442;
+  color: #4d4442;
   cursor: pointer;
- &:disabled {
+  &:disabled {
     background-color: gray;
     color: black;
     opacity: 0.7;
     cursor: default;
   }
-`;
+`
 
 const Paragraph = styled.p`
   color: red;
   font-size: 10px;
   font-weight: 2;
-`;
+`
 
 const DivItemUno = styled.div`
-padding-top:80px;
- display:flex;
+  padding-top: 80px;
+  display: flex;
   justify-content: center;
   align-items: center;
- flex-direction: column;
+  flex-direction: column;
   height: 15vh; /*Este valor lo puedes omitir si la altura de tu componente esta definida*/
 `
 
 const DivItemDos = styled.div`
-  padding-top:55px;
-  display:flex;
-  flex-direction:row;
-  flex-wrap:wrap;
-  justify-content:space-around;
-  align-items:unset;
-  align-content:flex-end;
-  height: 20vh; /*Este valor lo puedes omitir si la altura de tu componente esta definida*/
+  padding-top: 55px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: unset;
+  align-content: flex-end;
+  ${mobile({ width: 'cover' })}
 `
 
 // const DivItemTres = styled.div`
@@ -105,14 +105,17 @@ const DivItemDos = styled.div`
 // `
 
 const Item0 = styled.input`
-order:1;
-  flex:0 1 center;
-  align-self:flex-start;
-  height:4vh;
-  width:20vh;
+  order: 1;
+  flex: 0 1 center;
+  align-self: flex-start;
+  height: 4vh;
+  width: 20vh;
   margin-top: 3vh;
 `
-
+const FileBase1 = styled.div`
+  padding-top: 30px;
+  padding-left: 100px;
+`
 // const Item1 = styled.input`
 // order:2;
 //   flex:0 1 center;
@@ -160,10 +163,10 @@ export function validate (input) {
     delete errors.cantidad
   }
   if (!input.email) {
-            errors.mail = 'Correo Requerido';
-        } else if (!/\S+@\S+\.\S+/.test(input.email)) {
-            errors.mail = 'Correo Invalido';
-        }
+    errors.mail = 'Correo Requerido'
+  } else if (!/\S+@\S+\.\S+/.test(input.email)) {
+    errors.mail = 'Correo Invalido'
+  }
 
   if (Object.keys(errors).length <= 1) {
     errors.disabled = true
@@ -178,35 +181,30 @@ const DonarProduct = () => {
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
-  const { email, getAccessTokenSilently, isLoading } = useAuth0();
-  const token = useSelector( state => state.token)
+  const { email, getAccessTokenSilently, isLoading } = useAuth0()
+  const token = useSelector(state => state.token)
 
   if (!isLoading) {
-    getAccessTokenSilently()
-        .then(res => {
-            dispatch(getToken(res))              
-        })
-  
+    getAccessTokenSilently().then(res => {
+      dispatch(getToken(res))
+    })
   }
-
 
   const [errors, setErrors] = useState({})
   const [input, setInput] = useState({
     email: '',
     title: '',
-    price:'',
-    weight:'',
+    price: '',
+    weight: '',
     image: '',
     descriptions: '',
     stock: '',
-    category:[],
-
-
+    category: []
   })
   const getBaseFile = files => {
     setInput(prevState => ({ ...prevState, image: files.base64 }))
   }
-  
+
   const handleInputChange = function (e) {
     e.preventDefault()
 
@@ -217,7 +215,7 @@ const DonarProduct = () => {
 
     setErrors(
       validate({
-        ...input, 
+        ...input,
         [e.target.name]: e.target.value
       })
     )
@@ -226,89 +224,83 @@ const DonarProduct = () => {
   const handleSubmit = e => {
     console.log('entro al submit', input)
     e.preventDefault()
-    dispatch(donarProducto(input,email,token))
-    alert("Gracias por tu Donacion")
-    navigate("/")
-}
-
+    dispatch(donarProducto(input, email, token))
+    alert('Gracias por tu Donacion')
+    navigate('/')
+  }
 
   console.log(errors)
 
   return (
     <div>
       <NavBar />
-      <Announcement/>
+      <Announcement />
 
       <Container>
-          <Title> Donar Producto</Title>
-      
-      <Wrapper>
+        <Title> Donar Producto</Title>
 
+        <Wrapper>
           <Form onSubmit={handleSubmit}>
-          <DivItemUno>
-          <div>
-                           <Item0
-                                onChange={(e) => handleInputChange(e)}
-                                type='email'
-                                name='email'
-                                placeholder="Correo"
-                            />
-                            {errors.mail && (
-                                 <Paragraph>{errors.mail}</Paragraph>
-                                
-                            )}
-                        </div>
-            <div>
-              <Item0
-                onChange={e => handleInputChange(e)}
-                type='text'
-                name='title'
-                placeholder='Nombre del Producto'
-              />
+            <DivItemUno>
+              <div>
+                <Item0
+                  onChange={e => handleInputChange(e)}
+                  type='email'
+                  name='email'
+                  placeholder='Correo'
+                />
+                {errors.mail && <Paragraph>{errors.mail}</Paragraph>}
+              </div>
+              <div>
+                <Item0
+                  onChange={e => handleInputChange(e)}
+                  type='text'
+                  name='title'
+                  placeholder='Nombre del Producto'
+                />
 
-            {errors.title && <Paragraph>{errors.title}</Paragraph>}
-          </div>
-          <div>
-            <Item0
-              onChange={e => handleInputChange(e)}
-              type='number'
-              name='cantidad'
-              placeholder='Cantidad'
-            />
-            {errors.cantidad && <Paragraph>{errors.cantidad}</Paragraph>}
-          </div>
-          <div>
-            <Item0
-              onChange={e => handleInputChange(e)}
-              type='text'
-              name='descriptions'
-              placeholder='Descripcion'
-            />
-            {errors.lastName && <Paragraph>{errors.descriptions}</Paragraph>}
-          </div>
-          </DivItemUno>
-        
-          <DivItemDos>
-          <div >
-          
-            <FileBase type='file' multiple={false} onDone={getBaseFile} />
+                {errors.title && <Paragraph>{errors.title}</Paragraph>}
+              </div>
+              <div>
+                <Item0
+                  onChange={e => handleInputChange(e)}
+                  type='number'
+                  name='cantidad'
+                  placeholder='Cantidad'
+                />
+                {errors.cantidad && <Paragraph>{errors.cantidad}</Paragraph>}
+              </div>
+              <div>
+                <Item0
+                  onChange={e => handleInputChange(e)}
+                  type='text'
+                  name='descriptions'
+                  placeholder='Descripcion'
+                />
+                {errors.lastName && (
+                  <Paragraph>{errors.descriptions}</Paragraph>
+                )}
+              </div>
+            </DivItemUno>
 
-            {errors.image && <Paragraph>{errors.image}</Paragraph>}
-          </div>
-         
-          
-          <div>
-              <Button type='submit' disabled={!errors.disabled}>
-                Donar
-              </Button>
-            <Link to='/' >
-              <Button>Volver</Button>
-            </Link>
-          </div>
-          </DivItemDos>
-        </Form>
-      </Wrapper>
-    </Container>
+            <DivItemDos>
+              <div>
+                <Button type='submit' disabled={!errors.disabled}>
+                  Donar
+                </Button>
+                <Link to='/'>
+                  <Button>Volver</Button>
+                </Link>
+              </div>
+            </DivItemDos>
+          </Form>
+        </Wrapper>
+        <FileBase1>
+          <FileBase type='file' multiple={false} onDone={getBaseFile} />
+
+          {errors.image && <Paragraph>{errors.image}</Paragraph>}
+        </FileBase1>
+      </Container>
     </div>
   )
 }

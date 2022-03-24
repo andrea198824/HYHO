@@ -2,25 +2,22 @@ import {
   Facebook,
   Instagram,
   MailOutline,
-  Phone,
+  Whatsapp,
   Pinterest,
   Room,
   Twitter
 } from '@material-ui/icons'
+import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import styled from 'styled-components'
 import { mobile } from '../responsive'
 import { Link } from 'react-router-dom'
-import mercadoPago from '../Img/mercadoPago.png'
-import ReactWhatsapp from 'react-whatsapp';
+import mercadoPago from '../Img/MPlogo.png'
+// import ReactWhatsapp from 'react-whatsapp';
 
 const Container = styled.div`
   display: flex;
   background-color: #d3f7db;
   ${mobile({ flexDirection: 'column' })}
-  @media (min-width: 320px) {
-    flex-direction: column;
-    margin-left: 5px;
-  }
 `
 
 const Left = styled.div`
@@ -88,7 +85,10 @@ const ContactItem = styled.div`
 `
 
 const Payment = styled.img`
-  width: 300px;
+  width: 200px;
+  border-radius: 25px;
+  background-color: #fff8f8;
+  margin-right: 35%;
 `
 
 const linkListItems = {
@@ -150,16 +150,19 @@ const Footer = () => {
       <Right>
         <Title>Contacto</Title>
         <ContactItem>
-        <Link onClick={onClickLink} to='/mapa' style={linkListItems}>
-          <Room style={{ marginRight: '10px' }} /> &nbsp; Av. 9 de Julio, C1043
-          CABA, Argentina
-          </Link> 
+          <Link onClick={onClickLink} to='/mapa' style={linkListItems}>
+            <Room style={{ marginRight: '10px' }} /> &nbsp; Av. 9 de Julio,
+            C1043 CABA, Argentina
+          </Link>
         </ContactItem>
         <ContactItem>
           {/* <Phone style={{ marginRight: '10px' }} /> +01 101 10 01 */}
-          <ReactWhatsapp style={{ marginRight: '10px' ,background: "none", border: "none"}} number="+01 101 10 01" message="Welcome to TU.ong !!!" >
-            +01 101 10 01
-          </ReactWhatsapp>
+          <WhatsAppIcon
+            style={{ marginRight: '10px', background: 'none', border: 'none' }}
+            number='+01 101 10 01'
+            message='Welcome to TU.ong !!!'
+          />
+          +54 9 11 0000 0000
         </ContactItem>
         <ContactItem>
           <MailOutline style={{ marginRight: '10px' }} /> ayuda@hyho.com
