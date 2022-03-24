@@ -35,14 +35,18 @@ const token = useSelector(state => state.token)
 
   useEffect(()=>{
     if(
-      totalVentas &&
-totalDonaciones &&
-totalVentasPrev &&
-totalDonacionesPrev &&
-totalVentasActual &&
-totalDonacionesActual
+totalDonacionesPrev !== 0 &&
+totalDonacionesActual !== 0
     ) {
       setDonationRatio(100*(totalDonacionesActual-totalDonacionesPrev)/totalDonacionesPrev)
+    }
+  })
+
+  useEffect(()=>{
+    if(
+totalVentasPrev !== 0 &&
+totalVentasActual !== 0 
+    ) {
       setSalesRatio(100*(totalVentasActual-totalVentasPrev)/totalVentasPrev)
     }
   })
