@@ -1,54 +1,34 @@
 export const sliderItems = [
-  {
-    id: 0,
-    video:
-      'https://drive.google.com/file/d/1SGErttpfMPLdyM1DKGRHzfYCTuKBBJ6C/view?usp=sharing',
-    bg: '8aa290'
-  },
-  {
-    id: 1,
-    img: [
-      'https://www.lanoticiaurbana.com/wp-content/uploads/2019/04/donacion-club-florencio-varela.jpg',
-      'https://i.pinimg.com/originals/1d/1e/9a/1d1e9a99dbc24c257cf6510e244545a7.jpg',
-      'https://scontent.fmdq3-1.fna.fbcdn.net/v/t39.30808-6/222005553_3019444431608207_8681259056351632849_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_ohc=zLeVnrgJEfsAX_0xKCp&_nc_ht=scontent.fmdq3-1.fna&oh=00_AT-QPe2LrGiWcwiGuIJwQuIpRiX9vZv5ZL2_j_9yGyj7Xw&oe=62290D70',
-      'http://cge.entrerios.gov.ar/wp-content/uploads/2018/03/comedores-760x410.jpg'
-    ],
-    title: 'Comedor Almitas Lindas',
-    desc: 'Reacondicionamiento y equipamiento del comedor',
-    info:
-      'Los miembros de HYHO nos sumamos a la gran labor que están realizando en la gente del comedor y nos comprometimos a juntar fondos para realizar tareas de mantenimiento y reciclado. POr lo que contamos con toda las solidaridad de la gente y pedimos que todos los que puedan donar dinero o un objeto para venderlo en nuestra tienda online , por más pequeño que se, todo suma para nosotros y para el destino final que es que todos los chicos del comedor puedan tener un lugar donde poder recibir las comidas diarias, entretenerse y aprender. Desde ya agradecemos su aporte.',
-    bg: 'f5fafd'
-  },
-  {
-    id: 2,
-    img: [
-      'https://salta4400.com/wp-content/uploads/2020/01/45125358394_0898ac1cfe_h.jpg',
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFwQNZsuLSm13ppLWvDhNeNAmufU4IJELWW87QGWY7hWf4kOHNABDOipsnOqFkFH-NJmc&usqp=CAU',
-      'https://www.sanisidro.gob.ar/sites/default/files/img/styles/galeria_800x550/public/hospital_materno.jpg?itok=Q06SrQUz',
-      'https://www.sanisidro.gob.ar/sites/default/files/img/styles/galeria_800x550/public/hospital_materno_3.jpg?itok=ynaDnpiJ'
-    ],
-    title: 'Hospital Publico Materno Infantil ',
-    desc: 'Colecta para la compra de una ambulancia totalmente equipada ',
-    info:
-      'HYHO  vivo la necesidad y nos comprometimos a brindar toda la ayuda necesaria para mejorar las instalaciones del Hospital Materno Infantil. El hospital cumple un rol fundamental para recibir a nuestras nuevas generaciones y a la gran dedicación y profesionalismo  que brinda el personal hace falta sumarle el mejor equipamiento posible, sumado a un buen acondicionamiento de las habitaciones para que las madres y futuras madres se recuperen de la mejor manera. Por eso Pedimos y los invitamos a donar objetos para nuestra tienda virtual o bien algún dinero que crean pertinente. Cualquier ayuda suma y será muy bien agradecida. Confiamos y creemos en un pueblo más justo y solidario.',
-    bg: 'fcf1ed'
-  },
-  {
-    id: 3,
-    img: [
-      'https://docplayer.es/docs-images/113/206549008/images/1-0.jpg',
-      'https://scontent.fmdq3-1.fna.fbcdn.net/v/t31.18172-8/11953572_516202278529993_4610221452959429796_o.jpg?_nc_cat=103&ccb=1-5&_nc_sid=e3f864&_nc_ohc=w9h8T_lR1tgAX_HqIC3&_nc_ht=scontent.fmdq3-1.fna&oh=00_AT92oDVU39FQivHmTAOHA7q8RQUytC98HCiOD3ufuEitjQ&oe=6249F11E',
-      'https://scontent.fmdq3-1.fna.fbcdn.net/v/t1.18169-9/28471954_949486481868235_2976243267275398220_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=8bfeb9&_nc_ohc=SUx_NBvFIhIAX_bpBcQ&_nc_oc=AQnokK4yfGEOrJeHCgJR4HtvBq6oujzwiRT5HCorQti9raZgxQBdwaMVgCwG2YXIj6XfSnZ6KxFkhBZi7_SBrRIz&_nc_ht=scontent.fmdq3-1.fna&oh=00_AT9bRbblcFovIeG8cAlBuNPqKiVJcmwwsH7wbZzhSn5IGg&oe=624A6B8B',
-      'https://scontent.fmdq3-1.fna.fbcdn.net/v/t31.18172-8/23799892_897519093731641_3134821301253389398_o.jpg?_nc_cat=108&ccb=1-5&_nc_sid=730e14&_nc_ohc=YJNkzF68f0cAX_TiMfA&_nc_ht=scontent.fmdq3-1.fna&oh=00_AT_ltq3fNrAPepZcCkBwyTd4t5hvVXhXFP2R6VVjXmqsAA&oe=62491EBE',
-      'https://scontent.fmdq3-1.fna.fbcdn.net/v/t31.18172-8/23415537_891750087641875_1149070498365929216_o.jpg?_nc_cat=108&ccb=1-5&_nc_sid=730e14&_nc_ohc=zNyJ3HKo0vMAX_m7FbM&_nc_ht=scontent.fmdq3-1.fna&oh=00_AT9I4fuLtnMJPGCEKxdJKWH4gZKClVIMoV6E_R5wjGZFBA&oe=624BA8F3'
-    ],
-    title: 'Bomberos Voluntarios Santo Tome',
-    desc:
-      'Compra de Autobomba para los bomberos voluntarios de Santo Tome - Corrientes',
-    info:
-      'Nuevamente nos sumamos a la ayuda  de quien ayuda. Y el mejor reflejo de eso son los Bomberos de Santo Tomé que diariamente exponen su vida sin dudarlo en pos de ayudar y socorrer al que está en riesgo. Es por eso que pedimos una colaboración para poder comprar una nueva unidad de Bombero y de esta forma brindarles más herramientas para socorrer y resolver conflictos de una manera rápida y eficaz. Ayudemos a ayudar, cada donación por más pequeña que sea es mucho si se la suma a las demás. Los invitamos a donar y comprar en nuestra tienda. Todo lo recaudado irá a la colecta para el fin de poder comprar esa  autobomba que tanto necesitan nuestros queridos bomberos.',
-    bg: 'fbf0f4'
-  }
+
+    {
+        id: 0,
+        video: "https://drive.google.com/file/d/1OZCeG9EA00y6d3kOYbpeWDet8Q2WEVTj/view?usp=sharing",
+        bg: "8aa290",
+    },
+    {
+        id: 1,
+        img: ["https://www.lanoticiaurbana.com/wp-content/uploads/2019/04/donacion-club-florencio-varela.jpg", "https://i.pinimg.com/originals/1d/1e/9a/1d1e9a99dbc24c257cf6510e244545a7.jpg", "https://scontent.fmdq3-1.fna.fbcdn.net/v/t39.30808-6/222005553_3019444431608207_8681259056351632849_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=730e14&_nc_ohc=zLeVnrgJEfsAX_0xKCp&_nc_ht=scontent.fmdq3-1.fna&oh=00_AT-QPe2LrGiWcwiGuIJwQuIpRiX9vZv5ZL2_j_9yGyj7Xw&oe=62290D70", "http://cge.entrerios.gov.ar/wp-content/uploads/2018/03/comedores-760x410.jpg"],
+        title: "Comedor Almitas Lindas",
+        desc: "Reacondicionamiento y equipamiento del comedor",
+        info: "Nos sumamos a la gran labor que están realizando en la gente del comedor y nos comprometimos a juntar fondos para realizar tareas de mantenimiento y reciclado. POr lo que contamos con toda las solidaridad de la gente y pedimos que todos los que puedan donar dinero o un objeto para venderlo en nuestra tienda online , por más pequeño que se, todo suma para nosotros y para el destino final que es que todos los chicos del comedor puedan tener un lugar donde poder recibir las comidas diarias, entretenerse y aprender. Desde ya agradecemos su aporte.",
+        bg: "f5fafd",
+    },
+    {
+        id: 2,
+        img: ["https://salta4400.com/wp-content/uploads/2020/01/45125358394_0898ac1cfe_h.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFwQNZsuLSm13ppLWvDhNeNAmufU4IJELWW87QGWY7hWf4kOHNABDOipsnOqFkFH-NJmc&usqp=CAU", "https://www.sanisidro.gob.ar/sites/default/files/img/styles/galeria_800x550/public/hospital_materno.jpg?itok=Q06SrQUz", "https://www.sanisidro.gob.ar/sites/default/files/img/styles/galeria_800x550/public/hospital_materno_3.jpg?itok=ynaDnpiJ"],
+        title: "Hospital Publico Materno Infantil ",
+        desc: "Colecta para la compra de una ambulancia totalmente equipada ",
+        info: "Vimos la necesidad y nos comprometimos a brindar toda la ayuda necesaria para mejorar las instalaciones del Hospital Materno Infantil. El hospital cumple un rol fundamental para recibir a nuestras nuevas generaciones y a la gran dedicación y profesionalismo  que brinda el personal hace falta sumarle el mejor equipamiento posible, sumado a un buen acondicionamiento de las habitaciones para que las madres y futuras madres se recuperen de la mejor manera. Por eso Pedimos y los invitamos a donar objetos para nuestra tienda virtual o bien algún dinero que crean pertinente. Cualquier ayuda suma y será muy bien agradecida. Confiamos y creemos en un pueblo más justo y solidario.",
+        bg: "fcf1ed",
+    },
+    {
+        id: 3,
+        img: ["https://docplayer.es/docs-images/113/206549008/images/1-0.jpg", "https://scontent.fmdq3-1.fna.fbcdn.net/v/t31.18172-8/11953572_516202278529993_4610221452959429796_o.jpg?_nc_cat=103&ccb=1-5&_nc_sid=e3f864&_nc_ohc=w9h8T_lR1tgAX_HqIC3&_nc_ht=scontent.fmdq3-1.fna&oh=00_AT92oDVU39FQivHmTAOHA7q8RQUytC98HCiOD3ufuEitjQ&oe=6249F11E", "https://scontent.fmdq3-1.fna.fbcdn.net/v/t1.18169-9/28471954_949486481868235_2976243267275398220_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=8bfeb9&_nc_ohc=SUx_NBvFIhIAX_bpBcQ&_nc_oc=AQnokK4yfGEOrJeHCgJR4HtvBq6oujzwiRT5HCorQti9raZgxQBdwaMVgCwG2YXIj6XfSnZ6KxFkhBZi7_SBrRIz&_nc_ht=scontent.fmdq3-1.fna&oh=00_AT9bRbblcFovIeG8cAlBuNPqKiVJcmwwsH7wbZzhSn5IGg&oe=624A6B8B", "https://scontent.fmdq3-1.fna.fbcdn.net/v/t31.18172-8/23799892_897519093731641_3134821301253389398_o.jpg?_nc_cat=108&ccb=1-5&_nc_sid=730e14&_nc_ohc=YJNkzF68f0cAX_TiMfA&_nc_ht=scontent.fmdq3-1.fna&oh=00_AT_ltq3fNrAPepZcCkBwyTd4t5hvVXhXFP2R6VVjXmqsAA&oe=62491EBE", "https://scontent.fmdq3-1.fna.fbcdn.net/v/t31.18172-8/23415537_891750087641875_1149070498365929216_o.jpg?_nc_cat=108&ccb=1-5&_nc_sid=730e14&_nc_ohc=zNyJ3HKo0vMAX_m7FbM&_nc_ht=scontent.fmdq3-1.fna&oh=00_AT9I4fuLtnMJPGCEKxdJKWH4gZKClVIMoV6E_R5wjGZFBA&oe=624BA8F3"],
+        title: "Bomberos Voluntarios Santo Tome",
+        desc: "Compra de Autobomba para los bomberos voluntarios de Santo Tome - Corrientes",
+        info: "Nuevamente nos sumamos a la ayuda  de quien ayuda. Y el mejor reflejo de eso son los Bomberos de Santo Tomé que diariamente exponen su vida sin dudarlo en pos de ayudar y socorrer al que está en riesgo. Es por eso que pedimos una colaboración para poder comprar una nueva unidad de Bombero y de esta forma brindarles más herramientas para socorrer y resolver conflictos de una manera rápida y eficaz. Ayudemos a ayudar, cada donación por más pequeña que sea es mucho si se la suma a las demás. Los invitamos a donar y comprar en nuestra tienda. Todo lo recaudado irá a la colecta para el fin de poder comprar esa  autobomba que tanto necesitan nuestros queridos bomberos.",
+        bg: "fbf0f4",
+    },
 ]
 
 export const categories = [
