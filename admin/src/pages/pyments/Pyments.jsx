@@ -1,8 +1,6 @@
 import React from 'react';
 import "./pyments.css";
 import { DataGrid } from "@material-ui/data-grid";
-import { userRows } from "../../dummyData";
-// import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { getOrder } from '../../store/actions';
@@ -13,15 +11,7 @@ const Pyments = () => {
     const token = useSelector((state)=> state.token);
     const orders = useSelector((state)=> state.orders);
    
-    useEffect(() => {
-        dispatch(getOrder(token))     
-    }, [])
 
-      if (!orders.length) {
-        setTimeout(() => {
-          dispatch(getOrder(token));
-        }, 2000)
-      } 
 
     const columns = [
         { field: "id", headerName: "ID de Orden", width: 120 },

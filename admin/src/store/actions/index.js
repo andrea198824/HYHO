@@ -307,7 +307,7 @@ export const donateProduct = (token) => {
 export const getOrder = (token) => {
     return async function (dispatch) {
         try {
-           const response = await axios.get('/getOrder', {
+           const response = await axios.post('/getOrder',{}, {
                headers: {
                    Authorization: `Bearer ${token}`,
                }

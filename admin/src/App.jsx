@@ -13,7 +13,7 @@ import NewProduct from "./pages/newProduct/NewProduct";
 import FormDonaciones from "./pages/formDonaciones/FormDonaciones";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuth0 } from '@auth0/auth0-react';
-import { getToken, getUsers, getProducts, getCategories } from './store/actions';
+import { getToken, getUsers, getProducts, getCategories, getOrder } from './store/actions';
 import DonarProduct from "./pages/DonarProduct/DonarProduct";
 import Pyments from "./pages/pyments/Pyments";
 import Newsletter from "./pages/newsletter/Newsletter";
@@ -32,6 +32,7 @@ function App() {
                     dispatch(getUsers(res))
                     dispatch(getProducts(res))
                     dispatch(getCategories(res))
+                    dispatch(getOrder(res))
                 }, 2000)
             })
     }
