@@ -98,3 +98,16 @@ exports.get = async function (req, res, next){
     }
 }
 
+exports.delete = async function (req, res, next) {
+    const id = req.params.id;
+    try {
+      let form = await Form.destroy({
+        where: {
+          id: id,
+        },
+      });
+      return res.json({delete: true});
+    } catch (error) {
+      next(error)
+    }
+  }
