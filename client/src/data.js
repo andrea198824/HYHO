@@ -1,4 +1,5 @@
 export const sliderItems = [
+
   {
     id: 0,
     video:
@@ -54,6 +55,9 @@ export const sliderItems = [
       'Nuevamente nos sumamos a la ayuda  de quien ayuda. Y el mejor reflejo de eso son los Bomberos de Santo Tomé que diariamente exponen su vida sin dudarlo en pos de ayudar y socorrer al que está en riesgo. Es por eso que pedimos una colaboración para poder comprar una nueva unidad de Bombero y de esta forma brindarles más herramientas para socorrer y resolver conflictos de una manera rápida y eficaz. Ayudemos a ayudar, cada donación por más pequeña que sea es mucho si se la suma a las demás. Los invitamos a donar y comprar en nuestra tienda. Todo lo recaudado irá a la colecta para el fin de poder comprar esa  autobomba que tanto necesitan nuestros queridos bomberos.',
     bg: 'fbf0f4'
   }
+
+
+   
 ]
 
 export const categories = [
