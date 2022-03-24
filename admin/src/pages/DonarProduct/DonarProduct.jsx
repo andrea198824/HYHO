@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {useDispatch,useSelector} from "react-redux"
-import {getDonation} from "../../store/actions"
-import { DataGrid } from "@material-ui/data-grid";
+import {getDonation, deleteForm} from "../../store/actions"
+import { DataGrid} from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import { userRows } from "../../dummyData";
 
@@ -15,10 +15,13 @@ const DonarProduct = () =>{
           }
       },[token])
       const productDonate = useSelector(state => state.productsDonate)
-      const [state, setState] = useState(userRows);
+      
 
-      const handleDelete = (title) => {
-        setState(state.filter((item) => item.title !== title));
+      const handleDelete = (id) => {
+        dispatch(deleteForm(id,token))
+        alert("Formulario Eliminado")
+        window.location.reload()
+
       };
       
    
@@ -37,7 +40,7 @@ const DonarProduct = () =>{
           );
         },
       }, { field: "stock", headerName: "Stock", width: 120 },
-    {},{field: "deleteButton", headerName: "Delete", width: 120, renderCell: (params) => {
+    {field: "deleteButton", headerName: "Delete", width: 120, renderCell: (params) => {
         return (
             <DeleteOutline
             className="userListDelete"

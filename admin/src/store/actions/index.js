@@ -123,16 +123,17 @@ export const deleteProduct = (id, token) => {
     }
 }
 export const deleteForm= (id, token) => {
+    console.log("aqui!!!")
     return async function (dispatch) {
         try {
-            const response = await axios.delete(`product/delete/${id}`, {
+            const response = await axios.delete(`/donate-form/delete/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
             })
             dispatch({
                 type: DELETE_FORM,
-                payload: id,
+                payload: id
             })
         }  catch (err) {
             console.log(err)
