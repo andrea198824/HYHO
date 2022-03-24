@@ -2,36 +2,37 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { mobile } from '../responsive'
 import { Link } from 'react-router-dom'
-// import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router'
 import NavBar from '../components/Navbar'
 import Announcement from '../components/Announcement'
 
 const Container = styled.div`
-  width: 100vw;
-  height: 85vh;
   background: linear-gradient(#d3f7db, #f7dbd3),
     url('https://lavozdemotul.com/wp-content/uploads/2016/08/registration-page-background-504-1.png')
       center;
-  background-size: cover;
+  background-size: 100% 100%;
+  padding-bottom: 55px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   ${mobile({
     flexDirection: 'column',
-    height: '95vh'
+    height: '95vh',
+    paddingBottom: '0px'
   })}
 `
 
 const Wrapper = styled.div`
-  height: 480px;
-  padding: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
   background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  ${mobile({ width: '75%', paddingRight: '20px' })}
+  ${mobile({ width: '75%', paddingRight: '20px', marginBottom: '2px' })}
 `
 
 const Title = styled.h1`
@@ -172,7 +173,7 @@ export function validate (input) {
 }
 
 const DonarDinero = () => {
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const [errors, setErrors] = useState({})
   const [input, setInput] = useState({
@@ -200,6 +201,8 @@ const DonarDinero = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
+    alert('Gracias! En breve nos comunicaremos contigo.')
+    navigate('/')
   }
 
   return (
@@ -254,7 +257,11 @@ const DonarDinero = () => {
 
             <DivItemDos>
               <div>
-                <Button1 type='submit' disabled={!errors.disabled}>
+                <Button1
+                  type='submit'
+                  //disabled={!errors.disabled}
+                  onClick={handleSubmit}
+                >
                   Donar
                 </Button1>
 

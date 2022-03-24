@@ -22,11 +22,11 @@ const Home = () => {
     <Div>
       <Announcement />
       <Navbar />
-      <Chart title="Analisis de Mercado" grid dataKey="Active User"/>
-      <FeaturedInfo />
       <Slider />
       <Categories />
       <PopularProducts />
+      <Chart title="Analisis de Mercado" grid dataKey="Active User"/>
+      <FeaturedInfo />
       <Newsletter />
       <Footer />
     </Div>
