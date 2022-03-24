@@ -25,6 +25,7 @@ export const GET_NEWSLETTER = 'GET_NEWSLETTER';
 export const DONATE_PRODUCT = 'DONATE_PRODUCT';
 export const GET_DONATION = " GET_DONATION" ;
 export const GET_ORDER = " GET_ORDER" ;
+export const DELETE_FORM = "DELETE_FORM"
 
 export const getProducts = () => {
     return async function (dispatch) {
@@ -114,6 +115,23 @@ export const deleteProduct = (id, token) => {
             })
             dispatch({
                 type: DELETE_PRODUCT,
+                payload: id,
+            })
+        }  catch (err) {
+            console.log(err)
+        }
+    }
+}
+export const deleteForm= (id, token) => {
+    return async function (dispatch) {
+        try {
+            const response = await axios.delete(`product/delete/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+            dispatch({
+                type: DELETE_FORM,
                 payload: id,
             })
         }  catch (err) {
