@@ -58,10 +58,12 @@ export default function Sidebar() {
                                 Nuevo Producto
                             </li>
                         </Link>
+                        <Link to="/ventas" className="link">
                         <li className="sidebarListItem">
                             <AttachMoney className="sidebarIcon" />
                             ventas
                         </li>
+                        </Link>
                     </ul>
                 </div>
                 <div className="sidebarMenu">
