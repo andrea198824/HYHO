@@ -11,14 +11,14 @@ import "./home.css";
 
 export default function Home() {
 
-  return (
-    <div className="home">
-      <FeaturedInfo />
-      <Chart data={userData} title="Analisis de Mercado" grid dataKey="Active User"/>
-      <div className="homeWidgets">
-        {/* <WidgetLg/> */}
-        <WidgetSm/>
-      </div>
-    </div>
-  );
+    return (
+        <div className="home">
+            <FeaturedInfo />
+            <Chart data={userData} title="Analisis de Mercado" grid dataKey="Active User" />
+            <div className="homeWidgets">
+                {/* <WidgetLg/> */}
+                {/* <WidgetSm /> */}
+            </div>
+        </div>
+    );
 }
