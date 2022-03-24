@@ -11,12 +11,7 @@ const Pyments = () => {
     const token = useSelector((state)=> state.token);
     const orders = useSelector((state)=> state.orders);
    
-   
-      // if (!orders.length) {
-      //   setTimeout(() => {
-      //     dispatch(getOrder(token));
-      //   }, 2000)
-      // } 
+
 
     const columns = [
         { field: "id", headerName: "ID de Orden", width: 120 },

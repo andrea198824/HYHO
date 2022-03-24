@@ -16,6 +16,7 @@ import {
     DONATE_PRODUCT,
     GET_DONATION,
     GET_ORDER,
+    
 } from "../actions";
 
 const initialState = {
@@ -29,6 +30,8 @@ const initialState = {
     token: "",
     productsDonate :[],
     orders:[],
+    form:[],
+    
 
     shoppingCart: JSON.parse(localStorage.getItem('shoppingCart')) || [],
 }
@@ -50,6 +53,7 @@ export default function rootReducer(state = initialState, action) {
                 (product) => product.id != action.payload
               )
             };
+            
         case SEARCH_PRODUCTS:
             return { ...state, filteredProducts: state.products.filter(item => item.fullname.toLowerCase().includes(action.payload.toLowerCase())) };
         case GET_DETAILS:
