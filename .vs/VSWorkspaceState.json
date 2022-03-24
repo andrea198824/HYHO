@@ -3,15 +3,14 @@
     "",
     "\\admin",
     "\\admin\\src",
+    "\\admin\\src\\pages",
+    "\\admin\\src\\pages\\product",
     "\\admin\\src\\store",
-    "\\admin\\src\\store\\actions",
+    "\\admin\\src\\store\\reducers",
     "\\app",
     "\\app\\src",
-    "\\app\\src\\routes",
-    "\\client",
-    "\\client\\src",
-    "\\client\\src\\Page"
+    "\\app\\src\\models"
   ],
-  "SelectedNode": "\\app\\src\\routes\\product.js",
+  "SelectedNode": "\\app\\src\\routes\\index.js",
   "PreviewInSolutionExplorer": false
 }
