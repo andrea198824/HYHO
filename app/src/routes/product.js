@@ -147,6 +147,7 @@ try {
 
 
 exports.put = async function (req, res, next) {
+    console.log(req.body)
   const {id} = req.params
   const  product  = req.body;
  
