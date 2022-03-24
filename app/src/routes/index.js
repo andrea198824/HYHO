@@ -195,6 +195,12 @@ router.post('/admin/mercadopago/totalVentas', jwtAdminCheck , getPayment.getTota
 // router.get('/admin/donationInfo', jwtAdminCheck , donation.getDonations)
 
 //--------------donation MERCADOPAGO------------------.
+var donation = require('./donation')
+router.post('/donation', jwtCheck , donation.postDonation)
+
+router.get('/donationInfo', jwtCheck , donation.getDonations)
+router.get('/admin/donationInfo', jwtAdminCheck , donation.getDonations)
+
 router.post('/totalDonation', jwtCheck , donation.getTotalDonations)
 router.post('/admin/totalDonation', jwtAdminCheck , donation.getTotalDonations)
 
