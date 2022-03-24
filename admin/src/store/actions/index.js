@@ -23,37 +23,38 @@ export const ADD_USER = 'ADD_USER';
 // export const GET_ORDERS = 'GET_ORDERS';
 export const GET_NEWSLETTER = 'GET_NEWSLETTER';
 export const DONATE_PRODUCT = 'DONATE_PRODUCT';
-export const GET_DONATION = " GET_DONATION" ;
+export const GET_DONATION = " GET_DONATION";
+export const GET_CHART_DATA = "GET_CHART_DATA";
 
 export const getProducts = () => {
     return async function (dispatch) {
-      try {
-        const products = await axios.get('/products')
-        dispatch({
-           type: GET_PRODUCTS,
-           payload: products.data,
-        })
-      } catch (err) {
-          console.log(err)
-      }
+        try {
+            const products = await axios.get('/products')
+            dispatch({
+                type: GET_PRODUCTS,
+                payload: products.data,
+            })
+        } catch (err) {
+            console.log(err)
+        }
     }
 }
 
 export const getDonation = (token) => {
     return async function (dispatch) {
-      try {
-        const products = await axios.get('/donate-products', {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            }
-        })
-        dispatch({
-           type: GET_DONATION,
-           payload: products.data,
-        })
-      } catch (err) {
-          console.log(err)
-      }
+        try {
+            const products = await axios.get('/donate-products', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+            dispatch({
+                type: GET_DONATION,
+                payload: products.data,
+            })
+        } catch (err) {
+            console.log(err)
+        }
     }
 }
 
@@ -71,17 +72,17 @@ export const addProduct = (payload, token) => {
                 stock: payload.stock,
                 category: payload.category,
             }, {
-               headers: {
-                   Authorization: `Bearer ${token}`,
-               }
-           })
-           dispatch({
-               type: ADD_PRODUCT,
-               payload: response
-           })
-       }  catch (err) {
-           console.log(err)
-       }
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+            dispatch({
+                type: ADD_PRODUCT,
+                payload: response
+            })
+        } catch (err) {
+            console.log(err)
+        }
     }
 }
 
@@ -97,7 +98,7 @@ export const putProduct = (id, data, token) => {
                 type: PUT_PRODUCT,
                 payload: response,
             })
-        }  catch (err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -115,7 +116,7 @@ export const deleteProduct = (id, token) => {
                 type: DELETE_PRODUCT,
                 payload: id,
             })
-        }  catch (err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -175,7 +176,7 @@ export const createadmin = (payload, token) => {
                 type: CREATE_ADMIN,
                 payload: response
             })
-        }  catch (err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -198,10 +199,10 @@ export const getUsers = (token) => {
                 }
             })
             dispatch({
-               type: GET_USERS,
-               payload: users.data,
+                type: GET_USERS,
+                payload: users.data,
             })
-        }  catch (err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -220,7 +221,7 @@ export const addUser = (data, token) => {
                 type: ADD_USER,
                 payload: response
             })
-        }  catch (err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -250,16 +251,16 @@ export const addUser = (data, token) => {
 export const getNewsletter = (token) => {
     return async function (dispatch) {
         try {
-           const response = await axios.get('/newsletter', {
-               headers: {
-                   Authorization: `Bearer ${token}`,
-               }
-           })
-           dispatch({
-              type: GET_NEWSLETTER,
-              payload: response,
-           })
-        }  catch (err) {
+            const response = await axios.get('/newsletter', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+            dispatch({
+                type: GET_NEWSLETTER,
+                payload: response,
+            })
+        } catch (err) {
             console.log(err)
         }
     }
@@ -275,12 +276,30 @@ export const donateProduct = (token) => {
                 }
             })
             dispatch({
-               type: DONATE_PRODUCT,
-               payload: products,
+                type: DONATE_PRODUCT,
+                payload: products,
             })
-        }  catch (err) {
+        } catch (err) {
             console.log(err)
         }
+    }
+}
+
+export const getChartData = (token, year, month) => {
+    const date = {
+        year,
+        month,
+    }
+    return async function (dispatch) {
+        const response = await axios.post('/mercadopago/totalVentas', date, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+        dispatch({
+            type: GET_CHART_DATA,
+            payload: response.data
+        })
     }
 }
 

@@ -15,6 +15,7 @@ import {
     GET_NEWSLETTER,
     DONATE_PRODUCT,
     GET_DONATION,
+    GET_CHART_DATA,
 } from "../actions";
 
 const initialState = {
@@ -22,31 +23,32 @@ const initialState = {
     details: [],
     categories: [],
     filteredProducts: [],
-    users:[],
+    users: [],
     newsletter: [],
     donateProduct: [],
     token: "",
-    productsDonate :[],
-
+    productsDonate: [],
+    chartDetails: {},
     shoppingCart: JSON.parse(localStorage.getItem('shoppingCart')) || [],
 }
 
 export default function rootReducer(state = initialState, action) {
     switch (action.type) {
         case GET_TOKEN:
-            return {...state, token:action.payload};
+            return { ...state, token: action.payload };
         case GET_PRODUCTS:
             return { ...state, products: action.payload };
-            case GET_DONATION:
-                return {...state, productsDonate: action.payload};
+        case GET_DONATION:
+            return { ...state, productsDonate: action.payload };
         case ADD_PRODUCT:
-            return { ...state, products: state.products.concat(action.payload)};
+            return { ...state, products: state.products.concat(action.payload) };
         case PUT_PRODUCT:
             return state;
         case DELETE_PRODUCT:
-            return {  ...state, products: state.products.filter(
-                (product) => product.id != action.payload
-              )
+            return {
+                ...state, products: state.products.filter(
+                    (product) => product.id != action.payload
+                )
             };
         case SEARCH_PRODUCTS:
             return { ...state, filteredProducts: state.products.filter(item => item.fullname.toLowerCase().includes(action.payload.toLowerCase())) };
@@ -73,15 +75,17 @@ export default function rootReducer(state = initialState, action) {
         // case ADD_TO_CART:
         //     if (state.shoppingCart.some(el => el.id === parseInt(action.payload))) return state;
         //     return { ...state, shoppingCart: state.shoppingCart.concat(state.products.filter(product => product.id === parseInt(action.payload))) };
-     
-        case GET_USERS: 
-            return {...state, users: action.payload  };
-        case ADD_USER: 
+
+        case GET_USERS:
+            return { ...state, users: action.payload };
+        case ADD_USER:
             return state;
-        case GET_NEWSLETTER: 
+        case GET_NEWSLETTER:
             return { ...state, newsletter: action.payload };
-        case DONATE_PRODUCT: 
-            return { ...state, donateProduct: action.payload};
+        case DONATE_PRODUCT:
+            return { ...state, donateProduct: action.payload };
+        case GET_CHART_DATA:
+            return { ...state, chartDetails: action.payload }
         default:
             return state;
     }

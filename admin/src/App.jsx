@@ -11,7 +11,6 @@ import Product from "./pages/product/Product";
 import Landing from "./pages/landing/Landing";
 import NewProduct from "./pages/newProduct/NewProduct";
 import WidgetTotalSales from "./components/widgetTotalSales/WidgetTotalSales";
-import Newsletter from "./pages/newsletter/Newsletter";
 import FormDonaciones from "./pages/formDonaciones/FormDonaciones";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuth0 } from '@auth0/auth0-react';
@@ -55,7 +54,6 @@ function App() {
                         <Route path="/product/:productId" element={<Product />} />
                         <Route path="/newProduct" element={<NewProduct />} />
                         <Route path="/ventas" element={<WidgetTotalSales />} />
-                        <Route path="/newsletter" element={<Newsletter />} />
                         <Route path="/formDonaciones" element={<FormDonaciones />} />
                         <Route path="/productos-donados" element={<DonarProduct />}/>
                     </Routes>

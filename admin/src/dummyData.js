@@ -1,51 +1,51 @@
 export const userData = [
     {
-      name: "Jan",
-      "Active User": 4000,
+      name: "Ene",
+      "Total": 400,
     },
     {
       name: "Feb",
-      "Active User": 3000,
+      "Total": 3000,
     },
     {
       name: "Mar",
-      "Active User": 5000,
+      "Total": 5000,
     },
     {
-      name: "Apr",
-      "Active User": 4000,
+      name: "Abr",
+      "Total": 4000,
     },
     {
       name: "May",
-      "Active User": 3000,
+      "Total": 3000,
     },
     {
       name: "Jun",
-      "Active User": 2000,
+      "Total": 2000,
     },
     {
       name: "Jul",
-      "Active User": 4000,
+      "Total": 4000,
     },
     {
-      name: "Agu",
-      "Active User": 3000,
+      name: "Ago",
+      "Total": 3000,
     },
     {
-      name: "Sep",
-      "Active User": 4000,
+      name: "Sept",
+      "Total": 4000,
     },
     {
       name: "Oct",
-      "Active User": 1000,
+      "Total": 1000,
     },
     {
       name: "Nov",
-      "Active User": 4000,
+      "Total": 4000,
     },
     {
-      name: "Dec",
-      "Active User": 3000,
+      name: "Dic",
+      "Total": 3000,
     },
   ];
 
