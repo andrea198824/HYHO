@@ -8,32 +8,25 @@ import donarObjetos from '../Img/donarObjetos.png'
 import donarDinero from '../Img/donaDinero.png'
 import compraTienda2 from '../Img/compraTienda2.png'
 
-
 const Div = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   ${mobile({
     padding: '0px',
-    flexDirection: 'column'
-  })} 
-  @media (min-width: 360px) {
-    flex-direction: column;
-  }
-  @media (min-width: 640px) {
-    flex-direction: column;
-  }
+    flexDirection: 'column',
+    marginTop: '10px'
+  })}
 `
 // ${mobile({ padding: '0px', flexDirection: 'column' })}
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-
-  @media (max-width: 320px) {
-    flex-wrap: nowrap;
-    flex-direction: column;
-  }
+  ${mobile({
+    padding: '0px',
+    flexDirection: 'column'
+  })}
 `
 const Card = styled.div`
   display: flex;
@@ -49,12 +42,11 @@ const Card = styled.div`
   background: #f7dbd3 0.65;
   box-shadow: inset 5px 5px 10px #d4bcb5, inset -5px -5px 10px #fffaf1;
   position: relative;
-
-  ${mobile({ height: '20vh', flexDirection: 'column' })}
-
-  @media (min-width: 320px) {
-    flex-direction: column;
-  }
+  ${mobile({
+    padding: '10px',
+    flexDirection: 'column',
+    margin: '10px'
+  })}
 `
 
 const linkStyle = {
