@@ -16,7 +16,7 @@ import {
     DONATE_PRODUCT,
     GET_DONATION,
     GET_ORDER,
-    DELETE_FORM,
+    
 } from "../actions";
 
 const initialState = {
@@ -53,10 +53,7 @@ export default function rootReducer(state = initialState, action) {
                 (product) => product.id != action.payload
               )
             };
-            case DELETE_FORM:
-                return { ...state, form: state.form.filter(
-                    (forms) => forms.id != action.payload
-                )}
+            
         case SEARCH_PRODUCTS:
             return { ...state, filteredProducts: state.products.filter(item => item.fullname.toLowerCase().includes(action.payload.toLowerCase())) };
         case GET_DETAILS:

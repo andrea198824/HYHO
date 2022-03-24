@@ -8,13 +8,14 @@ import Slider from '../components/Slider'
 import PopularProducts from '../components/PopularProducts'
 import styled from 'styled-components'
 import { mobile } from '../responsive'
+import FeaturedInfo from "../components/featuredInfo/FeaturedInfo";
+import Chart from "../components/chart/Chart";
+
 
 const Div = styled.div`
 ${mobile({ flexDirection: 'column' })}
 `
 
-import FeaturedInfo from "../components/featuredInfo/FeaturedInfo";
-import Chart from "../components/chart/Chart";
 
 const Home = () => {
   return (
