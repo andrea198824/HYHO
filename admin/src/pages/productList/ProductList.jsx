@@ -1,15 +1,20 @@
 import "./productList.css";
+import React from 'react';
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import { productRows } from "../../dummyData";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 
-export default function ProductList() {
-  const [data, setData] = useState(productRows);
+import { useSelector, useDispatch } from 'react-redux';
+import { getProducts, deleteProduct  } from '../../store/actions';
 
+
+const ProductList = () => {
+
+  const dispatch = useDispatch();
+  const products = useSelector((state)=> state.products);
+  const token = useSelector((state)=> state.token);
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    dispatch(deleteProduct(id, token));
   };
 
   const columns = [
@@ -17,25 +22,23 @@ export default function ProductList() {
     {
       field: "product",
       headerName: "Producto",
-      width: 200,
+      width: 480,
       renderCell: (params) => {
         return (
           <div className="productListItem">
-            <img className="productListImg" src={params.row.img} alt="" />
-            {params.row.name}
+            <img className="productListImg" src={params.row.image} alt="" />
+            {params.row.title}
           </div>
         );
       },
     },
-    { field: "stock", headerName: "Stock", width: 200 },
-    {
-      field: "status",
-      headerName: "Estado",
-      width: 120,
+    { field: "stock",
+       headerName: "Stock", 
+       width: 120
     },
     {
       field: "price",
-      headerName: "Precio",
+      headerName: "$ Precio",
       width: 160,
     },
     {
@@ -61,12 +64,15 @@ export default function ProductList() {
   return (
     <div className="productList">
       <DataGrid
-        rows={data}
+        rows={products}
         disableSelectionOnClick
         columns={columns}
-        pageSize={8}
+        pageSize={10}
+        rowsPerPageOptions={[10]}
         checkboxSelection
       />
     </div>
   );
 }
+
+export default ProductList

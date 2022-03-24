@@ -23,7 +23,7 @@ export const ADD_USER = 'ADD_USER';
 // export const GET_ORDERS = 'GET_ORDERS';
 export const GET_NEWSLETTER = 'GET_NEWSLETTER';
 export const DONATE_PRODUCT = 'DONATE_PRODUCT';
-
+export const GET_DONATION = " GET_DONATION" ;
 
 export const getProducts = () => {
     return async function (dispatch) {
@@ -31,7 +31,25 @@ export const getProducts = () => {
         const products = await axios.get('/products')
         dispatch({
            type: GET_PRODUCTS,
-           payload: products,
+           payload: products.data,
+        })
+      } catch (err) {
+          console.log(err)
+      }
+    }
+}
+
+export const getDonation = (token) => {
+    return async function (dispatch) {
+      try {
+        const products = await axios.get('/donate-products', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+        dispatch({
+           type: GET_DONATION,
+           payload: products.data,
         })
       } catch (err) {
           console.log(err)
@@ -40,9 +58,19 @@ export const getProducts = () => {
 }
 
 export const addProduct = (payload, token) => {
+    console.log(payload, token)
     return async function (dispatch) {
         try {
-           const response = await axios.post('/product', payload, {
+            const response = await axios.post('/product', {
+                formId: payload.formId,
+                title: payload.title,
+                price: payload.price,
+                weight: payload.weight,
+                descriptions: payload.descriptions,
+                image: payload.image,
+                stock: payload.stock,
+                category: payload.category,
+            }, {
                headers: {
                    Authorization: `Bearer ${token}`,
                }
@@ -78,14 +106,14 @@ export const putProduct = (id, data, token) => {
 export const deleteProduct = (id, token) => {
     return async function (dispatch) {
         try {
-            const response = await axios.put(`/product/delete/${id}`, {
+            const response = await axios.delete(`/product/delete/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
             })
             dispatch({
                 type: DELETE_PRODUCT,
-                payload: response,
+                payload: id,
             })
         }  catch (err) {
             console.log(err)
@@ -171,7 +199,7 @@ export const getUsers = (token) => {
             })
             dispatch({
                type: GET_USERS,
-               payload: users,
+               payload: users.data,
             })
         }  catch (err) {
             console.log(err)
@@ -229,7 +257,7 @@ export const getNewsletter = (token) => {
            })
            dispatch({
               type: GET_NEWSLETTER,
-              payload: response,
+              payload: response.data,
            })
         }  catch (err) {
             console.log(err)

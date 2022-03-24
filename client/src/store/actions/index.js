@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { products, productCategory } from '../../data.js'
 
 export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const SEARCH_PRODUCTS = 'SEARCH_PRODUCTS';
@@ -26,7 +25,8 @@ export const COMPARE_PRODUCTS_SHOP_CART = 'COMPARE_PRODUCTS_SHOP_CART';
 export const DONAR_PRODUCTO = " DONAR_PRODUCTO"
 export const MODIFY_USER = 'MODIFY_USER';
 export const REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART';
-export const NEWSLETTER = "NEWSLETTER"
+export const NEWSLETTER = "NEWSLETTER";
+export const GET_PREF_ID = "GET_PREF_ID";
 
 export const modifyuser = (data, user, token) => {
     let shipping_address = {
@@ -123,7 +123,7 @@ export const createadmin = (payload) => {
 export const newsletter = (email,token) => {
     console.log(email, "HOLA!!!!")
     return async function (dispatch){
-        const response = axios.post('/newsletter',email,{
+        axios.post('/newsletter',email,{
             
             headers: {
                      Authorization: `Bearer ${token}`,
@@ -144,7 +144,7 @@ export const donarProducto = (payload,email,token) => {
     return async function (dispatch) {
       try{
           const response = axios.post('/donate-form',{
-            email,
+            email:payload.email,
             title:payload.title,
             price:0,
             weight:0,
@@ -314,6 +314,21 @@ export const removeItemFromCart = (id) => {
     return {
         type: REMOVE_ITEM_FROM_CART,
         id
+    }
+}
+
+export const getPrefId = (cart, token) => {
+    return async function(dispatch) {
+        const response = await axios.post('/mercadopago', cart, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+        console.log("response.data  :",response.data)
+        dispatch({
+            type: GET_PREF_ID,
+            payload: response.data
+        })
     }
 }
 

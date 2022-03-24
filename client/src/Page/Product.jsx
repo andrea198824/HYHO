@@ -1,4 +1,4 @@
-import { Add, Autorenew, Remove } from "@material-ui/icons";
+import { Add, Remove } from "@material-ui/icons";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
@@ -7,6 +7,7 @@ import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
+import StarRating from "../components/StarRating";
 import { mobile } from "../responsive";
 import { getDetails, modifyQuantityDetails, addToCartFromDetails } from '../store/actions';
 
@@ -138,6 +139,7 @@ const Product = () => {
                     ? <Wrapper>
                         <ImgContainer>
                             <Image src={product ? product.image : 'https://acegif.com/wp-content/uploads/loading-53.gif'} />
+                        <StarRating />
                         </ImgContainer>
                         <InfoContainer>
                             <Title>{product && product.title}</Title>

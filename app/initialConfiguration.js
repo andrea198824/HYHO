@@ -1,5 +1,5 @@
 //---------------------Initial admin-------------------//
-const { Admin, Category, Form, Order, Products, User } = require('./src/db');
+const { Admin, Category, Form, Order, Products, User, Donation } = require('./src/db');
 
 var CryptoJS = require("crypto-js");
 const products = [
@@ -113,7 +113,7 @@ const products = [
     },
     {
         id: 10,
-        title: "Rem Kingdom Vintage Cuello Desbocado Bote Abierto",
+        title: "Remera Kingdom Vintage Cuello Desbocado Bote Abierto",
         price: 1423,
         weight: 0.1,
         descriptions: "",
@@ -173,6 +173,33 @@ const products = [
     }
 ]
 
+function randomIntFromInterval(min, max) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+
+  
+  function getDonation () {
+    let cantidad = randomIntFromInterval(500, 2500)
+    let date = new Date(randomIntFromInterval(2020, 2022),Math.floor(Math.random()*11),Math.floor(Math.random()*29),3,24,0);
+    return  {
+        cantidad,
+        createdAt: date,
+        updatedAt: date
+    }
+} 
+
+function getOrder () {
+    let date = new Date(randomIntFromInterval(2020, 2022),Math.floor(Math.random()*11),Math.floor(Math.random()*29),3,24,0);
+    let total = randomIntFromInterval(10000, 100000)
+    return  {
+        status: "approved",
+        payment_status: "approved",
+        total,
+        createdAt: date,
+        updatedAt: date
+    }
+} 
+
 let securityString = "randomString"
 let password = "K%Ec&G*RADs^"
 password = CryptoJS.HmacSHA1(securityString, password).toString(CryptoJS.enc.Base64)
@@ -224,4 +251,13 @@ exports.do = async () => {
           })
       )
     }
+    for (let i = 0; i < 10   
+        ; i++) {
+        await Order.create(getOrder());
+      }
+    for (let i = 0; i < 30
+        
+        ; i++) {
+        await Donation.create(getDonation());
+      }
   }

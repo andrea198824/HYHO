@@ -113,10 +113,10 @@ router.post('/admin/donate-form', jwtAdminCheck , form.post) //Funciona con auth
 //--------------------products-endpoints----------------------------------------
 
 //Product endpoints:
-router.post('/admin/product', jwtAdminCheck , product.post) //Funciona
+router.post('/admin/product', jwtAdminCheck, product.post) //Funciona
 
-router.get('/products', jwtCheck , product.get)
-router.get('/admin/products', jwtAdminCheck , product.get)
+router.get('/products', product.get)
+router.get('/admin/products', product.get)
 
 router.put('/admin/product/modify/:id', jwtAdminCheck , product.put)
 router.delete('/admin/product/delete/:id', jwtAdminCheck , product.delete)
@@ -125,8 +125,8 @@ router.delete('/admin/product/delete/:id', jwtAdminCheck , product.delete)
 
 //--------------------category-endpoints----------------------------------------
 //Category endpoints:
-router.get('/category', jwtCheck , category.get)
-router.get('/admin/category', jwtAdminCheck , category.get)
+router.get('/category', category.get)
+router.get('/admin/category', category.get)
 
 //Newsletter
 router.post('/newsletter', jwtCheck , newsletter.post)
@@ -174,7 +174,7 @@ router.post('/admin/create-order', jwtAdminCheck , shopControllerOrder.postCreat
 // router.get('/counter', sessions.counter);
 
 var getPayment = require('./mercadopago')
-router.get('/mercadopago', getPayment.get)
+router.post('/mercadopago', jwtCheck , getPayment.get)
 router.get('/mercadopago/pagos', getPayment.pagos)
 
 router.get('/mercadopago/pagos/:id', jwtCheck , getPayment.pagosId)
@@ -182,6 +182,10 @@ router.get('/admin/mercadopago/pagos/:id', jwtAdminCheck , getPayment.pagosId)
 
 router.get('/mercadopago/OrderUser', jwtCheck , getPayment.getOrderUser)
 router.get('/admin/mercadopago/OrderUser', jwtAdminCheck , getPayment.getOrderUser)
+
+
+router.post('/mercadopago/totalVentas', jwtCheck , getPayment.getTotalVentas)
+router.post('/admin/mercadopago/totalVentas', jwtAdminCheck , getPayment.getTotalVentas)
 
 //--------------donation money------------------
 
@@ -191,6 +195,8 @@ router.get('/admin/mercadopago/OrderUser', jwtAdminCheck , getPayment.getOrderUs
 // router.get('/admin/donationInfo', jwtAdminCheck , donation.getDonations)
 
 //--------------donation MERCADOPAGO------------------.
+router.post('/totalDonation', jwtCheck , donation.getTotalDonations)
+router.post('/admin/totalDonation', jwtAdminCheck , donation.getTotalDonations)
 
 var donationMp = require('./mercadoPD')
 router.post('/mercadopago-donation', donationMp.get)

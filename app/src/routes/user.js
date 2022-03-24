@@ -264,6 +264,7 @@ exports.put = async function (req, res, next) {
             billing_address,
             shipping_address,
             phone,
+            newEmail
         } = req.body;
 
         //console.log(req.body)
@@ -292,7 +293,7 @@ exports.put = async function (req, res, next) {
             if (!emailUser.length) {
                 res.status(401).send({info: "User is not in the database"})
             } else {
-                if (email) emailUser[0].set({ email })
+                if (newEmail) emailUser[0].set({ email:newEmail })
                 if (nickname) emailUser[0].set({ nickname })
                 if (picture) emailUser[0].set({ picture })
                 if (given_name) emailUser[0].set({ given_name })

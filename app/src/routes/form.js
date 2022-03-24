@@ -18,25 +18,18 @@ exports.post = async function(req, res){  // lalala.post
             image,
             stock,
           } = req.body;
+          console.log(req.body)
 
     if (!title) {
-        res.send({info: "No title"});
-        return
-        }
-    if (!price) {
-        res.send({info: "No price"});
-        return
-        }
-    if (!weight) {
-        res.send({info: "No weight"});
+        res.status(401).send({info: "No title"});
         return
         }
     if (!descriptions) {
-        res.send({info: "No descriptions"});
+        res.status(401).send({info: "No descriptions"});
         return
         }
     if (!image) {
-        res.send({info: "No image"});
+        res.status(401).send({info: "No image"});
         return
         }
 
@@ -44,7 +37,7 @@ exports.post = async function(req, res){  // lalala.post
 
 
     if (!email) {
-        res.send({info: "No email"});
+        res.status(401).send({info: "No email"});
         return
         }
     
@@ -68,9 +61,11 @@ exports.post = async function(req, res){  // lalala.post
         formCreated
       );
     }).catch((err) => {
+        console.log("err    :",err)
         res.status(404).send({info: err});
     })
     } catch (error) {
+        console.log("error    :",error)
         res.status(404).send(error)
     }
      

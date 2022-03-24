@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { sliderItems } from "../data";
 import { Link } from 'react-router-dom';
 import { mobile } from "../responsive";
-import SliderImgInfo from "../components/SliderImgInfo";
+//import SliderImgInfo from "../components/SliderImgInfo";
 
 const Container = styled.div`
   width: 100%;
@@ -54,9 +54,9 @@ const ImgContainer = styled.div`
 //   flex: 1;
 `;
 
-const Image = styled.img`
-  height: 70%;
-`;
+// const Image = styled.img`
+//   height: 70%;
+// `;
 
 const InfoContainer = styled.div`
   flex: 1;
