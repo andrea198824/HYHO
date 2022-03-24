@@ -3,7 +3,12 @@ export const sliderItems = [
     id: 0,
     video:
       'https://drive.google.com/file/d/1SGErttpfMPLdyM1DKGRHzfYCTuKBBJ6C/view?usp=sharing',
-    bg: '8aa290'
+    bg: '8aa290',
+    title: 'Bienvenido a X.ong',
+    desc:
+      'Somos una ONG (organización sin fines de lucro) que de la mano de  un grupo de estudiantes full stack de Henry, quienes desarrollaron esta app-web es que hoy podemos expandir nuestra ayuda.',
+    info:
+      'Te invitamos a recorrer nuestra plataforma y  descubrir las distintas posibilidades que tenes de ayudar '
   },
   {
     id: 1,
