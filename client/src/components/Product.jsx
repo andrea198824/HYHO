@@ -96,9 +96,9 @@ const Product = ({ item }) => {
                 <Icon onClick={onClickAddCart}>
                     <ShoppingCartOutlined />
                 </Icon>
-                <Icon>
+                {/* <Icon>
                     <FavoriteBorderOutlined />
-                </Icon>
+                </Icon> */}
             </Info>
         </Container>
     );
