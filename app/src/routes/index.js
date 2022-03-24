@@ -162,8 +162,8 @@ const shopControllerOrder = require('./shopOrder')
 router.delete('/deleteOrder', jwtCheck , shopControllerOrder.deleteOrder);
 router.delete('/admin/deleteOrder', jwtAdminCheck , shopControllerOrder.deleteOrder);
 
-router.get('/getOrder', jwtCheck , shopControllerOrder.getOrder);
-router.get('/admin/getOrder', jwtAdminCheck , shopControllerOrder.getOrder);
+router.post('/getOrder', jwtCheck , shopControllerOrder.getOrder);
+router.post('/admin/getOrder', jwtAdminCheck , shopControllerOrder.getOrder);
 
 router.post('/create-order', jwtCheck , shopControllerOrder.postCreateOrder)
 router.post('/admin/create-order', jwtAdminCheck , shopControllerOrder.postCreateOrder)
