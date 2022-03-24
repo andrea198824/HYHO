@@ -162,8 +162,8 @@ const shopControllerOrder = require('./shopOrder')
 router.delete('/deleteOrder', jwtCheck , shopControllerOrder.deleteOrder);
 router.delete('/admin/deleteOrder', jwtAdminCheck , shopControllerOrder.deleteOrder);
 
-router.get('/getOrder', jwtCheck , shopControllerOrder.getOrder);
-router.get('/admin/getOrder', jwtAdminCheck , shopControllerOrder.getOrder);
+router.post('/getOrder', jwtCheck , shopControllerOrder.getOrder);
+router.post('/admin/getOrder', jwtAdminCheck , shopControllerOrder.getOrder);
 
 router.post('/create-order', jwtCheck , shopControllerOrder.postCreateOrder)
 router.post('/admin/create-order', jwtAdminCheck , shopControllerOrder.postCreateOrder)
@@ -189,6 +189,12 @@ router.post('/admin/mercadopago/totalVentas', jwtAdminCheck , getPayment.getTota
 
 //--------------donation money------------------
 
+// var donation = require('./donation')
+// router.post('/donation', jwtCheck , donation.postDonation)
+// router.get('/donationInfo', jwtCheck , donation.getDonations)
+// router.get('/admin/donationInfo', jwtAdminCheck , donation.getDonations)
+
+//--------------donation MERCADOPAGO------------------.
 var donation = require('./donation')
 router.post('/donation', jwtCheck , donation.postDonation)
 
@@ -198,5 +204,8 @@ router.get('/admin/donationInfo', jwtAdminCheck , donation.getDonations)
 router.post('/totalDonation', jwtCheck , donation.getTotalDonations)
 router.post('/admin/totalDonation', jwtAdminCheck , donation.getTotalDonations)
 
+var donationMp = require('./mercadoPD')
+router.post('/mercadopago-donation', donationMp.get)
+router.get('/mercadopago-donation/pagosDonation', donationMp.pagosDonation)
 
 module.exports = router

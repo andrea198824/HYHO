@@ -45,6 +45,7 @@ export default function Sidebar() {
                 Nuevo Usuario
               </li>
             </Link> */}
+
                         <Link to="/products" className="link">
                             <li className="sidebarListItem">
                                 <Storefront className="sidebarIcon" />
@@ -90,4 +91,3 @@ export default function Sidebar() {
                 </div>
             </div>
             );
-}

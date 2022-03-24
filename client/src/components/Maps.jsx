@@ -6,11 +6,19 @@ import {
   Marker
 } from 'react-google-maps'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
+const Div = styled.div`
+  display: flex;
+  
+`
+const Button = styled.button`
+
+`
 
 function Maps() {
   return (
-    <div>
+    <Div>
        <GoogleMap
          defaultZoom={15}
          defaultCenter={{ lat: -34.6037851, lng: -58.381775 }}
@@ -22,8 +30,8 @@ function Maps() {
       ></Marker>
 
       <p>Podes encontrarnos en Av. 9 de Julio, C1043 CABA, Argentina</p>
-      <Link to='/'>Back</Link>
-      </div>
+      <Link to='/'><Button>Back</Button></Link>
+      </Div>
   )
 }
 

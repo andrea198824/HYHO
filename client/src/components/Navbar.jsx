@@ -19,7 +19,10 @@ import Counter from './Counter'
 
 const Container = styled.div`
   height: 80px;
-  ${mobile({ height: '50px', width: 'cover' })}
+  ${mobile({ height: '50px', paddingBottom: '10px' })}
+`
+const Div = styled.div`
+  ${mobile({ display: 'none' })}
 `
 
 const Wrapper = styled.div`
@@ -28,7 +31,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  ${mobile({ padding: '1px 10px', width: '100%' })}
+  ${mobile({ padding: '1px 10px', paddingLeft: '40px' })}
 `
 
 const Left = styled.div`
@@ -61,7 +64,7 @@ const ImgLogo = styled.img`
   padding: 4px ;
   margin-left: 80px;
   alt= "logo no disponible"
-${mobile({ fontSize: '24px' })}
+${mobile({ fontSize: '24px', paddingLeft: '50px' })}
 `
 
 const linkStyle = {
@@ -105,7 +108,9 @@ const Navbar = () => {
           <ImgLogo src={LogoHyho}></ImgLogo>
           {/* <Slogan> "Help Yourself By Helping Others" </Slogan> */}
         </Left>
-        <Counter />
+        <Div>
+          <Counter />
+        </Div>
         {isLoading ? (
           <Right>
             <MenuItem>Cargando...</MenuItem>

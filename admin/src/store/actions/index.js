@@ -24,6 +24,7 @@ export const ADD_USER = 'ADD_USER';
 export const GET_NEWSLETTER = 'GET_NEWSLETTER';
 export const DONATE_PRODUCT = 'DONATE_PRODUCT';
 export const GET_DONATION = " GET_DONATION" ;
+export const GET_ORDER = " GET_ORDER" ;
 
 export const getProducts = () => {
     return async function (dispatch) {
@@ -284,7 +285,21 @@ export const donateProduct = (token) => {
     }
 }
 
-// export const getOrders = (token) => {
+export const getOrder = (token) => {
+    return async function (dispatch) {
+        try {
+           const response = await axios.get('/getOrder', {
+               headers: {
+                   Authorization: `Bearer ${token}`,
+               }
+           })
+           dispatch({
+              type: GET_ORDER,
+              payload: response.data,
+           })
+        }  catch (err) {
+            console.log(err)
+        }
+    }
 
-
-// }
+}

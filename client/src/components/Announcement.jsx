@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   height: 30px;
@@ -9,6 +10,9 @@ const Container = styled.div`
   justify-content: center;
   font-size: 14px;
   font-weight: 500;
+  padding-right: 20px;
+  width: cover;
+  ${mobile({ display: 'none'})}
 `;
 
 const Announcement = () => {
