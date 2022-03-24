@@ -251,16 +251,16 @@ export const addUser = (data, token) => {
 export const getNewsletter = (token) => {
     return async function (dispatch) {
         try {
-            const response = await axios.get('/newsletter', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                }
-            })
-            dispatch({
-                type: GET_NEWSLETTER,
-                payload: response,
-            })
-        } catch (err) {
+           const response = await axios.get('/newsletter', {
+               headers: {
+                   Authorization: `Bearer ${token}`,
+               }
+           })
+           dispatch({
+              type: GET_NEWSLETTER,
+              payload: response.data,
+           })
+        }  catch (err) {
             console.log(err)
         }
     }

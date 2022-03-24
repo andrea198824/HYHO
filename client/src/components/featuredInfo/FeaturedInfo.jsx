@@ -120,6 +120,10 @@ totalDonacionesActual
         // console.log("response axios :",response)
         await setTotalDonacionesActual(response.data.Total)
     }
+
+    function financial(x) {
+      return Number.parseFloat(x).toFixed(2);
+    }
   // const [income, setIncome] = useState([]);
   // const [perc, setPerc] = useState(10);
 
@@ -139,7 +143,7 @@ totalDonacionesActual
       <div className="featuredItem">
         <span className="featuredTitle">Dinero donado </span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">${totalDonaciones}</span>
+          <span className="featuredMoney">${financial(totalDonaciones)}</span>
           <span className="featuredMoneyRate">
           {Math.round(donationRatio * 100) / 100}% <ArrowUpward className="featuredIcon" />
             {/* %{Math.floor(perc)}{" "}
@@ -155,7 +159,7 @@ totalDonacionesActual
       <div className="featuredItem">
         <span className="featuredTitle">ventas</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">${totalVentas}</span>
+          <span className="featuredMoney">${financial(totalVentas)}</span>
           <span className="featuredMoneyRate">
           {Math.round(salesRatio * 100) / 100}% <ArrowDownward className="featuredIcon negative" />
             {/* %{Math.floor(perc)}{" "}

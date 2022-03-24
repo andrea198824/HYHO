@@ -7,12 +7,14 @@ import Newsletter from "../components/Newsletter";
 import Slider from "../components/Slider";
 import PopularProducts from '../components/PopularProducts';
 import FeaturedInfo from "../components/featuredInfo/FeaturedInfo";
+import Chart from "../components/chart/Chart";
 
 const Home = () => {
   return (
     <div>
       <Announcement />
       <Navbar />
+      <Chart title="Analisis de Mercado" grid dataKey="Active User"/>
       <FeaturedInfo />
       <Slider />
       <Categories />
