@@ -12,29 +12,66 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { getUsers } from '../../store/actions';
+import axios from "axios";
+import { useNavigate } from 'react-router'
 
 
 export default function User() {
+  const navigate = useNavigate()
 
   const dispatch = useDispatch();
   const id = useParams().userId;
-  const token = useSelector(state=> state.token);
+  const token = useSelector(state => state.token);
   const users = useSelector(state => state.users);
   const [allUsers, setAllUsers] = useState(userRows);
   const [data, setData] = useState();
-  
+  const [input, setInput] = useState({
+    nickname: "",
+    given_name: "",
+    family_name: "",
+    newEmail: ""
+  })
+
+
 
   useEffect(() => {
-      if (users.length) {
-        setAllUsers(allUsers.concat(users));
-        setData(allUsers.find(obj=>obj.id == id));
-      };
-  }, data)
 
-  if (!users.length) {
-    setTimeout(() => {
-        dispatch(getUsers(token))
-    }, 2000)
+    if (users.length) {
+      setAllUsers(allUsers.concat(users));
+      setData(allUsers.find(obj => obj.id == id));
+    };
+  }, [users])
+
+  useEffect(() => {
+    dispatch(getUsers(token))
+  }, [])
+
+
+  const handleChange = function (e) {
+    e.preventDefault()
+
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value
+    })
+
+  }
+
+  const handleSubmit = (e) => {
+
+    e.preventDefault()
+    const body = {
+      ...input,
+      email: data.email
+    }
+    axios.put('/modify-user', body, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+
+    })
+    alert("Ha sido modificado con exito")
+    navigate("/")
   }
 
 
@@ -50,7 +87,7 @@ export default function User() {
         <div className="userShow">
           <div className="userShowTop">
             <img
-              src={data && data.picture} alt="" className="userShowImg"/>
+              src={data && data.picture} alt="" className="userShowImg" />
             <div className="userShowTopTitle">
               <span className="userShowUserTitle">nombre de usuario</span>
               <span className="userShowUsername">{data && data.nickname}</span>
@@ -80,11 +117,13 @@ export default function User() {
         </div>
         <div className="userUpdate">
           <span className="userUpdateTitle">Editar</span>
-          <form className="userUpdateForm">
+          <form onSubmit={handleSubmit} className="userUpdateForm">
             <div className="userUpdateLeft">
               <div className="userUpdateItem">
                 <label>Nombre de Usuario</label>
                 <input
+                  onChange={handleChange}
+                  name="nickname"
                   type="text"
                   placeholder="annabeck99"
                   className="userUpdateInput"
@@ -93,6 +132,8 @@ export default function User() {
               <div className="userUpdateItem">
                 <label>Nombre</label>
                 <input
+                  onChange={handleChange}
+                  name="given_name"
                   type="text"
                   placeholder="Anna Becker"
                   className="userUpdateInput"
@@ -101,6 +142,8 @@ export default function User() {
               <div className="userUpdateItem">
                 <label>Apellido</label>
                 <input
+                  onChange={handleChange}
+                  name="family_name"
                   type="text"
                   placeholder="Anna Becker"
                   className="userUpdateInput"
@@ -109,7 +152,9 @@ export default function User() {
               <div className="userUpdateItem">
                 <label>Email</label>
                 <input
-                  type="text"
+                  onChange={handleChange}
+                  name="newEmail"
+                  type="email"
                   placeholder="annabeck99@gmail.com"
                   className="userUpdateInput"
                 />
@@ -122,7 +167,7 @@ export default function User() {
                 </label>
                 <input type="file" id="file" style={{ display: "none" }} />
               </div>
-              <button className="userUpdateButton">Modificar</button>
+              <input type="submit" className="userUpdateButton" value="modificar" />
             </div>
           </form>
         </div>

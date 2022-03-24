@@ -26,10 +26,10 @@ const Chart = ({ grid=grid }) => {
     if(token && months.length) {
       createData(token)
     }
-   },[token, months])
+   },[token])
 
    useEffect(()=>{
-    console.log("data2    :",data2)
+    // console.log("data2    :",data2)
    },[data2])
   
   function setMonthsArray(today){
@@ -90,7 +90,7 @@ const createData = async (token) => {
     ventas = await getTotalVentas(date.getFullYear()+months[i].yearMinus,months[i].monthNumber, token);
     donaciones = await getTotalDonaciones(date.getFullYear()+months[i].yearMinus,months[i].monthNumber, token);
     total = ventas + donaciones;
-    await data2.push({
+    data2.push({
       month: months[i].month,
       monthNumber: months[i].monthNumber,
       ventas,
@@ -99,7 +99,7 @@ const createData = async (token) => {
     })
   }
   // console.log("toReturn :",data2)
-  await setData2(data2.reverse())
+  setData2(data2.reverse())
  }
   
 

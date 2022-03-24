@@ -15,6 +15,7 @@ import {
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
+
 export default function Sidebar() {
   return (
     <div className="sidebar">
@@ -56,10 +57,12 @@ export default function Sidebar() {
                 Nuevo Producto
               </li>
             </Link>
-            <li className="sidebarListItem">
-              <AttachMoney className="sidebarIcon" />
-              ventas
-            </li>
+            <Link to="/ventas" className="link" >
+              <li className="sidebarListItem">
+                <AttachMoney className="sidebarIcon" />
+                ventas
+              </li>
+            </Link>
           </ul>
         </div>
         <div className="sidebarMenu">
@@ -71,6 +74,7 @@ export default function Sidebar() {
               Formularios donaciones de productos
             </li>
             </Link>
+            </ul>
         </div>
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Newsletter</h3>

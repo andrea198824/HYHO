@@ -13,11 +13,16 @@ const Div = styled.div`
 ${mobile({ flexDirection: 'column' })}
 `
 
+import FeaturedInfo from "../components/featuredInfo/FeaturedInfo";
+import Chart from "../components/chart/Chart";
+
 const Home = () => {
   return (
     <Div>
       <Announcement />
       <Navbar />
+      <Chart title="Analisis de Mercado" grid dataKey="Active User"/>
+      <FeaturedInfo />
       <Slider />
       <Categories />
       <PopularProducts />
