@@ -14,15 +14,12 @@ const Pyments = () => {
     const orders = useSelector((state)=> state.orders);
    
     useEffect(() => {
-        dispatch(getOrder(token))
-      console.log("llegan las orders 📬:", orders);
-    
+        dispatch(getOrder(token))     
     }, [])
 
       if (!orders.length) {
         setTimeout(() => {
           dispatch(getOrder(token));
-          console.log("llegan las orders 📬:", orders);
         }, 2000)
       } 
 
