@@ -15,7 +15,7 @@ const donation = {
 const Counter = () => {
   return (
     <div style={donation}>
-      <p>Fondos recuadado para: $</p>
+      <p>Fondos recuadado: $</p>
       <CountUp start={0} end={4568220} />
     </div>
   )

@@ -18,7 +18,8 @@ import { useAuth0 } from '@auth0/auth0-react'
 import Counter from './Counter'
 
 const Container = styled.div`
-  height: 80px;
+  height: 60px;
+  
   ${mobile({ height: '50px', paddingBottom: '10px' })}
 `
 const Div = styled.div`

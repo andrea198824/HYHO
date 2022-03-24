@@ -75,7 +75,7 @@ const Paragraph = styled.p`
 `
 
 const DivItemUno = styled.div`
-  padding-top: 80px;
+  padding-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -294,12 +294,12 @@ const DonarProduct = () => {
               </div>
             </DivItemDos>
           </Form>
-        </Wrapper>
-        <FileBase1>
-          <FileBase type='file' multiple={false} onDone={getBaseFile} />
+          <FileBase1>
+            <FileBase type='file' multiple={false} onDone={getBaseFile} />
 
-          {errors.image && <Paragraph>{errors.image}</Paragraph>}
-        </FileBase1>
+            {errors.image && <Paragraph>{errors.image}</Paragraph>}
+          </FileBase1>
+        </Wrapper>
       </Container>
     </div>
   )
