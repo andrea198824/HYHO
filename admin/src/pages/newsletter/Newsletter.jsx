@@ -17,21 +17,15 @@ const Newsletter = () => {
    
     useEffect(() => {
         dispatch(getNewsletter(token))
-        setMails(mails.concat(emails));
-      //  console.log("llegan los mails 📬:", mails)
-      console.log("llegan los mails 📬:", mails);
-      console.log("llegan los mails 🤯:", emails[0]);
-    
+        setMails(mails.concat(emails));   
     }, [])
 
-      if (!emails.length) {
-        setTimeout(() => {
-          dispatch(getNewsletter(token))
-          setMails(mails.concat(emails));
-          console.log("llegan los mails 📬:", mails);
-         
-        }, 2000)
-      } 
+      // if (!emails.length) {
+      //   setTimeout(() => {
+      //     dispatch(getNewsletter(token))
+      //     setMails(mails.concat(emails));   
+      //   }, 2000)
+      // } 
 
     const columns = [
         { field: "id", headerName: "ID", width: 90 },
