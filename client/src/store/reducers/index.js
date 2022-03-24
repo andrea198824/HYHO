@@ -22,6 +22,7 @@ import {
     NEWSLETTER,
     GET_REF_ID,
     GET_PREF_ID,
+    GET_PREF_DONATION
 } from "../actions";
 
 const initialState = {
@@ -36,7 +37,9 @@ const initialState = {
     donarProducto: [],
     email: [],
     prefId: "",
-    url: ""
+    url: "",
+    donationId: "",
+    urlDonation: ""
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -127,6 +130,8 @@ export default function rootReducer(state = initialState, action) {
             return { ...state, shoppingCart: state.shoppingCart.filter(el => el.id !== parseInt(action.id)) }
         case GET_PREF_ID:
             return {...state, prefId: action.payload.id , url: action.payload.url}
+            case GET_PREF_DONATION:
+                return {...state, donationId: action.payload.id , urlDonation: action.payload.url}
         default:
             return state;
     }

@@ -27,6 +27,7 @@ export const MODIFY_USER = 'MODIFY_USER';
 export const REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART';
 export const NEWSLETTER = "NEWSLETTER";
 export const GET_PREF_ID = "GET_PREF_ID";
+export const GET_PREF_DONATION = "GET_PREF_DONATION";
 
 export const modifyuser = (data, user, token) => {
     let shipping_address = {
@@ -331,6 +332,18 @@ export const getPrefId = (cart, token) => {
         })
     }
 }
+export const donationPay = (donation, email) => {
+    var body = {donation, email}
+    return async function(dispatch) {
 
+        const response = await axios.post('/mercadopago-donation', body
+        )
+        console.log("response.data  :",response.data)
+        dispatch({
+            type: GET_PREF_DONATION,
+            payload: response.data
+        })
+    }
+}
 
 

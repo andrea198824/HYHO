@@ -5,6 +5,10 @@ import { Link } from 'react-router-dom'
 // import { useNavigate } from 'react-router';
 import NavBar from '../components/Navbar'
 import Announcement from '../components/Announcement'
+import { useDispatch, useSelector } from "react-redux";
+import { makeStyles } from '@material-ui/core/styles'
+import { donationPay } from "../store/actions";
+
 
 const Container = styled.div`
   width: 100vw;
@@ -120,6 +124,25 @@ const Item0 = styled.input`
   width: 20vh;
   margin-top: 3vh;
 `
+const useStyles = makeStyles(theme => ({
+  AddAndMinus: {
+      "&:hover": { fontSize: "30px" },
+      "transition": "0.2s ease",
+      "cursor": "pointer"
+  },
+  Buttons: {
+      "&:hover": { fontSize: "15px", textDecoration: "underline" },
+      "transition": "0.2s ease",
+      "cursor": "pointer"
+  }
+}))
+const Button = styled.button`
+  width: 100%;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  font-weight: 600;
+`;
 
 // const Item1 = styled.input`
 // order:2;
@@ -139,6 +162,8 @@ const Item0 = styled.input`
 
 // const Input = styled.input`
 // `
+
+
 export function validate (input) {
   let errors = {}
 
@@ -171,16 +196,38 @@ export function validate (input) {
   return errors
 }
 
+
+function addCheckout(prefId, check) {
+
+  var mp = new window.MercadoPago('TEST-4639441c-428c-455b-a470-ff0171c740b0', {
+      locale: 'es-AR'
+  })
+
+  mp.checkout({
+      preference: {
+          id: prefId,
+      },
+      render: {
+          container: `#pay_button`, // Indica el nombre de la clase donde se mostrará el botón de pago
+          label: 'Comprar', // Cambia el texto del botón de pago 
+      },
+  });
+}
+
 const DonarDinero = () => {
   // const navigate = useNavigate()
 
   const [errors, setErrors] = useState({})
+  const [button, setButton] = useState(false)
+  const classes = useStyles();
+  const urlDonation = useSelector(state => state.urlDonation)
   const [input, setInput] = useState({
     title: '',
     apellido: '',
     cantidad: '',
     email: ''
   })
+  const donationId = useSelector(state => state.donationId)
 
   const handleInputChange = function (e) {
     e.preventDefault()
@@ -254,9 +301,10 @@ const DonarDinero = () => {
 
             <DivItemDos>
               <div>
-                <Button1 type='submit' disabled={!errors.disabled}>
-                  Donar
-                </Button1>
+              <Button className={classes.Buttons} onClick={() => {
+                                        window.location.replace(urlDonation);
+                                        return null;
+                                    }}>DONAR</Button>
 
                 <Link to='/'>
                   <Button2>Volver</Button2>
