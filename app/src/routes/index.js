@@ -105,6 +105,7 @@ router.get('/admin/donate-products', jwtAdminCheck , form.get) //Funciona con au
 
 router.post('/donate-form', jwtCheck , form.post) //Funciona con auth0 y token
 router.post('/admin/donate-form', jwtAdminCheck , form.post) //Funciona con auth0 y token
+router.delete('/admin/donate-form/delete/:id', jwtAdminCheck , form.delete)
 
 //--------------------form-endpoints----------------------------------------
 
