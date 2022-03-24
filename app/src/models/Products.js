@@ -4,15 +4,15 @@ module.exports = sequelize => {
   sequelize.define('products', {
     title: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     },
     price: {
       type: DataTypes.FLOAT,
-      allowNull: false
+      allowNull: true
     },
     weight: {
       type: DataTypes.FLOAT,
-      allowNull: false
+      allowNull: true
     },
     descriptions: {
       type: DataTypes.TEXT,
@@ -20,11 +20,11 @@ module.exports = sequelize => {
     },
     image: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: true,
     },
     stock: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     available: {
       type: DataTypes.BOOLEAN,

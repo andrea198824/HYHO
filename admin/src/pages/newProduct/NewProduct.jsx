@@ -73,7 +73,7 @@ export default function NewProduct() {
             image: '',
             stock: '',
         })
-        getBaseFile=''
+        
     }
 
     return (
@@ -106,7 +106,8 @@ export default function NewProduct() {
                         <div>
                         <div className="addProductItem">
                             <label>Categoria</label>
-                                <input onChange={(e) => hundleInputCategory(e)}
+                                <input
+                                    onChange={(e) => hundleInputCategory(e)}
                                     onKeyUp={event => {
                                         if (event.key === ',') {
                                             hundleOnCategory(event)
