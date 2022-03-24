@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {useDispatch,useSelector} from "react-redux"
 import {getDonation} from "../../store/actions"
 import { DataGrid } from "@material-ui/data-grid";
+import { DeleteOutline } from "@material-ui/icons";
+import { userRows } from "../../dummyData";
 
 
 const DonarProduct = () =>{
@@ -9,14 +11,21 @@ const DonarProduct = () =>{
     const token = useSelector(state => state.token)
       useEffect(()=>{
           if(token){
-              dispatch(getDonation(token))    
+              dispatch(getDonation(token)) 
           }
       },[token])
       const productDonate = useSelector(state => state.productsDonate)
+      const [state, setState] = useState(userRows);
+
+      const handleDelete = (title) => {
+        setState(state.filter((item) => item.title !== title));
+      };
+      
    
       const columns =[
       { field: "title", headerName: "Title", width: 120 },
-      { field: "descriptions", headerName: "Descriptions", width: 190 },   {
+      { field: "descriptions", headerName: "Descriptions", width: 190 },
+      {
         field: "image",
         headerName: "Imagen",
         width: 480,
@@ -27,7 +36,15 @@ const DonarProduct = () =>{
             </div>
           );
         },
-      }, { field: "stock", headerName: "Stock", width: 120 }]
+      }, { field: "stock", headerName: "Stock", width: 120 },
+    {},{field: "deleteButton", headerName: "Delete", width: 120, renderCell: (params) => {
+        return (
+            <DeleteOutline
+            className="userListDelete"
+            onClick={() => handleDelete(params.row.id)}
+          />
+        );
+      } }]
 
    return (
     <div className="productList">
@@ -38,8 +55,10 @@ const DonarProduct = () =>{
         pageSize={productDonate.length}
         checkboxSelection
       />
+      
     </div>
+
   );
 }
 
-export default DonarProduct
+export default DonarProduct 
