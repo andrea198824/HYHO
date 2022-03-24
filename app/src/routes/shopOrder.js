@@ -39,6 +39,7 @@ exports.getOrder = async function (req, res, next) {
         }
       })
     }
+    if (email && !user.length) res.status(404).send('Cannot find the email')
     let order = await Order.findAll()
     if(email) order = order.fiter(e => e.email == email)
     order.length
