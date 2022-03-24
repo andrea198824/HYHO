@@ -69,7 +69,7 @@ exports.postDonation = async function (req, res, next) {
     console.log(user);
     if (user) {
       await Donation.create({      
-          cantidad: donation,
+          value: donation,
           userId: user[0].id,        
       });
       return res.status(201).send("Donate created successfully");
@@ -151,7 +151,7 @@ exports.getTotalDonations = async function (req, res, next) {
     
     let Total = 0
     for (let i= 0; i < donaciones.length; i++) {
-      Total = parseInt(donaciones[i].cantidad) + Total
+      Total = parseInt(donaciones[i].value) + Total
       Total2 = i
      }
      Total2 = Total2 + 1

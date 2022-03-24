@@ -189,6 +189,12 @@ router.post('/admin/mercadopago/totalVentas', jwtAdminCheck , getPayment.getTota
 
 //--------------donation money------------------
 
+// var donation = require('./donation')
+// router.post('/donation', jwtCheck , donation.postDonation)
+// router.get('/donationInfo', jwtCheck , donation.getDonations)
+// router.get('/admin/donationInfo', jwtAdminCheck , donation.getDonations)
+
+//--------------donation MERCADOPAGO------------------.
 var donation = require('./donation')
 router.post('/donation', jwtCheck , donation.postDonation)
 
@@ -198,5 +204,8 @@ router.get('/admin/donationInfo', jwtAdminCheck , donation.getDonations)
 router.post('/totalDonation', jwtCheck , donation.getTotalDonations)
 router.post('/admin/totalDonation', jwtAdminCheck , donation.getTotalDonations)
 
+var donationMp = require('./mercadoPD')
+router.post('/mercadopago-donation', donationMp.get)
+router.get('/mercadopago-donation/pagosDonation', donationMp.pagosDonation)
 
 module.exports = router
