@@ -23,7 +23,7 @@ const Chart = ({ grid=grid }) => {
   },[token])
 
   useEffect(()=>{
-    if(token) {
+    if(token && months.length) {
       createData(token)
     }
    },[token])
